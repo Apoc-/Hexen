@@ -73,23 +73,25 @@ namespace Hexen
 
                 for (int rowIdx = 0; rowIdx < tileData.Count; rowIdx++)
                 {
-                    int tileDatum = int.Parse(tileData[rowIdx]);
+                    char tileDatum = char.Parse(tileData[rowIdx]);
 
-                    GameObject tile = Instantiate(prefab);
+                    Tile tile = TileProvider.getTile(tileDatum, prefab);
                     tile.GetComponent<MeshFilter>().mesh = mesh;
                     tile.GetComponent<MeshCollider>().sharedMesh = mesh;
 
                     tile.transform.SetParent(parent.transform);
 
                     Vector3 newPosition = new Vector3();
-                    newPosition.x = (innerRadius * 2 + spacing) * lineIdx;
-                    newPosition.z = (outerRadius * 2 + spacing) * (3f/4f) * rowIdx; 
+                    newPosition.z = (innerRadius * 2 + spacing) * lineIdx;
+                    newPosition.x = (outerRadius * 2 + spacing) * (3f/4f) * rowIdx; 
                     
                     if (rowIdx % 2 == 0)
                     {
                         newPosition.x += (innerRadius * 2 + spacing) / 2;
                     }
                     tile.transform.SetPositionAndRotation(newPosition, tile.transform.rotation);
+
+                    tile.GetComponent<Renderer>().material = tile.Material;
                 }
             }
 
