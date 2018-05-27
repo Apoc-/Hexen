@@ -7,4 +7,9 @@ public class Tile : MonoBehaviour
 {
     public Material Material { get; set; }
     public TileType TileType { get; set; }
+
+    public List<Tile> GetNeighbors()
+    {
+        return null;
+    }
 }

@@ -9,6 +9,8 @@ namespace Assets.Scripts.Mapping
     {
         Void,
         Path,
-        Buildslot
+        Buildslot,
+        Start,
+        End
     }
 }

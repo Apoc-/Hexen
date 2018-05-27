@@ -23,6 +23,16 @@ namespace Hexen
                     tile.TileType = TileType.Buildslot;
                     tile.Material = Resources.Load<Material>("Materials/BuildslotMaterial");
                     break;
+                    
+                case 'S':
+                    tile.TileType = TileType.Start;
+                    tile.Material = Resources.Load<Material>("Materials/PathMaterial");
+                    break;
+
+                case 'E':
+                    tile.TileType = TileType.End;
+                    tile.Material = Resources.Load<Material>("Materials/PathMaterial");
+                    break;
 
                 case 'x':
                 default:

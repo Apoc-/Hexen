@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
 
 namespace Hexen
 {
     public class MapManager : Singleton<MapManager>
     {
         public float tileSpacing;
+        private List<List<Tile>> tiles = new List<List<Tile>>();
 
         protected MapManager()
         {
@@ -19,13 +21,7 @@ namespace Hexen
             TextAsset ta = Resources.Load<TextAsset>("MapData/Map01");
             parseMapFile(ta.text);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        
         private void parseMapFile(string map)
         {
             GameObject parent = this.gameObject;
@@ -70,6 +66,8 @@ namespace Hexen
                 string line = lines[lineIdx].Trim();
                 if (line == string.Empty) continue;
                 List<string> tileData = line.Split(' ').ToList();
+                List<Tile> tileRow = new List<Tile>();
+                this.tiles.Add(tileRow);
 
                 for (int rowIdx = 0; rowIdx < tileData.Count; rowIdx++)
                 {
@@ -92,9 +90,12 @@ namespace Hexen
                     tile.transform.SetPositionAndRotation(newPosition, tile.transform.rotation);
 
                     tile.GetComponent<Renderer>().material = tile.Material;
+                    tileRow.Add(tile);
                 }
             }
 
+            // create navmesh
+            
         }
     }
 }
