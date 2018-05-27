@@ -68,6 +68,7 @@ namespace Hexen
             for (int lineIdx = 0; lineIdx < lines.Count; lineIdx++)
             {
                 string line = lines[lineIdx].Trim();
+                if (line == string.Empty) continue;
                 List<string> tileData = line.Split(' ').ToList();
 
                 for (int rowIdx = 0; rowIdx < tileData.Count; rowIdx++)
