@@ -11,7 +11,7 @@ namespace Hexen
         public int Xp = 0;
         public float AttackSpeed;
         public float AttackRange;
-        public float AttackDamage;
+        public int AttackDamage;
         public float WeaponHeight;
         public List<Item> Items;
         public Projectile Projectile;
@@ -66,6 +66,7 @@ namespace Hexen
             shot.transform.SetParent(this.transform);
             shot.transform.localPosition = new Vector3(0, WeaponHeight, 0);
             shot.Target = this.lockedTarget;
+            shot.Source = this;
         }
     }
 }
