@@ -6,12 +6,17 @@ namespace Hexen
 {
     public class Tower : Building
     {
-        public int Level { get; set; }
-        public int XP { get; set; }
-        public float AttackSpeed { get; set; }
-        public float AttackRange { get; set; }
-        public float AttackDamage { get; set; }
-        public List<Item> Items { get; set; }
-        public Weapon Weapon { get; set; }
+        public int Level = 1;
+        public int Xp = 0;
+        public float AttackSpeed;
+        public float AttackRange;
+        public float AttackDamage;
+        public List<Item> Items;
+        public Projectile Projectile;
+
+        public void Fire()
+        {
+
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace Hexen
 {
     public class Projectile : Entity
     {
-        public float Damage { get; set; }
-        public float Speed { get; set; }
+        public float Speed;
     }
 }
