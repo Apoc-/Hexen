@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Hexen
 {
-    class NPC : Entity
+    class Npc : Entity
     {
-        public int MaxHealth { get; set; }
-        public int CurrentHealth { get; set; }
-        public int MovementSpeed { get; set; }
-        public int GoldBaseReward { get; set; }
-        public int XPBaseReward { get; set; }
+        public int MaxHealth;
+        public int CurrentHealth;
+        public float MovementSpeed;
+        public int GoldReward;
+        public int XPReward;
     }
 }
