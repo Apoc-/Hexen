@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Hexen
@@ -14,7 +15,34 @@ namespace Hexen
         public List<Item> Items;
         public Projectile Projectile;
 
-        public void Fire()
+        private Npc lockedTarget;
+
+        private void CheckLockedTarget()
+        {
+            if (lockedTarget == null)
+            {
+                return; //ea
+            }
+
+            var distance = Vector3.Distance(lockedTarget.transform.position, transform.position);
+
+            if (distance > AttackRange)
+            {
+                lockedTarget = null;
+                AquireTarget();
+            }
+        }
+
+        private void AquireTarget()
+        {
+            var collidersInAttackRange = new List<Collider>(Physics.OverlapSphere(transform.position, AttackRange));
+
+            lockedTarget = collidersInAttackRange
+                .First(c => c.GetComponent<Npc>() != null)
+                .GetComponent<Npc>();
+        }
+
+        private void Fire()
         {
 
         }
