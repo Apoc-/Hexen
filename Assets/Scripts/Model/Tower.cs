@@ -21,6 +21,7 @@ namespace Hexen
         {
             if (lockedTarget == null)
             {
+                AcquireTarget();
                 return; //ea
             }
 
@@ -29,11 +30,11 @@ namespace Hexen
             if (distance > AttackRange)
             {
                 lockedTarget = null;
-                AquireTarget();
+                AcquireTarget();
             }
         }
 
-        private void AquireTarget()
+        private void AcquireTarget()
         {
             var collidersInAttackRange = new List<Collider>(Physics.OverlapSphere(transform.position, AttackRange));
 

@@ -59,7 +59,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\MapManager.cs" />
+    <Compile Include="Assets\Scripts\Mapping\MapManager.cs" />
+    <Compile Include="Assets\Scripts\Mapping\TileBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Model\Building.cs" />
+    <Compile Include="Assets\Scripts\Model\Entity.cs" />
+    <Compile Include="Assets\Scripts\Model\Item.cs" />
+    <Compile Include="Assets\Scripts\Model\NPC.cs" />
+    <Compile Include="Assets\Scripts\Model\Player.cs" />
+    <Compile Include="Assets\Scripts\Model\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Model\Tower.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <None Include="Assets\Resources\MapData\Map01.txt" />
     <Reference Include="UnityEditor.StandardEvents">
