@@ -82,12 +82,12 @@ namespace Hexen
                     tile.transform.SetParent(parent.transform);
 
                     Vector3 newPosition = new Vector3();
-                    newPosition.x = (innerRadius * 2 + spacing) * lineIdx;
-                    newPosition.z = (outerRadius * 2 + spacing) * (3f / 4f) * rowIdx;
+                    newPosition.x = (innerRadius * 2 + spacing) * rowIdx;
+                    newPosition.z = -(outerRadius * 2 + spacing) * (3f / 4f) * lineIdx;
 
-                    if (rowIdx % 2 == 0)
+                    if (lineIdx % 2 == 0)
                     {
-                        newPosition.z += (innerRadius * 2 + spacing) / 2;
+                        newPosition.x -= (innerRadius * 2 + spacing) / 2;
                     }
                     tile.transform.SetPositionAndRotation(newPosition, tile.transform.rotation);
 
