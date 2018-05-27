@@ -140,4 +140,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Wooden Arrow
-  Speed: 1
+  Speed: 5
+  Target: {fileID: 0}
