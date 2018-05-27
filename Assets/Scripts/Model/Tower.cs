@@ -12,10 +12,17 @@ namespace Hexen
         public float AttackSpeed;
         public float AttackRange;
         public float AttackDamage;
+        public float WeaponHeight;
         public List<Item> Items;
         public Projectile Projectile;
 
         private Npc lockedTarget;
+        private float lastShotFired = 0;
+
+        private void FixedUpdate()
+        {
+            CheckLockedTarget();
+        }
 
         private void CheckLockedTarget()
         {
@@ -31,6 +38,13 @@ namespace Hexen
             {
                 lockedTarget = null;
                 AcquireTarget();
+                return;
+            }
+
+            if (lastShotFired < Time.fixedTime - 1 / this.AttackSpeed)
+            {
+                Fire();
+                lastShotFired = Time.fixedTime;
             }
         }
 
@@ -38,14 +52,20 @@ namespace Hexen
         {
             var collidersInAttackRange = new List<Collider>(Physics.OverlapSphere(transform.position, AttackRange));
 
-            lockedTarget = collidersInAttackRange
-                .First(c => c.GetComponent<Npc>() != null)
-                .GetComponent<Npc>();
+            foreach (var collider in collidersInAttackRange)
+            {
+                if (collider.transform.parent.GetComponent<Npc>() == null) continue;
+                lockedTarget = collider.transform.parent.GetComponent<Npc>();
+
+            }
         }
 
         private void Fire()
         {
-
+            var shot = Instantiate(this.Projectile);
+            shot.transform.SetParent(this.transform);
+            shot.transform.localPosition = new Vector3(0, WeaponHeight, 0);
+            shot.Target = this.lockedTarget;
         }
     }
 }

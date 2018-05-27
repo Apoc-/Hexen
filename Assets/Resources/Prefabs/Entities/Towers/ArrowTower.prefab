@@ -52,8 +52,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1851576479255906}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4377716398324196}
   m_RootOrder: 0
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070915104016728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.26289, y: 0, z: 1.941556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4211391990903704}
@@ -131,8 +131,10 @@ MonoBehaviour:
   AttackSpeed: 1
   AttackRange: 2
   AttackDamage: 2
+  WeaponHeight: 1.7
   Items: []
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 114035369541121750, guid: 71ee2b52092169840a977e3cd87b0a4b,
+    type: 2}
 --- !u!136 &136173870299110882
 CapsuleCollider:
   m_ObjectHideFlags: 1
