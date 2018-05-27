@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Hexen
 {
-    class Npc : Entity
+    public class Npc : Entity
     {
         public int MaxHealth;
         public int CurrentHealth;
