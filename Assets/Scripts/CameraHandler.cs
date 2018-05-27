@@ -9,6 +9,8 @@ namespace Hexen
 {
     public class CameraHandler : MonoBehaviour
     {
+        [SerializeField]
+        private float speed = 0.5f;
 
         private void Update()
         {
@@ -24,8 +26,12 @@ namespace Hexen
 
         private void PanCamera(float horizontalInput, float verticalInput)
         {
-            gameObject.transform.Translate(Vector3.right * horizontalInput);
-            gameObject.transform.Translate(Vector3.forward * verticalInput);
+            gameObject.transform.Translate(Vector3.right * horizontalInput * speed);
+
+            var pos = gameObject.transform.position;
+            pos.z += verticalInput * speed;
+
+            gameObject.transform.position = pos;
         }
     }
 }
