@@ -1,2 +1,13 @@
 Library
 /Packages/manifest.json
+/.vs/Hexen/v15/.suo
+/.vs/Hexen/v15/Server/sqlite3/db.lock
+/.vs/Hexen/v15/Server/sqlite3/storage.ide
+/.vs/Hexen/v15/Server/sqlite3/storage.ide-shm
+/.vs/Hexen/v15/Server/sqlite3/storage.ide-wal
+/.vs/VS2017_Projects/v15/.suo
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/Temp/ProcessJobs
+/Temp
+/obj/Debug
