@@ -11,6 +11,8 @@ namespace Hexen
         public float tileSpacing;
         private List<List<Tile>> tiles = new List<List<Tile>>();
         private List<Tile> path = new List<Tile>();
+        public Tile StartTile;
+        public Tile EndTile;
 
         protected MapManager()
         {
@@ -58,8 +60,8 @@ namespace Hexen
 
                 mesh.UploadMeshData(true);
             }
-            Tile startTile = null;
-            Tile endTile = null;
+            StartTile = null;
+            EndTile = null;
 
             GameObject prefab = Resources.Load<GameObject>("Prefabs/Tile");
             List<string> lines = map.Split('\n').ToList();
@@ -97,22 +99,22 @@ namespace Hexen
 
                     if (tile.TileType == Assets.Scripts.Mapping.TileType.Start)
                     {
-                        startTile = tile;
+                        StartTile = tile;
                     }
                     if (tile.TileType == Assets.Scripts.Mapping.TileType.End)
                     {
-                        endTile = tile;
+                        EndTile = tile;
                     }
                 }
             }
 
             // create navmesh
-            if (startTile == null || endTile == null)
+            if (StartTile == null || EndTile == null)
             {
                 throw new System.Exception("Map has no defined start and/or end tile.");
             }
 
-            path.Add(startTile);
+            path.Add(StartTile);
             while (true)
             {
                 var neighbors = GetTileNeighbors(path.Last());
@@ -125,9 +127,9 @@ namespace Hexen
                 {
                     path.Add(nextTile);
                 }
-                else if (neighbors.Contains(endTile))
+                else if (neighbors.Contains(EndTile))
                 {
-                    path.Add(endTile);
+                    path.Add(EndTile);
                     break;
                 }
                 else

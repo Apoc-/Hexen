@@ -54,14 +54,18 @@ namespace Hexen
 
         private void FixedUpdate()
         {
-            if (this.Target == null) return;
+            if (this.Target == null)
+            {
+                this.Target = MapManager.Instance.StartTile;
+                transform.position = Target.GetComponentInChildren<Collider>().transform.position;
+            }
 
             Vector3 target = Target.GetComponentInChildren<Collider>().transform.position;
             Vector3 position = this.transform.position;
 
             Vector3 direction = target - position;
 
-            if (direction.magnitude < (direction.normalized * (MovementSpeed * Time.fixedDeltaTime)).magnitude)
+            if (direction.magnitude < 0.1f)//(direction.normalized * (MovementSpeed * Time.fixedDeltaTime)).magnitude)
             {
                 Target = MapManager.Instance.GetNextTileInPath(Target);
             }
