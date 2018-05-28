@@ -21,6 +21,8 @@ namespace Hexen
         {
             TextAsset ta = Resources.Load<TextAsset>("MapData/Map01");
             parseMapFile(ta.text);
+
+            DynamicGI.UpdateEnvironment();
         }
 
         private void parseMapFile(string map)
