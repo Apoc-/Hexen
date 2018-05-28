@@ -11,6 +11,7 @@ namespace Hexen
     class UIManager : Singleton<UIManager>
     {
         [SerializeField] private GameObject goldPanel;
+        [SerializeField] private BuildPanelBehaviour buildPanel;
 
         public void Update()
         {
@@ -20,6 +21,11 @@ namespace Hexen
         private void UpdateGoldPanel()
         {
             goldPanel.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Gold;
+        }
+
+        public BuildPanelBehaviour GetBuildPanelBehaviour()
+        {
+            return buildPanel;
         }
     }
 }

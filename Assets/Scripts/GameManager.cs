@@ -10,14 +10,16 @@ namespace Assets.Scripts
     class GameManager : Singleton<GameManager>
     {
         public Player Player;
+        public TowerBuildManager TowerBuildManager;
 
         public void Start()
         {
             InitPlayer();
-
+            TowerBuildManager.LoadTowers();
+        
+            //todo quick fix removal (its for the test tower)
             FindObjectOfType<Tower>().Owner = Player;
         }
-        
 
         private void InitPlayer()
         {

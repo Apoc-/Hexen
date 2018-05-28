@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Hexen
 {
@@ -15,11 +16,13 @@ namespace Hexen
         public float WeaponHeight;
         public List<Item> Items;
         public Projectile Projectile;
-        public Player Owner;
-
+        public Sprite Icon;
+        
         private Npc lockedTarget;
         private float lastShotFired = 0;
 
+        [HideInInspector] public Player Owner;
+        
         private void FixedUpdate()
         {
             CheckLockedTarget();
