@@ -38,10 +38,6 @@ namespace Hexen
             Xp += amount;
         }
 
-        public void SetTowerModelTransparency(float alpha)
-        {
-
-        }
 
         private void CheckLockedTarget()
         {

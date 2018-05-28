@@ -14,6 +14,7 @@ namespace Hexen
     {
         private List<Tower> availableTowers;
         private Tower currentHeldTower;
+        private TowerBuildButtonBehaviour currentHeldTowerButton;
 
         private void Update()
         {
@@ -37,7 +38,7 @@ namespace Hexen
 
                 if (currentTile != null)
                 {
-                    if (TowerIsPlaceableOnTile(currentTile))
+                    if (TowerIsPlaceableOnTile(currentTile, currentHeldTower))
                     {
                         SetTowerModelPlaceableColor();
                     }
@@ -46,7 +47,6 @@ namespace Hexen
                         SetTowerModelNotPlaceableColor();
                     }
 
-                    
                     currentHeldTower.gameObject.transform.position = hit.transform.position;
                 }
 
@@ -56,7 +56,7 @@ namespace Hexen
 
         private void HandleTowerHoldingInput(Tile currentTile)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && TowerIsPlaceableOnTile(currentTile))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && TowerIsPlaceableOnTile(currentTile, currentHeldTower))
             {
                 PlaceTower(currentTile);
             }
@@ -87,8 +87,12 @@ namespace Hexen
             GameManager.Instance.Player.AddBuildableTower(t);
         }
 
-        public void PickUpTower(Tower tower)
+        public void PickUpTower(Tower tower, TowerBuildButtonBehaviour button)
         {
+            currentHeldTowerButton = button;
+
+            currentHeldTowerButton.SetButtonActive();
+
             var towerGo = Instantiate(tower);
             currentHeldTower = towerGo;
             
@@ -107,17 +111,18 @@ namespace Hexen
                 tile.IsEmpty = false;
                 currentHeldTower.IsPlaced = true;
                 currentHeldTower = null;
+                currentHeldTowerButton.SetButtonInactive();
             }
             else
             {
                 CancelPickup();
             }
-            
         }
 
         private void CancelPickup()
         {
             Destroy(currentHeldTower.gameObject);
+            currentHeldTowerButton.SetButtonInactive();
         }
 
         public void SetTowerModelTransparency(float alpha)
@@ -150,9 +155,9 @@ namespace Hexen
             SetTowerModelColor(Color.white);
         }
 
-        private bool TowerIsPlaceableOnTile(Tile tile)
+        private bool TowerIsPlaceableOnTile(Tile tile, Tower tower)
         {
-            return tile.IsEmpty && tile.TileType.Equals(TileType.Buildslot);
+            return tile.IsEmpty && tile.TileType.Equals(TileType.Buildslot) && tower.GoldCost <= GameManager.Instance.Player.Gold;
         }
     }
 }

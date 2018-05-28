@@ -6,6 +6,6 @@ namespace Hexen
 {
     public class Building : Entity
     {
-        public int GoldCost { get; set; }
+        public int GoldCost = 0;
     }
 }
