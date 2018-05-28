@@ -15,6 +15,7 @@ namespace Hexen
         public float WeaponHeight;
         public List<Item> Items;
         public Projectile Projectile;
+        public Player Owner;
 
         private Npc lockedTarget;
         private float lastShotFired = 0;
@@ -22,6 +23,11 @@ namespace Hexen
         private void FixedUpdate()
         {
             CheckLockedTarget();
+        }
+
+        public void GiveXP(int amount)
+        {
+            Xp += amount;
         }
 
         private void CheckLockedTarget()

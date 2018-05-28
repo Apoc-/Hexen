@@ -23,7 +23,7 @@ namespace Hexen
 
             if (npc != null)
             {
-                npc.DealDamage(Source.AttackDamage);
+                npc.DealDamage(this);
             }
 
             Destroy(this.gameObject);

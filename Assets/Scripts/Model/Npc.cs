@@ -14,15 +14,22 @@ namespace Hexen
         public int GoldReward;
         public int XPReward;
 
-        public void DealDamage(int damage)
+        public void DealDamage(Projectile projectile)
         {
-            CurrentHealth -= damage;
+            CurrentHealth -= projectile.Source.AttackDamage;
 
             if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;
                 Die(true);
+                GiveRewards(projectile.Source);
             }
+        }
+
+        private void GiveRewards(Tower projectileSource)
+        {
+            projectileSource.GiveXP(XPReward);
+            projectileSource.Owner.IncreaseGold(GoldReward);
         }
 
         private void Die(bool forcefully)
