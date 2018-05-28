@@ -11,7 +11,19 @@ namespace Assets.Scripts
 {
     class GameManager : Singleton<GameManager>
     {
-        public Player Player;
+        private Player player;
+        public Player Player
+        {
+            get
+            {
+                if (player == null)
+                {
+                    player = InitPlayer();
+                }
+
+                return player;
+            }
+        }
 
         private TowerBuildManager towerBuildManager;
         public TowerBuildManager TowerBuildManager
@@ -46,7 +58,6 @@ namespace Assets.Scripts
 
         private void InitGame()
         {
-            InitPlayer();
             InitTowerBuildManager();
         }
 
@@ -65,10 +76,11 @@ namespace Assets.Scripts
             TowerBuildManager.LoadTowers();
         }
 
-        private void InitPlayer()
+        private Player InitPlayer()
         {
-            Player = Instantiate(Resources.Load<Player>("Prefabs/Player"));
-            Player.gameObject.name = "Player_" + Player.Name;
+            var player = Instantiate(Resources.Load<Player>("Prefabs/Player"));
+            player.gameObject.name = "Player_" + player.Name;
+            return player;
         }
     }
 }
