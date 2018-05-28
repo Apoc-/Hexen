@@ -9,9 +9,4 @@ public class Tile : MonoBehaviour
     public TileType TileType { get; set; }
 
     public bool IsEmpty = true;
-
-    public List<Tile> GetNeighbors()
-    {
-        return null;
-    }
 }
