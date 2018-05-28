@@ -16,9 +16,6 @@ namespace Assets.Scripts
         {
             InitPlayer();
             TowerBuildManager.LoadTowers();
-        
-            //todo quick fix removal (its for the test tower)
-            FindObjectOfType<Tower>().Owner = Player;
         }
 
         private void InitPlayer()

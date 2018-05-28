@@ -21,16 +21,26 @@ namespace Hexen
         private Npc lockedTarget;
         private float lastShotFired = 0;
 
+        public bool IsPlaced = false;
+
         [HideInInspector] public Player Owner;
         
         private void FixedUpdate()
         {
-            CheckLockedTarget();
+            if (IsPlaced)
+            {
+                CheckLockedTarget();
+            }
         }
 
         public void GiveXP(int amount)
         {
             Xp += amount;
+        }
+
+        public void SetTowerModelTransparency(float alpha)
+        {
+
         }
 
         private void CheckLockedTarget()
