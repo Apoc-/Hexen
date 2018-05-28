@@ -16,6 +16,7 @@ namespace Hexen
 
         protected MapManager()
         {
+
         }
 
         // Use this for initialization
