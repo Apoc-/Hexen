@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts;
+using Assets.Scripts.Mapping;
 using Hexen;
 using UnityEngine;
 using Random = System.Random;
@@ -16,29 +17,52 @@ namespace Hexen
 
         private void Update()
         {
-            HandleTowerHolding();
+            if (currentHeldTower != null)
+            {
+                HandleTowerHolding();
+            }
         }
 
         private void HandleTowerHolding()
         {
-            if (currentHeldTower != null)
-            {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                Vector3 objPosition;
+            Tile currentTile;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Vector3 objPosition;
 
-                if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
+            {
+                var hitGameObject = hit.transform.gameObject;
+                currentTile = hitGameObject.GetComponent<Tile>();
+
+                if (currentTile != null)
                 {
+                    if (TowerIsPlaceableOnTile(currentTile))
+                    {
+                        SetTowerModelPlaceableColor();
+                    }
+                    else
+                    {
+                        SetTowerModelNotPlaceableColor();
+                    }
+
+                    
                     currentHeldTower.gameObject.transform.position = hit.transform.position;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    PlaceTower();
-                } else if (Input.GetKeyDown(KeyCode.Mouse1))
-                {
-                    CancelPickup();
-                }
+                HandleTowerHoldingInput(currentTile);
+            }
+        }
+
+        private void HandleTowerHoldingInput(Tile currentTile)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && TowerIsPlaceableOnTile(currentTile))
+            {
+                PlaceTower(currentTile);
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                CancelPickup();
             }
         }
 
@@ -74,12 +98,21 @@ namespace Hexen
             SetTowerModelTransparency(0.25f);
         }
 
-        private void PlaceTower()
+        private void PlaceTower(Tile tile)
         {
-            SetTowerModelTransparency(1.0f);
-
-            currentHeldTower.IsPlaced = true;
-            currentHeldTower = null;
+            if (GameManager.Instance.Player.BuyTower(currentHeldTower))
+            {
+                SetTowerModelTransparency(1.0f);
+                ResetTowerModelColor();
+                tile.IsEmpty = false;
+                currentHeldTower.IsPlaced = true;
+                currentHeldTower = null;
+            }
+            else
+            {
+                CancelPickup();
+            }
+            
         }
 
         private void CancelPickup()
@@ -93,6 +126,33 @@ namespace Hexen
             var color = renderer.material.color;
             color.a = alpha;
             renderer.material.color = color;
+        }
+
+        private void SetTowerModelColor(Color newColor)
+        {
+            var renderer = currentHeldTower.GetComponentInChildren<Renderer>();
+            newColor.a = renderer.material.color.a;
+            renderer.material.color = newColor;
+        }
+
+        private void SetTowerModelNotPlaceableColor()
+        {
+            SetTowerModelColor(Color.red);
+        }
+
+        private void SetTowerModelPlaceableColor()
+        {
+            SetTowerModelColor(Color.green);
+        }
+
+        private void ResetTowerModelColor()
+        {
+            SetTowerModelColor(Color.white);
+        }
+
+        private bool TowerIsPlaceableOnTile(Tile tile)
+        {
+            return tile.IsEmpty && tile.TileType.Equals(TileType.Buildslot);
         }
     }
 }

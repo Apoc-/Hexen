@@ -15,6 +15,25 @@ namespace Hexen
         {
             Gold += amount;
         }
+        public void DecreaseGold(int amount)
+        {
+            Gold -= amount;
+        }
+
+        public bool BuyTower(Tower tower)
+        {
+            var cost = tower.GoldCost;
+            var success = false;
+
+            if (Gold >= cost)
+            {
+                DecreaseGold(cost);
+                tower.Owner = this;
+                success = true;
+            }
+
+            return success;
+        }
 
         public void AddBuildableTower(Tower t)
         {
