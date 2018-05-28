@@ -74,7 +74,7 @@ namespace Hexen
 
             transform.SetPositionAndRotation(
                 position + direction * (MovementSpeed * Time.fixedDeltaTime),
-                Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(90, 0, 0));
+                Quaternion.LookRotation(direction, Vector3.up));
         }
     }
 }
