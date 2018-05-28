@@ -10,6 +10,7 @@ namespace Hexen
     {
         public float tileSpacing;
         private List<List<Tile>> tiles = new List<List<Tile>>();
+        private List<Tile> path = new List<Tile>();
 
         protected MapManager()
         {
@@ -21,7 +22,7 @@ namespace Hexen
             TextAsset ta = Resources.Load<TextAsset>("MapData/Map01");
             parseMapFile(ta.text);
         }
-        
+
         private void parseMapFile(string map)
         {
             GameObject parent = this.gameObject;
@@ -57,6 +58,8 @@ namespace Hexen
 
                 mesh.UploadMeshData(true);
             }
+            Tile startTile = null;
+            Tile endTile = null;
 
             GameObject prefab = Resources.Load<GameObject>("Prefabs/Tile");
             List<string> lines = map.Split('\n').ToList();
@@ -91,11 +94,117 @@ namespace Hexen
 
                     tile.GetComponent<Renderer>().material = tile.Material;
                     tileRow.Add(tile);
+
+                    if (tile.TileType == Assets.Scripts.Mapping.TileType.Start)
+                    {
+                        startTile = tile;
+                    }
+                    if (tile.TileType == Assets.Scripts.Mapping.TileType.End)
+                    {
+                        endTile = tile;
+                    }
                 }
             }
 
             // create navmesh
-            
+            if (startTile == null || endTile == null)
+            {
+                throw new System.Exception("Map has no defined start and/or end tile.");
+            }
+
+            path.Add(startTile);
+            while (true)
+            {
+                var neighbors = GetTileNeighbors(path.Last());
+                var filteredNeighbors = neighbors.Where(t =>
+                    t.TileType == Assets.Scripts.Mapping.TileType.Path
+                    && !path.Contains(t)).ToList();
+                var nextTile = filteredNeighbors.FirstOrDefault();
+
+                if (nextTile != null)
+                {
+                    path.Add(nextTile);
+                }
+                else if (neighbors.Contains(endTile))
+                {
+                    path.Add(endTile);
+                    break;
+                }
+                else
+                {
+                    throw new System.Exception("No path found from Start to End Tile.");
+                }
+            }
+        }
+
+        private List<Tile> GetTileNeighbors(Tile tile)
+        {
+            List<Tile> neighbors = new List<Tile>();
+            int lineIdx = 0;
+            int rowIdx = 0;
+            for (lineIdx = 0; lineIdx < tiles.Count; lineIdx++)
+            {
+                for (rowIdx = 0; rowIdx < tiles[lineIdx].Count; rowIdx++)
+                {
+                    if (tiles[lineIdx][rowIdx] == tile)
+                    {
+                        goto doublebreak;
+                    }
+                }
+            }
+
+        doublebreak:
+
+            List<Tile> above = new List<Tile>();
+            List<Tile> next = new List<Tile>(tiles[lineIdx]);
+            List<Tile> below = new List<Tile>();
+            if (lineIdx > 0)
+            {
+                above.AddRange(tiles[lineIdx - 1]);
+            }
+            if (lineIdx < tiles.Count - 1)
+            {
+                below.AddRange(tiles[lineIdx + 1]);
+            }
+
+            // if (lineIdx % 2 == 0)
+            // offset to the left
+            int aboveOrBelowOffset = lineIdx % 2 == 0
+                ? -1
+                : 0;
+
+            neighbors.Add(getElementOrDefault(next, rowIdx - 1));
+            neighbors.Add(getElementOrDefault(next, rowIdx + 1));
+            neighbors.Add(getElementOrDefault(above, rowIdx + aboveOrBelowOffset + 0));
+            neighbors.Add(getElementOrDefault(above, rowIdx + aboveOrBelowOffset + 1));
+            neighbors.Add(getElementOrDefault(below, rowIdx + aboveOrBelowOffset + 0));
+            neighbors.Add(getElementOrDefault(below, rowIdx + aboveOrBelowOffset + 1));
+
+            neighbors.RemoveAll(t => t == null);
+
+            return neighbors;
+        }
+
+        public Tile GetNextTileInPath(Tile tile)
+        {
+            for (int i = 0; i < path.Count; i++)
+            {
+                if (tile == path[i])
+                {
+                    return getElementOrDefault(path, i + 1);
+                }
+            }
+            return null;
+        }
+
+        private T getElementOrDefault<T>(List<T> list, int idx)
+        {
+            if (idx > 0 && idx < list.Count)
+            {
+                return list[idx];
+            }
+
+            return default(T);
         }
     }
 }
