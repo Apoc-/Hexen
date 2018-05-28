@@ -11,22 +11,30 @@ namespace Hexen
     class TowerBuildButtonBehaviour : MonoBehaviour
     {
         public Tower Tower;
-        public GameObject ButtonActiveEffect;
+
+        [SerializeField]
+        private GameObject buttonActiveEffect;
+        private bool activated = false;
         
         public void OnButtonClicked()
         {
-            GameManager.Instance.TowerBuildManager.PickUpTower(Tower, this);
-            SetButtonActive();
+            if (!activated)
+            {
+                GameManager.Instance.TowerBuildManager.PickUpTower(Tower, this);
+                SetButtonActive();
+            }
         }
 
         public void SetButtonActive()
         {
-            ButtonActiveEffect.gameObject.SetActive(true);
+            buttonActiveEffect.gameObject.SetActive(true);
+            activated = true;
         }
 
         public void SetButtonInactive()
         {
-            ButtonActiveEffect.gameObject.SetActive(false);
+            buttonActiveEffect.gameObject.SetActive(false);
+            activated = false;
         }
     }
 }

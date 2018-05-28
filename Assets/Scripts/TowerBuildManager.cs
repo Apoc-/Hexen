@@ -90,7 +90,6 @@ namespace Hexen
         public void PickUpTower(Tower tower, TowerBuildButtonBehaviour button)
         {
             currentHeldTowerButton = button;
-
             currentHeldTowerButton.SetButtonActive();
 
             var towerGo = Instantiate(tower);
@@ -112,6 +111,9 @@ namespace Hexen
                 currentHeldTower.IsPlaced = true;
                 currentHeldTower = null;
                 currentHeldTowerButton.SetButtonInactive();
+
+                UIManager.Instance.GetBuildPanelBehaviour().RemoveBuildButton(currentHeldTowerButton);
+                currentHeldTowerButton = null;
             }
             else
             {

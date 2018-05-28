@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tower: {fileID: 0}
-  ButtonActiveEffect: {fileID: 1833956012078080}
+  buttonActiveEffect: {fileID: 1833956012078080}
 --- !u!222 &222563208564075256
 CanvasRenderer:
   m_ObjectHideFlags: 1

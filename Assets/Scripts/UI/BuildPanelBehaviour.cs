@@ -31,5 +31,14 @@ namespace Hexen
 
             towerButtons.Enqueue(button);
         }
+
+        public void RemoveBuildButton(TowerBuildButtonBehaviour button)
+        {
+            var list = new List<TowerBuildButtonBehaviour>(towerButtons);
+            list.Remove(button);
+            towerButtons = new Queue<TowerBuildButtonBehaviour>(list);
+
+            Destroy(button.gameObject);
+        }
     }
 }
