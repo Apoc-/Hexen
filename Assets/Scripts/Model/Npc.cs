@@ -13,6 +13,7 @@ namespace Hexen
         public float MovementSpeed;
         public int GoldReward;
         public int XPReward;
+        public Tile Target;
 
         public void DealDamage(Projectile projectile)
         {
@@ -49,6 +50,27 @@ namespace Hexen
             var exp = GetComponent<ParticleSystem>();
             exp.Play();
             Destroy(gameObject, exp.main.duration);
+        }
+
+        private void FixedUpdate()
+        {
+            if (this.Target == null) return;
+
+            Vector3 target = Target.GetComponentInChildren<Collider>().transform.position;
+            Vector3 position = this.transform.position;
+
+            Vector3 direction = target - position;
+
+            if (direction.magnitude < (direction.normalized * (MovementSpeed * Time.fixedDeltaTime)).magnitude)
+            {
+                Target = MapManager.Instance.GetNextTileInPath(Target);
+            }
+
+            direction.Normalize();
+
+            transform.SetPositionAndRotation(
+                position + direction * (MovementSpeed * Time.fixedDeltaTime),
+                Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(90, 0, 0));
         }
     }
 }
