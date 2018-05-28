@@ -65,7 +65,7 @@ namespace Hexen
 
             Vector3 direction = target - position;
 
-            if (direction.magnitude < 0.1f)//(direction.normalized * (MovementSpeed * Time.fixedDeltaTime)).magnitude)
+            if (direction.magnitude < (MovementSpeed * Time.fixedDeltaTime * 0.8f))
             {
                 Target = MapManager.Instance.GetNextTileInPath(Target);
             }
