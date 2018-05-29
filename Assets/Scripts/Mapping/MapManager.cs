@@ -8,7 +8,9 @@ namespace Hexen
 {
     public class MapManager : MonoBehaviour
     {
-        public float tileSpacing;
+        public float TileSpacing = 0.05f;
+        public float BaseHeight = 0;
+
         private List<List<Tile>> tiles = new List<List<Tile>>();
         private List<Tile> path = new List<Tile>();
         public Tile StartTile;
@@ -28,10 +30,10 @@ namespace Hexen
             DynamicGI.UpdateEnvironment();
         }
 
-        private void parseMapFile(string map)
+        private void parseMapFileOld(string map)
         {
             GameObject parent = this.gameObject;
-            float spacing = tileSpacing;
+            float spacing = TileSpacing;
 
             Mesh mesh = new Mesh();
             float outerRadius = 0.5f;
@@ -106,11 +108,11 @@ namespace Hexen
                     tile.GetComponent<Renderer>().material = tile.Material;
                     tileRow.Add(tile);
 
-                    if (tile.TileType == Assets.Scripts.Mapping.TileType.Start)
+                    if (tile.TileType == Hexen.TileType.Start)
                     {
                         StartTile = tile;
                     }
-                    if (tile.TileType == Assets.Scripts.Mapping.TileType.End)
+                    if (tile.TileType == Hexen.TileType.End)
                     {
                         EndTile = tile;
                     }
@@ -128,7 +130,99 @@ namespace Hexen
             {
                 var neighbors = GetTileNeighbors(path.Last());
                 var filteredNeighbors = neighbors.Where(t =>
-                    t.TileType == Assets.Scripts.Mapping.TileType.Path
+                    t.TileType == Hexen.TileType.Path
+                    && !path.Contains(t)).ToList();
+                var nextTile = filteredNeighbors.FirstOrDefault();
+
+                if (nextTile != null)
+                {
+                    path.Add(nextTile);
+                }
+                else if (neighbors.Contains(EndTile))
+                {
+                    path.Add(EndTile);
+                    break;
+                }
+                else
+                {
+                    throw new System.Exception("No path found from Start to End Tile.");
+                }
+            }
+        }
+
+        private void parseMapFile(string map)
+        {
+            GameObject parent = this.gameObject;
+            float spacing = TileSpacing;
+
+            Mesh mesh = new Mesh();
+            float outerRadius = 0.5f;
+            float innerRadius = outerRadius * Mathf.Sqrt(3) / 2;
+            
+            StartTile = null;
+            EndTile = null;
+
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/NewTile");
+            List<string> lines = map.Split('\n').ToList();
+
+            for (int lineIdx = 0; lineIdx < lines.Count; lineIdx++)
+            {
+                string line = lines[lineIdx].Trim();
+                if (line == string.Empty) continue;
+                List<string> tileData = line.Split(' ').ToList();
+                List<Tile> tileRow = new List<Tile>();
+                this.tiles.Add(tileRow);
+
+                for (int rowIdx = 0; rowIdx < tileData.Count; rowIdx++)
+                {
+                    char tileDatum = char.Parse(tileData[rowIdx]);
+
+                    Tile tile = TileProvider.getTile(tileDatum, prefab);
+
+                    tile.transform.SetParent(parent.transform);
+
+                    Vector3 newPosition = new Vector3();
+                    newPosition.x = (innerRadius * 2 + spacing) * rowIdx;
+                    newPosition.z = -(outerRadius * 2 + spacing) * (3f / 4f) * lineIdx;
+                    newPosition.y = BaseHeight + tile.Height;
+                    
+
+                    if (lineIdx % 2 == 0)
+                    {
+                        newPosition.x -= (innerRadius * 2 + spacing) / 2;
+                    }
+                    tile.transform.SetPositionAndRotation(newPosition, tile.transform.rotation);
+
+                    tile.GetComponent<Renderer>().material = tile.Material;
+                    tileRow.Add(tile);
+
+                    if (tile.TileType == Hexen.TileType.Start)
+                    {
+                        StartTile = tile;
+                    }
+                    if (tile.TileType == Hexen.TileType.End)
+                    {
+                        EndTile = tile;
+                    }
+                }
+            }
+
+            createNavMesh();
+        }
+
+        private void createNavMesh()
+        {
+            if (StartTile == null || EndTile == null)
+            {
+                throw new System.Exception("Map has no defined start and/or end tile.");
+            }
+
+            path.Add(StartTile);
+            while (true)
+            {
+                var neighbors = GetTileNeighbors(path.Last());
+                var filteredNeighbors = neighbors.Where(t =>
+                    t.TileType == Hexen.TileType.Path
                     && !path.Contains(t)).ToList();
                 var nextTile = filteredNeighbors.FirstOrDefault();
 

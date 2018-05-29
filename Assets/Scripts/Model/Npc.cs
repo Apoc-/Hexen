@@ -60,10 +60,10 @@ namespace Hexen
             if (this.Target == null)
             {
                 this.Target = GameManager.Instance.MapManager.StartTile;
-                transform.position = Target.GetComponentInChildren<Collider>().transform.position;
+                transform.position = Target.GetTopCenter();
             }
 
-            Vector3 target = Target.GetComponentInChildren<Collider>().transform.position;
+            Vector3 target = Target.GetTopCenter();
             Vector3 position = this.transform.position;
 
             Vector3 direction = target - position;

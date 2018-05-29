@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts;
-using Assets.Scripts.Mapping;
 using Hexen;
 using UnityEngine;
 using Random = System.Random;
@@ -47,7 +46,7 @@ namespace Hexen
                         SetTowerModelNotPlaceableColor();
                     }
 
-                    currentHeldTower.gameObject.transform.position = hit.transform.position;
+                    currentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
                 }
 
                 HandleTowerHoldingInput(currentTile);

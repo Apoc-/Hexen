@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Scripts.Mapping;
+using Hexen;
 using UnityEngine;
 
 namespace Hexen
@@ -18,26 +18,31 @@ namespace Hexen
                 case '.':
                     tile.TileType = TileType.Path;
                     tile.Material = Resources.Load<Material>("Materials/PathMaterial");
+                    tile.Height = 0;
                     break;
                 case 'B':
                     tile.TileType = TileType.Buildslot;
                     tile.Material = Resources.Load<Material>("Materials/BuildslotMaterial");
+                    tile.Height = 0.2f;
                     break;
                     
                 case 'S':
                     tile.TileType = TileType.Start;
                     tile.Material = Resources.Load<Material>("Materials/PathMaterial");
+                    tile.Height = 0.05f;
                     break;
 
                 case 'E':
                     tile.TileType = TileType.End;
                     tile.Material = Resources.Load<Material>("Materials/PathMaterial");
+                    tile.Height = 0.05f;
                     break;
 
                 case 'x':
                 default:
                     tile.TileType = TileType.Void;
                     tile.Material = Resources.Load<Material>("Materials/VoidMaterial");
+                    tile.Height = -0.5f;
                     break;
             }
 

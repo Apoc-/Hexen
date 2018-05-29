@@ -71,7 +71,7 @@ namespace Assets.Scripts.GameLogic
 
             npc.transform.parent = transform.parent;
             npc.name = npc.Name + "_" + waveNpcSpawnCount;
-            npc.transform.position = GameManager.Instance.MapManager.StartTile.transform.position;
+            npc.transform.position = GameManager.Instance.MapManager.StartTile.GetTopCenter();
         }
 
         public void NextWave()
