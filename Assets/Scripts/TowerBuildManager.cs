@@ -126,9 +126,11 @@ namespace Hexen
                 ResetTowerModelColor();
                 tile.IsEmpty = false;
                 currentHeldTower.IsPlaced = true;
+                currentHeldTower.Tile = tile;
+
                 currentHeldTower = null;
                 currentHeldTowerButton.SetButtonInactive();
-
+                
                 GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton);
                 currentHeldTowerButton = null;
             }

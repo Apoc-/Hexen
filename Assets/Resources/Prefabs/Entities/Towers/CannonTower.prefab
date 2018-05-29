@@ -250,7 +250,7 @@ MonoBehaviour:
   Level: 1
   Xp: 0
   AttackSpeed: 0.75
-  AttackRange: 2
+  BaseAttackRange: 2
   AttackDamage: 4
   WeaponHeight: 0.5
   Items: []

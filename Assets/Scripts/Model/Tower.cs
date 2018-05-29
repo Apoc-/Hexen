@@ -11,16 +11,17 @@ namespace Hexen
         public int Level = 1;
         public int Xp = 0;
         public float AttackSpeed;
-        public float AttackRange;
+        public float BaseAttackRange;
         public int AttackDamage;
         public float WeaponHeight;
         public List<Item> Items;
         public Projectile Projectile;
         public Sprite Icon;
-        
+        public Tile Tile;
+
         private Npc lockedTarget;
         private float lastShotFired = 0;
-
+        
         public bool IsPlaced = false;
 
         [HideInInspector] public Player Owner;
@@ -49,7 +50,7 @@ namespace Hexen
 
             var distance = Vector3.Distance(lockedTarget.transform.position, transform.position);
 
-            if (distance > AttackRange)
+            if (distance > BaseAttackRange)
             {
                 lockedTarget = null;
                 AcquireTarget();
@@ -65,7 +66,13 @@ namespace Hexen
 
         private void AcquireTarget()
         {
-            var collidersInAttackRange = new List<Collider>(Physics.OverlapSphere(transform.position, AttackRange));
+            var baseHeight = GameManager.Instance.MapManager.BaseHeight;
+            var actualAttackRange = BaseAttackRange * (1 + Tile.gameObject.transform.position.y);
+
+            var topCap = transform.position + new Vector3(0, 5, 0);
+            var botCap = new Vector3(transform.position.x, baseHeight-5, transform.position.z);
+
+            var collidersInAttackRange = new List<Collider>(Physics.OverlapCapsule(topCap, botCap, actualAttackRange));
 
             foreach (var collider in collidersInAttackRange)
             {
