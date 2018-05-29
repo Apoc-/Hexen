@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4377716398324196}
   - component: {fileID: 114222076573668634}
+  - component: {fileID: 136052511012452170}
   m_Layer: 0
   m_Name: ArrowTower
   m_TagString: Untagged
@@ -257,5 +258,19 @@ MonoBehaviour:
   Projectile: {fileID: 114002575520520068, guid: 71ee2b52092169840a977e3cd87b0a4b,
     type: 2}
   Icon: {fileID: 21300000, guid: d40a4edcca1ba354b98c3580b47947b2, type: 3}
+  Tile: {fileID: 0}
   IsPlaced: 0
   Owner: {fileID: 0}
+--- !u!136 &136052511012452170
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070915104016728}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}

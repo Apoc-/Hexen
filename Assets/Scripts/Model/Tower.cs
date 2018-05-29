@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 namespace Hexen
 {
-    public class Tower : Building
+    public class Tower : AttributeEntity
     {
+        public int GoldCost;
         public int Level = 1;
         public int Xp = 0;
         public float AttackSpeed;
@@ -67,12 +68,14 @@ namespace Hexen
         private void AcquireTarget()
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-            var actualAttackRange = BaseAttackRange * (1 + Tile.gameObject.transform.position.y);
+            var actualAttackRange = ActualAttackRange();
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight-5, transform.position.z);
 
             var collidersInAttackRange = new List<Collider>(Physics.OverlapCapsule(topCap, botCap, actualAttackRange));
+
+            DebugExtension.DebugCapsule(topCap, botCap, actualAttackRange);
 
             foreach (var collider in collidersInAttackRange)
             {
@@ -89,6 +92,11 @@ namespace Hexen
             shot.transform.localPosition = new Vector3(0, WeaponHeight, 0);
             shot.Target = this.lockedTarget;
             shot.Source = this;
+        }
+
+        public float ActualAttackRange()
+        {
+            return BaseAttackRange * (1 + Tile.gameObject.transform.position.y);
         }
     }
 }
