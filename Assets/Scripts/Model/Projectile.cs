@@ -19,6 +19,11 @@ namespace Hexen
 
         private void OnCollisionEnter(Collision collision)
         {
+            Collide(collision);
+        }
+
+        protected virtual void Collide(Collision collision)
+        {
             var npc = collision.gameObject.GetComponentInParent<Npc>();
 
             if (npc != null)
@@ -26,6 +31,7 @@ namespace Hexen
                 npc.DealDamage(this);
             }
 
+            Debug.Log("Single");
             Destroy(this.gameObject);
         }
 

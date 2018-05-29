@@ -15,9 +15,9 @@ namespace Hexen
         public int XPReward;
         public Tile Target;
 
-        public void DealDamage(Projectile projectile)
+        public void DealDamage(Projectile projectile, float factor = 1.0f)
         {
-            CurrentHealth -= projectile.Source.AttackDamage;
+            CurrentHealth = (int)(CurrentHealth - projectile.Source.AttackDamage * factor);
 
             if (CurrentHealth <= 0)
             {

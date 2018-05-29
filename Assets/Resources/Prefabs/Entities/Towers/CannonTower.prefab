@@ -128,12 +128,12 @@ MonoBehaviour:
   GoldCost: 20
   Level: 1
   Xp: 0
-  AttackSpeed: 0.5
+  AttackSpeed: 0.33
   AttackRange: 3
   AttackDamage: 4
   WeaponHeight: 1.7
   Items: []
-  Projectile: {fileID: 114002575520520068, guid: 71ee2b52092169840a977e3cd87b0a4b,
+  Projectile: {fileID: 114285243126973656, guid: 887c8c0ca64048d48b36167427ca8756,
     type: 2}
   Icon: {fileID: 21300000, guid: 9948567756ab46d4f8fddf1271767792, type: 3}
   IsPlaced: 0
