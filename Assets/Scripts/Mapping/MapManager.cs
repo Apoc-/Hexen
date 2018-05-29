@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.AI;
+using System;
 
 namespace Hexen
 {
@@ -10,8 +11,9 @@ namespace Hexen
     {
         [SerializeField] private TextAsset currentMap;
 
-        public float TileSpacing = 0.05f;
+        public float TileSpacing = 0.00f;
         public float BaseHeight = 0;
+        public float RandomHeightOffset = 0.2f;
 
         private List<List<Tile>> tiles = new List<List<Tile>>();
         private List<Tile> path = new List<Tile>();
@@ -172,9 +174,6 @@ namespace Hexen
                 if (line == string.Empty) continue;
                 List<string> tileData = line.Split(' ').ToList();
 
-                //filter comments
-                tileData = tileData.Where(tileDataLine => !tileDataLine.StartsWith("#")).ToList();
-
                 List<Tile> tileRow = new List<Tile>();
                 this.tiles.Add(tileRow);
 
@@ -189,7 +188,12 @@ namespace Hexen
                     Vector3 newPosition = new Vector3();
                     newPosition.x = (innerRadius * 2 + spacing) * rowIdx;
                     newPosition.z = -(outerRadius * 2 + spacing) * (3f / 4f) * lineIdx;
-                    newPosition.y = BaseHeight + tile.Height;
+
+                    var seed = (int)System.DateTime.Now.Ticks;
+                    var rnd = new System.Random(seed);
+                    float r = rnd.Next((int)(RandomHeightOffset*100)) / 100.0f;
+
+                    newPosition.y = BaseHeight + r + tile.Height;
                     
 
                     if (lineIdx % 2 == 0)

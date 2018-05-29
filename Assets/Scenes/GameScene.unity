@@ -223,9 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb597f437f83f6b48bd694cacba70f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMap: {fileID: 4900000, guid: 130aba47ec6185d45a3c623c127237ab, type: 3}
-  TileSpacing: 0.05
+  currentMap: {fileID: 4900000, guid: d2b9c04a59340e346aad22646e0a2f97, type: 3}
+  TileSpacing: 0.01
   BaseHeight: 0
+  RandomHeightOffset: 0.2
   StartTile: {fileID: 0}
   EndTile: {fileID: 0}
 --- !u!1 &77969031
