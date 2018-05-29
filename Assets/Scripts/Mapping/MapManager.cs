@@ -8,6 +8,8 @@ namespace Hexen
 {
     public class MapManager : MonoBehaviour
     {
+        [SerializeField] private TextAsset currentMap;
+
         public float TileSpacing = 0.05f;
         public float BaseHeight = 0;
 
@@ -24,8 +26,7 @@ namespace Hexen
         // Use this for initialization
         void Start()
         {
-            TextAsset ta = Resources.Load<TextAsset>("MapData/Map01");
-            parseMapFile(ta.text);
+            parseMapFile(currentMap.text);
 
             DynamicGI.UpdateEnvironment();
         }

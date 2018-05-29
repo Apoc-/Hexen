@@ -10,6 +10,9 @@ namespace Assets.Scripts.GameLogic
 {
     class WaveSpawner : MonoBehaviour
     {
+        public int WaveCooldown = 30;
+        public int CurrentWaveCooldown = 0;
+
         private int currentWave = 0;
         public int CurrentWave
         {
@@ -31,10 +34,7 @@ namespace Assets.Scripts.GameLogic
         private Queue<Wave> waves;
         private int waveNpcSpawnCount = 0;
 
-        private void Update()
-        {
-            
-        }
+        private Coroutine waitForNextWaveCoroutine;
 
         private void Start()
         {
@@ -65,13 +65,28 @@ namespace Assets.Scripts.GameLogic
             }
 
             waveNpcSpawnCount = 0;
-            HandleWaveFinished();
+
+            HandleWaveSpawnFinished();
         }
 
-        private void HandleWaveFinished()
+        private void HandleWaveSpawnFinished()
         {
             var gm = GameManager.Instance;
             gm.TowerBuildManager.AddRandomBuildableTower(gm.Player);
+
+            waitForNextWaveCoroutine = StartCoroutine(WaitForNextWave());
+        }
+
+        IEnumerator WaitForNextWave()
+        {
+            while (CurrentWaveCooldown < WaveCooldown)
+            {
+                CurrentWaveCooldown += 1;
+                
+                yield return new WaitForSeconds(1.0f);
+            }
+
+            NextWave();
         }
 
         void SpawnNpc(string waveNpcName)
@@ -85,6 +100,12 @@ namespace Assets.Scripts.GameLogic
 
         public void NextWave()
         {
+            CurrentWaveCooldown = 0;
+            if (waitForNextWaveCoroutine != null)
+            {
+                StopCoroutine(waitForNextWaveCoroutine);
+            }
+            
             if (waves.Count > 0)
             {
                 currentWave += 1;
