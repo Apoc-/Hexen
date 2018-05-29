@@ -171,6 +171,10 @@ namespace Hexen
                 string line = lines[lineIdx].Trim();
                 if (line == string.Empty) continue;
                 List<string> tileData = line.Split(' ').ToList();
+
+                //filter comments
+                tileData = tileData.Where(tileDataLine => !tileDataLine.StartsWith("#")).ToList();
+
                 List<Tile> tileRow = new List<Tile>();
                 this.tiles.Add(tileRow);
 

@@ -7,10 +7,15 @@ namespace Hexen
 {
     public enum TileType
     {
-        Void,
+        Water,
         Path,
         Buildslot,
         Start,
-        End
+        End,
+        Mountain,
+        MountainTop,
+        Lava,
+        VolcanoLava,
+        Sand
     }
 }

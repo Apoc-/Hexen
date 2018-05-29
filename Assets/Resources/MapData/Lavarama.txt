@@ -1,0 +1,16 @@
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+ x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+x x B B B B B B B B B B B B B B x x x B B B B B B B B B B B x x
+ x x B B B B . . B B B B B B B x x x B B B B B . . . . B B B x
+x x B B B B . B . B B B B B B B x x x B B B B . B B B . B B x x
+ x x B B B . B B . B B B B B B B x x x B B B . B B B . B B B B x
+x x B B B B . B . B B B B B B B B x x x B B B . B B . B B B x x
+ x x B S . . x x . . . . . . B B x x x B . . . B B . B B . . E x
+x x B B B B x x x B B B B B . B B x x B . B B B B . B B . B x x
+ x x B B B B x x B B B B B B . . . . . . B B B B B . B B . B B x
+x x B B B B B B B B B B B B B B x x B B B B B B B B . . . B x x
+ x x B B B B B B B B B B B B B x x x B B B B B B B B B B B B B x
+x x B B B B B B B B B B B B B B x x x B B B B B B B B B B B x x
+ x x B B B B B B B B B B B B B B x x x B B B B B B B B B B B B x
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+ x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x

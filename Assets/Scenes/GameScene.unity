@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb597f437f83f6b48bd694cacba70f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMap: {fileID: 4900000, guid: b5f0a3817783213489132a415c5adf04, type: 3}
+  currentMap: {fileID: 4900000, guid: 130aba47ec6185d45a3c623c127237ab, type: 3}
   TileSpacing: 0.05
   BaseHeight: 0
   StartTile: {fileID: 0}
@@ -2701,6 +2701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a7d0c348052ed49938c708dc3e7316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WaveCooldown: 30
   CurrentWaveCooldown: 0
 --- !u!4 &1369109458
 Transform:
