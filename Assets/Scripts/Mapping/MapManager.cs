@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Hexen
 {
-    public class MapManager : Singleton<MapManager>
+    public class MapManager : MonoBehaviour
     {
         public float tileSpacing;
         private List<List<Tile>> tiles = new List<List<Tile>>();

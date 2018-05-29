@@ -8,12 +8,28 @@ using UnityEngine.UI;
 
 namespace Hexen
 {
-    class UIManager : Singleton<UIManager>
+    class UIManager : MonoBehaviour
     {
         [SerializeField] private GameObject goldInfo;
         [SerializeField] private GameObject lifeInfo;
         [SerializeField] private GameObject waveInfo;
         [SerializeField] private BuildPanelBehaviour buildPanel;
+        public BuildPanelBehaviour BuildPanel
+        {
+            get
+            {
+                return buildPanel;
+            }
+        }
+
+        [SerializeField] private GameFinishedScreenBehaviour finishScreen;
+        public GameFinishedScreenBehaviour FinishScreen
+        {
+            get
+            {
+                return finishScreen;
+            }
+        }
 
         public void Update()
         {
@@ -28,11 +44,6 @@ namespace Hexen
             var currentWave = GameManager.Instance.WaveSpawner.CurrentWave;
             var totalWaves = GameManager.Instance.WaveSpawner.TotalWaves;
             waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
-        }
-
-        public BuildPanelBehaviour GetBuildPanelBehaviour()
-        {
-            return buildPanel;
         }
     }
 }

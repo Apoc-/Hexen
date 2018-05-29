@@ -9,12 +9,14 @@ namespace Assets.Scripts.GameLogic
     class Wave
     {
         public string NpcName;
-        public int size;
+        public int Size;
+        public float SpawnInterval;
 
-        public Wave(string npcName, int size)
+        public Wave(string npcName, int size, float spawnInterval)
         {
             NpcName = npcName;
-            this.size = size;
+            Size = size;
+            SpawnInterval = spawnInterval;
         }
     }
 }

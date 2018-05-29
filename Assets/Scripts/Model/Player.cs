@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 namespace Hexen
@@ -7,7 +8,26 @@ namespace Hexen
     public class Player : Entity
     {
         public int Gold;
-        public int Lives = 1;
+
+        [SerializeField] private int lives = 10;
+        public int Lives
+        {
+            get { return lives; }
+            set
+            {
+                lives = value;
+                if (lives <= 0)
+                {
+                    Die();
+                }
+            }
+        }
+
+        private void Die()
+        {
+            GameManager.Instance.LoseGame();
+        }
+
         public int MaxBuildableTowers = 4;
 
         private Queue<Tower> BuildableTowers = new Queue<Tower>();
@@ -40,7 +60,7 @@ namespace Hexen
         {
             CheckBuildableTowersQueueLimit();
             BuildableTowers.Enqueue(t);
-            UIManager.Instance.GetBuildPanelBehaviour().AddBuildButtonForTower(t);
+            GameManager.Instance.UIManager.BuildPanel.AddBuildButtonForTower(t);
         }
 
         private void CheckBuildableTowersQueueLimit()

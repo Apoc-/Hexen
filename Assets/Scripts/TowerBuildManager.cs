@@ -112,7 +112,7 @@ namespace Hexen
                 currentHeldTower = null;
                 currentHeldTowerButton.SetButtonInactive();
 
-                UIManager.Instance.GetBuildPanelBehaviour().RemoveBuildButton(currentHeldTowerButton);
+                GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton);
                 currentHeldTowerButton = null;
             }
             else

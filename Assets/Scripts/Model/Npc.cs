@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts;
 using UnityEngine;
+using UnityScript.Steps;
 
 namespace Hexen
 {
@@ -14,6 +16,7 @@ namespace Hexen
         public int GoldReward;
         public int XPReward;
         public Tile Target;
+        public Tile CurrentTile;
 
         public void DealDamage(Projectile projectile, float factor = 1.0f)
         {
@@ -56,7 +59,7 @@ namespace Hexen
         {
             if (this.Target == null)
             {
-                this.Target = MapManager.Instance.StartTile;
+                this.Target = GameManager.Instance.MapManager.StartTile;
                 transform.position = Target.GetComponentInChildren<Collider>().transform.position;
             }
 
@@ -67,14 +70,35 @@ namespace Hexen
 
             if (direction.magnitude < (MovementSpeed * Time.fixedDeltaTime * 0.8f))
             {
-                Target = MapManager.Instance.GetNextTileInPath(Target);
+                EnterTile(Target);
+                Target = GameManager.Instance.MapManager.GetNextTileInPath(Target);
             }
 
             direction.Normalize();
 
-            transform.SetPositionAndRotation(
-                position + direction * (MovementSpeed * Time.fixedDeltaTime),
-                Quaternion.LookRotation(direction, Vector3.up));
+            if (direction.magnitude > 0.0001f)
+            {
+                transform.SetPositionAndRotation(
+                    position + direction * (MovementSpeed * Time.fixedDeltaTime),
+                    Quaternion.LookRotation(direction, Vector3.up));
+            }
+        }
+
+        private void EnterTile(Tile tile)
+        {
+            if (tile != CurrentTile)
+            {
+                CurrentTile = tile;
+                CheckEndTile(tile);
+            }
+        }
+
+        private void CheckEndTile(Tile tile)
+        {
+            if (tile == GameManager.Instance.MapManager.EndTile)
+            {
+                GameManager.Instance.Player.Lives -= 1;
+            }
         }
     }
 }

@@ -46,20 +46,20 @@ namespace Assets.Scripts.GameLogic
         {
             var waves = new Queue<Wave>();
             
-            waves.Enqueue(new Wave("Rat", 10));
-            waves.Enqueue(new Wave("Rat", 5));
+            waves.Enqueue(new Wave("Rat", 5, 0.25f));
+            waves.Enqueue(new Wave("Rat", 5, 0.25f));
 
             return waves;
         }
 
         private IEnumerator SpawnWave(Wave wave)
         {
-            while (waveNpcSpawnCount < wave.size)
+            while (waveNpcSpawnCount < wave.Size)
             {
                 waveNpcSpawnCount += 1;
                 SpawnNpc(wave.NpcName);
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(wave.SpawnInterval);
             }
 
             waveNpcSpawnCount = 0;
@@ -71,7 +71,7 @@ namespace Assets.Scripts.GameLogic
 
             npc.transform.parent = transform.parent;
             npc.name = npc.Name + "_" + waveNpcSpawnCount;
-            npc.transform.position = MapManager.Instance.StartTile.transform.position;
+            npc.transform.position = GameManager.Instance.MapManager.StartTile.transform.position;
         }
 
         public void NextWave()
@@ -80,6 +80,13 @@ namespace Assets.Scripts.GameLogic
             {
                 currentWave += 1;
                 StartCoroutine(SpawnWave(waves.Dequeue()));
+            }
+            else
+            {
+                if (FindObjectsOfType<Npc>().Length <= 0)
+                {
+                    GameManager.Instance.WinGame();
+                }
             };
         }
     }

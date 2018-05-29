@@ -130,10 +130,11 @@ MonoBehaviour:
   Name: Rat
   MaxHealth: 4
   CurrentHealth: 4
-  MovementSpeed: 0.5
+  MovementSpeed: 4
   GoldReward: 1
   XPReward: 1
   Target: {fileID: 0}
+  CurrentTile: {fileID: 0}
 --- !u!136 &136383721179925062
 CapsuleCollider:
   m_ObjectHideFlags: 1
