@@ -129,17 +129,26 @@ namespace Hexen
 
         public void SetTowerModelTransparency(float alpha)
         {
-            var renderer = currentHeldTower.GetComponentInChildren<Renderer>();
-            var color = renderer.material.color;
-            color.a = alpha;
-            renderer.material.color = color;
+            var renderer = currentHeldTower.GetComponentsInChildren<Renderer>();
+
+            foreach (var r in renderer)
+            {
+                var color = r.material.color;
+                color.a = alpha;
+                r.material.color = color;
+            }
+           
         }
 
         private void SetTowerModelColor(Color newColor)
         {
-            var renderer = currentHeldTower.GetComponentInChildren<Renderer>();
-            newColor.a = renderer.material.color.a;
-            renderer.material.color = newColor;
+            var renderer = currentHeldTower.GetComponentsInChildren<Renderer>();
+
+            foreach (var r in renderer)
+            {
+                newColor.a = r.material.color.a;
+                r.material.color = newColor;
+            }
         }
 
         private void SetTowerModelNotPlaceableColor()

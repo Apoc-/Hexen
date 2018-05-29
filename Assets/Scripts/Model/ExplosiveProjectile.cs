@@ -30,10 +30,8 @@ namespace Hexen
                 }
 
                 npc.DealDamage(this);
+                Destroy(this.gameObject);
             }
-            
-            Debug.Log("Explosion");
-            Destroy(this.gameObject);
         }
     }
 }

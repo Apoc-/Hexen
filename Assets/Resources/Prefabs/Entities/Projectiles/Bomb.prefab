@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bomb
   Source: {fileID: 0}
-  Speed: 3
+  Speed: 10
   Target: {fileID: 0}
   ExplosionRadius: 1
   ExplosionSplashDamageFaktor: 0.5

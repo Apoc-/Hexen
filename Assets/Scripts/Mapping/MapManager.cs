@@ -48,7 +48,12 @@ namespace Hexen
                 vertices.Add(new Vector3(-innerRadius, 0, -outerRadius / 2f));
                 vertices.Add(new Vector3(-innerRadius, 0, outerRadius / 2f));
 
-                uvs.AddRange(vertices.Select(v => (Vector2)v).ToList());
+                //uv needs x/z not x/y
+                //uvs.AddRange(vertices.Select(v => (Vector2)v).ToList());
+                foreach (var v in vertices)
+                {
+                    uvs.Add(new Vector2(v.x, v.z));
+                }
 
                 mesh.SetVertices(vertices);
                 mesh.SetUVs(0, uvs);
@@ -61,6 +66,7 @@ namespace Hexen
                 0,6,1
             }, MeshTopology.Triangles, 0);
 
+                mesh.RecalculateNormals();
                 mesh.UploadMeshData(true);
             }
             StartTile = null;

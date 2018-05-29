@@ -29,15 +29,17 @@ namespace Hexen
             if (npc != null)
             {
                 npc.DealDamage(this);
+                Destroy(gameObject);
             }
-
-            Debug.Log("Single");
-            Destroy(this.gameObject);
         }
 
         private void FixedUpdate()
         {
-            if (this.Target == null) return;
+            if (this.Target == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
             Vector3 target = Target.GetComponentInChildren<Collider>().transform.position;
             Vector3 position = this.transform.position;
