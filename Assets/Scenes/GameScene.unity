@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -483,7 +483,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 262, y: 64}
+  m_SizeDelta: {x: 268, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &168106761
 MonoBehaviour:
@@ -3013,8 +3013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 32}
-  m_SizeDelta: {x: 321.8, y: 64}
+  m_AnchoredPosition: {x: 0, y: 17}
+  m_SizeDelta: {x: 321.8, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1605147626
 MonoBehaviour:
@@ -3054,7 +3054,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5b06bd257abf1be46bb7a26e7a01be7d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf6e823dff3a74245a016eff18c1b347, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3108,7 +3108,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 164279601}
-        m_MethodName: AddRandomBuildableTower
+        m_MethodName: DebugAddBuildableTower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -28,7 +28,7 @@ namespace Hexen
             GameManager.Instance.LoseGame();
         }
 
-        public int MaxBuildableTowers = 4;
+        public int TowerSlots = 8;
 
         private Queue<Tower> BuildableTowers = new Queue<Tower>();
 
@@ -65,7 +65,7 @@ namespace Hexen
 
         private void CheckBuildableTowersQueueLimit()
         {
-            while (BuildableTowers.Count >= MaxBuildableTowers)
+            while (BuildableTowers.Count >= TowerSlots)
             {
                 BuildableTowers.Dequeue();
             }

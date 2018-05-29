@@ -46,8 +46,10 @@ namespace Assets.Scripts.GameLogic
         {
             var waves = new Queue<Wave>();
             
-            waves.Enqueue(new Wave("Rat", 5, 0.25f));
-            waves.Enqueue(new Wave("Rat", 5, 0.25f));
+            waves.Enqueue(new Wave("Rat", 1, 0.25f));
+            waves.Enqueue(new Wave("Rat", 2, 0.25f));
+            waves.Enqueue(new Wave("Rat", 4, 0.25f));
+            waves.Enqueue(new Wave("Rat", 8, 0.25f));
 
             return waves;
         }
@@ -63,6 +65,13 @@ namespace Assets.Scripts.GameLogic
             }
 
             waveNpcSpawnCount = 0;
+            HandleWaveFinished();
+        }
+
+        private void HandleWaveFinished()
+        {
+            var gm = GameManager.Instance;
+            gm.TowerBuildManager.AddRandomBuildableTower(gm.Player);
         }
 
         void SpawnNpc(string waveNpcName)

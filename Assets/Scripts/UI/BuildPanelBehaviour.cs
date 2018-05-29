@@ -15,7 +15,7 @@ namespace Hexen
 
         public void AddBuildButtonForTower(Tower tower)
         {
-            while (towerButtons.Count >= GameManager.Instance.Player.MaxBuildableTowers)
+            while (towerButtons.Count >= GameManager.Instance.Player.TowerSlots)
             {
                 var destrButton = towerButtons.Dequeue();
                 Destroy(destrButton.gameObject);

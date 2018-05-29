@@ -73,17 +73,35 @@ namespace Hexen
 
         public Tower GetRandomTower()
         {
-            Random rnd = new Random();
+            var seed = (int) System.DateTime.Now.Ticks;
+            Random rnd = new Random(seed);
             int r = rnd.Next(availableTowers.Count);
 
             return availableTowers[r];
         }
 
-        public void AddRandomBuildableTower()
+        public void GenerateStartingBuildableTowers(Player player)
+        {
+            for (int i = 0; i < player.TowerSlots; i++)
+            {
+                AddRandomBuildableTower(player);
+            }
+        }
+
+        public void AddRandomBuildableTower(Player player)
         {
             var t = GetRandomTower();
 
-            GameManager.Instance.Player.AddBuildableTower(t);
+            player.AddBuildableTower(t);
+        }
+
+        public void DebugAddBuildableTower()
+        {
+            var player = GameManager.Instance.Player;
+
+            var t = GetRandomTower();
+
+            player.AddBuildableTower(t);
         }
 
         public void PickUpTower(Tower tower, TowerBuildButtonBehaviour button)

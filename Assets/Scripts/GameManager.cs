@@ -160,6 +160,7 @@ namespace Hexen
         private void InitTowerBuildManager()
         {
             TowerBuildManager.LoadTowers();
+            TowerBuildManager.GenerateStartingBuildableTowers(Player);
         }
 
         private Player InitPlayer()
