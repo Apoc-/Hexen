@@ -18,5 +18,4 @@ public class Tile : MonoBehaviour
         var h = meshFilter.mesh.bounds.size.y;
         return transform.position + new Vector3(0, h, 0);
     }
-
 }
