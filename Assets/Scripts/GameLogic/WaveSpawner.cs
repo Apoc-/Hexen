@@ -11,6 +11,23 @@ namespace Assets.Scripts.GameLogic
     class WaveSpawner : MonoBehaviour
     {
         private int currentWave = 0;
+        public int CurrentWave
+        {
+            get
+            {
+                return currentWave;
+            }
+        }
+
+        private int totalWaves = 0;
+        public int TotalWaves
+        {
+            get
+            {
+                return totalWaves;
+            }
+        }
+
         private Queue<Wave> waves;
         private int waveNpcSpawnCount = 0;
 
@@ -22,6 +39,7 @@ namespace Assets.Scripts.GameLogic
         private void Start()
         {
             waves = LoadWaveData();
+            totalWaves = waves.Count;
         }
 
         private Queue<Wave> LoadWaveData()
@@ -58,9 +76,9 @@ namespace Assets.Scripts.GameLogic
 
         public void NextWave()
         {
-            currentWave += 1;
             if (waves.Count > 0)
             {
+                currentWave += 1;
                 StartCoroutine(SpawnWave(waves.Dequeue()));
             };
         }

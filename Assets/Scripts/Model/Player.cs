@@ -7,6 +7,7 @@ namespace Hexen
     public class Player : Entity
     {
         public int Gold;
+        public int Lives = 1;
         public int MaxBuildableTowers = 4;
 
         private Queue<Tower> BuildableTowers = new Queue<Tower>();

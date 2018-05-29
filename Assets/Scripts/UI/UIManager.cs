@@ -10,17 +10,24 @@ namespace Hexen
 {
     class UIManager : Singleton<UIManager>
     {
-        [SerializeField] private GameObject goldPanel;
+        [SerializeField] private GameObject goldInfo;
+        [SerializeField] private GameObject lifeInfo;
+        [SerializeField] private GameObject waveInfo;
         [SerializeField] private BuildPanelBehaviour buildPanel;
 
         public void Update()
         {
-            UpdateGoldPanel();
+            UpdateInfoPanels();
         }
 
-        private void UpdateGoldPanel()
+        private void UpdateInfoPanels()
         {
-            goldPanel.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Gold;
+            goldInfo.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Gold;
+            lifeInfo.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Lives;
+
+            var currentWave = GameManager.Instance.WaveSpawner.CurrentWave;
+            var totalWaves = GameManager.Instance.WaveSpawner.TotalWaves;
+            waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
         }
 
         public BuildPanelBehaviour GetBuildPanelBehaviour()

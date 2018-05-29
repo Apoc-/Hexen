@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.GameLogic;
 using Hexen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,6 +37,21 @@ namespace Assets.Scripts
                 }
 
                 return towerBuildManager;
+            }
+        }
+
+        private WaveSpawner waveSpawner;
+
+        public WaveSpawner WaveSpawner
+        {
+            get
+            {
+                if (waveSpawner == null)
+                {
+                    waveSpawner = FindObjectOfType<WaveSpawner>();
+                }
+
+                return waveSpawner;
             }
         }
 
