@@ -11,13 +11,12 @@ namespace Hexen
     public class Attribute
     {
         #region static attribute names
-        public static string ATTACK_RANGE = "Attack Range";
-        public static string ATTACK_SPEED = "Attack Speed";
-        public static string ATTACK_DAMAGE = "Attack Damage";
+        public static string AttackRange = "Attack Range";
+        public static string AttackSpeed = "Attack Speed";
+        public static string AttackDamage = "Attack Damage";
         #endregion
 
-        [SerializeField]
-        public string attributeName;
+        public string AttributeName;
         [SerializeField]
         private float baseValue;
 
@@ -28,7 +27,7 @@ namespace Hexen
             {
                 if (isDirty)
                 {
-                    CalculateValue();
+                    value = CalculateValue();
                 }
 
                 return value;
@@ -46,7 +45,7 @@ namespace Hexen
 
         public Attribute(String attributeName, float baseValue)
         {
-            this.attributeName = attributeName;
+            this.AttributeName = attributeName;
             this.baseValue = baseValue;
         }
 
@@ -63,10 +62,31 @@ namespace Hexen
         }
 
 
-        private void CalculateValue()
+        private float CalculateValue()
         {
-            value = baseValue;
-        }
+            var calcValue = baseValue;
+            var addPercBonusSum = 0.0f;
 
+            attributeEffects.ForEach(effect =>
+            {
+                switch (effect.EffectType)
+                {
+                    case AttributeEffectType.Flat:
+                        calcValue += effect.Value;
+                        break;
+                    case AttributeEffectType.PercentMul:
+                        calcValue *= (1 + effect.Value);
+                        break;
+                    case AttributeEffectType.PercentAdd:
+                        addPercBonusSum += effect.Value;
+                        break;
+                }
+            });
+
+            //finally apply additive percentage bonusses
+            calcValue *= (1 + addPercBonusSum);
+
+            return calcValue;
+        }   
     }
 }

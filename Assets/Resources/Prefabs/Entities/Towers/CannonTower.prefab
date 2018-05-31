@@ -248,16 +248,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityName: Cannon Tower
   AttackRange:
-    attributeName: Attack Range
+    AttributeName: Attack Range
     baseValue: 1
   AttackDamage:
-    attributeName: Attack Damage
+    AttributeName: Attack Damage
     baseValue: 1
   AttackSpeed:
-    attributeName: Attack Speed
+    AttributeName: Attack Speed
     baseValue: 1
   GoldCost: 20
-  Description: 
+  Description: A tower that shoots exploding bombs at a target.
   WeaponHeight: 0.5
   Items: []
   Projectile: {fileID: 114285243126973656, guid: 887c8c0ca64048d48b36167427ca8756,

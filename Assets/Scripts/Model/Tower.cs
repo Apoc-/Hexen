@@ -8,9 +8,9 @@ namespace Hexen
 {
     public class Tower : Entity
     {
-        public Attribute AttackRange = new Attribute(Attribute.ATTACK_RANGE, 1);
-        public Attribute AttackDamage = new Attribute(Attribute.ATTACK_DAMAGE, 1);
-        public Attribute AttackSpeed = new Attribute(Attribute.ATTACK_SPEED, 1);
+        public Attribute AttackRange = new Attribute(Attribute.AttackRange, 1);
+        public Attribute AttackDamage = new Attribute(Attribute.AttackDamage, 1);
+        public Attribute AttackSpeed = new Attribute(Attribute.AttackSpeed, 1);
 
         public int GoldCost;
         public string Description;
@@ -105,7 +105,14 @@ namespace Hexen
 
         public float HeightDependantAttackRange()
         {
-            return AttackRange.Value * (1 + Tile.gameObject.transform.position.y);
+            var value = AttackRange.Value;
+
+            if (Tile != null) //check if over tile
+            {
+                value *= (1 + Tile.gameObject.transform.position.y);
+            }
+
+            return value;
         }
     }
 }

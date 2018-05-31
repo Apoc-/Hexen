@@ -156,9 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59bd5ba5a90bd5a459ae07d50cc1ede7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Rat
-  MaxHealth: 4
-  CurrentHealth: 4
+  EntityName: 
+  MaxHealth: 1
+  CurrentHealth: 1
   MovementSpeed: 4
   GoldReward: 1
   XPReward: 1

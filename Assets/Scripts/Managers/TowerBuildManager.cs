@@ -5,6 +5,7 @@ using System.Text;
 using Assets.Scripts;
 using Hexen;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = System.Random;
 
 namespace Hexen
@@ -17,9 +18,14 @@ namespace Hexen
 
         private void Update()
         {
-            if (currentHeldTower != null)
+            if (currentHeldTower != null && !EventSystem.current.IsPointerOverGameObject())
             {
                 HandleTowerHolding();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                CancelPickup();
             }
         }
 
@@ -38,7 +44,10 @@ namespace Hexen
 
                 if (currentTile != null)
                 {
-                    if (TowerIsPlaceableOnTile(currentTile, currentHeldTower))
+                    currentHeldTower.Tile = currentTile;
+                    var towerIsPlaceable = TowerIsPlaceableOnTile(currentTile, currentHeldTower);
+
+                    if (towerIsPlaceable)
                     {
                         SetTowerModelPlaceableColor();
                     }
@@ -47,7 +56,19 @@ namespace Hexen
                         SetTowerModelNotPlaceableColor();
                     }
 
-                    currentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
+                    if (currentTile.GetTopCenter() != currentHeldTower.gameObject.transform.position)
+                    {
+                        currentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
+
+                        if (towerIsPlaceable)
+                        {
+                            GameManager.Instance.TowerSelectionManager.DisplayRangeIndicator(currentHeldTower);
+                        }
+                        else
+                        {
+                            GameManager.Instance.TowerSelectionManager.DestroyRangeIndicator();
+                        }
+                    }
                 }
 
                 HandleTowerHoldingInput(currentTile);
@@ -59,10 +80,6 @@ namespace Hexen
             if (Input.GetKeyDown(KeyCode.Mouse0) && TowerIsPlaceableOnTile(currentTile, currentHeldTower))
             {
                 PlaceTower(currentTile);
-            }
-            else if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                CancelPickup();
             }
         }
 
@@ -107,6 +124,8 @@ namespace Hexen
 
         public void PickUpTower(Tower tower, TowerBuildButtonBehaviour button)
         {
+            CancelPickup();
+
             currentHeldTowerButton = button;
             currentHeldTowerButton.SetButtonActive();
 
@@ -127,7 +146,6 @@ namespace Hexen
                 ResetTowerModelColor();
                 tile.IsEmpty = false;
                 currentHeldTower.IsPlaced = true;
-                currentHeldTower.Tile = tile;
 
                 currentHeldTower = null;
                 currentHeldTowerButton.SetButtonInactive();
@@ -143,8 +161,15 @@ namespace Hexen
 
         private void CancelPickup()
         {
-            Destroy(currentHeldTower.gameObject);
-            currentHeldTowerButton.SetButtonInactive();
+            if (currentHeldTowerButton != null)
+            {
+                currentHeldTowerButton.SetButtonInactive();
+            }
+            
+            if (currentHeldTower != null)
+            {
+                Destroy(currentHeldTower.gameObject);
+            }
         }
 
         public void SetTowerModelTransparency(float alpha)
@@ -153,19 +178,23 @@ namespace Hexen
 
             foreach (var r in renderer)
             {
-                var color = r.material.color;
-                color.a = alpha;
-                r.material.color = color;
+                if (r.material.HasProperty("color"))
+                {
+                    var color = r.material.color;
+                    color.a = alpha;
+                    r.material.color = color;
+                }
             }
            
         }
 
         private void SetTowerModelColor(Color newColor)
         {
-            var renderer = currentHeldTower.GetComponentsInChildren<Renderer>();
+            var renderer = currentHeldTower.GetComponentsInChildren<MeshRenderer>();
 
             foreach (var r in renderer)
             {
+
                 newColor.a = r.material.color.a;
                 r.material.color = newColor;
             }

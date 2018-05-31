@@ -8,7 +8,7 @@ using UnityScript.Steps;
 
 namespace Hexen
 {
-    public class Npc : AttributeEntity
+    public class Npc : Entity
     {
         public int MaxHealth;
         public int CurrentHealth;

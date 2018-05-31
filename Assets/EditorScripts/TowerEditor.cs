@@ -15,9 +15,9 @@ namespace Hexen.EditorScripts
 
         private List<string> attributePorpertyNames = new List<string>
         {
-            "AttackRange",
             "AttackDamage",
-            "AttackSpeed"
+            "AttackSpeed",
+            "AttackRange"
         };
 
         private string weaponHeightPropName = "WeaponHeight";
@@ -62,7 +62,7 @@ namespace Hexen.EditorScripts
             {
                 EditorGUILayout.BeginHorizontal();
 
-                var attrName = serializedObject.FindProperty(propName + ".attributeName");
+                var attrName = serializedObject.FindProperty(propName + ".AttributeName");
                 var attrValue = serializedObject.FindProperty(propName + ".baseValue");
 
                 var attributeNameLabel = new GUIContent(attrName.stringValue);

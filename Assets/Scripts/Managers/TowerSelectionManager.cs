@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Hexen
 {
     class TowerSelectionManager : MonoBehaviour
     {
         private Tower selectedTower;
+        
         private GameObject activeRangeIndicator;
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 SelectTower();
             }
@@ -18,20 +20,40 @@ namespace Hexen
             {
                 UnselectTower();
             }
+
+            DebugInputHandler();
+        }
+
+        private void DebugInputHandler()
+        {
+            if (selectedTower != null)
+            {
+                if (Input.GetKeyDown(KeyCode.KeypadPlus))
+                {
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(1.0f, AttributeEffectType.Flat));
+                }
+
+                if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+                {
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.10f, AttributeEffectType.PercentAdd));
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.2f, AttributeEffectType.PercentAdd));
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.5f, AttributeEffectType.PercentMul));
+                }
+            }
         }
 
         private void SelectTower()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            //todo expand for npcs
+            
             LayerMask mask = LayerMask.GetMask("Towers");
 
             if (Physics.Raycast(ray, out hit))
             {
                 var tower = hit.transform.gameObject.GetComponent<Tower>();
 
-                if (tower != null && tower.IsPlaced)
+                if (tower != null)
                 {
                     selectedTower = tower;
                     DisplayRangeIndicator(tower);
@@ -42,10 +64,10 @@ namespace Hexen
         private void UnselectTower()
         {
             selectedTower = null;
-            Destroy(activeRangeIndicator);
+            DestroyRangeIndicator();
         }
 
-        private void DisplayRangeIndicator(Tower tower)
+        public void DisplayRangeIndicator(Tower tower)
         {
             if (activeRangeIndicator != null)
             {
@@ -57,7 +79,18 @@ namespace Hexen
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
             var range = tower.HeightDependantAttackRange();
-            activeRangeIndicator.transform.localScale = new Vector3(range, 1, range);
+            
+            var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
+            var shape = particles.shape;
+            shape.radius = range;
+        }
+
+        public void DestroyRangeIndicator()
+        {
+            if (activeRangeIndicator != null)
+            {
+                Destroy(activeRangeIndicator);
+            }
         }
     }
 }

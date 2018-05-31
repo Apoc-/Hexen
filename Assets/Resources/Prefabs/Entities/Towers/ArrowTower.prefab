@@ -248,25 +248,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityName: Arrow Tower
   AttackRange:
-    attributeName: Attack Range
+    AttributeName: Attack Range
     baseValue: 1.5
   AttackDamage:
-    attributeName: Attack Damage
-    baseValue: 1
+    AttributeName: Attack Damage
+    baseValue: 2
   AttackSpeed:
-    attributeName: Attack Speed
-    baseValue: 1
+    AttributeName: Attack Speed
+    baseValue: 1.5
   GoldCost: 15
-  Description: 
-  WeaponHeight: 1.7
+  Description: A tower that shoots arrows at a single target.
+  WeaponHeight: 1
   Items: []
   Projectile: {fileID: 114002575520520068, guid: 71ee2b52092169840a977e3cd87b0a4b,
     type: 2}
   Icon: {fileID: 21300000, guid: d40a4edcca1ba354b98c3580b47947b2, type: 3}
   Tile: {fileID: 0}
   Level: 1
-  Xp: 5
-  IsPlaced: 0
+  Xp: 24
+  IsPlaced: 1
   Owner: {fileID: 0}
 --- !u!136 &136052511012452170
 CapsuleCollider:
