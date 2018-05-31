@@ -93,18 +93,18 @@ namespace Hexen
             }
         }
 
-        private AttributeEntitySelectionManager attributeEntitySelectionManager;
+        private TowerSelectionManager towerSelectionManager;
 
-        public AttributeEntitySelectionManager AttributeEntitySelectionManager
+        public TowerSelectionManager TowerSelectionManager
         {
             get
             {
-                if (attributeEntitySelectionManager == null)
+                if (towerSelectionManager == null)
                 {
-                    attributeEntitySelectionManager = FindObjectOfType<AttributeEntitySelectionManager>();
+                    towerSelectionManager = FindObjectOfType<TowerSelectionManager>();
                 }
 
-                return attributeEntitySelectionManager;
+                return towerSelectionManager;
             }
         }
 
@@ -181,7 +181,7 @@ namespace Hexen
         private Player InitPlayer()
         {
             var player = Instantiate(Resources.Load<Player>("Prefabs/Player"));
-            player.gameObject.name = "Player_" + player.Name;
+            player.gameObject.name = "Player_" + player.EntityName;
             return player;
         }
     }

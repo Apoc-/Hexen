@@ -2,25 +2,25 @@
 
 namespace Hexen
 {
-    class AttributeEntitySelectionManager : MonoBehaviour
+    class TowerSelectionManager : MonoBehaviour
     {
-        private AttributeEntity selectedEntity;
+        private Tower selectedTower;
         private GameObject activeRangeIndicator;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                SelectEntity();
+                SelectTower();
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                DeselectEntity();
+                UnselectTower();
             }
         }
 
-        private void SelectEntity()
+        private void SelectTower()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -29,29 +29,20 @@ namespace Hexen
 
             if (Physics.Raycast(ray, out hit))
             {
-                var entity = hit.transform.gameObject.GetComponent<AttributeEntity>();
+                var tower = hit.transform.gameObject.GetComponent<Tower>();
 
-                if (entity != null && entity.GetType() == typeof(Tower))
+                if (tower != null && tower.IsPlaced)
                 {
-                    var twr = (Tower) entity;
-
-                    if (twr.IsPlaced)
-                    {
-                        ActivateTowerSelection(twr);
-                        selectedEntity = entity;
-                    }
+                    selectedTower = tower;
+                    DisplayRangeIndicator(tower);
                 }
             }
         }
 
-        private void DeselectEntity()
+        private void UnselectTower()
         {
-            selectedEntity = null;
-        }
-
-        private void ActivateTowerSelection(Tower tower)
-        {
-            DisplayRangeIndicator(tower);
+            selectedTower = null;
+            Destroy(activeRangeIndicator);
         }
 
         private void DisplayRangeIndicator(Tower tower)
@@ -65,7 +56,7 @@ namespace Hexen
             activeRangeIndicator.transform.SetParent(tower.transform);
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
-            var range = tower.ActualAttackRange();
+            var range = tower.HeightDependantAttackRange();
             activeRangeIndicator.transform.localScale = new Vector3(range, 1, range);
         }
     }

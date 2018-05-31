@@ -8,9 +8,8 @@ namespace Hexen
 {
     public class Item : Entity
     {
-        public void OnPickup()
-        {
-
-        }
+        [SerializeField] private AttributeEffect[] attributeEffects;
+        [SerializeField] private String name;
+        [SerializeField] private String description;
     }
 }

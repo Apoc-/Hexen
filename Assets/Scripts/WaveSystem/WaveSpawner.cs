@@ -94,7 +94,7 @@ namespace Assets.Scripts.GameLogic
             var npc = Instantiate(Resources.Load<Npc>("Prefabs/Entities/Npcs/" + waveNpcName));
 
             npc.transform.parent = transform.parent;
-            npc.name = npc.Name + "_" + waveNpcSpawnCount;
+            npc.name = npc.EntityName + "_" + waveNpcSpawnCount;
             npc.transform.position = GameManager.Instance.MapManager.StartTile.GetTopCenter();
         }
 
@@ -119,5 +119,22 @@ namespace Assets.Scripts.GameLogic
                 }
             };
         }
+
+        #region debug
+
+        public void EndlessWaves()
+        {
+            waves = new Queue<Wave>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                waves.Enqueue(new Wave("Rat", 10, 0.25f));
+            }
+
+            GameManager.Instance.Player.Lives = 10000;
+        }
+
+        #endregion
+
     }
 }

@@ -20,7 +20,7 @@ namespace Hexen
 
         public void DealDamage(Projectile projectile, float factor = 1.0f)
         {
-            CurrentHealth = (int)(CurrentHealth - projectile.Source.AttackDamage * factor);
+            CurrentHealth = (int)(CurrentHealth - projectile.Source.AttackDamage.Value * factor);
 
             if (CurrentHealth <= 0)
             {

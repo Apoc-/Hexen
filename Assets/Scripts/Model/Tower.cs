@@ -6,19 +6,23 @@ using UnityEngine.UI;
 
 namespace Hexen
 {
-    public class Tower : AttributeEntity
+    public class Tower : Entity
     {
+        public Attribute AttackRange = new Attribute(Attribute.ATTACK_RANGE, 1);
+        public Attribute AttackDamage = new Attribute(Attribute.ATTACK_DAMAGE, 1);
+        public Attribute AttackSpeed = new Attribute(Attribute.ATTACK_SPEED, 1);
+
         public int GoldCost;
-        public int Level = 1;
-        public int Xp = 0;
-        public float AttackSpeed;
-        public float BaseAttackRange;
-        public int AttackDamage;
+        public string Description;
+
         public float WeaponHeight;
         public List<Item> Items;
         public Projectile Projectile;
         public Sprite Icon;
         public Tile Tile;
+
+        public int Level = 1;
+        public int Xp = 0;
 
         private Npc lockedTarget;
         private float lastShotFired = 0;
@@ -26,7 +30,12 @@ namespace Hexen
         public bool IsPlaced = false;
 
         [HideInInspector] public Player Owner;
-        
+
+        private void OnEnable()
+        {
+            IsPlaced = false;
+        }
+
         private void FixedUpdate()
         {
             if (IsPlaced)
@@ -51,14 +60,14 @@ namespace Hexen
 
             var distance = Vector3.Distance(lockedTarget.transform.position, transform.position);
 
-            if (distance > BaseAttackRange)
+            if (distance > HeightDependantAttackRange())
             {
                 lockedTarget = null;
                 AcquireTarget();
                 return;
             }
 
-            if (lastShotFired < Time.fixedTime - 1 / this.AttackSpeed)
+            if (lastShotFired < Time.fixedTime - 1.0f / AttackSpeed.Value)
             {
                 Fire();
                 lastShotFired = Time.fixedTime;
@@ -68,7 +77,7 @@ namespace Hexen
         private void AcquireTarget()
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-            var actualAttackRange = ActualAttackRange();
+            var actualAttackRange = HeightDependantAttackRange();
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight-5, transform.position.z);
@@ -94,9 +103,9 @@ namespace Hexen
             shot.Source = this;
         }
 
-        public float ActualAttackRange()
+        public float HeightDependantAttackRange()
         {
-            return BaseAttackRange * (1 + Tile.gameObject.transform.position.y);
+            return AttackRange.Value * (1 + Tile.gameObject.transform.position.y);
         }
     }
 }

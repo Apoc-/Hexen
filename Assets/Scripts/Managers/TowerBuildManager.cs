@@ -113,7 +113,7 @@ namespace Hexen
             var towerGo = Instantiate(tower);
             currentHeldTower = towerGo;
             
-            towerGo.Name = tower.Name;
+            towerGo.EntityName = tower.EntityName;
             towerGo.transform.parent = transform;
             
             SetTowerModelTransparency(0.25f);

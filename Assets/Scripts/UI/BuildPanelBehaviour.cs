@@ -19,7 +19,7 @@ namespace Hexen
             {
                 var destrButton = towerButtons.Dequeue();
                 Destroy(destrButton.gameObject);
-                Debug.Log("Too many buildable towers, destroying " + destrButton.Tower.Name + ".");
+                Debug.Log("Too many buildable towers, destroying " + destrButton.Tower.EntityName + ".");
             }
 
             TowerBuildButtonBehaviour button =

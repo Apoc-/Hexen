@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4912833644221764}
   - component: {fileID: 33856531032205166}
   - component: {fileID: 23932503290569916}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tower_Roof003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4104620329794858}
   - component: {fileID: 95667937999773650}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4512833949603650}
   - component: {fileID: 33856654576038542}
   - component: {fileID: 23977099975009552}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerR_Walls003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4663655138249442}
   - component: {fileID: 114046822194182502}
   - component: {fileID: 136521249946115794}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CannonTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,19 +246,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d01d3ae916a8544a89aa5b87454f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Cannon Tower
+  EntityName: Cannon Tower
+  AttackRange:
+    attributeName: Attack Range
+    baseValue: 1
+  AttackDamage:
+    attributeName: Attack Damage
+    baseValue: 1
+  AttackSpeed:
+    attributeName: Attack Speed
+    baseValue: 1
   GoldCost: 20
-  Level: 1
-  Xp: 0
-  AttackSpeed: 0.75
-  BaseAttackRange: 2
-  AttackDamage: 4
+  Description: 
   WeaponHeight: 0.5
   Items: []
   Projectile: {fileID: 114285243126973656, guid: 887c8c0ca64048d48b36167427ca8756,
     type: 2}
   Icon: {fileID: 21300000, guid: 9948567756ab46d4f8fddf1271767792, type: 3}
   Tile: {fileID: 0}
+  Level: 1
+  Xp: 0
   IsPlaced: 0
   Owner: {fileID: 0}
 --- !u!136 &136521249946115794

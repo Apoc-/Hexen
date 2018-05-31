@@ -8,6 +8,6 @@ namespace Hexen
 {
     public class Entity : MonoBehaviour
     {
-        public String Name;
+        public String EntityName;
     }
 }

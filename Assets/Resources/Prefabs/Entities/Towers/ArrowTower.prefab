@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4377716398324196}
   - component: {fileID: 114222076573668634}
   - component: {fileID: 136052511012452170}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ArrowTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4266529551578962}
   - component: {fileID: 33190401032998386}
   - component: {fileID: 23314793790322776}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerR_Walls003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4606008051995322}
   - component: {fileID: 95734121338011846}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4434996878302648}
   - component: {fileID: 33928045728864958}
   - component: {fileID: 23349791200502184}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tower_Roof003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,19 +246,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d01d3ae916a8544a89aa5b87454f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Arrow Tower
+  EntityName: Arrow Tower
+  AttackRange:
+    attributeName: Attack Range
+    baseValue: 1.5
+  AttackDamage:
+    attributeName: Attack Damage
+    baseValue: 1
+  AttackSpeed:
+    attributeName: Attack Speed
+    baseValue: 1
   GoldCost: 15
-  Level: 1
-  Xp: 5
-  AttackSpeed: 1
-  BaseAttackRange: 2
-  AttackDamage: 2
+  Description: 
   WeaponHeight: 1.7
   Items: []
   Projectile: {fileID: 114002575520520068, guid: 71ee2b52092169840a977e3cd87b0a4b,
     type: 2}
   Icon: {fileID: 21300000, guid: d40a4edcca1ba354b98c3580b47947b2, type: 3}
   Tile: {fileID: 0}
+  Level: 1
+  Xp: 5
   IsPlaced: 0
   Owner: {fileID: 0}
 --- !u!136 &136052511012452170
