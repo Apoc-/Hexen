@@ -39,14 +39,7 @@ namespace Hexen
             {
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(1.0f, AttributeEffectType.Flat, null));
-                }
 
-                if (Input.GetKeyDown(KeyCode.KeypadMultiply))
-                {
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.10f, AttributeEffectType.PercentAdd, null));
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.2f, AttributeEffectType.PercentAdd, null));
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.5f, AttributeEffectType.PercentMul, null));
                 }
             }
         }

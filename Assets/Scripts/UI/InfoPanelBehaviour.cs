@@ -17,6 +17,7 @@ namespace Hexen
         [SerializeField] private Image icon;
         [SerializeField] private Text title;
         [SerializeField] private Text description;
+        [SerializeField] private Text value;
         
 
         private List<GameObject> infoElements = new List<GameObject>();
@@ -25,8 +26,8 @@ namespace Hexen
         {
             SetIcon(tower.Icon);
             SetTitle(tower.EntityName);
+            SetValue(tower.Level.ToString());
             SetDescription(tower.Description);
-
             SetInfoElements(tower.Attributes.Select(attr => attr.AttributeName + " " + attr.Value).ToList());
         }
 
@@ -34,8 +35,10 @@ namespace Hexen
         {
             SetIcon(null);
             SetTitle("");
+            SetValue("");
             SetDescription("");
             SetInfoElements(new List<string>());
+            
         }
 
         private void SetIcon(Sprite icon)
@@ -46,6 +49,11 @@ namespace Hexen
         private void SetTitle(String title)
         {
             this.title.GetComponent<Text>().text = title;
+        }
+
+        private void SetValue(String value)
+        {
+            this.value.GetComponent<Text>().text = value;
         }
 
         private void SetDescription(String description)

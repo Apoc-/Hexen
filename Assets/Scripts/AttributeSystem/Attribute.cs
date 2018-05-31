@@ -7,6 +7,12 @@ using UnityEngine;
 
 namespace Hexen
 {
+    public enum LevelIncrementType
+    {
+        Flat,
+        Percentage
+    }
+
     [Serializable]
     public class Attribute
     {
@@ -16,9 +22,11 @@ namespace Hexen
         public static string AttackDamage = "Attack Damage";
         #endregion
 
+        private float levelIncrement = 0.0f;
+        private LevelIncrementType levelIncrementType = LevelIncrementType.Flat;
+
         public string AttributeName;
-        [SerializeField]
-        private float baseValue;
+        [SerializeField] private float baseValue;
 
         private float value;
         public float Value
@@ -49,6 +57,12 @@ namespace Hexen
             this.baseValue = baseValue;
         }
 
+        public Attribute(String attributeName, float baseValue, float levelIncrement, LevelIncrementType levelIncrementType) : this(attributeName, baseValue)
+        {
+            this.levelIncrement = levelIncrement;
+            this.levelIncrementType = levelIncrementType;
+        }
+
         public void AddAttributeEffect(AttributeEffect effect)
         {
             attributeEffects.Add(effect);
@@ -57,6 +71,8 @@ namespace Hexen
 
         public void RemoveAttributeEffect(AttributeEffect effect)
         {
+            var e = attributeEffects[0];
+            Debug.Log(e == effect);
             attributeEffects.Remove(effect);
             isDirty = true;
         }
@@ -68,6 +84,31 @@ namespace Hexen
             effectsFromSource.ForEach(RemoveAttributeEffect);
         }
 
+        public void LevelUp()
+        {
+            switch (levelIncrementType)
+            {
+                case LevelIncrementType.Flat:
+                    baseValue += levelIncrement;
+                    break;
+                case LevelIncrementType.Percentage:
+                    baseValue *= (1 + levelIncrement);
+                    break;
+            }
+        }
+
+        public void LevelDown()
+        {
+            switch (levelIncrementType)
+            {
+                case LevelIncrementType.Flat:
+                    baseValue -= levelIncrement;
+                    break;
+                case LevelIncrementType.Percentage:
+                    baseValue /= (1 + levelIncrement);
+                    break;
+            }
+        }
 
         private float CalculateValue()
         {
@@ -94,6 +135,6 @@ namespace Hexen
             calcValue *= (1 + addPercBonusSum);
 
             return calcValue;
-        }   
+        }
     }
 }
