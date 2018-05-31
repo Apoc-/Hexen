@@ -61,6 +61,13 @@ namespace Hexen
             isDirty = true;
         }
 
+        public void RemoveAllAttributeEffectsFromSource(AttributeEffectSource source)
+        {
+            var effectsFromSource = attributeEffects.Where(effect => effect.EffectSource == source).ToList();
+            
+            effectsFromSource.ForEach(RemoveAttributeEffect);
+        }
+
 
         private float CalculateValue()
         {

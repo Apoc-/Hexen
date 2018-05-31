@@ -14,10 +14,13 @@ namespace Hexen
         public float Value { get; private set; }
         public AttributeEffectType EffectType { get; private set; }
 
-        public AttributeEffect(float value, AttributeEffectType effectType)
+        public AttributeEffectSource EffectSource { get; private set; }
+
+        public AttributeEffect(float value, AttributeEffectType effectType, AttributeEffectSource effectSource)
         {
             Value = value;
             EffectType = effectType;
+            EffectSource = effectSource;
         }
     }
 }

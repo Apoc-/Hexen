@@ -6,7 +6,6 @@ namespace Hexen
     class TowerSelectionManager : MonoBehaviour
     {
         private Tower selectedTower;
-        
         private GameObject activeRangeIndicator;
 
         private void Update()
@@ -22,6 +21,11 @@ namespace Hexen
             }
 
             DebugInputHandler();
+
+            if (selectedTower != null && activeRangeIndicator != null)
+            {
+                RecalculateRangeIndicatorRadius();
+            }
         }
 
         private void DebugInputHandler()
@@ -30,14 +34,14 @@ namespace Hexen
             {
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(1.0f, AttributeEffectType.Flat));
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(1.0f, AttributeEffectType.Flat, null));
                 }
 
                 if (Input.GetKeyDown(KeyCode.KeypadMultiply))
                 {
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.10f, AttributeEffectType.PercentAdd));
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.2f, AttributeEffectType.PercentAdd));
-                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.5f, AttributeEffectType.PercentMul));
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.10f, AttributeEffectType.PercentAdd, null));
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.2f, AttributeEffectType.PercentAdd, null));
+                    selectedTower.AttackRange.AddAttributeEffect(new AttributeEffect(0.5f, AttributeEffectType.PercentMul, null));
                 }
             }
         }
@@ -79,10 +83,24 @@ namespace Hexen
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
             var range = tower.HeightDependantAttackRange();
-            
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
             var shape = particles.shape;
             shape.radius = range;
+        }
+
+        public void RecalculateRangeIndicatorRadius()
+        {
+            var range = selectedTower.HeightDependantAttackRange();
+            
+
+            var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
+            var shape = particles.shape;
+            var radius = shape.radius;
+
+            if (Mathf.Abs(radius - range) > 0.0001f)
+            {
+                shape.radius = range;
+            }
         }
 
         public void DestroyRangeIndicator()
