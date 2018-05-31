@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 namespace Hexen
 {
     public class Tower : Entity
     {
-        public Attribute AttackRange = new Attribute(Attribute.AttackRange, 1);
-        public Attribute AttackDamage = new Attribute(Attribute.AttackDamage, 1);
-        public Attribute AttackSpeed = new Attribute(Attribute.AttackSpeed, 1);
+        public Attribute AttackRange = new Attribute(Attribute.AttackRange, 1, 0.04f, LevelIncrementType.Percentage);
+        public Attribute AttackDamage = new Attribute(Attribute.AttackDamage, 1, 0.04f, LevelIncrementType.Percentage);
+        public Attribute AttackSpeed = new Attribute(Attribute.AttackSpeed, 1, 0.04f, LevelIncrementType.Percentage);
 
         public List<Attribute> Attributes;
 
@@ -23,8 +25,8 @@ namespace Hexen
         public Sprite Icon;
         public Tile Tile;
 
-        public int Level = 1;
-        public int Xp = 0;
+        public int Level;
+        public int Xp;
 
         private Npc lockedTarget;
         private float lastShotFired = 0;
@@ -36,6 +38,9 @@ namespace Hexen
         private void OnEnable()
         {
             IsPlaced = false;
+
+            Xp = 0;
+            Level = 1;
 
             Attributes = new List<Attribute>
             {
@@ -56,6 +61,20 @@ namespace Hexen
         public void GiveXP(int amount)
         {
             Xp += amount;
+
+            Debug.Log("XP: " + Xp);
+
+            while (Xp >= NextLevelXP())
+            {
+                Debug.Log("Level: " + Level + "->" + (Level+1));
+                LevelUp();
+            }
+        }
+
+        private void LevelUp()
+        {
+            Level += 1;
+            Attributes.ForEach(attr => attr.LevelUp());
         }
 
 
@@ -110,6 +129,14 @@ namespace Hexen
             shot.transform.localPosition = new Vector3(0, WeaponHeight, 0);
             shot.Target = this.lockedTarget;
             shot.Source = this;
+        }
+
+        private int NextLevelXP()
+        {
+            var fac = 2.0f;
+            var exp = 3.0f;
+            
+            return (int) (fac * Mathf.Pow(Level, exp));
         }
 
         //todo feature removed for now, incorporate as a attribute effect at a later time
