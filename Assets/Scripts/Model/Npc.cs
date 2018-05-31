@@ -55,8 +55,10 @@ namespace Hexen
             var collider = GetComponentInChildren<Collider>();
             var renderer = GetComponentInChildren<Renderer>();
 
-            if (collider != null) Destroy(collider);
-            if (renderer != null) Destroy(renderer);
+            //todo why is this here? 
+            //if a tower shoots at the moment this explodes => null ref in firing logic
+            //if (collider != null) Destroy(collider);
+            //if (renderer != null) Destroy(renderer);
 
             Destroy(gameObject, exp.main.duration);
         }
