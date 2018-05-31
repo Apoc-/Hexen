@@ -50,17 +50,20 @@ namespace Hexen
 
         void Explode()
         {
-            var exp = GetComponentInChildren<ParticleSystem>();
-            exp.Play();
+            
             var collider = GetComponentInChildren<Collider>();
             var renderer = GetComponentInChildren<Renderer>();
 
-            //todo why is this here? 
-            //if a tower shoots at the moment this explodes => null ref in firing logic
-            //if (collider != null) Destroy(collider);
-            //if (renderer != null) Destroy(renderer);
+            //todo fix, produced bugs, no blood for now
+            /*var exp = GetComponentInChildren<ParticleSystem>();
+            exp.Play();
 
-            Destroy(gameObject, exp.main.duration);
+            if a tower shoots at the moment this explodes => null ref in firing logic
+            if (collider != null) Destroy(collider);
+            if (renderer != null) Destroy(renderer);
+            Destroy(gameObject, exp.main.duration);*/
+
+            Destroy(gameObject);
         }
 
         private void FixedUpdate()
