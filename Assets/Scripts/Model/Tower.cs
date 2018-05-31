@@ -12,6 +12,8 @@ namespace Hexen
         public Attribute AttackDamage = new Attribute(Attribute.AttackDamage, 1);
         public Attribute AttackSpeed = new Attribute(Attribute.AttackSpeed, 1);
 
+        public List<Attribute> Attributes;
+
         public int GoldCost;
         public string Description;
 
@@ -34,6 +36,13 @@ namespace Hexen
         private void OnEnable()
         {
             IsPlaced = false;
+
+            Attributes = new List<Attribute>
+            {
+                AttackRange,
+                AttackDamage,
+                AttackSpeed
+            };
         }
 
         private void FixedUpdate()
@@ -60,7 +69,7 @@ namespace Hexen
 
             var distance = Vector3.Distance(lockedTarget.transform.position, transform.position);
 
-            if (distance > HeightDependantAttackRange())
+            if (distance > AttackRange.Value)
             {
                 lockedTarget = null;
                 AcquireTarget();
@@ -77,14 +86,14 @@ namespace Hexen
         private void AcquireTarget()
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-            var actualAttackRange = HeightDependantAttackRange();
+            var attackRange = AttackRange.Value;
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight-5, transform.position.z);
 
-            var collidersInAttackRange = new List<Collider>(Physics.OverlapCapsule(topCap, botCap, actualAttackRange));
+            var collidersInAttackRange = new List<Collider>(Physics.OverlapCapsule(topCap, botCap, attackRange));
 
-            DebugExtension.DebugCapsule(topCap, botCap, actualAttackRange);
+            DebugExtension.DebugCapsule(topCap, botCap, attackRange);
 
             foreach (var collider in collidersInAttackRange)
             {
@@ -103,7 +112,8 @@ namespace Hexen
             shot.Source = this;
         }
 
-        public float HeightDependantAttackRange()
+        //todo feature removed for now, incorporate as a attribute effect at a later time
+        /*public float HeightDependantAttackRange()
         {
             var value = AttackRange.Value;
 
@@ -113,6 +123,6 @@ namespace Hexen
             }
 
             return value;
-        }
+        }*/
     }
 }

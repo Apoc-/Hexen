@@ -24,7 +24,12 @@ namespace Hexen
 
             if (selectedTower != null && activeRangeIndicator != null)
             {
-                RecalculateRangeIndicatorRadius();
+                if (activeRangeIndicator != null)
+                {
+                    RecalculateRangeIndicatorRadius();
+                }
+                
+                GameManager.Instance.UIManager.InfoPanel.DisplayTowerInformation(selectedTower);
             }
         }
 
@@ -69,6 +74,7 @@ namespace Hexen
         {
             selectedTower = null;
             DestroyRangeIndicator();
+            GameManager.Instance.UIManager.InfoPanel.ClearInformation();
         }
 
         public void DisplayRangeIndicator(Tower tower)
@@ -82,7 +88,7 @@ namespace Hexen
             activeRangeIndicator.transform.SetParent(tower.transform);
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
-            var range = tower.HeightDependantAttackRange();
+            var range = tower.AttackRange.Value;
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
             var shape = particles.shape;
             shape.radius = range;
@@ -90,7 +96,7 @@ namespace Hexen
 
         public void RecalculateRangeIndicatorRadius()
         {
-            var range = selectedTower.HeightDependantAttackRange();
+            var range = selectedTower.AttackRange.Value;
             
 
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
