@@ -50,8 +50,14 @@ namespace Hexen
 
         void Explode()
         {
-            var exp = GetComponent<ParticleSystem>();
+            var exp = GetComponentInChildren<ParticleSystem>();
             exp.Play();
+            var collider = GetComponentInChildren<Collider>();
+            var renderer = GetComponentInChildren<Renderer>();
+
+            if (collider != null) Destroy(collider);
+            if (renderer != null) Destroy(renderer);
+
             Destroy(gameObject, exp.main.duration);
         }
 
