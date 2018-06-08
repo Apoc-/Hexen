@@ -32,9 +32,9 @@ namespace Hexen
             List<String> info = tower.Attributes
                 .Select(attribute =>
                 {
-                    var str = attribute.AttributeName + " " + attribute.Value;
+                    var str = attribute.AttributeName + " " + attribute.Value.ToString("F2");
                     var lvlInc = attribute.LevelIncrement * 100;
-                    var typeStr = (attribute.LevelIncrementType == LevelIncrementType.Percentage) ? " % / Level)" : ")";
+                    var typeStr = (attribute.LevelIncrementType == LevelIncrementType.Percentage) ? "% / Level)" : ")";
 
                     if (lvlInc > 0.0f)
                     {
