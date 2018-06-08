@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts;
 using Hexen;
+using Hexen.GameData;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = System.Random;
@@ -85,7 +86,9 @@ namespace Hexen
 
         public void LoadTowers()
         {
-            availableTowers = new List<Tower>(Resources.LoadAll<Tower>("Prefabs/Entities/Towers"));
+            var tdm = GameManager.Instance.TowerDataManager;
+            tdm.InitializeTowers();
+            availableTowers = tdm.GetAvailableTowers();
             Debug.Log("Loaded " + availableTowers.Count + " Towers.");
         }
 
@@ -122,18 +125,18 @@ namespace Hexen
             player.AddBuildableTower(t);
         }
 
-        public void PickUpTower(Tower tower, TowerBuildButtonBehaviour button)
+        public void PickUpTower(TowerBuildButtonBehaviour button)
         {
             CancelPickup();
 
             currentHeldTowerButton = button;
             currentHeldTowerButton.SetButtonActive();
-
-            var towerGo = Instantiate(tower);
-            currentHeldTower = towerGo;
             
-            towerGo.EntityName = tower.EntityName;
-            towerGo.transform.parent = transform;
+            currentHeldTower = Instantiate(button.Tower);
+            currentHeldTower.InitTowerModel();
+
+            currentHeldTower.Name = button.Tower.Name;
+            currentHeldTower.transform.parent = transform;
             
             SetTowerModelTransparency(0.25f);
         }

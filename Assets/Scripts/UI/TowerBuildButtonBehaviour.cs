@@ -20,7 +20,7 @@ namespace Hexen
         {
             if (!activated)
             {
-                GameManager.Instance.TowerBuildManager.PickUpTower(Tower, this);
+                GameManager.Instance.TowerBuildManager.PickUpTower(this);
                 SetButtonActive();
             }
         }

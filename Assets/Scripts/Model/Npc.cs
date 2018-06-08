@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts;
+using Hexen.GameData.Towers;
 using UnityEngine;
 using UnityScript.Steps;
 
@@ -20,7 +21,7 @@ namespace Hexen
 
         public void DealDamage(Projectile projectile, float factor = 1.0f)
         {
-            CurrentHealth = (int)(CurrentHealth - projectile.Source.AttackDamage.Value * factor);
+            CurrentHealth = (int)(CurrentHealth - projectile.Source.GetAttribute(AttributeName.AttackDamage).Value * factor);
 
             if (CurrentHealth <= 0)
             {

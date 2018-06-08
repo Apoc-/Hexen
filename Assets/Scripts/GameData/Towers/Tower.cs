@@ -1,53 +1,47 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
+using Hexen.GameData.Towers;
 using UnityEngine;
-using UnityEngine.Analytics;
-using UnityEngine.UI;
 
 namespace Hexen
 {
-    public class Tower : Entity
+    public class Tower : MonoBehaviour
     {
-        public Attribute AttackRange = new Attribute(Attribute.AttackRange, 1, 0.04f, LevelIncrementType.Percentage);
-        public Attribute AttackDamage = new Attribute(Attribute.AttackDamage, 1, 0.04f, LevelIncrementType.Percentage);
-        public Attribute AttackSpeed = new Attribute(Attribute.AttackSpeed, 1, 0.04f, LevelIncrementType.Percentage);
-
-        public List<Attribute> Attributes;
-
+        private Dictionary<AttributeName, Attribute> attributeDictionary = new Dictionary<AttributeName, Attribute>();
+        public List<Attribute> Attributes = new List<Attribute>();
+        
         public int GoldCost;
         public string Description;
+        public string Name;
 
         public float WeaponHeight;
-        public List<Item> Items;
         public Projectile Projectile;
         public Sprite Icon;
         public Tile Tile;
+        public GameObject Model;
 
         public int Level;
         public int Xp;
 
         private Npc lockedTarget;
-        private float lastShotFired = 0;
+        private float lastShotFired;
         
         public bool IsPlaced = false;
 
+        public List<Item> Items;
+
         [HideInInspector] public Player Owner;
 
-        private void OnEnable()
+        public virtual void InitTowerData()
         {
+            attributeDictionary = new Dictionary<AttributeName, Attribute>();
+            Attributes = new List<Attribute>();
+
             IsPlaced = false;
 
             Xp = 0;
             Level = 1;
-
-            Attributes = new List<Attribute>
-            {
-                AttackRange,
-                AttackDamage,
-                AttackSpeed
-            };
         }
 
         private void FixedUpdate()
@@ -74,6 +68,7 @@ namespace Hexen
         private void LevelUp()
         {
             Level += 1;
+
             Attributes.ForEach(attr => attr.LevelUp());
         }
 
@@ -88,14 +83,14 @@ namespace Hexen
 
             var distance = Vector3.Distance(lockedTarget.transform.position, transform.position);
 
-            if (distance > AttackRange.Value)
+            if (distance > GetAttribute(AttributeName.AttackRange).Value)
             {
                 lockedTarget = null;
                 AcquireTarget();
                 return;
             }
 
-            if (lastShotFired < Time.fixedTime - 1.0f / AttackSpeed.Value)
+            if (lastShotFired < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AttackSpeed).Value)
             {
                 Fire();
                 lastShotFired = Time.fixedTime;
@@ -105,7 +100,7 @@ namespace Hexen
         private void AcquireTarget()
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-            var attackRange = AttackRange.Value;
+            var attackRange = GetAttribute(AttributeName.AttackRange).Value;
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight-5, transform.position.z);
@@ -139,6 +134,34 @@ namespace Hexen
             return (int) (fac * Mathf.Pow(Level, exp));
         }
 
+        public void AddAttribute(Attribute attr)
+        {
+            Attributes.Add(attr);
+            attributeDictionary.Add(attr.AttributeName, attr);
+        }
+
+        public Attribute GetAttribute(AttributeName attrName)
+        {
+            if (Attributes.Count != attributeDictionary.Count)
+            {
+                BuildAttributeDictionary();
+            }
+
+            return attributeDictionary[attrName];
+        }
+
+        private void BuildAttributeDictionary()
+        {
+            attributeDictionary = new Dictionary<AttributeName, Attribute>();
+            Attributes.ForEach(attr => attributeDictionary.Add(attr.AttributeName, attr));
+        }
+
+        public void InitTowerModel()
+        {
+            var mdlGo = Instantiate(Model);
+            mdlGo.transform.SetParent(transform, false);
+        }
+
         //todo feature removed for now, incorporate as a attribute effect at a later time
         /*public float HeightDependantAttackRange()
         {
@@ -151,5 +174,6 @@ namespace Hexen
 
             return value;
         }*/
+
     }
 }

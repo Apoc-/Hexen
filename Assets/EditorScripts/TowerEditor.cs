@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Hexen.EditorScripts
 {
-    [CustomEditor(typeof(Tower))]
+    /*[CustomEditor(typeof(Tower))]
     class TowerEditor : Editor
     {
         private string goldCostPropName = "GoldCost";
@@ -24,6 +24,13 @@ namespace Hexen.EditorScripts
         private string itemListPropName = "Items";
         private string projectilePropName = "Projectile";
         private string iconPropName = "Icon";
+
+        
+
+        public void OnEnable()
+        {
+            
+        }
 
         public override void OnInspectorGUI()
         {
@@ -61,17 +68,28 @@ namespace Hexen.EditorScripts
             attributePorpertyNames.ForEach(propName =>
             {
                 EditorGUILayout.BeginHorizontal();
-
-                var attrName = serializedObject.FindProperty(propName + ".AttributeName");
+                
+                
+                
+                var attrName = serializedObject.FindProperty(propName + ".attributeName");
                 var attrValue = serializedObject.FindProperty(propName + ".baseValue");
+                var attrLevelInc = serializedObject.FindProperty(propName + ".LevelIncrement");
+                var attrLevelIncType = serializedObject.FindProperty(propName + ".LevelIncrementType");
+                var width = 100;
 
-                var attributeNameLabel = new GUIContent(attrName.stringValue);
-                EditorGUILayout.PropertyField(attrValue, attributeNameLabel);
+                GUILayout.Label(attrName.stringValue, GUILayout.Width(100));
+                EditorGUILayout.PropertyField(attrValue, GUIContent.none);
+
+                GUILayout.Label("Bonus/Lvl");
+                EditorGUILayout.PropertyField(attrLevelInc, GUIContent.none);
+
+                GUILayout.Label("Type");
+                EditorGUILayout.PropertyField(attrLevelIncType, GUIContent.none);
 
                 EditorGUILayout.EndHorizontal();
             });
 
             serializedObject.ApplyModifiedProperties();
         }
-    }
+    }*/
 }

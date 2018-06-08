@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
+using Hexen.GameData.Towers;
 using UnityEngine;
 
 namespace Hexen
 {
+    [Serializable]
     public enum LevelIncrementType
     {
         Flat,
@@ -14,53 +14,50 @@ namespace Hexen
     }
 
     [Serializable]
-    public class Attribute
+    public class Attribute : AttributeEffectSource
     {
-        #region static attribute names
-        public static string AttackRange = "Attack Range";
-        public static string AttackSpeed = "Attack Speed";
-        public static string AttackDamage = "Attack Damage";
-        #endregion
+        [SerializeField] private List<AttributeEffect> attributeEffects;
 
-        private float levelIncrement = 0.0f;
-        private LevelIncrementType levelIncrementType = LevelIncrementType.Flat;
+        private Dictionary<int, AttributeEffect> levelAttributeEffects;
+        private Dictionary<int, AttributeEffect> LevelAttributeEffects
+        {
+            get { return levelAttributeEffects ?? (levelAttributeEffects = new Dictionary<int, AttributeEffect>()); }
+        }
 
-        public string AttributeName;
+        private int attributeLevel;
+        public AttributeName AttributeName;
         [SerializeField] private float baseValue;
+        [SerializeField] private bool isDirty;
+
+        public float LevelIncrement;
+        public LevelIncrementType LevelIncrementType;
+        
+        public Attribute(AttributeName attributeName, float baseValue, float levelIncrement,
+            LevelIncrementType levelIncrementType)
+        {
+            LevelIncrement = levelIncrement;
+            LevelIncrementType = levelIncrementType;
+            AttributeName = attributeName;
+            this.baseValue = baseValue;
+            attributeLevel = 1;
+            isDirty = true;
+           
+
+            attributeEffects = new List<AttributeEffect>();
+            levelAttributeEffects = new Dictionary<int, AttributeEffect>();
+        }
 
         private float value;
         public float Value
         {
             get
             {
-                if (isDirty)
-                {
-                    value = CalculateValue();
-                }
+                if (isDirty) value = CalculateValue();
 
                 return value;
             }
 
-            set
-            {
-                this.baseValue = value;
-            }
-        }
-
-        private bool isDirty = true;
-
-        private List<AttributeEffect> attributeEffects = new List<AttributeEffect>();
-
-        public Attribute(String attributeName, float baseValue)
-        {
-            this.AttributeName = attributeName;
-            this.baseValue = baseValue;
-        }
-
-        public Attribute(String attributeName, float baseValue, float levelIncrement, LevelIncrementType levelIncrementType) : this(attributeName, baseValue)
-        {
-            this.levelIncrement = levelIncrement;
-            this.levelIncrementType = levelIncrementType;
+            set { baseValue = value; }
         }
 
         public void AddAttributeEffect(AttributeEffect effect)
@@ -71,8 +68,6 @@ namespace Hexen
 
         public void RemoveAttributeEffect(AttributeEffect effect)
         {
-            var e = attributeEffects[0];
-            Debug.Log(e == effect);
             attributeEffects.Remove(effect);
             isDirty = true;
         }
@@ -80,34 +75,33 @@ namespace Hexen
         public void RemoveAllAttributeEffectsFromSource(AttributeEffectSource source)
         {
             var effectsFromSource = attributeEffects.Where(effect => effect.EffectSource == source).ToList();
-            
+
             effectsFromSource.ForEach(RemoveAttributeEffect);
         }
 
         public void LevelUp()
         {
-            switch (levelIncrementType)
+            attributeLevel += 1;
+
+            if (LevelIncrementType == LevelIncrementType.Flat)
             {
-                case LevelIncrementType.Flat:
-                    baseValue += levelIncrement;
-                    break;
-                case LevelIncrementType.Percentage:
-                    baseValue *= (1 + levelIncrement);
-                    break;
+                var levelEffect = new AttributeEffect(LevelIncrement, AttributeName, AttributeEffectType.Flat, this);
+                LevelAttributeEffects.Add(attributeLevel, levelEffect);
             }
+            else
+            {
+                var levelEffect = new AttributeEffect(LevelIncrement, AttributeName, AttributeEffectType.PercentMul, this);
+                LevelAttributeEffects.Add(attributeLevel, levelEffect);
+            }
+
+            isDirty = true;
         }
 
         public void LevelDown()
         {
-            switch (levelIncrementType)
-            {
-                case LevelIncrementType.Flat:
-                    baseValue -= levelIncrement;
-                    break;
-                case LevelIncrementType.Percentage:
-                    baseValue /= (1 + levelIncrement);
-                    break;
-            }
+            LevelAttributeEffects.Remove(attributeLevel);
+            attributeLevel -= 1;
+            isDirty = true;
         }
 
         private float CalculateValue()
@@ -115,7 +109,12 @@ namespace Hexen
             var calcValue = baseValue;
             var addPercBonusSum = 0.0f;
 
-            attributeEffects.ForEach(effect =>
+            var effects = new List<AttributeEffect>();
+
+            if (attributeEffects.Count > 0) effects.AddRange(attributeEffects);
+            if (LevelAttributeEffects.Count > 0) effects.AddRange(LevelAttributeEffects.Values);
+
+            effects.ForEach(effect =>
             {
                 switch (effect.EffectType)
                 {
@@ -123,7 +122,7 @@ namespace Hexen
                         calcValue += effect.Value;
                         break;
                     case AttributeEffectType.PercentMul:
-                        calcValue *= (1 + effect.Value);
+                        calcValue *= 1 + effect.Value;
                         break;
                     case AttributeEffectType.PercentAdd:
                         addPercBonusSum += effect.Value;
@@ -132,7 +131,8 @@ namespace Hexen
             });
 
             //finally apply additive percentage bonusses
-            calcValue *= (1 + addPercBonusSum);
+            calcValue *= 1 + addPercBonusSum;
+            isDirty = false;
 
             return calcValue;
         }

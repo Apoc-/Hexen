@@ -6,6 +6,7 @@ using System.Text;
 using Assets.Scripts;
 using Assets.Scripts.GameLogic;
 using Hexen;
+using Hexen.GameData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -105,6 +106,20 @@ namespace Hexen
                 }
 
                 return towerSelectionManager;
+            }
+        }
+
+        private TowerDataManager towerDataManager;
+        public TowerDataManager TowerDataManager
+        {
+            get
+            {
+                if (towerDataManager == null)
+                {
+                    towerDataManager = FindObjectOfType<TowerDataManager>();
+                }
+
+                return towerDataManager;
             }
         }
 

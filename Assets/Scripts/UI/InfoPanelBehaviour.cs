@@ -25,10 +25,25 @@ namespace Hexen
         public void DisplayTowerInformation(Tower tower)
         {
             SetIcon(tower.Icon);
-            SetTitle(tower.EntityName);
+            SetTitle(tower.Name);
             SetValue(tower.Level.ToString());
             SetDescription(tower.Description);
-            SetInfoElements(tower.Attributes.Select(attr => attr.AttributeName + " " + attr.Value).ToList());
+
+            List<String> info = tower.Attributes
+                .Select(attribute =>
+                {
+                    var str = attribute.AttributeName + " " + attribute.Value;
+                    var lvlInc = attribute.LevelIncrement * 100;
+                    var typeStr = (attribute.LevelIncrementType == LevelIncrementType.Percentage) ? " % / Level)" : ")";
+
+                    if (lvlInc > 0.0f)
+                    {
+                        str += " (+" + lvlInc + typeStr;
+                    }
+                    return str;
+                }).ToList();
+
+            SetInfoElements(info);
         }
 
         public void ClearInformation()

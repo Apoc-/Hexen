@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4377716398324196}
-  - component: {fileID: 114222076573668634}
   - component: {fileID: 136052511012452170}
+  - component: {fileID: 114664220496965564}
   m_Layer: 11
   m_Name: ArrowTower
   m_TagString: Untagged
@@ -235,7 +235,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114222076573668634
+--- !u!114 &114664220496965564
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -249,15 +249,22 @@ MonoBehaviour:
   EntityName: Arrow Tower
   AttackRange:
     AttributeName: Attack Range
-    baseValue: 1.5
+    levelIncrement: 0.04
+    levelIncrementType: 1
+    baseValue: 1
   AttackDamage:
     AttributeName: Attack Damage
-    baseValue: 2
+    levelIncrement: 0.04
+    levelIncrementType: 1
+    baseValue: 1
   AttackSpeed:
     AttributeName: Attack Speed
-    baseValue: 1.5
+    levelIncrement: 0.04
+    levelIncrementType: 1
+    baseValue: 1
+  Attributes: []
   GoldCost: 15
-  Description: A tower that shoots arrows at a single target.
+  Description: Arrow Tower
   WeaponHeight: 1
   Items: []
   Projectile: {fileID: 114002575520520068, guid: 71ee2b52092169840a977e3cd87b0a4b,
@@ -265,8 +272,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: d40a4edcca1ba354b98c3580b47947b2, type: 3}
   Tile: {fileID: 0}
   Level: 1
-  Xp: 24
-  IsPlaced: 1
+  Xp: 0
+  IsPlaced: 0
   Owner: {fileID: 0}
 --- !u!136 &136052511012452170
 CapsuleCollider:

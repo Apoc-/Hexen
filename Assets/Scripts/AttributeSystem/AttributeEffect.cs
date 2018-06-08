@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Hexen;
+using Hexen.GameData.Towers;
+using UnityEngine;
 
 namespace Hexen
 {
@@ -10,18 +13,28 @@ namespace Hexen
         PercentAdd
     }
 
+    [Serializable]
     public class AttributeEffect
     {
+        [SerializeField] private AttributeName affectedAttributeName;
+
+        public AttributeName AffectedAttributeName
+        {
+            get { return affectedAttributeName; }
+            private set { affectedAttributeName = value; }
+        }
+
         public float Value { get; private set; }
         public AttributeEffectType EffectType { get; private set; }
 
         public AttributeEffectSource EffectSource { get; private set; }
 
-        public AttributeEffect(float value, AttributeEffectType effectType, AttributeEffectSource effectSource)
+        public AttributeEffect(float value, AttributeName affectedAttributeName, AttributeEffectType effectType, AttributeEffectSource effectSource)
         {
             Value = value;
             EffectType = effectType;
             EffectSource = effectSource;
+            AffectedAttributeName = affectedAttributeName;
         }
 
         private sealed class ValueEffectTypeEffectSourceEqualityComparer : IEqualityComparer<AttributeEffect>

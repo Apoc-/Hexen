@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hexen.GameData.Towers;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Hexen
@@ -37,9 +38,20 @@ namespace Hexen
         {
             if (selectedTower != null)
             {
+                var effect = new AttributeEffect(1.5f, AttributeName.AttackRange, AttributeEffectType.Flat, null);
+                var effect2 = new AttributeEffect(1.0f, AttributeName.AttackRange, AttributeEffectType.Flat, null);
+
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
+                    selectedTower.GetAttribute(effect.AffectedAttributeName).AddAttributeEffect(effect);
+                    selectedTower.GetAttribute(effect2.AffectedAttributeName).AddAttributeEffect(effect2);
+                }
 
+                if (Input.GetKeyDown(KeyCode.KeypadMinus))
+                {
+
+                    selectedTower.GetAttribute(effect.AffectedAttributeName).RemoveAttributeEffect(effect);
+                    selectedTower.GetAttribute(effect2.AffectedAttributeName).RemoveAttributeEffect(effect2);
                 }
             }
         }
@@ -53,8 +65,8 @@ namespace Hexen
 
             if (Physics.Raycast(ray, out hit))
             {
-                var tower = hit.transform.gameObject.GetComponent<Tower>();
-
+                var tower = hit.transform.gameObject.GetComponentInParent<Tower>();
+                
                 if (tower != null)
                 {
                     selectedTower = tower;
@@ -81,7 +93,7 @@ namespace Hexen
             activeRangeIndicator.transform.SetParent(tower.transform);
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
-            var range = tower.AttackRange.Value;
+            var range = tower.GetAttribute(AttributeName.AttackRange).Value;
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
             var shape = particles.shape;
             shape.radius = range;
@@ -89,7 +101,7 @@ namespace Hexen
 
         public void RecalculateRangeIndicatorRadius()
         {
-            var range = selectedTower.AttackRange.Value;
+            var range = selectedTower.GetAttribute(AttributeName.AttackRange).Value;
             
 
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
