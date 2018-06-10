@@ -15,7 +15,7 @@ namespace Hexen
         [SerializeField] private GameObject waveInfo;
         [SerializeField] private GameObject waveTimer;
         [SerializeField] private BuildPanelBehaviour buildPanel;
-        [SerializeField] private InfoPanelBehaviour infoPanel;
+        [SerializeField] private InfoPopupBehaviour infoPopup;
         
         public BuildPanelBehaviour BuildPanel
         {
@@ -25,11 +25,11 @@ namespace Hexen
             }
         }
 
-        public InfoPanelBehaviour InfoPanel
+        public InfoPopupBehaviour InfoPopup
         {
             get
             {
-                return infoPanel;
+                return infoPopup;
             }
         }
 

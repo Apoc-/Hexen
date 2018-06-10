@@ -1,6 +1,8 @@
 ﻿using Hexen.GameData.Towers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Experimental.UIElements;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace Hexen
 {
@@ -29,8 +31,6 @@ namespace Hexen
                 {
                     RecalculateRangeIndicatorRadius();
                 }
-                
-                GameManager.Instance.UIManager.InfoPanel.DisplayTowerInformation(selectedTower);
             }
         }
 
@@ -71,6 +71,7 @@ namespace Hexen
                 {
                     selectedTower = tower;
                     DisplayRangeIndicator(tower);
+                    GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(selectedTower, Input.mousePosition);
                 }
             }
         }
@@ -79,7 +80,7 @@ namespace Hexen
         {
             selectedTower = null;
             DestroyRangeIndicator();
-            GameManager.Instance.UIManager.InfoPanel.ClearInformation();
+            GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
         }
 
         public void DisplayRangeIndicator(Tower tower)

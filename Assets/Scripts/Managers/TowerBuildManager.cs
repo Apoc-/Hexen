@@ -137,7 +137,7 @@ namespace Hexen
 
             currentHeldTower.Name = button.Tower.Name;
             currentHeldTower.transform.parent = transform;
-            
+
             SetTowerModelTransparency(0.25f);
         }
 
@@ -173,6 +173,8 @@ namespace Hexen
             {
                 Destroy(currentHeldTower.gameObject);
             }
+
+            GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
         }
 
         public void SetTowerModelTransparency(float alpha)

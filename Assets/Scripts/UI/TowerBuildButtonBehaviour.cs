@@ -21,6 +21,7 @@ namespace Hexen
             if (!activated)
             {
                 GameManager.Instance.TowerBuildManager.PickUpTower(this);
+                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower, Input.mousePosition);
                 SetButtonActive();
             }
         }
