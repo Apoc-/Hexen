@@ -27,7 +27,6 @@ namespace Hexen.GameData
         {
             GameObject go = new GameObject();
             Tower tower = go.AddComponent<T>();
-            tower.InitTowerData();
 
             go.name = tower.Name;
             go.transform.parent = transform;

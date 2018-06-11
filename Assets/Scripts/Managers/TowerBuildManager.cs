@@ -112,6 +112,7 @@ namespace Hexen
         public void AddRandomBuildableTower(Player player)
         {
             var t = GetRandomTower();
+            t.InitTowerData();
 
             player.AddBuildableTower(t);
         }
@@ -134,6 +135,7 @@ namespace Hexen
             
             currentHeldTower = Instantiate(button.Tower);
             currentHeldTower.InitTowerModel();
+            currentHeldTower.InitTowerData();
 
             currentHeldTower.Name = button.Tower.Name;
             currentHeldTower.transform.parent = transform;
