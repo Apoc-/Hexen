@@ -51,5 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4b17e0da57e9644a72246ad56b6131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Herkules
-  Gold: 100
+  EntityName: 
+  Gold: 1000
+  lives: 10
+  TowerSlots: 8

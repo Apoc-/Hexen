@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts;
+using Hexen;
 using UnityEngine;
 
 namespace Hexen
@@ -61,6 +61,11 @@ namespace Hexen
             CheckBuildableTowersQueueLimit();
             BuildableTowers.Enqueue(t);
             GameManager.Instance.UIManager.BuildPanel.AddBuildButtonForTower(t);
+        }
+
+        public void AddRandomBuildableTower()
+        {
+            GameManager.Instance.TowerBuildManager.AddRandomBuildableTower(this);
         }
 
         private void CheckBuildableTowersQueueLimit()

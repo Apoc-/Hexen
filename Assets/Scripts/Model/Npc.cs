@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Scripts;
+using Hexen;
 using Hexen.GameData.Towers;
 using UnityEngine;
 using UnityScript.Steps;
 
 namespace Hexen
 {
-    public class Npc : Entity
+    public class Npc : MonoBehaviour
     {
+        public string Name;
         public int MaxHealth;
         public int CurrentHealth;
         public float MovementSpeed;

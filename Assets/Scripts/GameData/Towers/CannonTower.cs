@@ -19,7 +19,7 @@ namespace Hexen.GameData.Towers
             Description = "A tower that shoots explosive projectiles";
             GoldCost = 20;
             Projectile = Resources.Load<Projectile>("Prefabs/Projectiles/Bomb");
-            Icon = Resources.Load<Sprite>("UI/Icons/DefaultTowerIcon");
+            Icon = Resources.Load<Sprite>("UI/Icons/CannonTowerIcon");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTowerModel");
 
             WeaponHeight = 1;

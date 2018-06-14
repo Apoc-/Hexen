@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Hexen;
+using Hexen.WaveSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogic
+namespace Hexen.WaveSystem
 {
     class WaveSpawner : MonoBehaviour
     {
-        public int WaveCooldown = 30;
-        public int CurrentWaveCooldown = 0;
+        public int WaveCooldown = 10;
+        public int CurrentElapsedTime = 0;
 
         private int currentWave = 0;
         public int CurrentWave
@@ -22,116 +24,116 @@ namespace Assets.Scripts.GameLogic
             }
         }
 
-        private int totalWaves = 0;
-        public int TotalWaves
+        private List<Wave> currentSpawnedWaves;
+        private bool waitingForWave = false;
+
+
+        private void OnEnable()
         {
-            get
+            currentSpawnedWaves = new List<Wave>();
+            CurrentElapsedTime = 0;
+            currentWave = 0;
+            waitingForWave = false;
+        }
+
+        private void Update()
+        {
+            if (currentWave >= WaveProvider.WaveCount && currentSpawnedWaves.Count == 0)
             {
-                return totalWaves;
+                GameManager.Instance.WinGame();
+            }
+
+            if (currentSpawnedWaves.Count == 0 && !waitingForWave)
+            {
+                waitingForWave = true;
+                StartCoroutine(WaitForNextWave());
+            }
+
+            currentSpawnedWaves.ForEach(wave =>
+            {
+                if (wave.SpawnCount >= wave.Size && wave.SpawnedNpcs.All(npc => npc == null))
+                {
+                    currentSpawnedWaves.Remove(wave);
+                    GiveWaveReward(wave.WaveReward);
+                }
+            });
+        }
+
+        private void GiveWaveReward(WaveReward reward)
+        {
+            var player = GameManager.Instance.Player;
+            player.IncreaseGold(reward.Gold);
+
+            for (int i = 0; i < reward.Towers; i++)
+            {
+                player.AddRandomBuildableTower();
             }
         }
 
-        private Queue<Wave> waves;
-        private int waveNpcSpawnCount = 0;
-
-        private Coroutine waitForNextWaveCoroutine;
-
-        private void Start()
+        private void StartSpawnWave()
         {
-            waves = LoadWaveData();
-            totalWaves = waves.Count;
-        }
+            if (currentWave >= WaveProvider.WaveCount) return;
 
-        private Queue<Wave> LoadWaveData()
-        {
-            var waves = new Queue<Wave>();
+            var wave = WaveProvider.ProvideWaveByID(currentWave);
+
+            currentSpawnedWaves.Add(wave);
+            waitingForWave = false;
+            currentWave += 1;
+            CurrentElapsedTime = 10;
             
-            waves.Enqueue(new Wave("Rat", 1, 0.25f));
-            waves.Enqueue(new Wave("Rat", 2, 0.25f));
-            waves.Enqueue(new Wave("Rat", 4, 0.25f));
-            waves.Enqueue(new Wave("Rat", 8, 0.25f));
-
-            return waves;
+            StartCoroutine(SpawnWave(wave));
         }
 
         private IEnumerator SpawnWave(Wave wave)
         {
-            while (waveNpcSpawnCount < wave.Size)
+            wave.SpawnCount = 0;
+
+            while (wave.SpawnCount < wave.Size)
             {
-                waveNpcSpawnCount += 1;
-                SpawnNpc(wave.NpcName);
+                wave.SpawnCount += 1;
+                SpawnNpc(wave);
 
                 yield return new WaitForSeconds(wave.SpawnInterval);
             }
-
-            waveNpcSpawnCount = 0;
-
-            HandleWaveSpawnFinished();
-        }
-
-        private void HandleWaveSpawnFinished()
-        {
-            var gm = GameManager.Instance;
-            gm.TowerBuildManager.AddRandomBuildableTower(gm.Player);
-
-            waitForNextWaveCoroutine = StartCoroutine(WaitForNextWave());
         }
 
         IEnumerator WaitForNextWave()
         {
-            while (CurrentWaveCooldown < WaveCooldown)
+            CurrentElapsedTime = 0;
+
+            while (CurrentElapsedTime < WaveCooldown)
             {
-                CurrentWaveCooldown += 1;
-                
+                CurrentElapsedTime += 1;
+
                 yield return new WaitForSeconds(1.0f);
             }
 
-            NextWave();
+            StartSpawnWave();
         }
 
-        void SpawnNpc(string waveNpcName)
+        void SpawnNpc(Wave wave)
         {
-            var npc = Instantiate(Resources.Load<Npc>("Prefabs/Entities/Npcs/" + waveNpcName));
+            var npc = Instantiate(Resources.Load<Npc>("Prefabs/Entities/Npcs/" + wave.NpcName));
 
             npc.transform.parent = transform.parent;
-            npc.name = npc.EntityName + "_" + waveNpcSpawnCount;
+            npc.name = npc.Name + "_" + wave.SpawnCount;
             npc.transform.position = GameManager.Instance.MapManager.StartTile.GetTopCenter();
+
+            wave.SpawnedNpcs.Add(npc);
         }
 
-        public void NextWave()
-        {
-            CurrentWaveCooldown = 0;
-            if (waitForNextWaveCoroutine != null)
-            {
-                StopCoroutine(waitForNextWaveCoroutine);
-            }
-            
-            if (waves.Count > 0)
-            {
-                currentWave += 1;
-                StartCoroutine(SpawnWave(waves.Dequeue()));
-            }
-            else
-            {
-                if (FindObjectsOfType<Npc>().Length <= 0)
-                {
-                    GameManager.Instance.WinGame();
-                }
-            };
-        }
 
         #region debug
 
-        public void EndlessWaves()
+        public void DebugReset()
         {
-            waves = new Queue<Wave>();
-
-            for (int i = 0; i < 1000; i++)
-            {
-                waves.Enqueue(new Wave("Rat", 10, 0.25f));
-            }
-
+            currentWave = 0;
             GameManager.Instance.Player.Lives = 10000;
+        }
+
+        public void TriggerNextSpawn()
+        {
+            CurrentElapsedTime = WaveCooldown;
         }
 
         #endregion

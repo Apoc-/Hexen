@@ -16,6 +16,7 @@ namespace Hexen.GameData
         {
             CreateTowerGameObject<ArrowTower>();
             CreateTowerGameObject<CannonTower>();
+            CreateTowerGameObject<HasteAuraTower>();
         }
 
         public void Update()

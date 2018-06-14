@@ -1063,7 +1063,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Endless
+  m_Text: Debug Reset
 --- !u!222 &273559404
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1838,7 +1838,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1369109457}
-        m_MethodName: NextWave
+        m_MethodName: StartSpawnWave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3201,8 +3201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a7d0c348052ed49938c708dc3e7316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveCooldown: 30
-  CurrentWaveCooldown: 0
+  WaveCooldown: 10
+  CurrentElapsedTime: 0
 --- !u!4 &1369109458
 Transform:
   m_ObjectHideFlags: 0
@@ -4362,7 +4362,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1369109457}
-        m_MethodName: EndlessWaves
+        m_MethodName: DebugReset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

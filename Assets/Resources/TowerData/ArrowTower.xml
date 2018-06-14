@@ -1,6 +1,0 @@
-<tower>
-    <name>Arrow Tower</name>
-    <description>A tower that shoots arrows</description>
-    <goldcost>15</goldcost>
-    <weaponheight>1.0</weaponheight>
-</tower>

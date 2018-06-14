@@ -99,15 +99,7 @@ namespace Hexen
 
         private void AcquireTarget()
         {
-            var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-            var attackRange = GetAttribute(AttributeName.AttackRange).Value;
-
-            var topCap = transform.position + new Vector3(0, 5, 0);
-            var botCap = new Vector3(transform.position.x, baseHeight-5, transform.position.z);
-
-            var collidersInAttackRange = new List<Collider>(Physics.OverlapCapsule(topCap, botCap, attackRange));
-
-            DebugExtension.DebugCapsule(topCap, botCap, attackRange);
+            var collidersInAttackRange = GetCollidersInAttackRange();
 
             foreach (var collider in collidersInAttackRange)
             {
@@ -115,6 +107,17 @@ namespace Hexen
                 lockedTarget = collider.transform.parent.GetComponent<Npc>();
 
             }
+        }
+
+        protected List<Collider> GetCollidersInAttackRange()
+        {
+            var baseHeight = GameManager.Instance.MapManager.BaseHeight;
+            var attackRange = GetAttribute(AttributeName.AttackRange).Value;
+
+            var topCap = transform.position + new Vector3(0, 5, 0);
+            var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
+
+            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, attackRange));
         }
 
         private void Fire()

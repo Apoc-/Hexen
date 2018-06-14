@@ -5,7 +5,7 @@ using System.Text;
 using Hexen;
 using UnityEngine;
 
-namespace Assets.Scripts.UI
+namespace Hexen.UI
 {
     class StartGameMenuBehaviour : MonoBehaviour
     {

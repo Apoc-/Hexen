@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Hexen;
 
-namespace Assets.Scripts
+namespace Hexen
 {
     class SceneNameProvider
     {

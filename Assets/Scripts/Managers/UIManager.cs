@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Scripts;
+using Hexen;
+using Hexen.WaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,11 +54,12 @@ namespace Hexen
             lifeInfo.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Lives;
 
             var spawner = GameManager.Instance.WaveSpawner;
-            var displayTime = spawner.WaveCooldown - spawner.CurrentWaveCooldown;
+            var displayTime = spawner.WaveCooldown - spawner.CurrentElapsedTime;
             waveTimer.GetComponentInChildren<Text>().text = "" + displayTime;
 
             var currentWave = GameManager.Instance.WaveSpawner.CurrentWave;
-            var totalWaves = GameManager.Instance.WaveSpawner.TotalWaves;
+            var totalWaves = WaveProvider.WaveCount;
+
             waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
         }
     }
