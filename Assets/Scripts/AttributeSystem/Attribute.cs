@@ -24,7 +24,7 @@ namespace Hexen
             get { return levelAttributeEffects ?? (levelAttributeEffects = new Dictionary<int, AttributeEffect>()); }
         }
 
-        private int attributeLevel;
+        protected int AttributeLevel;
         public AttributeName AttributeName;
         [SerializeField] private float baseValue;
         [SerializeField] private bool isDirty;
@@ -39,11 +39,30 @@ namespace Hexen
             LevelIncrementType = levelIncrementType;
             AttributeName = attributeName;
             this.baseValue = baseValue;
-            attributeLevel = 1;
+            AttributeLevel = 1;
             isDirty = true;
            
 
             attributeEffects = new List<AttributeEffect>();
+            levelAttributeEffects = new Dictionary<int, AttributeEffect>();
+        }
+
+        public Attribute(Attribute source)
+        {
+            LevelIncrement = source.LevelIncrement;
+            LevelIncrementType = source.LevelIncrementType;
+            AttributeName = source.AttributeName;
+            AttributeLevel = 1; //is leveled up by tower levelup
+            this.baseValue = source.baseValue;
+            isDirty = true;
+
+            attributeEffects = new List<AttributeEffect>();
+
+            source.attributeEffects.ForEach(effect =>
+            {
+                attributeEffects.Add(new AttributeEffect(effect));
+            });
+            
             levelAttributeEffects = new Dictionary<int, AttributeEffect>();
         }
 
@@ -81,17 +100,17 @@ namespace Hexen
 
         public void LevelUp()
         {
-            attributeLevel += 1;
+            AttributeLevel += 1;
 
             if (LevelIncrementType == LevelIncrementType.Flat)
             {
                 var levelEffect = new AttributeEffect(LevelIncrement, AttributeName, AttributeEffectType.Flat, this);
-                LevelAttributeEffects.Add(attributeLevel, levelEffect);
+                LevelAttributeEffects.Add(AttributeLevel, levelEffect);
             }
             else
             {
                 var levelEffect = new AttributeEffect(LevelIncrement, AttributeName, AttributeEffectType.PercentMul, this);
-                LevelAttributeEffects.Add(attributeLevel, levelEffect);
+                LevelAttributeEffects.Add(AttributeLevel, levelEffect);
             }
 
             isDirty = true;
@@ -99,8 +118,8 @@ namespace Hexen
 
         public void LevelDown()
         {
-            LevelAttributeEffects.Remove(attributeLevel);
-            attributeLevel -= 1;
+            LevelAttributeEffects.Remove(AttributeLevel);
+            AttributeLevel -= 1;
             isDirty = true;
         }
 

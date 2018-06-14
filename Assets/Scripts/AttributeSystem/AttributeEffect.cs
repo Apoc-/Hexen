@@ -37,6 +37,14 @@ namespace Hexen
             AffectedAttributeName = affectedAttributeName;
         }
 
+        public AttributeEffect(AttributeEffect source)
+        {
+            Value = source.Value;
+            EffectType = source.EffectType;
+            EffectSource = source.EffectSource;
+            AffectedAttributeName = source.AffectedAttributeName;
+        }
+
         private sealed class ValueEffectTypeEffectSourceEqualityComparer : IEqualityComparer<AttributeEffect>
         {
             public bool Equals(AttributeEffect x, AttributeEffect y)

@@ -29,6 +29,7 @@ namespace Hexen
             }
         }
 
+        //todo refactor complete system
         private void HandleTowerHolding()
         {
             Tile currentTile;
@@ -146,9 +147,16 @@ namespace Hexen
         {
             if (GameManager.Instance.Player.BuyTower(currentHeldTower))
             {
+                if (tile.PlacedTower != null)
+                {
+                    currentHeldTower.GiveXP(tile.PlacedTower.Xp);
+                    GameManager.Instance.Player.SellTower(tile.PlacedTower);
+                }
+
                 SetTowerModelTransparency(1.0f);
                 ResetTowerModelColor();
                 tile.IsEmpty = false;
+                tile.PlacedTower = currentHeldTower;
                 currentHeldTower.IsPlaced = true;
                 currentHeldTower = null;
 
@@ -224,7 +232,7 @@ namespace Hexen
 
         private bool TowerIsPlaceableOnTile(Tile tile, Tower tower)
         {
-            return tile.IsEmpty && tile.TileType.Equals(TileType.Buildslot) && tower.GoldCost <= GameManager.Instance.Player.Gold;
+            return tile.TileType.Equals(TileType.Buildslot) && tower.GoldCost <= GameManager.Instance.Player.Gold;
         }
     }
 }

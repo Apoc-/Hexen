@@ -86,6 +86,12 @@ namespace Hexen
 
         private void UpdateInfoPopupPosition()
         {
+            if (infoTower == null)
+            {
+                DisableTowerInfoPopup();
+                return;
+            }
+
             var rect = GetComponent<RectTransform>().rect;
             
             var pos = Camera.main.WorldToScreenPoint(infoTower.transform.position);

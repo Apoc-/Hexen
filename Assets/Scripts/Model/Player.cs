@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Managers;
 using Hexen;
 using UnityEngine;
 
@@ -54,6 +56,14 @@ namespace Hexen
             }
 
             return success;
+        }
+
+        public void SellTower(Tower tower)
+        {
+            var cost = tower.GoldCost;
+            IncreaseGold((int) (cost * GameSettings.SellTax));
+
+            tower.Remove();
         }
 
         public void AddBuildableTower(Tower t)

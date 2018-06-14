@@ -8,6 +8,8 @@ public class Tile : MonoBehaviour
     public Material Material { get; set; }
     public TileType TileType { get; set; }
 
+    public Tower PlacedTower;
+
     public bool IsEmpty = true;
 
     public float Height { get; set; }

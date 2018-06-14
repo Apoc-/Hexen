@@ -44,6 +44,18 @@ namespace Hexen
             Level = 1;
         }
 
+        public void InitCopyTowerData(Tower source)
+        {
+            /*Attributes = new List<Attribute>();
+
+            source.Attributes.ForEach(attr =>
+            {
+                Attributes.Add(new Attribute(attr));
+            });*/
+
+            this.GiveXP(source.Xp);
+        }
+
         private void FixedUpdate()
         {
             if (IsPlaced)
@@ -56,11 +68,8 @@ namespace Hexen
         {
             Xp += amount;
 
-            Debug.Log("XP: " + Xp);
-
             while (Xp >= NextLevelXP())
             {
-                Debug.Log("Level: " + Level + "->" + (Level+1));
                 LevelUp();
             }
         }
@@ -177,6 +186,12 @@ namespace Hexen
 
             return value;
         }*/
+
+        public void Remove()
+        {
+            Destroy(gameObject);
+            
+        }
 
     }
 }
