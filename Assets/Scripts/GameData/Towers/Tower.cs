@@ -187,10 +187,9 @@ namespace Hexen
             return value;
         }*/
 
-        public void Remove()
+        public virtual void Remove()
         {
             Destroy(gameObject);
-            
         }
 
     }

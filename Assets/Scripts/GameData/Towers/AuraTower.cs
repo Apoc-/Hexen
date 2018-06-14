@@ -39,8 +39,9 @@ namespace Hexen.GameData.Towers
                 affectedTowers.Add(tower);
             }
         }
-
-        public void ClearAuraTargets()
+        
+        
+        private void ClearAuraTargets()
         {
             affectedTowers.ForEach(tower =>
             {
@@ -49,6 +50,12 @@ namespace Hexen.GameData.Towers
             });
 
             affectedTowers = new List<Tower>();
+        }
+
+        public override void Remove()
+        {
+            ClearAuraTargets();
+            base.Remove();
         }
     }
 }
