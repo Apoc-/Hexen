@@ -70,8 +70,12 @@ namespace Hexen
                 if (tower != null)
                 {
                     selectedTower = tower;
-                    DisplayRangeIndicator(tower);
-                    GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(selectedTower, Input.mousePosition);
+                    DisplayRangeIndicator(selectedTower);
+
+                    if (selectedTower.IsPlaced)
+                    {
+                        GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(selectedTower, Input.mousePosition);
+                    }
                 }
             }
         }
