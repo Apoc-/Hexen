@@ -18,6 +18,7 @@ namespace Hexen.GameData.Towers
         {
             if (AuraEffect != null && IsPlaced)
             {
+                //TODO: Refactor, runs way to often
                 UpdateAuraTargets();
             }
         }

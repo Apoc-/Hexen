@@ -93,9 +93,10 @@ namespace Hexen
 
         public void RemoveAllAttributeEffectsFromSource(AttributeEffectSource source)
         {
-            var effectsFromSource = attributeEffects.Where(effect => effect.EffectSource == source).ToList();
-
-            effectsFromSource.ForEach(RemoveAttributeEffect);
+            attributeEffects
+                .Where(effect => effect.EffectSource == source)
+                .ToList()
+                .ForEach(RemoveAttributeEffect);
         }
 
         public void LevelUp()
@@ -118,8 +119,8 @@ namespace Hexen
 
         public void LevelDown()
         {
-            LevelAttributeEffects.Remove(AttributeLevel);
             AttributeLevel -= 1;
+            LevelAttributeEffects.Remove(AttributeLevel);
             isDirty = true;
         }
 

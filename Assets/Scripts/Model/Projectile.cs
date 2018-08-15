@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Hexen.GameData.Towers;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Hexen
 {
@@ -28,9 +30,27 @@ namespace Hexen
 
             if (npc != null)
             {
-                npc.DealDamage(this);
+                var factor = 1;
+
+                if (CheckCrit())
+                {
+                    factor = 2;
+
+                    Debug.Log("CRIT!");
+                }
+                npc.DealDamage(this, factor);
                 Destroy(gameObject);
             }
+        }
+
+        private bool CheckCrit()
+        {
+            var crit = this.Source.GetAttribute(AttributeName.CritChance);
+
+            Random r = new Random();
+            var n = (float) r.NextDouble();
+
+            return n <= crit.Value;
         }
 
         private void FixedUpdate()

@@ -7,10 +7,9 @@ namespace Hexen.GameData.Runes
     {
         public override void InitRuneData()
         {
-            AddAttributeEffect(new AttributeEffect(10, AttributeName.AttackDamage, AttributeEffectType.Flat, this));
             base.InitRuneData();
 
-            Debug.Log("init");
+            AddAttributeEffect(new AttributeEffect(10, AttributeName.AttackDamage, AttributeEffectType.Flat, this));
         }
     }
 }

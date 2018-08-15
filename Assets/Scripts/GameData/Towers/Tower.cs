@@ -38,6 +38,8 @@ namespace Hexen
             attributeDictionary = new Dictionary<AttributeName, Attribute>();
             Attributes = new List<Attribute>();
 
+            AddAttribute(new Attribute(AttributeName.CritChance, 0.1f, 0, LevelIncrementType.Flat));
+
             IsPlaced = false;
 
             Xp = 0;
@@ -191,5 +193,9 @@ namespace Hexen
             Destroy(gameObject);
         }
 
+        protected virtual void OnCrit()
+        {
+
+        }
     }
 }

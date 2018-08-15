@@ -10,6 +10,7 @@ namespace Hexen.GameData.Towers
     {
         AttackRange,
         AttackSpeed,
-        AttackDamage
+        AttackDamage,
+        CritChance
     }
 }
