@@ -8,7 +8,7 @@ namespace Hexen
 {
     class TowerSelectionManager : MonoBehaviour
     {
-        private Tower selectedTower;
+        public Tower CurrentSelectedTower;
         private GameObject activeRangeIndicator;
 
         private void Update()
@@ -23,9 +23,7 @@ namespace Hexen
                 UnselectTower();
             }
 
-            DebugInputHandler();
-
-            if (selectedTower != null && activeRangeIndicator != null)
+            if (CurrentSelectedTower != null && activeRangeIndicator != null)
             {
                 if (activeRangeIndicator != null)
                 {
@@ -34,27 +32,7 @@ namespace Hexen
             }
         }
 
-        private void DebugInputHandler()
-        {
-            if (selectedTower != null)
-            {
-                var effect = new AttributeEffect(1.5f, AttributeName.AttackRange, AttributeEffectType.Flat, null);
-                var effect2 = new AttributeEffect(1.0f, AttributeName.AttackRange, AttributeEffectType.Flat, null);
-
-                if (Input.GetKeyDown(KeyCode.KeypadPlus))
-                {
-                    selectedTower.GetAttribute(effect.AffectedAttributeName).AddAttributeEffect(effect);
-                    selectedTower.GetAttribute(effect2.AffectedAttributeName).AddAttributeEffect(effect2);
-                }
-
-                if (Input.GetKeyDown(KeyCode.KeypadMinus))
-                {
-
-                    selectedTower.GetAttribute(effect.AffectedAttributeName).RemoveAttributeEffect(effect);
-                    selectedTower.GetAttribute(effect2.AffectedAttributeName).RemoveAttributeEffect(effect2);
-                }
-            }
-        }
+        
 
         private void SelectTower()
         {
@@ -69,12 +47,12 @@ namespace Hexen
                 
                 if (tower != null)
                 {
-                    selectedTower = tower;
-                    DisplayRangeIndicator(selectedTower);
+                    CurrentSelectedTower = tower;
+                    DisplayRangeIndicator(CurrentSelectedTower);
 
-                    if (selectedTower.IsPlaced)
+                    if (CurrentSelectedTower.IsPlaced)
                     {
-                        GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(selectedTower, Input.mousePosition);
+                        GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(CurrentSelectedTower, Input.mousePosition);
                     }
                 }
             }
@@ -82,7 +60,7 @@ namespace Hexen
 
         private void UnselectTower()
         {
-            selectedTower = null;
+            CurrentSelectedTower = null;
             DestroyRangeIndicator();
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
         }
@@ -106,7 +84,7 @@ namespace Hexen
 
         public void RecalculateRangeIndicatorRadius()
         {
-            var range = selectedTower.GetAttribute(AttributeName.AttackRange).Value;
+            var range = CurrentSelectedTower.GetAttribute(AttributeName.AttackRange).Value;
             
 
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();

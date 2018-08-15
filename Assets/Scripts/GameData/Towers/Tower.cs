@@ -81,7 +81,6 @@ namespace Hexen
             Attributes.ForEach(attr => attr.LevelUp());
         }
 
-
         private void CheckLockedTarget()
         {
             if (lockedTarget == null)

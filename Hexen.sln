@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexen", "Assembly-CSharp.csproj", "{0836CB96-097E-8D46-C4E3-078C9ABBEE78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{0836CB96-097E-8D46-C4E3-078C9ABBEE78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexen", "Assembly-CSharp-firstpass.csproj", "{2FCB30EB-A2A5-E4BF-9D15-248086EDD048}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{2FCB30EB-A2A5-E4BF-9D15-248086EDD048}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexen", "Assembly-CSharp-Editor.csproj", "{333D530C-40F1-8820-6553-F324B108CEEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{333D530C-40F1-8820-6553-F324B108CEEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexen", "Assembly-CSharp-Editor-firstpass.csproj", "{07CD51AF-0990-67C2-FF0E-CC9F6D75150C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{07CD51AF-0990-67C2-FF0E-CC9F6D75150C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
