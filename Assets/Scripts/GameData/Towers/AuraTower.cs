@@ -47,7 +47,7 @@ namespace Hexen.GameData.Towers
             affectedTowers.ForEach(tower =>
             {
                 var effect = AuraEffect.AttributeEffect;
-                tower.GetAttribute(effect.AffectedAttributeName).RemoveAllAttributeEffectsFromSource(this);
+                tower.GetAttribute(effect.AffectedAttributeName).RemoveAttributeEffectsFromSource(this);
             });
 
             affectedTowers = new List<Tower>();

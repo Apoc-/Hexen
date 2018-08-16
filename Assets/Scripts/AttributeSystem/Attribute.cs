@@ -91,7 +91,7 @@ namespace Hexen
             isDirty = true;
         }
 
-        public void RemoveAllAttributeEffectsFromSource(AttributeEffectSource source)
+        public void RemoveAttributeEffectsFromSource(AttributeEffectSource source)
         {
             attributeEffects
                 .Where(effect => effect.EffectSource == source)
