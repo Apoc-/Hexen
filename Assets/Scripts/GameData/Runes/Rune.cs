@@ -33,10 +33,7 @@ namespace Hexen.GameData.Runes
         {
             affectedTowers.ForEach(tower =>
             {
-                tower.Attributes.ForEach(attr =>
-                {
-                    attr.RemoveAllAttributeEffectsFromSource(this);
-                });
+                tower.Attributes.RemoveAllAttributeEffectsFromSource(this);
             });
         }
     }

@@ -114,9 +114,11 @@ namespace Hexen
             SetValue(infoTower.Level.ToString());
             SetDescription(infoTower.Description);
 
+
             List<String> info = infoTower.Attributes
-                .Select(attribute =>
+                .Select(kvpair => 
                 {
+                    var attribute = kvpair.Value;
                     var str = attribute.AttributeName + " " + attribute.Value.ToString("F2");
                     var lvlInc = attribute.LevelIncrement * 100;
                     var typeStr = (attribute.LevelIncrementType == LevelIncrementType.Percentage) ? "% / Level)" : ")";

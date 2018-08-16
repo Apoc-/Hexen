@@ -8,8 +8,8 @@ namespace Hexen
 {
     public class Tower : MonoBehaviour
     {
-        private Dictionary<AttributeName, Attribute> attributeDictionary = new Dictionary<AttributeName, Attribute>();
-        public List<Attribute> Attributes = new List<Attribute>();
+        // TODO: Protected. Apoc- told me I should not change the UI so I don't
+        public AttributeContainer Attributes;
         
         public int GoldCost;
         public string Description;
@@ -35,9 +35,7 @@ namespace Hexen
 
         public virtual void InitTowerData()
         {
-            attributeDictionary = new Dictionary<AttributeName, Attribute>();
-            Attributes = new List<Attribute>();
-
+            Attributes = new AttributeContainer();
             AddAttribute(new Attribute(AttributeName.CritChance, 0.1f, 0, LevelIncrementType.Flat));
 
             IsPlaced = false;
@@ -80,7 +78,10 @@ namespace Hexen
         {
             Level += 1;
 
-            Attributes.ForEach(attr => attr.LevelUp());
+            foreach (var keyValuePair in Attributes)
+            {
+                keyValuePair.Value.LevelUp();
+            }
         }
 
         private void CheckLockedTarget()
@@ -149,24 +150,12 @@ namespace Hexen
 
         public void AddAttribute(Attribute attr)
         {
-            Attributes.Add(attr);
-            attributeDictionary.Add(attr.AttributeName, attr);
+            Attributes.AddAttribute(attr);
         }
 
         public Attribute GetAttribute(AttributeName attrName)
         {
-            if (Attributes.Count != attributeDictionary.Count)
-            {
-                BuildAttributeDictionary();
-            }
-
-            return attributeDictionary[attrName];
-        }
-
-        private void BuildAttributeDictionary()
-        {
-            attributeDictionary = new Dictionary<AttributeName, Attribute>();
-            Attributes.ForEach(attr => attributeDictionary.Add(attr.AttributeName, attr));
+            return Attributes[attrName];
         }
 
         public void InitTowerModel()
