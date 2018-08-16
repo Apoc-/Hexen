@@ -25,8 +25,15 @@ namespace Hexen
             TowerBuildButtonBehaviour button =
                 Instantiate(Resources.Load<TowerBuildButtonBehaviour>("Prefabs/UI/TowerBuildButton"));
 
-            button.Tower = tower;
-            button.gameObject.GetComponent<Image>().sprite = tower.Icon;
+
+            button.Tower = Instantiate(tower);
+
+            button.Tower.Name = tower.Name;
+            button.Tower.transform.parent = GameManager.Instance.TowerBuildManager.BuildableTowers.transform;
+
+            button.Tower.gameObject.SetActive(false);
+
+            button.gameObject.GetComponent<Image>().sprite = button.Tower.Icon;
             button.transform.SetParent(gameObject.transform);
 
             towerButtons.Enqueue(button);

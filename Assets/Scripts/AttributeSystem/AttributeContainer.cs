@@ -25,7 +25,7 @@ public class AttributeContainer : IEnumerable<KeyValuePair<AttributeName, Attrib
         attributes.Add(attr.AttributeName, attr);
     }
 
-    public bool ContainsAttribute(AttributeName attrName)
+    public bool HasAttribute(AttributeName attrName)
     {
         return attributes.ContainsKey(attrName);
     }

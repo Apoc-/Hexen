@@ -31,6 +31,7 @@ namespace Hexen.GameData
 
             go.name = tower.Name;
             go.transform.parent = transform;
+            go.SetActive(false);
 
             towers.Add(tower);
         }

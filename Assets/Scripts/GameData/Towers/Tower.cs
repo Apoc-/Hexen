@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Hexen.AttributeSystem;
 using Hexen.GameData.Towers;
 using UnityEngine;
 
 namespace Hexen
 {
-    public class Tower : MonoBehaviour
+    public abstract class Tower : MonoBehaviour, IHasAttributes
     {
         // TODO: Protected. Apoc- told me I should not change the UI so I don't
         // TODO: Yes Apoc- did, because Mijago likes to change things everywhere, even if not needed right now :D
@@ -22,8 +23,8 @@ namespace Hexen
         public Tile Tile;
         public GameObject Model;
 
-        public int Level;
-        public int Xp;
+        public int Level = 1;
+        public int Xp = 0;
 
         private Npc lockedTarget;
         private float lastShotFired;
@@ -34,16 +35,14 @@ namespace Hexen
 
         [HideInInspector] public Player Owner;
 
-        public virtual void InitTowerData()
+        private void Awake()
         {
-            Attributes = new AttributeContainer();
-            AddAttribute(new Attribute(AttributeName.CritChance, 0.1f, 0, LevelIncrementType.Flat));
-
-            IsPlaced = false;
-
-            Xp = 0;
-            Level = 1;
+            InitTower();
+            InitAttributes();
+            InitTowerModel();
         }
+        
+        public abstract void InitTower();
 
         public void InitCopyTowerData(Tower source)
         {
@@ -148,6 +147,11 @@ namespace Hexen
             
             return (int) (fac * Mathf.Pow(Level, exp));
         }
+        protected virtual void InitAttributes()
+        {
+            Attributes = new AttributeContainer();
+            AddAttribute(new Attribute(AttributeName.CritChance, 0.1f, 0, LevelIncrementType.Flat));
+        }
 
         public void AddAttribute(Attribute attr)
         {
@@ -157,6 +161,11 @@ namespace Hexen
         public Attribute GetAttribute(AttributeName attrName)
         {
             return Attributes[attrName];
+        }
+
+        public bool HasAttribute(AttributeName attrName)
+        {
+            return Attributes.HasAttribute(attrName);
         }
 
         public void InitTowerModel()

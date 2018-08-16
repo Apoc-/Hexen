@@ -16,6 +16,9 @@ namespace Hexen
         private Tower currentHeldTower;
         private TowerBuildButtonBehaviour currentHeldTowerButton;
 
+        public GameObject PlacedTowers;
+        public GameObject BuildableTowers;
+
         private void Update()
         {
             if (currentHeldTower != null && !EventSystem.current.IsPointerOverGameObject())
@@ -112,7 +115,6 @@ namespace Hexen
         public void AddRandomBuildableTower(Player player)
         {
             var t = GetRandomTower();
-            t.InitTowerData();
 
             player.AddBuildableTower(t);
         }
@@ -133,12 +135,8 @@ namespace Hexen
             currentHeldTowerButton = button;
             currentHeldTowerButton.SetButtonActive();
             
-            currentHeldTower = Instantiate(button.Tower);
-            currentHeldTower.InitTowerModel();
-            currentHeldTower.InitTowerData();
-
-            currentHeldTower.Name = button.Tower.Name;
-            currentHeldTower.transform.parent = transform;
+            currentHeldTower = button.Tower;
+            currentHeldTower.gameObject.SetActive(true);
 
             SetTowerModelTransparency(0.25f);
         }
@@ -157,6 +155,8 @@ namespace Hexen
                 ResetTowerModelColor();
                 tile.IsEmpty = false;
                 tile.PlacedTower = currentHeldTower;
+
+                currentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
                 currentHeldTower.IsPlaced = true;
                 currentHeldTower = null;
 
@@ -181,7 +181,7 @@ namespace Hexen
             
             if (currentHeldTower != null)
             {
-                Destroy(currentHeldTower.gameObject);
+                currentHeldTower.gameObject.SetActive(false);
             }
 
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();

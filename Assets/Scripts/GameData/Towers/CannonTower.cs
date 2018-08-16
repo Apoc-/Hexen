@@ -11,10 +11,8 @@ namespace Hexen.GameData.Towers
 {
     class CannonTower : Tower
     {
-        public override void InitTowerData()
+        public override void InitTower()
         {
-            base.InitTowerData();
-
             Name = "CannonTower";
             Description = "A tower that shoots explosive projectiles";
             GoldCost = 20;
@@ -23,6 +21,11 @@ namespace Hexen.GameData.Towers
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTowerModel");
 
             WeaponHeight = 1;
+        }
+
+        protected override void InitAttributes()
+        {
+            base.InitAttributes();
 
             AddAttribute(new Attribute(AttributeName.AttackRange, 1.75f, 0.04f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.AttackDamage, 5, 0.04f, LevelIncrementType.Percentage));
