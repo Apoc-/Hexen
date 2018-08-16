@@ -59,7 +59,6 @@ namespace Hexen
 
             var currentWave = GameManager.Instance.WaveSpawner.CurrentWave;
             var totalWaves = WaveProvider.WaveCount;
-
             waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
         }
     }

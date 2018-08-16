@@ -9,6 +9,7 @@ namespace Hexen
     public class Tower : MonoBehaviour
     {
         // TODO: Protected. Apoc- told me I should not change the UI so I don't
+        // TODO: Yes Apoc- did, because Mijago likes to change things everywhere, even if not needed right now :D
         public AttributeContainer Attributes;
         
         public int GoldCost;
