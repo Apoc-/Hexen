@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Assets.Scripts.AttributeSystem;
 using Hexen;
 using Hexen.GameData.Towers;
 using UnityEngine;

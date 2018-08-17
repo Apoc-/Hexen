@@ -31,9 +31,12 @@ namespace Hexen
 
         public float LevelIncrement;
         public LevelIncrementType LevelIncrementType;
-        
-        public Attribute(AttributeName attributeName, float baseValue, float levelIncrement,
-            LevelIncrementType levelIncrementType)
+
+        public Attribute(
+            AttributeName attributeName, 
+            float baseValue, 
+            float levelIncrement = 0.0f,
+            LevelIncrementType levelIncrementType = LevelIncrementType.Flat)
         {
             LevelIncrement = levelIncrement;
             LevelIncrementType = levelIncrementType;
@@ -124,7 +127,7 @@ namespace Hexen
             isDirty = true;
         }
 
-        private float CalculateValue()
+        protected virtual float CalculateValue()
         {
             var calcValue = baseValue;
             var addPercBonusSum = 0.0f;

@@ -44,6 +44,12 @@ namespace Hexen
         
         public abstract void InitTower();
 
+        public void InitTowerModel()
+        {
+            var mdlGo = Instantiate(Model);
+            mdlGo.transform.SetParent(transform, false);
+        }
+
         public void InitCopyTowerData(Tower source)
         {
             /*Attributes = new List<Attribute>();
@@ -168,11 +174,7 @@ namespace Hexen
             return Attributes.HasAttribute(attrName);
         }
 
-        public void InitTowerModel()
-        {
-            var mdlGo = Instantiate(Model);
-            mdlGo.transform.SetParent(transform, false);
-        }
+        
 
         //todo feature removed for now, incorporate as a attribute effect at a later time
         /*public float HeightDependantAttackRange()

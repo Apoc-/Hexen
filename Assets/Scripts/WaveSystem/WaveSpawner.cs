@@ -5,8 +5,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using Hexen;
+using Hexen.GameData.Towers;
 using Hexen.WaveSystem;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 namespace Hexen.WaveSystem
 {
@@ -80,18 +82,19 @@ namespace Hexen.WaveSystem
             waitingForWave = false;
             currentWave += 1;
             CurrentElapsedTime = 10;
-            
-            StartCoroutine(SpawnWave(wave));
+
+            //Debug.Log("----- Spawning Wave " + currentWave + "-----");
+            StartCoroutine(SpawnWave(wave, currentWave));
         }
 
-        private IEnumerator SpawnWave(Wave wave)
+        private IEnumerator SpawnWave(Wave wave, int lvl)
         {
             wave.SpawnCount = 0;
 
             while (wave.SpawnCount < wave.Size)
             {
                 wave.SpawnCount += 1;
-                SpawnNpc(wave);
+                SpawnNpc(wave, lvl);
 
                 yield return new WaitForSeconds(wave.SpawnInterval);
             }
@@ -111,19 +114,33 @@ namespace Hexen.WaveSystem
             StartSpawnWave();
         }
 
-        void SpawnNpc(Wave wave)
+        void SpawnNpc(Wave wave, int lvl)
         {
-            var npc = Instantiate(Resources.Load<Npc>("Prefabs/Entities/Npcs/" + wave.NpcName));
+            //var npc = Instantiate(Resources.Load<Npc>("Prefabs/Entities/Npcs/" + wave.NpcName));
+            var npc = new GameObject(wave.NpcName).AddComponent<Rat>();
 
-            npc.transform.parent = transform.parent;
+            npc.SetLevel(lvl);
+            npc.transform.parent = transform;
             npc.name = npc.Name + "_" + wave.SpawnCount;
             npc.transform.position = GameManager.Instance.MapManager.StartTile.GetTopCenter();
 
             wave.SpawnedNpcs.Add(npc);
+
+            //DebugPrintSpawnNpcData(npc);
         }
 
 
         #region debug
+
+        private void DebugPrintSpawnNpcData(Npc npc)
+        {
+            var s = "Spawned " + npc.Name + ", lvl " + npc.Level;
+            s += ", hp " + npc.GetAttribute(AttributeName.Health).Value;
+            s += ", g " + npc.GetAttribute(AttributeName.GoldReward).Value;
+            s += ", xp " + npc.GetAttribute(AttributeName.XPReward).Value;
+
+            Debug.Log(s);
+        }
 
         public void DebugReset()
         {

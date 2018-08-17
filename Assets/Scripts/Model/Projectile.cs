@@ -35,8 +35,6 @@ namespace Hexen
                 if (CheckCrit())
                 {
                     factor = 2;
-
-                    Debug.Log("CRIT!");
                 }
                 npc.DealDamage(this, factor);
                 Destroy(gameObject);

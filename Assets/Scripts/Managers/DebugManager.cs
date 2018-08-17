@@ -1,5 +1,6 @@
 ﻿using Hexen;
 using Hexen.GameData.Runes;
+using Hexen.GameData.Towers;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -29,7 +30,8 @@ namespace Assets.Scripts.Managers
 
         void DebugAddRune()
         {
-            Rune.ApplyRune(GameManager.Instance.TowerSelectionManager.CurrentSelectedTower);
+            var twr = GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
+            Rune.ApplyRune(twr);
         }
 
         void DebugRemoveRune()

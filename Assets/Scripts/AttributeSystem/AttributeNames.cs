@@ -11,6 +11,10 @@ namespace Hexen.GameData.Towers
         AttackRange,
         AttackSpeed,
         AttackDamage,
-        CritChance
+        CritChance,
+        Health,
+        GoldReward,
+        XPReward,
+        MovementSpeed
     }
 }

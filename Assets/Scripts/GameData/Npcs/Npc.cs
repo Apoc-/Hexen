@@ -3,30 +3,87 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Hexen;
+using Hexen.AttributeSystem;
 using Hexen.GameData.Towers;
 using UnityEngine;
 using UnityScript.Steps;
 
 namespace Hexen
 {
-    public class Npc : MonoBehaviour
+    public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource
     {
+        private AttributeContainer attributes;
+
         public string Name;
-        public int MaxHealth;
-        public int CurrentHealth;
-        public float MovementSpeed;
-        public int GoldReward;
-        public int XPReward;
+        public GameObject Model;
         public Tile Target;
         public Tile CurrentTile;
 
+        public int Level = 1;
+
+        void Awake()
+        {
+            this.InitAttributes();
+            this.InitNpc();
+            this.InitNpcModel();
+        }
+
+        protected abstract void InitNpc();
+
+        public void InitNpcModel()
+        {
+            var mdlGo = Instantiate(Model);
+            mdlGo.transform.SetParent(transform, false);
+        }
+
+        protected virtual void InitAttributes()
+        {
+            attributes = new AttributeContainer();
+        }
+
+        public void AddAttribute(Attribute attr)
+        {
+            attributes.AddAttribute(attr);
+        }
+
+        public Attribute GetAttribute(AttributeName attrName)
+        {
+            return attributes[attrName];
+        }
+
+        public bool HasAttribute(AttributeName attrName)
+        {
+            return attributes.HasAttribute(attrName);
+        }
+
+        private void LevelUp()
+        {
+            Level += 1;
+
+            foreach (var kvp in attributes)
+            {
+                kvp.Value.LevelUp();
+            }
+        }
+
+        public void SetLevel(int lvl)
+        {
+            for (int i = 1; i < lvl; i++)
+            {
+                this.LevelUp();
+            }
+        }
+
         public void DealDamage(Projectile projectile, float factor = 1.0f)
         {
-            CurrentHealth = (int)(CurrentHealth - projectile.Source.GetAttribute(AttributeName.AttackDamage).Value * factor);
+            var dmg = projectile.Source.GetAttribute(AttributeName.AttackDamage).Value * factor;
+            var dmgEffect = new AttributeEffect(-dmg, AttributeName.Health, AttributeEffectType.Flat, this);
+            attributes[AttributeName.Health].AddAttributeEffect(dmgEffect);
 
-            if (CurrentHealth <= 0)
+            var hp = attributes.GetAttribute(AttributeName.Health);
+
+            if (hp.Value <= 0)
             {
-                CurrentHealth = 0;
                 Die(true);
                 GiveRewards(projectile.Source);
             }
@@ -34,8 +91,8 @@ namespace Hexen
 
         private void GiveRewards(Tower projectileSource)
         {
-            projectileSource.GiveXP(XPReward);
-            projectileSource.Owner.IncreaseGold(GoldReward);
+            projectileSource.GiveXP((int) attributes[AttributeName.XPReward].Value);
+            projectileSource.Owner.IncreaseGold((int) attributes[AttributeName.GoldReward].Value);
         }
 
         private void Die(bool forcefully)
@@ -81,7 +138,9 @@ namespace Hexen
 
             Vector3 direction = target - position;
 
-            if (direction.magnitude < (MovementSpeed * Time.fixedDeltaTime * 0.8f))
+            var speed = attributes[AttributeName.MovementSpeed].Value;
+
+            if (direction.magnitude < (speed * Time.fixedDeltaTime * 0.8f))
             {
                 EnterTile(Target);
                 Target = GameManager.Instance.MapManager.GetNextTileInPath(Target);
@@ -92,7 +151,7 @@ namespace Hexen
             if (direction.magnitude > 0.0001f)
             {
                 transform.SetPositionAndRotation(
-                    position + direction * (MovementSpeed * Time.fixedDeltaTime),
+                    position + direction * (speed * Time.fixedDeltaTime),
                     Quaternion.LookRotation(direction, Vector3.up));
             }
         }
@@ -113,5 +172,6 @@ namespace Hexen
                 GameManager.Instance.Player.Lives -= 1;
             }
         }
+
     }
 }
