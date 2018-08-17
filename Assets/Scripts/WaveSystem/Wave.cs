@@ -9,16 +9,16 @@ namespace Hexen.WaveSystem
 {
     class Wave
     {
-        public string NpcName;
+        public Type NpcType;
         public int Size;
         public float SpawnInterval;
         public int SpawnCount;
         public WaveReward WaveReward;
         public List<Npc> SpawnedNpcs;
 
-        public Wave(string npcName, int size, float spawnInterval, int goldReward, int towerReward)
+        public Wave(Type npcType, int size, float spawnInterval, int goldReward, int towerReward)
         {
-            NpcName = npcName;
+            NpcType = npcType;
             Size = size;
             SpawnInterval = spawnInterval;
             SpawnCount = 0;

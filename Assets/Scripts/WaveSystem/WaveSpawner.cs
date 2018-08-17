@@ -116,8 +116,10 @@ namespace Hexen.WaveSystem
 
         void SpawnNpc(Wave wave, int lvl)
         {
-            //var npc = Instantiate(Resources.Load<Npc>("Prefabs/Entities/Npcs/" + wave.NpcName));
-            var npc = new GameObject(wave.NpcName).AddComponent<Rat>();
+            var go = new GameObject();
+            var npc = go.AddComponent(wave.NpcType) as Npc;
+
+            if (npc == null) return;
 
             npc.SetLevel(lvl);
             npc.transform.parent = transform;
