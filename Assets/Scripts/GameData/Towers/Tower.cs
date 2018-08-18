@@ -149,9 +149,7 @@ namespace Hexen
         {
             var go = Instantiate(ProjectileModel);
 
-            var projectile = go.AddComponent(ProjectileType) as Projectile;
-
-            if (projectile == null) return;
+            var projectile = (Projectile) go.AddComponent(ProjectileType);
 
             projectile.transform.SetParent(this.transform);
             projectile.transform.localPosition = new Vector3(0, WeaponHeight, 0);
@@ -187,8 +185,6 @@ namespace Hexen
         {
             return Attributes.HasAttribute(attrName);
         }
-
-        
 
         //todo feature removed for now, incorporate as a attribute effect at a later time
         /*public float HeightDependantAttackRange()

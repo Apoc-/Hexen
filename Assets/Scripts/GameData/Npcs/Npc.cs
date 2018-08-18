@@ -77,8 +77,8 @@ namespace Hexen
 
         public void DealDamage(float dmg)
         {
-            var dmgEffect = new AttributeEffect(-dmg, AttributeName.Health, AttributeEffectType.Flat, this);
-            attributes[AttributeName.Health].AddAttributeEffect(dmgEffect);
+            var health = attributes[AttributeName.Health].Value;
+            this.attributes[AttributeName.Health].Value = health - dmg;
         }
 
 

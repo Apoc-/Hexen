@@ -32,7 +32,7 @@ namespace Hexen.GameData.Towers
             base.InitAttributes();
 
             AddAttribute(new Attribute(AttributeName.AttackRange, 2, 0.04f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 2.5f, 0.04f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.AttackDamage, 20000.5f, 0.04f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.AttackSpeed, 2, 0.04f, LevelIncrementType.Percentage));
         }
     }

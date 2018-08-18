@@ -8,13 +8,13 @@ namespace Hexen.GameData.Projectiles
     {
         protected override void InitProjectileData()
         {
-            
             Speed = 20;
         }
 
         protected override void InitProjectile()
         {
             ProjectileEffects = new List<ProjectileEffect>();
+
             AddProjectileEffect(new DamageProjectileEffect());
         }
     }

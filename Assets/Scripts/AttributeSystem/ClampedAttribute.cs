@@ -8,6 +8,26 @@ namespace Assets.Scripts.AttributeSystem
         private float minValue;
         private float maxValue;
 
+        public override float Value
+        {
+            get
+            {
+                if (isDirty) value = CalculateValue();
+
+                return value;
+            }
+
+            set
+            {
+                baseValue = value;
+
+                if (baseValue < minValue) baseValue = minValue;
+                if (baseValue > maxValue) baseValue = maxValue;
+
+                isDirty = true;
+            }
+        }
+
         public ClampedAttribute(AttributeName attributeName, float baseValue, float minValue, float maxValue,
             float levelIncrement, LevelIncrementType levelIncrementType) : base(attributeName, baseValue,
             levelIncrement, levelIncrementType)

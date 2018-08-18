@@ -26,8 +26,8 @@ namespace Hexen
 
         protected int AttributeLevel;
         public AttributeName AttributeName;
-        [SerializeField] private float baseValue;
-        [SerializeField] private bool isDirty;
+        [SerializeField] protected float baseValue;
+        [SerializeField] protected bool isDirty;
 
         public float LevelIncrement;
         public LevelIncrementType LevelIncrementType;
@@ -69,8 +69,8 @@ namespace Hexen
             levelAttributeEffects = new Dictionary<int, AttributeEffect>();
         }
 
-        private float value;
-        public float Value
+        protected float value;
+        public virtual float Value
         {
             get
             {
@@ -79,7 +79,11 @@ namespace Hexen
                 return value;
             }
 
-            set { baseValue = value; }
+            set
+            {
+                baseValue = value;
+                isDirty = true;
+            }
         }
 
         public void AddAttributeEffect(AttributeEffect effect)
