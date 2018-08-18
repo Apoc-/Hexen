@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.AttributeSystem;
+using Assets.Scripts.ProjectileSystem;
 using Hexen;
+using Hexen.GameData.Projectiles;
 using Hexen.GameData.Towers;
 using UnityEngine;
 
@@ -15,10 +17,12 @@ namespace Hexen.GameData.Towers
         {
             Name = "Arrow Tower";
             Description = "A tower that shoots arrows";
-            GoldCost = 15;
-            Projectile = Resources.Load<Projectile>("Prefabs/Projectiles/Arrow");
+            GoldCost = 15;            
             Icon = Resources.Load<Sprite>("UI/Icons/ArrowTowerIcon");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTowerModel");
+
+            ProjectileType = typeof(ArrowProjectile);
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
             WeaponHeight = 1;
         }

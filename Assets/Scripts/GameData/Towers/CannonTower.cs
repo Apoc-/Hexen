@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Assets.Scripts.ProjectileSystem;
 using Hexen;
+using Hexen.GameData.Projectiles;
 using Hexen.GameData.Towers;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ namespace Hexen.GameData.Towers
             Name = "CannonTower";
             Description = "A tower that shoots explosive projectiles";
             GoldCost = 20;
-            Projectile = Resources.Load<Projectile>("Prefabs/Projectiles/Bomb");
+            ProjectileType = typeof(CannonProjectile);
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
             Icon = Resources.Load<Sprite>("UI/Icons/CannonTowerIcon");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTowerModel");
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.ProjectileSystem;
 using Hexen.AttributeSystem;
 using Hexen.GameData.Towers;
 using UnityEngine;
@@ -18,7 +19,9 @@ namespace Hexen
         public string Name;
 
         public float WeaponHeight;
-        public Projectile Projectile;
+        public Type ProjectileType;
+        public GameObject ProjectileModel;
+
         public Sprite Icon;
         public Tile Tile;
         public GameObject Model;
@@ -139,11 +142,22 @@ namespace Hexen
 
         private void Fire()
         {
-            var shot = Instantiate(this.Projectile);
-            shot.transform.SetParent(this.transform);
-            shot.transform.localPosition = new Vector3(0, WeaponHeight, 0);
-            shot.Target = this.lockedTarget;
-            shot.Source = this;
+            SpawnProjectile();
+        }
+
+        private void SpawnProjectile()
+        {
+            var go = Instantiate(ProjectileModel);
+
+            var projectile = go.AddComponent(ProjectileType) as Projectile;
+
+            if (projectile == null) return;
+
+            projectile.transform.SetParent(this.transform);
+            projectile.transform.localPosition = new Vector3(0, WeaponHeight, 0);
+
+            projectile.Target = this.lockedTarget;
+            projectile.Source = this;
         }
 
         private int NextLevelXP()

@@ -1,23 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen.GameData.Towers;
+﻿using System.Collections.Generic;
+using Hexen;
 using UnityEngine;
-using Random = System.Random;
 
-namespace Hexen
+namespace Assets.Scripts.ProjectileSystem
 {
-    public class Projectile : Entity
+    public abstract class Projectile : MonoBehaviour
     {
+        protected List<ProjectileEffect> ProjectileEffects;
+
         public Tower Source;
-        public float Speed;
         public Npc Target;
 
-        private void Update()
+        protected float Speed;
+        protected GameObject Model;
+
+        private void Awake()
         {
-            
+            this.InitProjectile();
+            this.InitProjectileData();
         }
+
+        protected abstract void InitProjectileData();
+
+        protected abstract void InitProjectile();
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -26,29 +31,14 @@ namespace Hexen
 
         protected virtual void Collide(Collision collision)
         {
-            var npc = collision.gameObject.GetComponentInParent<Npc>();
+            var target = collision.gameObject.GetComponentInParent<Npc>();
 
-            if (npc != null)
+            if (target != null)
             {
-                var factor = 1;
+                ProjectileEffects.ForEach(effect => effect.OnHit(Source, target));
 
-                if (CheckCrit())
-                {
-                    factor = 2;
-                }
-                npc.DealDamage(this, factor);
                 Destroy(gameObject);
             }
-        }
-
-        private bool CheckCrit()
-        {
-            var crit = this.Source.GetAttribute(AttributeName.CritChance);
-
-            Random r = new Random();
-            var n = (float) r.NextDouble();
-
-            return n <= crit.Value;
         }
 
         private void FixedUpdate()
@@ -68,6 +58,11 @@ namespace Hexen
             transform.SetPositionAndRotation(
                 position + direction * (Speed * Time.fixedDeltaTime),
                 Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(90,0,0));
+        }
+
+        protected void AddProjectileEffect(ProjectileEffect projectileEffect)
+        {
+            this.ProjectileEffects.Add(projectileEffect);
         }
     }
 }

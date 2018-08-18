@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.ProjectileSystem;
 using Hexen;
 using Hexen.AttributeSystem;
 using Hexen.GameData.Towers;
@@ -12,7 +13,7 @@ namespace Hexen
 {
     public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource
     {
-        private AttributeContainer attributes;
+        public AttributeContainer attributes;
 
         public string Name;
         public GameObject Model;
@@ -74,28 +75,14 @@ namespace Hexen
             }
         }
 
-        public void DealDamage(Projectile projectile, float factor = 1.0f)
+        public void DealDamage(float dmg)
         {
-            var dmg = projectile.Source.GetAttribute(AttributeName.AttackDamage).Value * factor;
             var dmgEffect = new AttributeEffect(-dmg, AttributeName.Health, AttributeEffectType.Flat, this);
             attributes[AttributeName.Health].AddAttributeEffect(dmgEffect);
-
-            var hp = attributes.GetAttribute(AttributeName.Health);
-
-            if (hp.Value <= 0)
-            {
-                Die(true);
-                GiveRewards(projectile.Source);
-            }
         }
 
-        private void GiveRewards(Tower projectileSource)
-        {
-            projectileSource.GiveXP((int) attributes[AttributeName.XPReward].Value);
-            projectileSource.Owner.IncreaseGold((int) attributes[AttributeName.GoldReward].Value);
-        }
 
-        private void Die(bool forcefully)
+        public void Kill(bool forcefully = false)
         {
             if (forcefully)
             {
@@ -103,7 +90,7 @@ namespace Hexen
             }
             else
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
 

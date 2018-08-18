@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.ProjectileSystem;
 using Hexen.AbilitySystem;
 using Hexen;
+using Hexen.GameData.Projectiles;
 using Hexen.GameData.Towers;
 using UnityEngine;
 
@@ -16,7 +18,8 @@ namespace Hexen.GameData.Towers
             Name = "Haste Aura Tower";
             Description = "A tower that deals very low damage, but increases the attackspeed of towers in its range.";
             GoldCost = 100;
-            Projectile = Resources.Load<Projectile>("Prefabs/Projectiles/Arrow");
+            ProjectileType = typeof(ArrowProjectile);
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
             Icon = Resources.Load<Sprite>("UI/Icons/DefaultTowerIcon");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/HasteAuraTowerModel");
             AuraEffect =
