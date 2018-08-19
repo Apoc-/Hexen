@@ -137,7 +137,7 @@ namespace Hexen.WaveSystem
         private void DebugPrintSpawnNpcData(Npc npc)
         {
             var s = "Spawned " + npc.Name + ", lvl " + npc.Level;
-            s += ", hp " + npc.GetAttribute(AttributeName.Health).Value;
+            s += ", hp " + npc.CurrentHealth;
             s += ", g " + npc.GetAttribute(AttributeName.GoldReward).Value;
             s += ", xp " + npc.GetAttribute(AttributeName.XPReward).Value;
 

@@ -16,6 +16,7 @@ namespace Hexen.GameData.Projectiles
             ProjectileEffects = new List<ProjectileEffect>();
 
             AddProjectileEffect(new DamageProjectileEffect());
+            AddProjectileEffect(new DotProjectileEffect(200.0f, 10000f));
         }
     }
 }

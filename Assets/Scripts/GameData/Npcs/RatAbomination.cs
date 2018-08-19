@@ -16,7 +16,7 @@ namespace Hexen
         {
             base.InitAttributes();
 
-            AddAttribute(new ClampedAttribute(AttributeName.Health, 1000f, 0f, 1000f, 0.5f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.MaxHealth, 1000.0f, 0.4f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.GoldReward, 1f, 0.5f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.XPReward, 1f, 0.5f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 4f));

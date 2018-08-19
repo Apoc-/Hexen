@@ -8,18 +8,16 @@ namespace Assets.Scripts.AttributeSystem
     public class TimedAttributeEffect : AttributeEffect
     {
         private float duration;
-        private bool ticking;
 
         private float interval = 1000.0f;
         private float timeActive = 0;
         private Timer timer;
         private Attribute affectedAttribute;
 
-        public TimedAttributeEffect(float value, Attribute affectedAttribute, AttributeEffectType effectType, AttributeEffectSource effectSource, float duration, bool ticking = false) : base(value, affectedAttribute.AttributeName, effectType, effectSource)
+        public TimedAttributeEffect(float value, Attribute affectedAttribute, AttributeEffectType effectType, AttributeEffectSource effectSource, float duration) : base(value, affectedAttribute.AttributeName, effectType, effectSource)
         {
             this.affectedAttribute = affectedAttribute;
             this.duration = duration;
-            this.ticking = ticking;
             
             timer = new Timer(interval);
             timer.Elapsed += OnElapsed;
@@ -37,10 +35,9 @@ namespace Assets.Scripts.AttributeSystem
             if (timeActive >= this.duration)
             {
                 timer.Stop();
-
+                
                 affectedAttribute.RemoveAttributeEffect(this);
-
-                Debug.Log("Removed slow " + this.GetHashCode());
+                return;
             }
         }
     }

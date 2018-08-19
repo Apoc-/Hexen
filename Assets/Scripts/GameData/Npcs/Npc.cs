@@ -19,14 +19,26 @@ namespace Hexen
         public GameObject Model;
         public Tile Target;
         public Tile CurrentTile;
+        public int CurrentHealth { get; private set; }
 
         public int Level = 1;
+        private bool shouldDie = false;
 
         void Awake()
         {
             this.InitAttributes();
             this.InitNpc();
             this.InitNpcModel();
+
+            this.CurrentHealth = (int) attributes[AttributeName.MaxHealth].Value;
+        }
+
+        void Update()
+        {
+            if (shouldDie)
+            {
+                Die();
+            }
         }
 
         protected abstract void InitNpc();
@@ -75,14 +87,42 @@ namespace Hexen
             }
         }
 
-        public void DealDamage(float dmg)
+        public void DealDamage(float dmg, Tower source)
         {
-            var health = attributes[AttributeName.Health].Value;
-            this.attributes[AttributeName.Health].Value = health - dmg;
+            CurrentHealth -= (int) dmg;
+
+            if (CurrentHealth <= 0)
+            {
+                GiveRewards(source);
+                shouldDie = true;
+            }
+        }
+
+        private void GiveRewards(Tower source)
+        {
+            if (this.HasAttribute(AttributeName.XPReward))
+            {
+                GiveXP(source, this.GetAttribute(AttributeName.XPReward).Value);
+            }
+
+            if (this.HasAttribute(AttributeName.GoldReward))
+            {
+                GiveGold(source.Owner, this.GetAttribute(AttributeName.GoldReward).Value);
+            }
+        }
+
+        private void GiveXP(Tower target, float amount)
+        {
+            target.GiveXP((int)amount);
+        }
+
+        private void GiveGold(Player target, float amount)
+        {
+            target.IncreaseGold((int)amount);
         }
 
 
-        public void Kill(bool forcefully = false)
+        public void Die(bool forcefully = false)
         {
             if (forcefully)
             {

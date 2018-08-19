@@ -38,7 +38,7 @@ namespace Hexen
             Tile currentTile;
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Vector3 objPosition;
+            //Vector3 objPosition;
             LayerMask mask = LayerMask.GetMask("Tiles");
 
             if (Physics.Raycast(ray, out hit, 100, mask))
