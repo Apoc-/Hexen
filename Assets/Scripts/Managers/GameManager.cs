@@ -122,6 +122,20 @@ namespace Hexen
             }
         }
 
+        private SFXManager sfxManager;
+        public SFXManager SfxManager
+        {
+            get
+            {
+                if (sfxManager == null)
+                {
+                    sfxManager = FindObjectOfType<SFXManager>();
+                }
+
+                return sfxManager;
+            }
+        }
+
         private IEnumerator LoadSceneAsynch(string sceneName)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);

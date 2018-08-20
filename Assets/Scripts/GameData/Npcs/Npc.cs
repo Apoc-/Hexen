@@ -122,7 +122,7 @@ namespace Hexen
         }
 
 
-        public void Die(bool forcefully = false)
+        public void Die(bool forcefully = true)
         {
             if (forcefully)
             {
@@ -136,14 +136,8 @@ namespace Hexen
 
         void Explode()
         {
-            
-            var collider = GetComponentInChildren<Collider>();
-            var renderer = GetComponentInChildren<Renderer>();
-
-            //todo fix, produced bugs, no blood for now
-            /*var exp = GetComponentInChildren<ParticleSystem>();
-            exp.Play();
-
+            GameManager.Instance.SfxManager.PlaySpecialEffect(this, "Blood");
+            /*
             if a tower shoots at the moment this explodes => null ref in firing logic
             if (collider != null) Destroy(collider);
             if (renderer != null) Destroy(renderer);
