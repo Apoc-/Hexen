@@ -109,20 +109,6 @@ namespace Hexen
             }
         }
 
-        private TowerDataManager towerDataManager;
-        public TowerDataManager TowerDataManager
-        {
-            get
-            {
-                if (towerDataManager == null)
-                {
-                    towerDataManager = FindObjectOfType<TowerDataManager>();
-                }
-
-                return towerDataManager;
-            }
-        }
-
         private SFXManager sfxManager;
         public SFXManager SfxManager
         {
@@ -180,7 +166,8 @@ namespace Hexen
 
         private void InitGame()
         {
-            InitTowerBuildManager();
+            FactionManager.Initialize();
+            TowerBuildManager.GenerateStartingBuildableTowers(Player);
         }
 
         public void StartGame()
@@ -215,11 +202,7 @@ namespace Hexen
             this.towerBuildManager = null;
         }
 
-        private void InitTowerBuildManager()
-        {
-            TowerBuildManager.LoadTowers();
-            TowerBuildManager.GenerateStartingBuildableTowers(Player);
-        }
+        
 
         private Player InitPlayer()
         {

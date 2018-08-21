@@ -23,8 +23,8 @@ namespace Hexen.GameData.Towers
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTowerModel");
 
             WeaponHeight = 1;
-            Faction = Assets.Scripts.FactionSystem.Factions.Humans;
-            IsAvailable = true;
+            Faction = Assets.Scripts.FactionSystem.FactionNames.Humans;
+            Rarity = TowerRarities.Common;
         }
 
         protected override void InitAttributes()

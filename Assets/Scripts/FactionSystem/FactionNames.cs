@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.FactionSystem
 {
-    public enum Factions
+    public enum FactionNames
     {
         Humans,
         Orcs,

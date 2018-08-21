@@ -38,8 +38,7 @@ namespace Hexen
 
         public List<Item> Items;
         public TowerRarities Rarity;
-        public Factions Faction = Factions.Humans;
-        public bool IsAvailable = false;
+        public FactionNames Faction = FactionNames.Humans;
 
         [HideInInspector] public Player Owner;
 

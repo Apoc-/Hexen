@@ -7,7 +7,7 @@ namespace Hexen.GameData.Factions
         public Elves() : base(
             name: "Elves", 
             description: "Elves are a noble race with the ability to use elemental magic.", 
-            factionName: Assets.Scripts.FactionSystem.Factions.Elves)
+            factionName: Assets.Scripts.FactionSystem.FactionNames.Elves)
         {
 
         }

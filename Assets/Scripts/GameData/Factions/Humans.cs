@@ -7,9 +7,9 @@ namespace Hexen.GameData.Factions
         public Humans() : base(
             name: "Humans",
             description: "A generic faction with generic towers.",
-            factionName: Assets.Scripts.FactionSystem.Factions.Humans)
+            factionName: Assets.Scripts.FactionSystem.FactionNames.Humans)
         {
-
+            IncreaseStanding();
         }
     }
 }

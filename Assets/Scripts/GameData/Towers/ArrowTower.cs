@@ -27,7 +27,8 @@ namespace Hexen.GameData.Towers
 
             WeaponHeight = 1;
 
-            Faction = Assets.Scripts.FactionSystem.Factions.Humans;
+            Faction = Assets.Scripts.FactionSystem.FactionNames.Humans;
+            Rarity = TowerRarities.Common;
         }
 
         protected override void InitAttributes()

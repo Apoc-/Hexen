@@ -28,8 +28,6 @@ namespace Hexen
                     duration: 3000.0f);
 
                 movementSpeed.AddAttributeEffect(slowEffect);
-
-                Debug.Log("Applied slow " + slowEffect.GetHashCode());
             }
         }
     }

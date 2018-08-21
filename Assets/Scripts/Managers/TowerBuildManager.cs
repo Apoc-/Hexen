@@ -12,7 +12,6 @@ namespace Hexen
 {
     class TowerBuildManager : MonoBehaviour
     {
-        private List<Tower> availableTowers;
         private Tower currentHeldTower;
         private TowerBuildButtonBehaviour currentHeldTowerButton;
 
@@ -87,16 +86,10 @@ namespace Hexen
             }
         }
 
-        public void LoadTowers()
-        {
-            var tdm = GameManager.Instance.TowerDataManager;
-            tdm.InitializeTowers();
-            availableTowers = tdm.GetAvailableTowers();
-            Debug.Log("Loaded " + availableTowers.Count + " Towers.");
-        }
-
         public Tower GetRandomTower()
         {
+            var availableTowers = GameManager.Instance.FactionManager.GetAvailableTowers();
+
             var seed = (int) System.DateTime.Now.Ticks;
             Random rnd = new Random(seed);
             int r = rnd.Next(availableTowers.Count);
