@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.FactionSystem;
 using Hexen.WaveSystem;
 using Hexen;
 using Hexen.GameData;
@@ -133,6 +134,20 @@ namespace Hexen
                 }
 
                 return sfxManager;
+            }
+        }
+
+        private FactionManager factionManager;
+        public FactionManager FactionManager
+        {
+            get
+            {
+                if (factionManager == null)
+                {
+                    factionManager = FindObjectOfType<FactionManager>();
+                }
+
+                return factionManager;
             }
         }
 

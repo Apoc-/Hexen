@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.FactionSystem;
 using Assets.Scripts.ProjectileSystem;
 using Hexen.AttributeSystem;
+using Hexen.GameData;
 using Hexen.GameData.Towers;
 using UnityEngine;
 
@@ -35,6 +37,9 @@ namespace Hexen
         public bool IsPlaced = false;
 
         public List<Item> Items;
+        public TowerRarities Rarity;
+        public Factions Faction = Factions.Humans;
+        public bool IsAvailable = false;
 
         [HideInInspector] public Player Owner;
 

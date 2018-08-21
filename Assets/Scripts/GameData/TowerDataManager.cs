@@ -14,17 +14,12 @@ namespace Hexen.GameData
 
         public void InitializeTowers()
         {
-            CreateTowerGameObject<ArrowTower>();
-            CreateTowerGameObject<CannonTower>();
-            CreateTowerGameObject<HasteAuraTower>();
+            RegisterTower<ArrowTower>();
+            RegisterTower<CannonTower>();
+            RegisterTower<HasteAuraTower>();
         }
 
-        public void Update()
-        {
-            
-        }
-
-        public void CreateTowerGameObject<T>() where T : Tower
+        public void RegisterTower<T>() where T : Tower
         {
             GameObject go = new GameObject();
             Tower tower = go.AddComponent<T>();
@@ -33,12 +28,12 @@ namespace Hexen.GameData
             go.transform.parent = transform;
             go.SetActive(false);
 
-            towers.Add(tower);
+            GameManager.Instance.FactionManager.RegisterTower(tower);
         }
 
         public List<Tower> GetAvailableTowers()
         {
-            return towers;
+            return towers.Where(tower => tower.IsAvailable).ToList();
         }
     }
 }

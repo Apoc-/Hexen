@@ -27,6 +27,9 @@ namespace Hexen.GameData.Towers
                     this));
 
             WeaponHeight = 1;
+
+            Faction = Assets.Scripts.FactionSystem.Factions.Humans;
+            IsAvailable = true;
         }
 
         protected override void InitAttributes()

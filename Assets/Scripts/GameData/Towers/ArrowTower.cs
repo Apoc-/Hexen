@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.AttributeSystem;
 using Assets.Scripts.ProjectileSystem;
+using Assets.Scripts.FactionSystem;
 using Hexen;
 using Hexen.GameData.Projectiles;
 using Hexen.GameData.Towers;
@@ -25,6 +26,8 @@ namespace Hexen.GameData.Towers
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
             WeaponHeight = 1;
+
+            Faction = Assets.Scripts.FactionSystem.Factions.Humans;
         }
 
         protected override void InitAttributes()
