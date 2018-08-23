@@ -72,7 +72,7 @@ namespace Hexen
                 Destroy(activeRangeIndicator);
             }
 
-            activeRangeIndicator = Instantiate(Resources.Load<GameObject>("Prefabs/Entities/RangeIndicator"));
+            activeRangeIndicator = Instantiate(Resources.Load<GameObject>("Sfx/RangeIndicator"));
             activeRangeIndicator.transform.SetParent(tower.transform);
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
