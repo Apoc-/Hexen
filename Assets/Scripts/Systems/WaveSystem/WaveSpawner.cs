@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using Hexen;
-using Hexen.GameData.Towers;
-using Hexen.WaveSystem;
+using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
-namespace Hexen.WaveSystem
+namespace Assets.Scripts.Systems.WaveSystem
 {
     class WaveSpawner : MonoBehaviour
     {

@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Assets.EditorExtensions.PostProcessing.Runtime.Components;
+using Assets.EditorExtensions.PostProcessing.Runtime.Models;
+using Assets.EditorExtensions.PostProcessing.Runtime.Utils;
+using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace UnityEngine.PostProcessing
+namespace Assets.EditorExtensions.PostProcessing.Runtime
 {
     using DebugMode = BuiltinDebugViewsModel.Mode;
 

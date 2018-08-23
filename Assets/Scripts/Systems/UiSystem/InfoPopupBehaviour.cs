@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using UnityEditor.Experimental.UIElements;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.UiSystem
 {
     class InfoPopupBehaviour : MonoBehaviour
     {

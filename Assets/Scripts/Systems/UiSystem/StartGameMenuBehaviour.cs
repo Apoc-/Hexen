@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
+﻿using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
 
-namespace Hexen.UI
+namespace Assets.Scripts.Systems.UiSystem
 {
     class StartGameMenuBehaviour : MonoBehaviour
     {

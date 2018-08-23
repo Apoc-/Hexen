@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
-namespace Hexen.GameData.Runes
+namespace Assets.Scripts.Definitions.Runes
 {
     public abstract class Rune : MonoBehaviour, AttributeEffectSource
     {

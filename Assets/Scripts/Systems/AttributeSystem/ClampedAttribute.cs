@@ -1,7 +1,4 @@
-﻿using Hexen;
-using Hexen.GameData.Towers;
-
-namespace Assets.Scripts.AttributeSystem
+﻿namespace Assets.Scripts.Systems.AttributeSystem
 {
     public class ClampedAttribute : Attribute
     {

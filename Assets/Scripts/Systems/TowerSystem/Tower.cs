@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.FactionSystem;
-using Assets.Scripts.ProjectileSystem;
-using Hexen.AttributeSystem;
-using Hexen.GameData;
-using Hexen.GameData.Towers;
+using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using UnityEngine;
+using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.TowerSystem
 {
     public abstract class Tower : MonoBehaviour, IHasAttributes
     {

@@ -1,13 +1,13 @@
-﻿using Assets.Scripts.FactionSystem;
+﻿using Assets.Scripts.Systems.FactionSystem;
 
-namespace Hexen.GameData.Factions
+namespace Assets.Scripts.Definitions.Factions
 {
     public class Humans : Faction
     {
         public Humans() : base(
             name: "Humans",
             description: "A generic faction with generic towers.",
-            factionName: Assets.Scripts.FactionSystem.FactionNames.Humans)
+            factionName: FactionNames.Humans)
         {
             IncreaseStanding();
         }

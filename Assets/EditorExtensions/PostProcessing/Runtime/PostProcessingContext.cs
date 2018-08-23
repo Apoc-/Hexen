@@ -1,4 +1,7 @@
-namespace UnityEngine.PostProcessing
+using Assets.EditorExtensions.PostProcessing.Runtime.Utils;
+using UnityEngine;
+
+namespace Assets.EditorExtensions.PostProcessing.Runtime
 {
     public class PostProcessingContext
     {

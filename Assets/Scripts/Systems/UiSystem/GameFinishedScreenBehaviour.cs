@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
+﻿using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.UiSystem
 {
     class GameFinishedScreenBehaviour : MonoBehaviour
     {

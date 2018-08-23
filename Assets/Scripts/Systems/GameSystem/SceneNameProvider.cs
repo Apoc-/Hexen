@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
-
-namespace Hexen
+﻿namespace Assets.Scripts.Systems.GameSystem
 {
     class SceneNameProvider
     {

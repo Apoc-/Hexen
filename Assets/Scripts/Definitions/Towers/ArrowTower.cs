@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.AttributeSystem;
-using Assets.Scripts.ProjectileSystem;
-using Assets.Scripts.FactionSystem;
-using Hexen;
-using Hexen.GameData.Projectiles;
-using Hexen.GameData.Towers;
+﻿using Assets.Scripts.Definitions.Projectiles;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
+using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
-namespace Hexen.GameData.Towers
+namespace Assets.Scripts.Definitions.Towers
 {
     class ArrowTower : Tower
     {
@@ -27,7 +22,7 @@ namespace Hexen.GameData.Towers
 
             WeaponHeight = 1;
 
-            Faction = Assets.Scripts.FactionSystem.FactionNames.Humans;
+            Faction = FactionNames.Humans;
             Rarity = TowerRarities.Common;
         }
 

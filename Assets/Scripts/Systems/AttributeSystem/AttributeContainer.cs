@@ -1,50 +1,49 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Hexen;
-using Hexen.GameData.Towers;
 
-public class AttributeContainer : IEnumerable<KeyValuePair<AttributeName, Attribute>>
+namespace Assets.Scripts.Systems.AttributeSystem
 {
-    private Dictionary<AttributeName, Attribute> attributes = new Dictionary<AttributeName, Attribute>();
-
-    // Allow this[name]
-    public Attribute this[AttributeName attrName]
+    public class AttributeContainer : IEnumerable<KeyValuePair<AttributeName, Attribute>>
     {
-        get { return GetAttribute(attrName); }
-    }
+        private Dictionary<AttributeName, Attribute> attributes = new Dictionary<AttributeName, Attribute>();
 
-    public Attribute GetAttribute(AttributeName attrName)
-    {
-        return attributes[attrName];
-    }
-
-    public void AddAttribute(Attribute attr)
-    {
-        attributes.Add(attr.AttributeName, attr);
-    }
-
-    public bool HasAttribute(AttributeName attrName)
-    {
-        return attributes.ContainsKey(attrName);
-    }
-
-    public void RemoveAttributeEffectsFromSource(AttributeEffectSource source)
-    {
-        foreach (var keyValuePair in attributes)
+        // Allow this[name]
+        public Attribute this[AttributeName attrName]
         {
-            keyValuePair.Value.RemoveAttributeEffectsFromSource(source);
+            get { return GetAttribute(attrName); }
         }
-    }
 
-    public IEnumerator<KeyValuePair<AttributeName, Attribute>> GetEnumerator()
-    {
-        return attributes.GetEnumerator();
-    }
+        public Attribute GetAttribute(AttributeName attrName)
+        {
+            return attributes[attrName];
+        }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        public void AddAttribute(Attribute attr)
+        {
+            attributes.Add(attr.AttributeName, attr);
+        }
+
+        public bool HasAttribute(AttributeName attrName)
+        {
+            return attributes.ContainsKey(attrName);
+        }
+
+        public void RemoveAttributeEffectsFromSource(AttributeEffectSource source)
+        {
+            foreach (var keyValuePair in attributes)
+            {
+                keyValuePair.Value.RemoveAttributeEffectsFromSource(source);
+            }
+        }
+
+        public IEnumerator<KeyValuePair<AttributeName, Attribute>> GetEnumerator()
+        {
+            return attributes.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

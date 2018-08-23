@@ -1,10 +1,9 @@
 #if UNITY_STANDALONE || UNITY_EDITOR
 
-using UnityEngine;
-using System.Collections;
 using ProBuilder2.Common;
+using UnityEngine;
 
-namespace ProBuilder2.Examples
+namespace Assets.EditorExtensions.ProCore.ProBuilder.API_Examples.Runtime_Editing
 {
 
 	/**

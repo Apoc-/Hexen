@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.ProjectileSystem;
-using UnityEngine;
+using Assets.Scripts.Definitions.ProjectileEffects;
+using Assets.Scripts.Systems.ProjectileSystem;
 
-namespace Hexen.GameData.Projectiles
+namespace Assets.Scripts.Definitions.Projectiles
 {
     public class BoltProjectile : Projectile
     {

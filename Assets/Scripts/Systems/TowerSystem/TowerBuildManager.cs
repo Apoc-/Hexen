@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
-using Hexen.GameData;
+﻿using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.UiSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = System.Random;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.TowerSystem
 {
     class TowerBuildManager : MonoBehaviour
     {

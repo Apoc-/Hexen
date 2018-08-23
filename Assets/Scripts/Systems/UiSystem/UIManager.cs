@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
-using Hexen.WaveSystem;
+﻿using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.UiSystem
 {
     class UIManager : MonoBehaviour
     {

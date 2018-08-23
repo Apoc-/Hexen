@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.AI;
-using System;
+using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.MapSystem
 {
     public class MapManager : MonoBehaviour
     {
@@ -85,11 +82,11 @@ namespace Hexen
                     tile.GetComponent<Renderer>().material = tile.Material;
                     tileRow.Add(tile);
 
-                    if (tile.TileType == Hexen.TileType.Start)
+                    if (tile.TileType == TileType.Start)
                     {
                         StartTile = tile;
                     }
-                    if (tile.TileType == Hexen.TileType.End)
+                    if (tile.TileType == TileType.End)
                     {
                         EndTile = tile;
                     }
@@ -111,7 +108,7 @@ namespace Hexen
             {
                 var neighbors = GetTileNeighbors(path.Last());
                 var filteredNeighbors = neighbors.Where(t =>
-                    t.TileType == Hexen.TileType.Path
+                    t.TileType == TileType.Path
                     && !path.Contains(t)).ToList();
                 var nextTile = filteredNeighbors.FirstOrDefault();
 

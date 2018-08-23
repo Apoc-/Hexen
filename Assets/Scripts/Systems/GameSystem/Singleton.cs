@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.GameSystem
 {
     /// <summary>
     /// Be aware this will not prevent a non singleton constructor

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using Assets.Scripts.AttributeSystem;
-using Hexen.GameData.Towers;
 using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.AttributeSystem
 {
     [Serializable]
     public enum LevelIncrementType

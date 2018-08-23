@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Hexen;
-using Hexen.GameData;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.TowerSystem;
 
-namespace Assets.Scripts.FactionSystem
+namespace Assets.Scripts.Systems.FactionSystem
 {
     public abstract class Faction
     {

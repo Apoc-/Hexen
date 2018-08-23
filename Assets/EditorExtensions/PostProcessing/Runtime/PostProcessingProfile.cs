@@ -1,6 +1,8 @@
 using System;
+using Assets.EditorExtensions.PostProcessing.Runtime.Models;
+using UnityEngine;
 
-namespace UnityEngine.PostProcessing
+namespace Assets.EditorExtensions.PostProcessing.Runtime
 {
     public class PostProcessingProfile : ScriptableObject
     {

@@ -1,6 +1,8 @@
 ﻿using System;
+using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.TowerSystem;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.ProjectileSystem
 {
     public abstract class ProjectileEffect
     {

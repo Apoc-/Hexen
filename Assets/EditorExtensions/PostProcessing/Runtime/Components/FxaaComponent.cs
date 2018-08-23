@@ -1,4 +1,7 @@
-namespace UnityEngine.PostProcessing
+using Assets.EditorExtensions.PostProcessing.Runtime.Models;
+using UnityEngine;
+
+namespace Assets.EditorExtensions.PostProcessing.Runtime.Components
 {
     public sealed class FxaaComponent : PostProcessingComponentRenderTexture<AntialiasingModel>
     {

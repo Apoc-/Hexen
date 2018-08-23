@@ -1,13 +1,13 @@
-﻿using Assets.Scripts.FactionSystem;
+﻿using Assets.Scripts.Systems.FactionSystem;
 
-namespace Hexen.GameData.Factions
+namespace Assets.Scripts.Definitions.Factions
 {
     public class Orcs : Faction
     {
         public Orcs() : base(
             name: "Orcs",
             description: "Orcs are a tribal faction, deeply rooted in tradition and war.",
-            factionName: Assets.Scripts.FactionSystem.FactionNames.Orcs)
+            factionName: FactionNames.Orcs)
         {
 
         }

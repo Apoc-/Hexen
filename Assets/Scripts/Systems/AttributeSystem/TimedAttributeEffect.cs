@@ -1,9 +1,6 @@
 ﻿using System.Timers;
-using Hexen;
-using Hexen.GameData.Towers;
-using UnityEngine;
 
-namespace Assets.Scripts.AttributeSystem
+namespace Assets.Scripts.Systems.AttributeSystem
 {
     public class TimedAttributeEffect : AttributeEffect
     {

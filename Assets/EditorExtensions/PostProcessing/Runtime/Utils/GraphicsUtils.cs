@@ -1,4 +1,6 @@
-namespace UnityEngine.PostProcessing
+using UnityEngine;
+
+namespace Assets.EditorExtensions.PostProcessing.Runtime.Utils
 {
     using UnityObject = Object;
 

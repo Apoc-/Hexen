@@ -1,10 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using System.Timers;
-using Assets.Scripts.AttributeSystem;
-using Hexen.GameData.Towers;
-using UnityEngine;
+﻿using System.Timers;
+using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.TowerSystem;
 
-namespace Hexen
+namespace Assets.Scripts.Definitions.ProjectileEffects
 {
     public class DotProjectileEffect : ProjectileEffect, AttributeEffectSource
     {

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.FactionSystem;
-using Hexen.WaveSystem;
-using Hexen;
-using Hexen.GameData;
+﻿using System.Collections;
+using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.SfxSystem;
+using Assets.Scripts.Systems.TowerSystem;
+using Assets.Scripts.Systems.UiSystem;
+using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.GameSystem
 {
     enum HexenScene
     {

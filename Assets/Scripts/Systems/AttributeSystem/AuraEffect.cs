@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
-
-namespace Hexen.AbilitySystem
+﻿namespace Assets.Scripts.Systems.AttributeSystem
 {
     class AuraEffect
     {

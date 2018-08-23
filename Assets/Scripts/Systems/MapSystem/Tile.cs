@@ -1,23 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Hexen;
+﻿using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+namespace Assets.Scripts.Systems.MapSystem
 {
-    public Material Material { get; set; }
-    public TileType TileType { get; set; }
-
-    public Tower PlacedTower;
-
-    public bool IsEmpty = true;
-
-    public float Height { get; set; }
-
-    public Vector3 GetTopCenter()
+    public class Tile : MonoBehaviour
     {
-        var meshFilter = GetComponent<MeshFilter>();
-        var h = meshFilter.mesh.bounds.size.y;
-        return transform.position + new Vector3(0, h, 0);
+        public Material Material { get; set; }
+        public TileType TileType { get; set; }
+
+        public Tower PlacedTower;
+
+        public bool IsEmpty = true;
+
+        public float Height { get; set; }
+
+        public Vector3 GetTopCenter()
+        {
+            var meshFilter = GetComponent<MeshFilter>();
+            var h = meshFilter.mesh.bounds.size.y;
+            return transform.position + new Vector3(0, h, 0);
+        }
     }
 }

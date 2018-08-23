@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Hexen;
+using Assets.Scripts.Definitions.Npcs;
 using UnityEngine;
 
-namespace Assets.Scripts.ProjectileSystem
+namespace Assets.Scripts.Systems.ProjectileSystem
 {
     public abstract class AoeProjectile : Projectile
     {

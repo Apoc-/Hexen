@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.UiSystem
 {
     class BuildPanelBehaviour : MonoBehaviour
     {

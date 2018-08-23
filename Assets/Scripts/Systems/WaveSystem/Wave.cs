@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen.WaveSystem;
-using UnityEngine.Networking;
+using Assets.Scripts.Definitions.Npcs;
 
-namespace Hexen.WaveSystem
+namespace Assets.Scripts.Systems.WaveSystem
 {
     class Wave
     {

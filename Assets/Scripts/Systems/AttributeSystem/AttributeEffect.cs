@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hexen;
-using Hexen.GameData.Towers;
 using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.AttributeSystem
 {
     public enum AttributeEffectType
     {

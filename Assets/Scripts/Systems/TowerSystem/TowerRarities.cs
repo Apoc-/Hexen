@@ -1,4 +1,4 @@
-﻿namespace Hexen.GameData
+﻿namespace Assets.Scripts.Systems.TowerSystem
 {
     public enum TowerRarities
     {

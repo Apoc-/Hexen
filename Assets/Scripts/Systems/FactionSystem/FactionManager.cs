@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Hexen;
-using Hexen.GameData.Factions;
-using Hexen.GameData.Towers;
+using Assets.Scripts.Definitions.Factions;
+using Assets.Scripts.Definitions.Towers;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.FactionSystem
+namespace Assets.Scripts.Systems.FactionSystem
 {
     public class FactionManager : MonoBehaviour
     {

@@ -1,9 +1,9 @@
-﻿using System.Runtime.CompilerServices;
-using Assets.Scripts.AttributeSystem;
-using Hexen.GameData.Towers;
-using UnityEngine;
+﻿using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.TowerSystem;
 
-namespace Hexen
+namespace Assets.Scripts.Definitions.ProjectileEffects
 {
     public class SlowProjectileEffect : ProjectileEffect, AttributeEffectSource
     {

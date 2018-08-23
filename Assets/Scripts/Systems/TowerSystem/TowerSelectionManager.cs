@@ -1,10 +1,9 @@
-﻿using Hexen.GameData.Towers;
+﻿using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Experimental.UIElements;
-using UnityStandardAssets.CrossPlatformInput;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.TowerSystem
 {
     class TowerSelectionManager : MonoBehaviour
     {

@@ -1,7 +1,6 @@
-﻿using Hexen.GameData.Towers;
-using UnityEngine;
+﻿using Assets.Scripts.Systems.AttributeSystem;
 
-namespace Hexen.GameData.Runes
+namespace Assets.Scripts.Definitions.Runes
 {
     public class RuneA : Rune
     {

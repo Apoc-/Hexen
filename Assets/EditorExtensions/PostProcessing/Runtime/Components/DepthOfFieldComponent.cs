@@ -1,6 +1,7 @@
-using UnityEngine.Rendering;
+using Assets.EditorExtensions.PostProcessing.Runtime.Models;
+using UnityEngine;
 
-namespace UnityEngine.PostProcessing
+namespace Assets.EditorExtensions.PostProcessing.Runtime.Components
 {
     using DebugMode = BuiltinDebugViewsModel.Mode;
 

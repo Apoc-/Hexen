@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Hexen
+﻿namespace Assets.Scripts.Systems.MapSystem
 {
     public enum TileType
     {

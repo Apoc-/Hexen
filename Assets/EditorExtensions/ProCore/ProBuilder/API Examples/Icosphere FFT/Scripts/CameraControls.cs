@@ -3,9 +3,8 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
-namespace ProBuilder2.Examples
+namespace Assets.EditorExtensions.ProCore.ProBuilder.API_Examples.Icosphere_FFT.Scripts
 {
 	public class CameraControls : MonoBehaviour
 	{

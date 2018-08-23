@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Managers;
-using Hexen;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.GameSystem
 {
     public class Player : MonoBehaviour
     {

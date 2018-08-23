@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.AttributeSystem;
-using Hexen.GameData.Towers;
+﻿using Assets.Scripts.Systems.AttributeSystem;
 using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Definitions.Npcs
 {
     public class RatAbomination : Npc
     {

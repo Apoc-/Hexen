@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen.AbilitySystem;
-using Hexen;
-using Hexen.GameData.Towers;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Systems.AttributeSystem;
 
-namespace Hexen.GameData.Towers
+namespace Assets.Scripts.Systems.TowerSystem
 {
     abstract class AuraTower : Tower, AttributeEffectSource
     {

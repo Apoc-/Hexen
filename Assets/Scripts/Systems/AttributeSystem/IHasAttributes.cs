@@ -1,7 +1,4 @@
-﻿using Hexen;
-using Hexen.GameData.Towers;
-
-namespace Hexen.AttributeSystem
+﻿namespace Assets.Scripts.Systems.AttributeSystem
 {
     public interface IHasAttributes
     {

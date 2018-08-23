@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hexen;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.MapSystem
 {
     class TileProvider : MonoBehaviour
     {

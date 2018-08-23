@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.ProjectileSystem;
-using Hexen;
-using Hexen.AttributeSystem;
-using Hexen.GameData.Towers;
+﻿using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
-using UnityScript.Steps;
+using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
-namespace Hexen
+namespace Assets.Scripts.Definitions.Npcs
 {
     public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource
     {

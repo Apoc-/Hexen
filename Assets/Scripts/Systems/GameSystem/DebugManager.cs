@@ -1,9 +1,7 @@
-﻿using Hexen;
-using Hexen.GameData.Runes;
-using Hexen.GameData.Towers;
+﻿using Assets.Scripts.Definitions.Runes;
 using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Assets.Scripts.Systems.GameSystem
 {
     public class DebugManager : MonoBehaviour
     {

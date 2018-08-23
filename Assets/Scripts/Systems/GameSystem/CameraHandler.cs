@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEditor;
 using UnityEngine;
-using UnityScript.Steps;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.GameSystem
 {
     public class CameraHandler : MonoBehaviour
     {

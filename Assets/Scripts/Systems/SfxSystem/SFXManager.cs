@@ -1,11 +1,8 @@
-﻿using Hexen;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
-namespace Hexen
+namespace Assets.Scripts.Systems.SfxSystem
 {
     class SFXManager : MonoBehaviour
     {

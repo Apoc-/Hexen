@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Hexen;
+using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.ProjectileSystem
+namespace Assets.Scripts.Systems.ProjectileSystem
 {
     public abstract class Projectile : MonoBehaviour
     {

@@ -1,6 +1,8 @@
 using System;
+using Assets.EditorExtensions.PostProcessing.Runtime.Attributes;
+using UnityEngine;
 
-namespace UnityEngine.PostProcessing
+namespace Assets.EditorExtensions.PostProcessing.Runtime.Models
 {
     [Serializable]
     public class BuiltinDebugViewsModel : PostProcessingModel
