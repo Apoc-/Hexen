@@ -7,7 +7,8 @@ namespace Assets.Scripts.Definitions.Factions
         public Orcs() : base(
             name: "Orcs",
             description: "Orcs are a tribal faction, deeply rooted in tradition and war.",
-            factionName: FactionNames.Orcs)
+            factionName: FactionNames.Orcs,
+            opponentFactionName: FactionNames.Elves)
         {
 
         }

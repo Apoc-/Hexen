@@ -9,15 +9,21 @@ namespace Assets.Scripts.Systems.FactionSystem
         protected string Name;
         protected string Description;
         public FactionNames FactionName;
+        public FactionNames OpponentFactionName;
         private int standing = 0;
 
         private readonly Dictionary<TowerRarities, List<Tower>> towers;
 
-        protected Faction(string name, string description, FactionNames factionName)
+        protected Faction(
+            string name, 
+            string description, 
+            FactionNames factionName, 
+            FactionNames opponentFactionName = FactionNames.Void)
         {
-            Name = name;
-            Description = description;
-            FactionName = factionName;
+            this.Name = name;
+            this.Description = description;
+            this.FactionName = factionName;
+            this.OpponentFactionName = opponentFactionName;
 
             towers = new Dictionary<TowerRarities, List<Tower>>
             {
@@ -70,6 +76,11 @@ namespace Assets.Scripts.Systems.FactionSystem
         {
             this.standing -= 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
+        }
+
+        public int GetStanding()
+        {
+            return standing;
         }
     }
 }

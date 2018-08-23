@@ -9,6 +9,7 @@ namespace Assets.Scripts.Systems.GameSystem
     {
         public String Name;
         public int Gold;
+        private int ambassadors = 1;
 
         [SerializeField] private int lives = 10;
         public int Lives
@@ -37,9 +38,27 @@ namespace Assets.Scripts.Systems.GameSystem
         {
             Gold += amount;
         }
+
         public void DecreaseGold(int amount)
         {
             Gold -= amount;
+        }
+
+        public void IncreaseAmbassadors(int amount)
+        {
+            this.ambassadors += amount;
+            GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
+        }
+
+        public void DecreaseAmbassadors(int amount)
+        {
+            this.ambassadors -= amount;
+            GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
+        }
+
+        public int GetAmbassadors()
+        {
+            return this.ambassadors;
         }
 
         public bool BuyTower(Tower tower)

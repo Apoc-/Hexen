@@ -13,7 +13,8 @@ namespace Assets.Scripts.Systems.UiSystem
         [SerializeField] private GameObject waveTimer;
         [SerializeField] private BuildPanelBehaviour buildPanel;
         [SerializeField] private InfoPopupBehaviour infoPopup;
-        
+        [SerializeField] private FactionPanelBehaviour factionPanel;
+
         public BuildPanelBehaviour BuildPanel
         {
             get
@@ -28,6 +29,11 @@ namespace Assets.Scripts.Systems.UiSystem
             {
                 return infoPopup;
             }
+        }
+
+        public FactionPanelBehaviour FactionPanel
+        {
+            get { return factionPanel; }
         }
 
         [SerializeField] private GameFinishedScreenBehaviour finishScreen;
@@ -56,6 +62,11 @@ namespace Assets.Scripts.Systems.UiSystem
             var currentWave = GameManager.Instance.WaveSpawner.CurrentWave;
             var totalWaves = WaveProvider.WaveCount;
             waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
+        }
+
+        public void InitializeUI()
+        {
+            FactionPanel.Initialize();
         }
     }
 }

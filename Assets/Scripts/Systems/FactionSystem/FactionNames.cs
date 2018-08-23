@@ -2,8 +2,9 @@
 {
     public enum FactionNames
     {
+        Void,
         Humans,
         Orcs,
-        Elves,       
+        Elves  
     }
 }

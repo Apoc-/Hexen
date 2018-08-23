@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Definitions.Factions;
 using Assets.Scripts.Definitions.Towers;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Assets.Scripts.Systems.FactionSystem
     public class FactionManager : MonoBehaviour
     {
         private Dictionary<FactionNames, Faction> factions;
+        private Dictionary<FactionNames, FactionNames> opponents;
         private List<Tower> availableTowers;
         private int registeredTowerCount = 0;
 
@@ -74,6 +76,31 @@ namespace Assets.Scripts.Systems.FactionSystem
             {
                 availableTowers.AddRange(faction.GetAvailableTowers());
             });
+        }
+
+        public void SendAmbassador(FactionNames factionName)
+        {
+            var gm = GameManager.Instance;
+            var faction = this.GetFactionByName(factionName);
+
+            faction.IncreaseStanding();
+            gm.Player.DecreaseAmbassadors(1);
+
+            gm.UIManager.FactionPanel.UpdateFactionButtons();
+
+            HandleWar(faction.OpponentFactionName);
+        }
+
+        public void HandleWar(FactionNames factionName)
+        {
+            var faction = GetFactionByName(factionName);
+
+            faction.DecreaseStanding();
+
+            if (faction.GetStanding() == -1)
+            {
+                GameManager.Instance.UIManager.FactionPanel.ToggleFactionWarButton(factionName);
+            }
         }
     }
 }

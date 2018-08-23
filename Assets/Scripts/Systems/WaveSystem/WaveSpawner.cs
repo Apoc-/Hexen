@@ -61,6 +61,7 @@ namespace Assets.Scripts.Systems.WaveSystem
         {
             var player = GameManager.Instance.Player;
             player.IncreaseGold(reward.Gold);
+            player.IncreaseAmbassadors(reward.Ambassadors);
 
             for (int i = 0; i < reward.Towers; i++)
             {
@@ -79,7 +80,7 @@ namespace Assets.Scripts.Systems.WaveSystem
             currentWave += 1;
             CurrentElapsedTime = 10;
 
-            //Debug.Log("----- Spawning Wave " + currentWave + "-----");
+            Debug.Log("----- Spawning Wave " + currentWave + "-----");
             StartCoroutine(SpawnWave(wave, currentWave));
         }
 
