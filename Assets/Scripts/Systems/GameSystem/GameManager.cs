@@ -207,7 +207,7 @@ namespace Hexen
         private Player InitPlayer()
         {
             var player = Instantiate(Resources.Load<Player>("Prefabs/Player"));
-            player.gameObject.name = "Player_" + player.EntityName;
+            player.gameObject.name = "Player_" + player.Name;
             return player;
         }
     }

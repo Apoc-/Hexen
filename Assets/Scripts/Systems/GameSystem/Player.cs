@@ -7,8 +7,9 @@ using UnityEngine;
 
 namespace Hexen
 {
-    public class Player : Entity
+    public class Player : MonoBehaviour
     {
+        public String Name;
         public int Gold;
 
         [SerializeField] private int lives = 10;

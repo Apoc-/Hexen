@@ -36,7 +36,6 @@ namespace Hexen
         
         public bool IsPlaced = false;
 
-        public List<Item> Items;
         public TowerRarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
 
