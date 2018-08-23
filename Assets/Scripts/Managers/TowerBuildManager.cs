@@ -178,6 +178,7 @@ namespace Hexen
             }
 
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+            currentHeldTower = null;
         }
 
         public void SetTowerModelTransparency(float alpha)
