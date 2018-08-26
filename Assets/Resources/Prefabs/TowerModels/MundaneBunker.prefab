@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4744002637937410}
   - component: {fileID: 33960326435177866}
   - component: {fileID: 23027234878662684}
+  - component: {fileID: 64530208134629134}
   m_Layer: 0
   m_Name: bunker
   m_TagString: Untagged
@@ -111,4 +112,18 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366281205788048}
+  m_Mesh: {fileID: 4300000, guid: 55fd79edadfd34541a1a71a92b25bde6, type: 3}
+--- !u!64 &64530208134629134
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1366281205788048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 55fd79edadfd34541a1a71a92b25bde6, type: 3}
