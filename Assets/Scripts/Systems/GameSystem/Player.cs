@@ -9,7 +9,7 @@ namespace Assets.Scripts.Systems.GameSystem
     {
         public String Name;
         public int Gold;
-        private int ambassadors = 1;
+        private int ambassadors = GameSettings.StartingAmbassadors;
 
         [SerializeField] private int lives = 10;
         public int Lives

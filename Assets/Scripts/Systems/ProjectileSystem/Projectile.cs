@@ -25,14 +25,14 @@ namespace Assets.Scripts.Systems.ProjectileSystem
 
         protected abstract void InitProjectile();
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            Collide(collision);
+            Collide(other);
         }
 
-        protected virtual void Collide(Collision collision)
+        protected virtual void Collide(Collider other)
         {
-            var target = collision.gameObject.GetComponentInParent<Npc>();
+            var target = other.gameObject.GetComponentInParent<Npc>();
 
             if (target != null)
             {
@@ -42,23 +42,11 @@ namespace Assets.Scripts.Systems.ProjectileSystem
             }
         }
 
+        protected abstract void UpdateTransform();
+
         private void FixedUpdate()
         {
-            if (this.Target == null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Vector3 target = Target.GetComponentInChildren<Collider>().transform.position;
-            Vector3 position = this.transform.position;
-
-            Vector3 direction = target - position;
-            direction.Normalize();
-
-            transform.SetPositionAndRotation(
-                position + direction * (Speed * Time.fixedDeltaTime),
-                Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(90,0,0));
+            UpdateTransform();
         }
 
         protected void AddProjectileEffect(ProjectileEffect projectileEffect)

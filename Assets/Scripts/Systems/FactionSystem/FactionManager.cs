@@ -33,11 +33,12 @@ namespace Assets.Scripts.Systems.FactionSystem
 
         private void InitializeTowers()
         {
-            /*RegisterTower<ArrowTower>();
-            RegisterTower<CannonTower>();*/
+            RegisterTower<ArrowTower>();
+            RegisterTower<CannonTower>();
             RegisterTower<MundaneBunker>();
             RegisterTower<SiegeCatapult>();
             RegisterTower<WarBanner>();
+            RegisterTower<Shredder>();
 
             Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();

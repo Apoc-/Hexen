@@ -4,7 +4,7 @@ using Assets.Scripts.Systems.ProjectileSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class VoidProjectile : Projectile
+    public class VoidProjectile : HomingProjectile
     {
         protected override void InitProjectileData()
         {

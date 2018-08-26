@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Assets.Scripts.Systems.ProjectileSystem
 {
-    public abstract class AoeProjectile : Projectile
+    public abstract class AoeProjectile : HomingProjectile
     {
         public float Radius = 1.0f;
 
-        protected override void Collide(Collision collision)
+        protected override void Collide(Collider other)
         {
-            var npc = collision.gameObject.GetComponentInParent<Npc>();
+            var npc = other.gameObject.GetComponentInParent<Npc>();
 
             if (npc == null) return;
 
