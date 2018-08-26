@@ -12,13 +12,13 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
         private float interval = 1000;
 
         private float damage;
-        private float duration;
+        private int duration;
         
         private Timer timer;
         private Npc target;
         private Tower source;
 
-        public DotProjectileEffect(float damage, float duration, float triggerChance = 1) : base(triggerChance)
+        public DotProjectileEffect(float damage, int duration, float triggerChance = 1) : base(triggerChance)
         {
             this.damage = damage;
             this.duration = duration;

@@ -47,6 +47,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             InitTower();
             InitAttributes();
             InitTowerModel();
+            InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
         }
         
         public abstract void InitTower();
@@ -123,28 +124,30 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void AcquireTarget()
         {
-            var collidersInAttackRange = GetCollidersInAttackRange();
-
-            foreach (var collider in collidersInAttackRange)
+            if (this.HasAttribute(AttributeName.AttackRange))
             {
-                if (collider.transform.parent.GetComponent<Npc>() == null) continue;
-                lockedTarget = collider.transform.parent.GetComponent<Npc>();
+                var collidersInAttackRange = GetCollidersInRadius(GetAttribute(AttributeName.AttackRange).Value);
 
+                foreach (var collider in collidersInAttackRange)
+                {
+                    if (collider.transform.parent.GetComponent<Npc>() == null) continue;
+                    lockedTarget = collider.transform.parent.GetComponent<Npc>();
+
+                }
             }
         }
 
-        protected List<Collider> GetCollidersInAttackRange()
+        protected List<Collider> GetCollidersInRadius(float radius)
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-            var attackRange = GetAttribute(AttributeName.AttackRange).Value;
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
 
-            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, attackRange));
+            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius));
         }
 
-        private void Fire()
+        protected virtual void Fire()
         {
             SpawnProjectile();
         }
@@ -172,7 +175,6 @@ namespace Assets.Scripts.Systems.TowerSystem
         protected virtual void InitAttributes()
         {
             Attributes = new AttributeContainer();
-            AddAttribute(new Attribute(AttributeName.CritChance, 0.1f, 0, LevelIncrementType.Flat));
         }
 
         public void AddAttribute(Attribute attr)
@@ -188,6 +190,14 @@ namespace Assets.Scripts.Systems.TowerSystem
         public bool HasAttribute(AttributeName attrName)
         {
             return Attributes.HasAttribute(attrName);
+        }
+
+        public void RemoveFinishedTimedAttributeEffects()
+        {
+            foreach (var pair in this.Attributes)
+            {
+                pair.Value.RemovedFinishedAttributeEffects();
+            }
         }
 
         //todo feature removed for now, incorporate as a attribute effect at a later time

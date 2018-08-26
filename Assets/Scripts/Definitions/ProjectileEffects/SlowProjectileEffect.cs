@@ -20,12 +20,12 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
             {
                 var movementSpeed = target.GetAttribute(AttributeName.MovementSpeed);
 
-                var slowEffect = new TimedAttributeEffect(
+                var slowEffect = new AttributeEffect(
                     value: -slowAmount,
-                    affectedAttribute: movementSpeed,
+                    affectedAttributeName: AttributeName.MovementSpeed,
                     effectType: AttributeEffectType.PercentMul,
                     effectSource: this,
-                    duration: 3000.0f);
+                    duration: 3);
 
                 movementSpeed.AddAttributeEffect(slowEffect);
             }

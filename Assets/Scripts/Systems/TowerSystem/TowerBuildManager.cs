@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Systems.GameSystem;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.UiSystem;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public GameObject PlacedTowers;
         public GameObject BuildableTowers;
+
+        private List<Tower> builtTowers = new List<Tower>();
 
         private void Update()
         {
@@ -131,6 +134,12 @@ namespace Assets.Scripts.Systems.TowerSystem
             SetTowerModelTransparency(0.25f);
         }
 
+        private void SellTower(Tower tower)
+        {
+            builtTowers.Remove(tower);
+            GameManager.Instance.Player.SellTower(tower);
+        }
+
         private void PlaceTower(Tile tile)
         {
             if (GameManager.Instance.Player.BuyTower(currentHeldTower))
@@ -138,8 +147,9 @@ namespace Assets.Scripts.Systems.TowerSystem
                 if (tile.PlacedTower != null)
                 {
                     currentHeldTower.GiveXP(tile.PlacedTower.Xp);
-                    GameManager.Instance.Player.SellTower(tile.PlacedTower);
+                    this.SellTower(tile.PlacedTower);
                 }
+                builtTowers.Add(currentHeldTower);
 
                 SetTowerModelTransparency(1.0f);
                 ResetTowerModelColor();

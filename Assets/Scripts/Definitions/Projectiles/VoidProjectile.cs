@@ -4,7 +4,7 @@ using Assets.Scripts.Systems.ProjectileSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class OrcProjectile : Projectile
+    public class VoidProjectile : Projectile
     {
         protected override void InitProjectileData()
         {

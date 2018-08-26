@@ -15,7 +15,7 @@ namespace Assets.Scripts.Systems.AttributeSystem
     [Serializable]
     public class Attribute : AttributeEffectSource
     {
-        [SerializeField] private List<AttributeEffect> attributeEffects;
+        private List<AttributeEffect> attributeEffects;
 
         private Dictionary<int, AttributeEffect> levelAttributeEffects;
         private Dictionary<int, AttributeEffect> LevelAttributeEffects
@@ -25,8 +25,8 @@ namespace Assets.Scripts.Systems.AttributeSystem
 
         protected int AttributeLevel;
         public AttributeName AttributeName;
-        [SerializeField] protected float baseValue;
-        [SerializeField] protected bool isDirty;
+        protected float baseValue;
+        protected bool isDirty;
 
         public float LevelIncrement;
         public LevelIncrementType LevelIncrementType;
@@ -34,8 +34,8 @@ namespace Assets.Scripts.Systems.AttributeSystem
         public Attribute(
             AttributeName attributeName, 
             float baseValue, 
-            float levelIncrement = 0.0f,
-            LevelIncrementType levelIncrementType = LevelIncrementType.Flat)
+            float levelIncrement = 0.02f,
+            LevelIncrementType levelIncrementType = LevelIncrementType.Percentage)
         {
             LevelIncrement = levelIncrement;
             LevelIncrementType = levelIncrementType;
@@ -161,6 +161,16 @@ namespace Assets.Scripts.Systems.AttributeSystem
             isDirty = false;
 
             return calcValue;
+        }
+
+        public void RemovedFinishedAttributeEffects()
+        {
+            var finishedEffects = this.attributeEffects
+                .Where(effect => effect.Duration > 0)
+                .Where(effect => Time.time - effect.AppliedTimestamp >= effect.Duration)
+                .ToList();
+
+            finishedEffects.ForEach(RemoveAttributeEffect);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Definitions.Npcs;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
             if (source.HasAttribute(AttributeName.AttackSpeed))
             {
                 var attr = source.GetAttribute(AttributeName.AttackSpeed);
-                var effect = new TimedAttributeEffect(0.25f, attr, AttributeEffectType.PercentAdd, this, 3000f);
+                var effect = new AttributeEffect(0.1f, AttributeName.AttackSpeed, AttributeEffectType.PercentAdd, this, 3);
 
                 attr.AddAttributeEffect(effect);
             }

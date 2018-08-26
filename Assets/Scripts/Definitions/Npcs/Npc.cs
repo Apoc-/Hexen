@@ -9,7 +9,7 @@ namespace Assets.Scripts.Definitions.Npcs
 {
     public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource
     {
-        public AttributeContainer attributes;
+        public AttributeContainer Attributes;
 
         public string Name;
         public GameObject Model;
@@ -26,7 +26,9 @@ namespace Assets.Scripts.Definitions.Npcs
             this.InitNpc();
             this.InitNpcModel();
 
-            this.CurrentHealth = (int) attributes[AttributeName.MaxHealth].Value;
+            this.CurrentHealth = (int) Attributes[AttributeName.MaxHealth].Value;
+
+            InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
         }
 
         void Update()
@@ -47,29 +49,29 @@ namespace Assets.Scripts.Definitions.Npcs
 
         protected virtual void InitAttributes()
         {
-            attributes = new AttributeContainer();
+            Attributes = new AttributeContainer();
         }
 
         public void AddAttribute(Attribute attr)
         {
-            attributes.AddAttribute(attr);
+            Attributes.AddAttribute(attr);
         }
 
         public Attribute GetAttribute(AttributeName attrName)
         {
-            return attributes[attrName];
+            return Attributes[attrName];
         }
 
         public bool HasAttribute(AttributeName attrName)
         {
-            return attributes.HasAttribute(attrName);
+            return Attributes.HasAttribute(attrName);
         }
 
         private void LevelUp()
         {
             Level += 1;
 
-            foreach (var kvp in attributes)
+            foreach (var kvp in Attributes)
             {
                 kvp.Value.LevelUp();
             }
@@ -155,7 +157,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
             Vector3 direction = target - position;
 
-            var speed = attributes[AttributeName.MovementSpeed].Value;
+            var speed = Attributes[AttributeName.MovementSpeed].Value;
 
             if (direction.magnitude < (speed * Time.fixedDeltaTime * 0.8f))
             {
@@ -187,6 +189,14 @@ namespace Assets.Scripts.Definitions.Npcs
             if (tile == GameManager.Instance.MapManager.EndTile)
             {
                 GameManager.Instance.Player.Lives -= 1;
+            }
+        }
+
+        public void RemoveFinishedTimedAttributeEffects()
+        {
+            foreach (var pair in this.Attributes)
+            {
+                pair.Value.RemovedFinishedAttributeEffects();
             }
         }
 

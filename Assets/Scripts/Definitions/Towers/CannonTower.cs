@@ -28,9 +28,9 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f, 0.04f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 4f, 0.04f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.0f, 0.04f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f));
+            AddAttribute(new Attribute(AttributeName.AttackDamage, 4f));
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.0f));
         }
     }
 }

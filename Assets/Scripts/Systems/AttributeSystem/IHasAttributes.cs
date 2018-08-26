@@ -5,5 +5,6 @@
         void AddAttribute(Attribute attr);
         Attribute GetAttribute(AttributeName attrName);
         bool HasAttribute(AttributeName attrName);
+        void RemoveFinishedTimedAttributeEffects();
     }
 }

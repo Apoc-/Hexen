@@ -4,11 +4,12 @@ using Assets.Scripts.Systems.ProjectileSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class OrcProjectile : Projectile
+    public class OrcAoeProjectile : AoeProjectile
     {
         protected override void InitProjectileData()
         {
             Speed = 20;
+            Radius = 3f;
         }
 
         protected override void InitProjectile()
@@ -17,7 +18,6 @@ namespace Assets.Scripts.Definitions.Projectiles
 
             AddProjectileEffect(new DamageProjectileEffect());
             AddProjectileEffect(new FrenzyProjectileEffect());
-            //AddProjectileEffect(new SlowProjectileEffect(0.5f));
         }
     }
 }

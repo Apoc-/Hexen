@@ -75,7 +75,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             activeRangeIndicator.transform.SetParent(tower.transform);
             activeRangeIndicator.transform.localPosition = Vector3.zero;
 
-            var range = tower.GetAttribute(AttributeName.AttackRange).Value;
+            var range = GetRangeIndicatorRange(tower);
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
             var shape = particles.shape;
             shape.radius = range;
@@ -83,8 +83,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void RecalculateRangeIndicatorRadius()
         {
-            var range = CurrentSelectedTower.GetAttribute(AttributeName.AttackRange).Value;
-            
+            var range = GetRangeIndicatorRange(CurrentSelectedTower);
 
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
             var shape = particles.shape;
@@ -102,6 +101,22 @@ namespace Assets.Scripts.Systems.TowerSystem
             {
                 Destroy(activeRangeIndicator);
             }
+        }
+
+        private float GetRangeIndicatorRange(Tower tower)
+        {
+            var range = 0.0f;
+
+            if (tower.HasAttribute(AttributeName.AttackRange))
+            {
+                range = tower.GetAttribute(AttributeName.AttackRange).Value;
+            }
+            else if (tower.HasAttribute(AttributeName.AuraRange))
+            {
+                range = tower.GetAttribute(AttributeName.AuraRange).Value;
+            }
+
+            return range;
         }
     }
 }

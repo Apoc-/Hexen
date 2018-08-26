@@ -27,12 +27,17 @@ namespace Assets.Scripts.Systems.AttributeSystem
 
         public AttributeEffectSource EffectSource { get; private set; }
 
-        public AttributeEffect(float value, AttributeName affectedAttributeName, AttributeEffectType effectType, AttributeEffectSource effectSource)
+        public float AppliedTimestamp { get; private set; }
+        public int Duration { get; private set; }
+
+        public AttributeEffect(float value, AttributeName affectedAttributeName, AttributeEffectType effectType, AttributeEffectSource effectSource, int duration = -1)
         {
             Value = value;
             EffectType = effectType;
             EffectSource = effectSource;
             AffectedAttributeName = affectedAttributeName;
+            AppliedTimestamp = Time.time;
+            Duration = duration;
         }
 
         public AttributeEffect(AttributeEffect source)
@@ -41,6 +46,10 @@ namespace Assets.Scripts.Systems.AttributeSystem
             EffectType = source.EffectType;
             EffectSource = source.EffectSource;
             AffectedAttributeName = source.AffectedAttributeName;
+            Duration = source.Duration;
+
+            AppliedTimestamp = Time.time;
+            
         }
 
         private sealed class ValueEffectTypeEffectSourceEqualityComparer : IEqualityComparer<AttributeEffect>

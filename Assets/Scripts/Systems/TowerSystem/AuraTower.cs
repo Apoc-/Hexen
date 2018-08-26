@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Systems.AttributeSystem;
+using UnityEngine;
+using UnityStandardAssets.Effects;
 
 namespace Assets.Scripts.Systems.TowerSystem
 {
@@ -19,22 +21,33 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void UpdateAuraTargets()
         {
-            var collidersInAttackRange = GetCollidersInAttackRange();
-
-            foreach (var collider in collidersInAttackRange)
+            if (this.HasAttribute(AttributeName.AuraRange))
             {
-                var tower = collider.GetComponentInParent<Tower>();
-                
-                if (tower == null) continue;
+                var collidersInRange = GetCollidersInAuraRange();
 
-                if (affectedTowers.Contains(tower)) continue;
+                foreach (var collider in collidersInRange)
+                {
+                    var tower = collider.GetComponentInParent<Tower>();
 
-                var effect = AuraEffect.AttributeEffect;
-                tower.GetAttribute(effect.AffectedAttributeName).AddAttributeEffect(effect);
-                affectedTowers.Add(tower);
+                    if (tower == null) continue;
+
+                    if (affectedTowers.Contains(tower)) continue;
+
+                    var effect = AuraEffect.AttributeEffect;
+                    var attributeName = effect.AffectedAttributeName;
+                    if (tower.HasAttribute(attributeName))
+                    {
+                        tower.GetAttribute(attributeName).AddAttributeEffect(effect);
+                        affectedTowers.Add(tower);
+                    }   
+                }
             }
         }
-        
+
+        private List<Collider> GetCollidersInAuraRange()
+        {
+            return GetCollidersInRadius(this.GetAttribute(AttributeName.AuraRange).Value);
+        }
         
         private void ClearAuraTargets()
         {
@@ -51,6 +64,11 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             ClearAuraTargets();
             base.Remove();
+        }
+
+        protected override void Fire()
+        {
+            //does not attack
         }
     }
 }
