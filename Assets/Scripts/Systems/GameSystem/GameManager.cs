@@ -18,7 +18,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
     class GameManager : Singleton<GameManager>
     {
-        public bool FinishedInitialization = false;
+        public bool PlayerReady = false;
 
         private HexenScene currentScene = HexenScene.StartMenuScene;
 
@@ -167,9 +167,13 @@ namespace Assets.Scripts.Systems.GameSystem
         private void InitGame()
         {
             FactionManager.Initialize();
-            TowerBuildManager.GenerateStartingBuildableTowers(Player);
             UIManager.InitializeUI();
-            FinishedInitialization = true;
+        }
+
+        public void MakePlayerReady()
+        {
+            TowerBuildManager.GenerateStartingBuildableTowers(Player);
+            PlayerReady = true;
         }
 
         public void StartGame()

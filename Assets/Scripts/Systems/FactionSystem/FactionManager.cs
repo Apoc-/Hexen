@@ -14,6 +14,7 @@ namespace Assets.Scripts.Systems.FactionSystem
         private Dictionary<FactionNames, FactionNames> opponents;
         private List<Tower> availableTowers;
         private int registeredTowerCount = 0;
+        private int sentAmbassadors = 0;
 
         public void Initialize()
         {
@@ -34,7 +35,7 @@ namespace Assets.Scripts.Systems.FactionSystem
         {
             RegisterTower<ArrowTower>();
             RegisterTower<CannonTower>();
-            RegisterTower<HasteAuraTower>();
+            RegisterTower<MundaneBunker>();
 
             Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();
@@ -51,6 +52,7 @@ namespace Assets.Scripts.Systems.FactionSystem
 
             factions[tower.Faction].AddTower(tower);
             registeredTowerCount += 1;
+
         }
 
         private void AddFaction(Faction faction)
@@ -89,6 +91,12 @@ namespace Assets.Scripts.Systems.FactionSystem
             gm.UIManager.FactionPanel.UpdateFactionButtons();
 
             HandleWar(faction.OpponentFactionName);
+
+            sentAmbassadors += 1;
+            if (sentAmbassadors <= 1)
+            {
+                GameManager.Instance.MakePlayerReady();
+            }
         }
 
         public void HandleWar(FactionNames factionName)

@@ -13,13 +13,13 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "CannonTower";
             Description = "A tower that shoots explosive projectiles";
-            GoldCost = 20;
+            GoldCost = 15;
             ProjectileType = typeof(CannonProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
-            Icon = Resources.Load<Sprite>("UI/Icons/CannonTowerIcon");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTowerModel");
+            Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Cannon");
+            Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
 
-            WeaponHeight = 1;
+            WeaponHeight = 0.4f;
             Faction = FactionNames.Humans;
             Rarity = TowerRarities.Common;
         }
@@ -28,9 +28,9 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 1.75f, 0.04f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 5, 0.04f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 0.75f, 0.04f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f, 0.04f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.AttackDamage, 4f, 0.04f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.0f, 0.04f, LevelIncrementType.Percentage));
         }
     }
 }

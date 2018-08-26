@@ -36,6 +36,8 @@ namespace Assets.Scripts.Systems.WaveSystem
 
         private void Update()
         {
+            if (!GameManager.Instance.PlayerReady) return;
+
             if (currentWave >= WaveProvider.WaveCount && currentSpawnedWaves.Count == 0)
             {
                 GameManager.Instance.WinGame();

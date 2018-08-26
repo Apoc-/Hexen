@@ -7,22 +7,22 @@ using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Definitions.Towers
 {
-    class ArrowTower : Tower
+    class MundaneBunker : Tower
     {
         public override void InitTower()
         {
-            Name = "Arrow Tower";
-            Description = "A tower that shoots arrows";
-            GoldCost = 10;            
-            Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Arrow");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            Name = "Mundane Bunker";
+            Description = "An orcish bunker with frenzy.";
+            GoldCost = 15;
+            Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Bunker");
+            Model = Resources.Load<GameObject>("Prefabs/TowerModels/MundaneBunker");
 
-            ProjectileType = typeof(ArrowProjectile);
+            ProjectileType = typeof(OrcProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
-            WeaponHeight = 0.4f;
+            WeaponHeight = 0.2f;
 
-            Faction = FactionNames.Humans;
+            Faction = FactionNames.Orcs;
             Rarity = TowerRarities.Common;
         }
 
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 2.5f, 0.04f, LevelIncrementType.Percentage));
+            AddAttribute(new Attribute(AttributeName.AttackRange, 2f, 0.04f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.AttackDamage, 2f, 0.04f, LevelIncrementType.Percentage));
             AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.5f, 0.04f, LevelIncrementType.Percentage));
         }
