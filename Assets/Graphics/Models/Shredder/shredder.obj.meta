@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 3e6ee5e9c2d31c741a80b6ed6637e6d5
+guid: 1ef8143bd4579ca409ab6d85e48d1847
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: arrowtower
+    100000: shredder
     100002: //RootNode
-    400000: arrowtower
+    400000: shredder
     400002: //RootNode
     2100000: palette
-    2300000: arrowtower
-    3300000: arrowtower
-    4300000: arrowtower
+    2300000: shredder
+    3300000: shredder
+    4300000: shredder
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -17,7 +17,7 @@ namespace Assets.Scripts.Definitions.Towers
             ProjectileType = typeof(ArrowProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Banner");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            Model = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
             AuraEffect =
                 new AuraEffect(new AttributeEffect(0.25f, AttributeName.AttackDamage, AttributeEffectType.PercentMul,
                     this));

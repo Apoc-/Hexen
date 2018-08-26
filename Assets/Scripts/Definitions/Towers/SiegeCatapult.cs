@@ -19,7 +19,7 @@ namespace Assets.Scripts.Definitions.Towers
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Catapult");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
+            Model = Resources.Load<GameObject>("Prefabs/TowerModels/Catapult");
 
             WeaponHeight = 0.2f;
             Faction = FactionNames.Orcs;

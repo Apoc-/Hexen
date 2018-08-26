@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 3e6ee5e9c2d31c741a80b6ed6637e6d5
+guid: de21e1affe646b044a2f7c2a791874df
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: arrowtower
+    100000: catapult
     100002: //RootNode
-    400000: arrowtower
+    400000: catapult
     400002: //RootNode
     2100000: palette
-    2300000: arrowtower
-    3300000: arrowtower
-    4300000: arrowtower
+    2300000: catapult
+    3300000: catapult
+    4300000: catapult
   externalObjects: {}
   materials:
     importMaterials: 1
