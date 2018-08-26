@@ -23,7 +23,7 @@ namespace Assets.Scripts.Definitions.Projectiles
             AddProjectileEffect(new DamageProjectileEffect());
         }
 
-        protected override void Collide(Collider other)
+        public override void Collide(Collider other)
         {
             var target = other.gameObject.GetComponentInParent<Npc>();
 

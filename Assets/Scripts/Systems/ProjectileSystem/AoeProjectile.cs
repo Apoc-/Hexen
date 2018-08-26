@@ -8,7 +8,7 @@ namespace Assets.Scripts.Systems.ProjectileSystem
     {
         public float Radius = 1.0f;
 
-        protected override void Collide(Collider other)
+        public override void Collide(Collider other)
         {
             var npc = other.gameObject.GetComponentInParent<Npc>();
 

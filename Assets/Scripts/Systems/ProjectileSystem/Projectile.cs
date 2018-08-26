@@ -25,12 +25,12 @@ namespace Assets.Scripts.Systems.ProjectileSystem
 
         protected abstract void InitProjectile();
 
-        private void OnTriggerEnter(Collider other)
+        /*private void OnTriggerEnter(Collider other)
         {
             Collide(other);
-        }
+        }*/
 
-        protected virtual void Collide(Collider other)
+        public virtual void Collide(Collider other)
         {
             var target = other.gameObject.GetComponentInParent<Npc>();
 
