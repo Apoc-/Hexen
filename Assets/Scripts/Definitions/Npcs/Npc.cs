@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Systems.AttributeSystem;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.TowerSystem;
@@ -20,6 +21,10 @@ namespace Assets.Scripts.Definitions.Npcs
         public int Level = 1;
         private bool shouldDie = false;
 
+        private NpcHealthBar healthBar;
+        protected float HealthBarOffset = 0.0f;
+        protected float HealthBarScale = 1.0f;
+
         void Awake()
         {
             this.InitAttributes();
@@ -27,8 +32,27 @@ namespace Assets.Scripts.Definitions.Npcs
             this.InitNpcModel();
 
             this.CurrentHealth = (int) Attributes[AttributeName.MaxHealth].Value;
+            this.InitHealthBar();
 
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
+        }
+
+        private void InitHealthBar()
+        {
+            var barPrefab = Resources.Load("Prefabs/UI/NpcHealthBar");
+            var bar = (GameObject) Instantiate(barPrefab);
+            bar.transform.parent = this.transform;
+
+            var pos = bar.transform.position;
+            pos.y = pos.y + this.HealthBarOffset;
+            bar.transform.position = pos;
+
+
+            healthBar = bar.GetComponent<NpcHealthBar>();
+
+            bar.transform.localScale *= HealthBarScale;
+
+            healthBar.UpdateHealth(1.0f);
         }
 
         void Update()
@@ -88,12 +112,16 @@ namespace Assets.Scripts.Definitions.Npcs
         public void DealDamage(float dmg, Tower source)
         {
             CurrentHealth -= (int) dmg;
-
+            
             if (CurrentHealth <= 0)
             {
+                CurrentHealth = 0;
                 GiveRewards(source);
                 shouldDie = true;
             }
+
+            var maxHealth = Attributes[AttributeName.MaxHealth].Value;
+            healthBar.UpdateHealth(CurrentHealth / maxHealth);
         }
 
         private void GiveRewards(Tower source)
@@ -198,6 +226,17 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 pair.Value.RemovedFinishedAttributeEffects();
             }
+        }
+
+        //todo refactor, tower has the same 
+        public List<Collider> GetCollidersInRadius(float radius)
+        {
+            var baseHeight = GameManager.Instance.MapManager.BaseHeight;
+
+            var topCap = transform.position + new Vector3(0, 5, 0);
+            var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
+
+            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius));
         }
 
     }

@@ -34,6 +34,7 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
             timer.Start();
         }
 
+        //todo RACE CONDITION!
         private void OnElapsed(object src, ElapsedEventArgs e)
         {
             if (timeActive >= this.duration || target.CurrentHealth <= 0)

@@ -35,10 +35,14 @@ namespace Assets.Scripts.Systems.FactionSystem
         {
             RegisterTower<ArrowTower>();
             RegisterTower<CannonTower>();
+            //orcs
             RegisterTower<MundaneBunker>();
             RegisterTower<SiegeCatapult>();
             RegisterTower<WarBanner>();
             RegisterTower<Shredder>();
+            //elves
+            RegisterTower<ArcaneNeedle>();
+            RegisterTower<StormCaller>();
 
             Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();

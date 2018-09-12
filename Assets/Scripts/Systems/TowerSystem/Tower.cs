@@ -7,6 +7,7 @@ using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using UnityEngine;
+using UnityEngine.Events;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Systems.TowerSystem
@@ -39,6 +40,8 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public TowerRarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
+
+        public UnityEvent OnAttack = new UnityEvent();
 
         [HideInInspector] public Player Owner;
 
@@ -132,12 +135,12 @@ namespace Assets.Scripts.Systems.TowerSystem
                 {
                     if (collider.transform.parent.GetComponent<Npc>() == null) continue;
                     lockedTarget = collider.transform.parent.GetComponent<Npc>();
-
                 }
             }
         }
 
-        protected List<Collider> GetCollidersInRadius(float radius)
+        //todo refactor, npc has the same 
+        public List<Collider> GetCollidersInRadius(float radius)
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
 
@@ -149,6 +152,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         protected virtual void Fire()
         {
+            OnAttack.Invoke();
             SpawnProjectile();
         }
 
