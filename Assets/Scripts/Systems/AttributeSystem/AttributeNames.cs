@@ -9,6 +9,8 @@ namespace Assets.Scripts.Systems.AttributeSystem
         AttackSpeed,
         AttackDamage,
         AuraRange,
+        AuraDamage,
+        AuraTicksPerSecond,
         CritChance,
         MaxHealth,
         GoldReward,

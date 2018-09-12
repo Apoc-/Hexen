@@ -138,6 +138,14 @@ namespace Assets.Scripts.Systems.AttributeSystem
             var effects = new List<AttributeEffect>();
 
             if (attributeEffects.Count > 0) effects.AddRange(attributeEffects);
+
+            //check of SetValue Effect
+            var setValueEffect = effects.FirstOrDefault(effect => effect.EffectType == AttributeEffectType.SetValue);
+            if (setValueEffect != null)
+            {
+                return setValueEffect.Value;
+            }
+
             if (LevelAttributeEffects.Count > 0) effects.AddRange(LevelAttributeEffects.Values);
 
             effects.ForEach(effect =>

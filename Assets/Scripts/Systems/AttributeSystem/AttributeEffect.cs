@@ -8,7 +8,8 @@ namespace Assets.Scripts.Systems.AttributeSystem
     {
         Flat,
         PercentMul,
-        PercentAdd
+        PercentAdd,
+        SetValue
     }
 
     [Serializable]

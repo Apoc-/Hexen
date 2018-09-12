@@ -14,13 +14,16 @@ namespace Assets.Scripts.Definitions.Towers
             Name = "War Banner";
             Description = "A War Banner that increases the damage of nearby towers. This tower does not attack!";
             GoldCost = 100;
-            ProjectileType = typeof(ArrowProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+
+            //ProjectileType = typeof(ArrowProjectile);
+            //ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Banner");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
-            AuraEffect =
-                new AuraEffect(new AttributeEffect(0.25f, AttributeName.AttackDamage, AttributeEffectType.PercentMul,
-                    this));
+            AuraEffects.Add(new AuraEffect(
+                attributeEffect: new AttributeEffect(0.25f, AttributeName.AttackDamage, AttributeEffectType.PercentMul, this), 
+                affectsTowers: true, 
+                affectsNpcs: false));
 
             WeaponHeight = 1;
 

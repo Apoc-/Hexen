@@ -8,7 +8,7 @@ using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Definitions.Npcs
 {
-    public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource
+    public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource, AuraTarget
     {
         public AttributeContainer Attributes;
 
@@ -16,7 +16,15 @@ namespace Assets.Scripts.Definitions.Npcs
         public GameObject Model;
         public Tile Target;
         public Tile CurrentTile;
-        public int CurrentHealth { get; private set; }
+
+        [SerializeField]
+        private float currentHealth;
+
+        public float CurrentHealth
+        {
+            get { return currentHealth; }
+            private set { currentHealth = value; }
+        }
 
         public int Level = 1;
         private bool shouldDie = false;
@@ -31,7 +39,8 @@ namespace Assets.Scripts.Definitions.Npcs
             this.InitNpc();
             this.InitNpcModel();
 
-            this.CurrentHealth = (int) Attributes[AttributeName.MaxHealth].Value;
+            this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
+            
             this.InitHealthBar();
 
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
@@ -107,12 +116,14 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 this.LevelUp();
             }
+
+            this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
         }
 
         public void DealDamage(float dmg, Tower source)
         {
-            CurrentHealth -= (int) dmg;
-            
+            CurrentHealth -= dmg;
+
             if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;

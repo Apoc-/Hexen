@@ -12,7 +12,7 @@ using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Systems.TowerSystem
 {
-    public abstract class Tower : MonoBehaviour, IHasAttributes
+    public abstract class Tower : MonoBehaviour, IHasAttributes, AuraTarget
     {
         // TODO: Protected. Apoc- told me I should not change the UI so I don't
         // TODO: Yes Apoc- did, because Mijago likes to change things everywhere, even if not needed right now :D
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         public int Level = 1;
         public int Xp = 0;
 
-        private Npc lockedTarget;
+        protected Npc lockedTarget;
         private float lastShotFired;
         
         public bool IsPlaced = false;
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             if (IsPlaced)
             {
-                CheckLockedTarget();
+                DoUpdate();
             }
         }
 
@@ -101,7 +101,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             }
         }
 
-        private void CheckLockedTarget()
+        protected virtual void DoUpdate()
         {
             if (lockedTarget == null)
             {

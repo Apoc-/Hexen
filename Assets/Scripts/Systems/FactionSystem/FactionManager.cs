@@ -43,6 +43,8 @@ namespace Assets.Scripts.Systems.FactionSystem
             //elves
             RegisterTower<ArcaneNeedle>();
             RegisterTower<StormCaller>();
+            RegisterTower<FrostEmitter>();
+            RegisterTower<ArotasObelisk>();
 
             Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();

@@ -121,6 +121,7 @@ namespace Assets.Scripts.Systems.WaveSystem
             if (npc == null) return;
 
             npc.SetLevel(lvl);
+            
             npc.transform.parent = transform;
             npc.name = npc.Name + "_" + wave.SpawnCount;
             npc.transform.position = GameManager.Instance.MapManager.StartTile.GetTopCenter();

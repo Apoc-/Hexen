@@ -1,18 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityStandardAssets.Effects;
 
 namespace Assets.Scripts.Systems.TowerSystem
 {
     abstract class AuraTower : Tower, AttributeEffectSource
     {
-        protected AuraEffect AuraEffect;
-        private List<Tower> affectedTowers = new List<Tower>();
+        protected List<AuraEffect> AuraEffects = new List<AuraEffect>();
+        protected List<IHasAttributes> affectedAuraTargets = new List<IHasAttributes>();
+
+        private float lastAuraDamageTick;
+
+        public UnityEvent OnAuraTick = new UnityEvent();
 
         public void Update()
         {
-            if (AuraEffect != null && IsPlaced)
+            if (AuraEffects.Count > 0 && IsPlaced)
             {
                 //TODO: Refactor, runs way to often
                 UpdateAuraTargets();
@@ -21,25 +28,32 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void UpdateAuraTargets()
         {
-            if (this.HasAttribute(AttributeName.AuraRange))
+            ClearAuraTargets();
+
+            if (!this.HasAttribute(AttributeName.AuraRange)) return;
+
+            var collidersInRange = GetCollidersInAuraRange();
+
+            var targets = collidersInRange
+                .Select(c => c.GetComponentInParent<IHasAttributes>())
+                .Where(e => e != null);
+
+            foreach (var auraTarget in targets)
             {
-                var collidersInRange = GetCollidersInAuraRange();
+                if (affectedAuraTargets.Contains(auraTarget)) continue;
 
-                foreach (var collider in collidersInRange)
+                foreach (var auraEffect in AuraEffects)
                 {
-                    var tower = collider.GetComponentInParent<Tower>();
+                    if (auraTarget is Npc && !auraEffect.AffectsNpcs) continue;
+                    if (auraTarget is Tower && !auraEffect.AffectsTowers) continue;
 
-                    if (tower == null) continue;
+                    var attributeEffect = auraEffect.AttributeEffect;
+                    var attributeName = attributeEffect.AffectedAttributeName;
 
-                    if (affectedTowers.Contains(tower)) continue;
+                    if (!auraTarget.HasAttribute(attributeName)) continue;
 
-                    var effect = AuraEffect.AttributeEffect;
-                    var attributeName = effect.AffectedAttributeName;
-                    if (tower.HasAttribute(attributeName))
-                    {
-                        tower.GetAttribute(attributeName).AddAttributeEffect(effect);
-                        affectedTowers.Add(tower);
-                    }   
+                    auraTarget.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
+                    affectedAuraTargets.Add(auraTarget);
                 }
             }
         }
@@ -51,13 +65,16 @@ namespace Assets.Scripts.Systems.TowerSystem
         
         private void ClearAuraTargets()
         {
-            affectedTowers.ForEach(tower =>
+            affectedAuraTargets.ForEach(target =>
             {
-                var effect = AuraEffect.AttributeEffect;
-                tower.GetAttribute(effect.AffectedAttributeName).RemoveAttributeEffectsFromSource(this);
+                AuraEffects.ForEach(auraEffect =>
+                {
+                    var attributeEffect = auraEffect.AttributeEffect;
+                    target.GetAttribute(attributeEffect.AffectedAttributeName).RemoveAttributeEffectsFromSource(this);
+                });
             });
 
-            affectedTowers = new List<Tower>();
+            affectedAuraTargets = new List<IHasAttributes>();
         }
 
         public override void Remove()
@@ -66,9 +83,30 @@ namespace Assets.Scripts.Systems.TowerSystem
             base.Remove();
         }
 
-        protected override void Fire()
+        protected void TickAura()
         {
-            //does not attack
+            this.OnAuraTick.Invoke();
+            
+            var targets = this.affectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
+            targets.ForEach(npc =>
+            {
+                var dmg = this.Attributes[AttributeName.AuraDamage].Value;
+                npc.DealDamage(dmg, this);
+            });
+        }
+
+        protected override void DoUpdate()
+        {
+            if (!Attributes.HasAttribute(AttributeName.AuraDamage)) return;
+            if (!Attributes.HasAttribute(AttributeName.AuraTicksPerSecond)) return;
+
+            var interval = Attributes[AttributeName.AuraTicksPerSecond].Value;
+
+            if (lastAuraDamageTick < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AuraTicksPerSecond).Value)
+            {
+                TickAura();
+                lastAuraDamageTick = Time.fixedTime;
+            }
         }
     }
 }
