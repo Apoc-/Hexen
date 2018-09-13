@@ -60,7 +60,7 @@ namespace Assets.Scripts.Definitions.Towers
             var projectile = go.AddComponent<ArotasMeteoriteProjectile>();
 
             projectile.transform.SetParent(this.transform);
-            projectile.transform.localPosition = new Vector3(0, WeaponHeight + 10, 0);
+            projectile.transform.localPosition = new Vector3(0, WeaponHeight + 20, 0);
 
             projectile.Target = this.lockedTarget;
             projectile.Source = this;

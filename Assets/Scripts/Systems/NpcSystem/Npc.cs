@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
@@ -32,6 +34,10 @@ namespace Assets.Scripts.Definitions.Npcs
         private NpcHealthBar healthBar;
         protected float HealthBarOffset = 0.0f;
         protected float HealthBarScale = 1.0f;
+
+        private List<NpcDot> dots = new List<NpcDot>();
+        private float tickTime = 0;
+        private float dotCheckInterval = 0.1f;
 
         void Awake()
         {
@@ -70,6 +76,29 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 Die();
             }
+
+            tickTime += Time.deltaTime;
+            if (tickTime >= dotCheckInterval)
+            {
+                DoDots();
+                tickTime = 0.0f;
+            }
+        }
+
+        private void DoDots()
+        {
+            dots.RemoveAll(dot => dot.IsFinished());
+
+            dots.ForEach(dot =>
+            {
+                dot.IncreaseActiveTime(Time.deltaTime);
+
+                if (dot.ShouldTick(Time.time))
+                {
+                    this.DealDamage(dot.Damage, dot.Source);
+                    dot.DoTick(Time.time);
+                }
+            });
         }
 
         protected abstract void InitNpc();
@@ -122,7 +151,9 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public void DealDamage(float dmg, Tower source)
         {
+            Debug.Log("CurrentHealth: " + CurrentHealth + " Dmg: " +dmg);
             CurrentHealth -= dmg;
+            Debug.Log("CurrentHealth after dmg: " + CurrentHealth);
 
             if (CurrentHealth <= 0)
             {
@@ -237,6 +268,14 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 pair.Value.RemovedFinishedAttributeEffects();
             }
+        }
+
+        public void ApplyDot(NpcDot dot)
+        {
+            //only one dot per source for now
+            if (dots.Any(d => d.Source == dot.Source)) return;
+
+            this.dots.Add(dot);
         }
 
         //todo refactor, tower has the same 

@@ -1,50 +1,31 @@
-﻿using System.Timers;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Timers;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
+using UnityEngine;
 
 namespace Assets.Scripts.Definitions.ProjectileEffects
 {
     public class DotProjectileEffect : ProjectileEffect, AttributeEffectSource
     {
-        private float timeActive = 0;
-        private float interval = 1000;
+        private readonly float damagePerTick;
+        private readonly float ticksPerSecond;
 
-        private float damage;
-        private int duration;
-        
-        private Timer timer;
-        private Npc target;
-        private Tower source;
+        private readonly int duration;
 
-        public DotProjectileEffect(float damage, int duration, float triggerChance = 1) : base(triggerChance)
+        public DotProjectileEffect(float damagePerTick, float ticksPerSecond, int duration, float triggerChance = 1) : base(triggerChance)
         {
-            this.damage = damage;
+            this.damagePerTick = damagePerTick;
             this.duration = duration;
+            this.ticksPerSecond = ticksPerSecond;
         }
 
         protected override void ApplyEffect(Tower source, Npc target)
         {
-            this.target = target;
-            this.source = source;
-
-            timer = new Timer(interval);
-            timer.Elapsed += OnElapsed;
-            timer.Start();
-        }
-
-        //todo RACE CONDITION!
-        private void OnElapsed(object src, ElapsedEventArgs e)
-        {
-            if (timeActive >= this.duration || target.CurrentHealth <= 0)
-            {
-                timer.Stop();
-            }
-
-            timeActive += this.interval;
-
-            this.target.DealDamage(this.damage, this.source);
+            target.ApplyDot(new NpcDot(this.duration, this.damagePerTick, this.ticksPerSecond, source));
         }
     }
 }

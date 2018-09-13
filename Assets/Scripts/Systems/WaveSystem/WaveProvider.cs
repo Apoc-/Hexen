@@ -34,14 +34,42 @@ namespace Assets.Scripts.Systems.WaveSystem
         {
             waves = new Dictionary<int, Wave>();
 
-            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 10, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 1.0f, goldReward: 10, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 1.0f, goldReward: 10, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 1.0f, goldReward: 10, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 15, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Goblin), size: 10, spawnInterval: 1.0f, goldReward: 20, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Goblin), size: 30, spawnInterval: 0.25f, goldReward: 25, towerReward: 1, ambassadorReward: 1));
-            AddWave(new Wave(typeof(Rat), size: 1, spawnInterval: 1.0f, goldReward: 30, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
+            AddWave(new Wave(typeof(Rat), size: 10, spawnInterval: 0.5f, goldReward: 10, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 20, spawnInterval: 0.5f, goldReward: 5, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(Rat), size: 30, spawnInterval: 0.25f, goldReward: 2, towerReward: 1, ambassadorReward: 0));
+            AddWave(new Wave(typeof(RatAbomination), size: 1, spawnInterval: 1.0f, goldReward: 100, towerReward: 1, ambassadorReward: 1));
         }
 
         private static void AddWave(Wave wave)

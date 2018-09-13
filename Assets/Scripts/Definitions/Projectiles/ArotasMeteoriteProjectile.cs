@@ -19,8 +19,8 @@ namespace Assets.Scripts.Definitions.Projectiles
             ProjectileEffects = new List<ProjectileEffect>();
 
             AddProjectileEffect(new DamageProjectileEffect());
-            AddProjectileEffect(new DotProjectileEffect(10, 5));
-            AddProjectileEffect(new StunProjectileEffect(2));
+            AddProjectileEffect(new DotProjectileEffect(damagePerTick: 2.5f, ticksPerSecond: 4, duration: 5));
+            AddProjectileEffect(new StunProjectileEffect(stunDuration: 2));
         }
     }
 }
