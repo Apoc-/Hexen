@@ -29,7 +29,7 @@ namespace Assets.Scripts.Systems.GameSystem
         void DebugAddRune()
         {
             var twr = GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
-            Rune.ApplyRune(twr);
+            //Rune.ApplyRune(twr);
         }
 
         void DebugRemoveRune()

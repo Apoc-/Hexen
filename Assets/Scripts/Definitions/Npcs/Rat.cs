@@ -17,9 +17,9 @@ namespace Assets.Scripts.Definitions.Npcs
             base.InitAttributes();
 
             AddAttribute(new Attribute(AttributeName.MaxHealth, 4.0f, 0.4f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.GoldReward, 1f, 0.5f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.XPReward, 1f, 0.5f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 4f));
+            AddAttribute(new Attribute(AttributeName.GoldReward, 0f, 1f, LevelIncrementType.Flat));
+            AddAttribute(new Attribute(AttributeName.XPReward, 0f, 2f, LevelIncrementType.Flat));
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, 3f));
         }
     }
 }

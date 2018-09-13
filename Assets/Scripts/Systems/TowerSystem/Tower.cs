@@ -6,6 +6,7 @@ using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -42,14 +43,18 @@ namespace Assets.Scripts.Systems.TowerSystem
         public FactionNames Faction = FactionNames.Humans;
 
         public UnityEvent OnAttack = new UnityEvent();
+        public UnityEvent OnLevelUp = new UnityEvent();
 
         [HideInInspector] public Player Owner;
+
+
 
         private void Awake()
         {
             InitTower();
             InitAttributes();
             InitTowerModel();
+            InitTowerEffects();
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
         }
         
@@ -59,6 +64,14 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             var mdlGo = Instantiate(Model);
             mdlGo.transform.SetParent(transform, false);
+        }
+
+        public void InitTowerEffects()
+        {
+            this.OnLevelUp.AddListener(() =>
+            {
+                GameManager.Instance.SfxManager.PlaySpecialEffect(this, "LevelUpEffect");
+            });
         }
 
         public void InitCopyTowerData(Tower source)
@@ -93,6 +106,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void LevelUp()
         {
+            OnLevelUp.Invoke();
             Level += 1;
 
             foreach (var keyValuePair in Attributes)
@@ -171,8 +185,8 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private int NextLevelXP()
         {
-            var fac = 2.0f;
-            var exp = 3.0f;
+            var fac = 0.5f;
+            var exp = 2.0f;
             
             return (int) (fac * Mathf.Pow(Level, exp));
         }
