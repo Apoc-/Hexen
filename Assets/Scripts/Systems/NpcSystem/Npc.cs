@@ -83,7 +83,7 @@ namespace Assets.Scripts.Definitions.Npcs
             healthBar.UpdateHealth(1.0f);
         }
 
-        void Update()
+        protected void Update()
         {
             if (shouldDie)
             {

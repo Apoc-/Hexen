@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Systems.AttributeSystem
 {
-    class AuraEffect
+    public class AuraEffect
     {
         public AttributeEffect AttributeEffect;
         public bool AffectsNpcs;
