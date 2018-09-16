@@ -15,6 +15,7 @@ namespace Assets.Scripts.Systems.AttributeSystem
         MaxHealth,
         GoldReward,
         XPReward,
-        MovementSpeed
+        MovementSpeed,
+        AbsoluteDamageReduction
     }
 }

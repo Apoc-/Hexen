@@ -91,9 +91,6 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             Xp += amount;
 
-            Debug.Log("give xp " + amount);
-            Debug.Log("nxt lvl xp " + NextLevelXP());
-
             while (Xp >= NextLevelXP() && this.Level < GameSettings.TowerMaxLevel)
             {
                 LevelUp();

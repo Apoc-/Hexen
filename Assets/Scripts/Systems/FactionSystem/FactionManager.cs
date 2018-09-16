@@ -60,6 +60,7 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterNpc<OrcTrooper>();
             RegisterNpc<OrcGrunt>();
             RegisterNpc<OrcCommander>();
+            RegisterNpc<DrokTol>();
 
             Debug.Log("Registered " + registeredNpcCount + " Npcs.");
             UpdateAvailableNpcs();
@@ -146,6 +147,7 @@ namespace Assets.Scripts.Systems.FactionSystem
 
             faction.IncreaseStanding();
             gm.Player.DecreaseAmbassadors(1);
+            gm.Player.AddRandomBuildableTowers(4);
 
             gm.UIManager.FactionPanel.UpdateFactionButtons();
 

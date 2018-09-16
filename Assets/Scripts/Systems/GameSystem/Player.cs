@@ -48,8 +48,6 @@ namespace Assets.Scripts.Systems.GameSystem
         {
             this.ambassadors += amount;
 
-            AddRandomBuildableTowers(4);
-
             GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
         }
 

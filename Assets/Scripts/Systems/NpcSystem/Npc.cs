@@ -173,9 +173,17 @@ namespace Assets.Scripts.Definitions.Npcs
             DealDamage(hitData.Dmg, hitData.Source);
         }
 
-        public void DealDamage(float dmg, Tower source)
+        public virtual void DealDamage(float dmg, Tower source)
         {
-            CurrentHealth -= dmg;
+            var actualDmg = dmg;
+            if (HasAttribute(AttributeName.AbsoluteDamageReduction))
+            {
+                actualDmg -= Attributes[AttributeName.AbsoluteDamageReduction].Value;
+                Debug.Log("Damage reduced from " + dmg + " to " + actualDmg);
+                if (actualDmg <= 0) return;
+            }
+
+            CurrentHealth -= actualDmg;
 
             if (CurrentHealth <= 0)
             {
