@@ -35,7 +35,7 @@ namespace Assets.Scripts.Definitions.Npcs
         public int Level = 1;
         private bool shouldDie = false;
 
-        private NpcHealthBar healthBar;
+        protected NpcHealthBar healthBar;
         protected float HealthBarOffset = 0.0f;
         protected float HealthBarScale = 1.0f;
 

@@ -178,7 +178,11 @@ namespace Assets.Scripts.Systems.AttributeSystem
                 .Where(effect => Time.time - effect.AppliedTimestamp >= effect.Duration)
                 .ToList();
 
-            finishedEffects.ForEach(RemoveAttributeEffect);
+            finishedEffects.ForEach(effect =>
+            {
+                RemoveAttributeEffect(effect);
+                if (effect.FinishedCallback != null) effect.FinishedCallback(this);
+            });
         }
     }
 }

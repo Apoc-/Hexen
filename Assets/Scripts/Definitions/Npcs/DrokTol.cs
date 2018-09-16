@@ -13,8 +13,6 @@ namespace Assets.Scripts.Definitions.Npcs
 {
     public class DrokTol : Npc
     {
-        private float damageReduction = 10.0f;
-
         protected override void InitNpcData()
         {
             this.Name = "Drok'Tol";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Definitions.Npcs;
 using UnityEngine;
 
 namespace Assets.Scripts.Systems.AttributeSystem
@@ -23,6 +24,8 @@ namespace Assets.Scripts.Systems.AttributeSystem
             private set { affectedAttributeName = value; }
         }
 
+        
+
         public float Value { get; private set; }
         public AttributeEffectType EffectType { get; private set; }
 
@@ -30,8 +33,15 @@ namespace Assets.Scripts.Systems.AttributeSystem
 
         public float AppliedTimestamp { get; private set; }
         public float Duration { get; private set; }
+        public Action<Attribute> FinishedCallback { get; set; }
 
-        public AttributeEffect(float value, AttributeName affectedAttributeName, AttributeEffectType effectType, AttributeEffectSource effectSource, float duration = -1.0f)
+        public AttributeEffect(
+            float value, 
+            AttributeName affectedAttributeName, 
+            AttributeEffectType effectType, 
+            AttributeEffectSource effectSource, 
+            float duration = -1.0f, 
+            Action<Attribute> finishedCallback = null)
         {
             Value = value;
             EffectType = effectType;
@@ -39,6 +49,7 @@ namespace Assets.Scripts.Systems.AttributeSystem
             AffectedAttributeName = affectedAttributeName;
             AppliedTimestamp = Time.time;
             Duration = duration;
+            FinishedCallback = finishedCallback;
         }
 
         public AttributeEffect(AttributeEffect source)
@@ -50,7 +61,6 @@ namespace Assets.Scripts.Systems.AttributeSystem
             Duration = source.Duration;
 
             AppliedTimestamp = Time.time;
-            
         }
 
         private sealed class ValueEffectTypeEffectSourceEqualityComparer : IEqualityComparer<AttributeEffect>

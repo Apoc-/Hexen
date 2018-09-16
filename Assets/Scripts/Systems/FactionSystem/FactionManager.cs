@@ -63,9 +63,10 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterNpc<DrokTol>();
 
             //elves
-            //RegisterNpc<ArcaneApprentice>();
-            //RegisterNpc<StormGlaive>();
+            RegisterNpc<ArcaneApprentice>();
+            RegisterNpc<StormGlaive>();
             RegisterNpc<FrostMage>();
+            RegisterNpc<Arotas>();
 
             Debug.Log("Registered " + registeredNpcCount + " Npcs.");
             UpdateAvailableNpcs();
