@@ -4,7 +4,6 @@ using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityStandardAssets.Effects;
 
 namespace Assets.Scripts.Systems.TowerSystem
 {
