@@ -15,6 +15,8 @@ public class NpcHealthBar : MonoBehaviour
 
     public void UpdateHealth(float percent)
     {
+        if (health == null) return;
+
         var rect = health.gameObject.GetComponent<RectTransform>();
         rect.anchorMax = new Vector2(percent, 1.0f);
     }

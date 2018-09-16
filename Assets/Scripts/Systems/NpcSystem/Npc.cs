@@ -166,7 +166,7 @@ namespace Assets.Scripts.Definitions.Npcs
             this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
         }
 
-        public void HitNpc(NpcHitData hitData)
+        public virtual void HitNpc(NpcHitData hitData)
         {
             if (OnHit != null) OnHit(hitData, this);
 

@@ -151,6 +151,12 @@ namespace Assets.Scripts.Systems.WaveSystem
             if (OnNpcSpawned != null) OnNpcSpawned(npc);
         }
 
+        public List<Npc> GetCurrentSpawnedNpcs()
+        {
+            var npcs = new List<Npc>();
+            CurrentSpawnedWaves.ForEach(wave => npcs.AddRange(wave.SpawnedNpcs));
+            return npcs;
+        }
 
         #region debug
 
