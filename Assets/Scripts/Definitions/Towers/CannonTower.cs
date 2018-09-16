@@ -28,8 +28,8 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 4f));
+            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f, 0.0f));
+            AddAttribute(new Attribute(AttributeName.AttackDamage, 3f));
             AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.0f));
         }
     }

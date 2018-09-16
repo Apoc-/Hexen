@@ -7,6 +7,7 @@ using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
+using UnityEngine.Events;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Definitions.Npcs
@@ -19,6 +20,8 @@ namespace Assets.Scripts.Definitions.Npcs
         public GameObject Model;
         public Tile Target;
         public Tile CurrentTile;
+
+        public bool isSpawned = false;
 
         [SerializeField]
         private float currentHealth;
@@ -42,6 +45,10 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
+
+        //events
+        public delegate void NpcHitEvent(NpcHitData hitData, Npc npc);
+        public event NpcHitEvent OnHit;
 
         public void InitData()
         {
@@ -80,6 +87,7 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             if (shouldDie)
             {
+
                 Die();
             }
 
@@ -119,8 +127,8 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             Attributes = new AttributeContainer();
 
-            AddAttribute(new Attribute(AttributeName.GoldReward, 0f, 1f, LevelIncrementType.Flat));
-            AddAttribute(new Attribute(AttributeName.XPReward, 0f, 2f, LevelIncrementType.Flat));
+            AddAttribute(new Attribute(AttributeName.GoldReward, 1f, 1f, LevelIncrementType.Flat));
+            AddAttribute(new Attribute(AttributeName.XPReward, 2f, 2f, LevelIncrementType.Flat));
         }
 
         public void AddAttribute(Attribute attr)
@@ -158,6 +166,13 @@ namespace Assets.Scripts.Definitions.Npcs
             this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
         }
 
+        public void HitNpc(NpcHitData hitData)
+        {
+            if (OnHit != null) OnHit(hitData, this);
+
+            DealDamage(hitData.Dmg, hitData.Source);
+        }
+
         public void DealDamage(float dmg, Tower source)
         {
             CurrentHealth -= dmg;
@@ -170,6 +185,22 @@ namespace Assets.Scripts.Definitions.Npcs
             }
 
             var maxHealth = Attributes[AttributeName.MaxHealth].Value;
+            healthBar.UpdateHealth(CurrentHealth / maxHealth);
+        }
+
+        public void Heal(float amount = -1)
+        {
+            var maxHealth = Attributes[AttributeName.MaxHealth].Value;
+            //negative heal / full heal / no overheal
+            if (amount <= -1 || CurrentHealth + amount > maxHealth)
+            {
+                CurrentHealth = maxHealth;
+            }
+            else
+            {
+                CurrentHealth += amount;
+            }
+
             healthBar.UpdateHealth(CurrentHealth / maxHealth);
         }
 
@@ -196,32 +227,15 @@ namespace Assets.Scripts.Definitions.Npcs
             target.IncreaseGold((int)amount);
         }
 
-        private void GiveAmbassadors(Player target, float amount)
+        public virtual void Die()
         {
-            target.IncreaseAmbassadors((int)amount);
-        }
-
-
-        public void Die(bool forcefully = true)
-        {
-            if (forcefully)
-            {
-                Explode();
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            this.isSpawned = false;
+            Explode();
         }
 
         void Explode()
         {
             GameManager.Instance.SfxManager.PlaySpecialEffect(this, "Blood");
-            /*
-            if a tower shoots at the moment this explodes => null ref in firing logic
-            if (collider != null) Destroy(collider);
-            if (renderer != null) Destroy(renderer);
-            Destroy(gameObject, exp.main.duration);*/
 
             Destroy(gameObject);
         }

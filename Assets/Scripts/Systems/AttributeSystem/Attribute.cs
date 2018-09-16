@@ -34,7 +34,7 @@ namespace Assets.Scripts.Systems.AttributeSystem
         public Attribute(
             AttributeName attributeName, 
             float baseValue, 
-            float levelIncrement = 0.04f,
+            float levelIncrement = 0.10f,
             LevelIncrementType levelIncrementType = LevelIncrementType.Percentage)
         {
             LevelIncrement = levelIncrement;

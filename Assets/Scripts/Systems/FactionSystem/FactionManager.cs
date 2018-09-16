@@ -56,7 +56,10 @@ namespace Assets.Scripts.Systems.FactionSystem
 
         private void InitializeNpcs()
         {
+            //orcs
             RegisterNpc<OrcTrooper>();
+            RegisterNpc<OrcGrunt>();
+            RegisterNpc<OrcCommander>();
 
             Debug.Log("Registered " + registeredNpcCount + " Npcs.");
             UpdateAvailableNpcs();

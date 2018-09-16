@@ -47,7 +47,18 @@ namespace Assets.Scripts.Systems.GameSystem
         public void IncreaseAmbassadors(int amount)
         {
             this.ambassadors += amount;
+
+            AddRandomBuildableTowers(4);
+
             GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
+        }
+
+        public void AddRandomBuildableTowers(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                AddRandomBuildableTower();
+            }   
         }
 
         public void DecreaseAmbassadors(int amount)

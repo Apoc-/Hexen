@@ -76,13 +76,6 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void InitCopyTowerData(Tower source)
         {
-            /*Attributes = new List<Attribute>();
-
-            source.Attributes.ForEach(attr =>
-            {
-                Attributes.Add(new Attribute(attr));
-            });*/
-
             this.GiveXP(source.Xp);
         }
 
@@ -98,10 +91,21 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             Xp += amount;
 
-            while (Xp >= NextLevelXP())
+            Debug.Log("give xp " + amount);
+            Debug.Log("nxt lvl xp " + NextLevelXP());
+
+            while (Xp >= NextLevelXP() && this.Level < GameSettings.TowerMaxLevel)
             {
                 LevelUp();
             }
+        }
+        private int NextLevelXP()
+        {
+            var fac = 2f;
+            var exp = 2.5f;
+            var c = 10f;
+
+            return (int)(c + fac * Mathf.Pow(Level, exp));
         }
 
         private void LevelUp()
@@ -183,13 +187,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             projectile.Source = this;
         }
 
-        private int NextLevelXP()
-        {
-            var fac = 0.5f;
-            var exp = 2.0f;
-            
-            return (int) (fac * Mathf.Pow(Level, exp));
-        }
+        
         protected virtual void InitAttributes()
         {
             Attributes = new AttributeContainer();

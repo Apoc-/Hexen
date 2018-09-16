@@ -18,6 +18,11 @@ namespace Assets.Scripts.Systems.WaveSystem
             this.npcs.Add(npc);
         }
 
+        public void AddPack(WavePack pack)
+        {
+            this.npcs.AddRange(pack.npcs);
+        }
+
         public int GetNpcCount()
         {
             return npcs.Count;

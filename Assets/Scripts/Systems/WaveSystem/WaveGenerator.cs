@@ -37,16 +37,19 @@ namespace Assets.Scripts.Systems.WaveSystem
                 {
                     case -1:
                         Debug.Log("Generating common Pack for " + faction.FactionName);
-                        packs.Add(GenerateCommonPack(faction, wave));
+                        packs.AddRange(GeneratePacks(faction, wave, GenerateCommonPack));
                         break;
                     case -2:
-                        //uncommon
+                        Debug.Log("Generating uncommon Pack for " + faction.FactionName);
+                        packs.AddRange(GeneratePacks(faction, wave, GenerateUncommonPack));
                         break;
                     case -3:
-                        //rare
+                        Debug.Log("Generating rare Pack for " + faction.FactionName);
+                        packs.AddRange(GeneratePacks(faction, wave, GenerateRarePack));
                         break;
                     case -4:
-                        //legendary
+                        Debug.Log("Generating lgendary Pack for " + faction.FactionName);
+                        packs.AddRange(GeneratePacks(faction, wave, GenerateLegendaryPack));
                         break;
                 }
             }
@@ -54,19 +57,90 @@ namespace Assets.Scripts.Systems.WaveSystem
             return packs;
         }
 
-        private WavePack GenerateCommonPack(Faction faction, int wave)
+        private List<WavePack> GeneratePacks(Faction faction, int wave, Func<Faction, WavePack> packGenerationFunction)
         {
-            var npcs = faction.GetAvailableNpcsByRarity(Rarities.Common);
-            var npc = GetRandomNpc(npcs);
+            var packs = new List<WavePack>();
+            var count = ((wave - 1) % 3) + 1;
+
+            for (int i = 0; i < count; i++)
+            {
+                packs.Add(packGenerationFunction(faction));
+            }
+
+            return packs;
+        }
+
+        private WavePack GenerateCommonPack(Faction faction)
+        {
+            var commons = faction.GetAvailableNpcsByRarity(Rarities.Common);
+            var commonNpc = GetRandomNpc(commons);
             var pack = new WavePack();
 
-            for (int i = 0; i < 5; i++)
-            {
-                var clone = Instantiate(npc);
+            //5
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
 
-                pack.AddNpc(clone);
-                Debug.Log("Adding " + clone.Name + " to pack.");
-            }
+            return pack;
+        }
+
+        private WavePack GenerateUncommonPack(Faction faction)
+        {
+            var commons = faction.GetAvailableNpcsByRarity(Rarities.Common);
+            var uncommons = faction.GetAvailableNpcsByRarity(Rarities.Uncommon);
+            var pack = new WavePack();
+
+            var commonNpc = GetRandomNpc(commons);
+            var uncommonNpc = GetRandomNpc(uncommons);
+
+            //5,2
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(uncommonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(uncommonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+
+            return pack;
+        }
+
+        private WavePack GenerateRarePack(Faction faction)
+        {
+            var commons = faction.GetAvailableNpcsByRarity(Rarities.Common);
+            var uncommons = faction.GetAvailableNpcsByRarity(Rarities.Uncommon);
+            var rares = faction.GetAvailableNpcsByRarity(Rarities.Rare);
+            var pack = new WavePack();
+
+            var commonNpc = GetRandomNpc(commons);
+            var uncommonNpc = GetRandomNpc(uncommons);
+            var rareNpc = GetRandomNpc(rares);
+
+            //5,2,1
+            pack.AddNpc(Instantiate(uncommonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(rareNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(uncommonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            pack.AddNpc(Instantiate(commonNpc));
+            
+
+
+            return pack;
+        }
+
+        private WavePack GenerateLegendaryPack(Faction faction)
+        {
+            var legendaries = faction.GetAvailableNpcsByRarity(Rarities.Legendary);
+            var pack = new WavePack();
+
+            // only one legendary
+            var npc = GetRandomNpc(legendaries);
+            pack.AddNpc(Instantiate(npc));
 
             return pack;
         }

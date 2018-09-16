@@ -30,7 +30,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 2f));
+            AddAttribute(new Attribute(AttributeName.AttackRange, 2f, 0.0f));
             AddAttribute(new Attribute(AttributeName.AttackDamage, 2f));
             AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.25f));
         }

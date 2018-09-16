@@ -4,5 +4,7 @@
     {
         public static float SellTax = 0.5f;
         public static int StartingAmbassadors = 1;
+
+        public static int TowerMaxLevel = 25;
     }
 }

@@ -15,7 +15,7 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
                 dmg = source.Attributes.GetAttribute(AttributeName.AttackDamage).Value;
             }
 
-            target.DealDamage(dmg, source);
+            target.HitNpc(new NpcHitData(dmg, source));
         }
     }
 }

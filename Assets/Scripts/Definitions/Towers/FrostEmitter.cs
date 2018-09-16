@@ -37,7 +37,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AuraRange, 1.75f));
+            AddAttribute(new Attribute(AttributeName.AuraRange, 1.75f, 0.0f));
             AddAttribute(new Attribute(AttributeName.AuraDamage, 0.5f));
             AddAttribute(new Attribute(AttributeName.AuraTicksPerSecond, 4.0f));
         }

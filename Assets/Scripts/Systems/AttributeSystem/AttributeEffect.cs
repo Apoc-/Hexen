@@ -29,9 +29,9 @@ namespace Assets.Scripts.Systems.AttributeSystem
         public AttributeEffectSource EffectSource { get; private set; }
 
         public float AppliedTimestamp { get; private set; }
-        public int Duration { get; private set; }
+        public float Duration { get; private set; }
 
-        public AttributeEffect(float value, AttributeName affectedAttributeName, AttributeEffectType effectType, AttributeEffectSource effectSource, int duration = -1)
+        public AttributeEffect(float value, AttributeName affectedAttributeName, AttributeEffectType effectType, AttributeEffectSource effectSource, float duration = -1.0f)
         {
             Value = value;
             EffectType = effectType;
