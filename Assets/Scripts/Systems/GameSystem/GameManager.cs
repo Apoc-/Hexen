@@ -137,6 +137,21 @@ namespace Assets.Scripts.Systems.GameSystem
             }
         }
 
+        private WaveGenerator waveGenerator;
+
+        public WaveGenerator WaveGenerator
+        {
+            get
+            {
+                if (waveGenerator == null)
+                {
+                    waveGenerator = FindObjectOfType<WaveGenerator>();
+                }
+
+                return waveGenerator;
+            }
+        }
+
         private IEnumerator LoadSceneAsynch(string sceneName)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);

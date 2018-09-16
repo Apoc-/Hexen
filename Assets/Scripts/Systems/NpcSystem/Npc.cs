@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.TowerSystem;
@@ -39,14 +40,20 @@ namespace Assets.Scripts.Definitions.Npcs
         private float tickTime = 0;
         private float dotCheckInterval = 0.1f;
 
-        void Awake()
+        public Rarities Rarity;
+        public FactionNames Faction = FactionNames.Humans;
+
+        public void InitData()
         {
             this.InitAttributes();
-            this.InitNpc();
+            this.InitNpcData();
+        }
+
+        public void InitVisuals()
+        {
             this.InitNpcModel();
 
             this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
-            
             this.InitHealthBar();
 
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
@@ -58,10 +65,9 @@ namespace Assets.Scripts.Definitions.Npcs
             var bar = (GameObject) Instantiate(barPrefab);
             bar.transform.parent = this.transform;
 
-            var pos = bar.transform.position;
+            var pos = Vector3.zero;
             pos.y = pos.y + this.HealthBarOffset;
-            bar.transform.position = pos;
-
+            bar.transform.localPosition = pos;
 
             healthBar = bar.GetComponent<NpcHealthBar>();
 
@@ -101,7 +107,7 @@ namespace Assets.Scripts.Definitions.Npcs
             });
         }
 
-        protected abstract void InitNpc();
+        protected abstract void InitNpcData();
 
         public void InitNpcModel()
         {
@@ -112,6 +118,9 @@ namespace Assets.Scripts.Definitions.Npcs
         protected virtual void InitAttributes()
         {
             Attributes = new AttributeContainer();
+
+            AddAttribute(new Attribute(AttributeName.GoldReward, 0f, 1f, LevelIncrementType.Flat));
+            AddAttribute(new Attribute(AttributeName.XPReward, 0f, 2f, LevelIncrementType.Flat));
         }
 
         public void AddAttribute(Attribute attr)
@@ -151,9 +160,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public void DealDamage(float dmg, Tower source)
         {
-            Debug.Log("CurrentHealth: " + CurrentHealth + " Dmg: " +dmg);
             CurrentHealth -= dmg;
-            Debug.Log("CurrentHealth after dmg: " + CurrentHealth);
 
             if (CurrentHealth <= 0)
             {
@@ -187,6 +194,11 @@ namespace Assets.Scripts.Definitions.Npcs
         private void GiveGold(Player target, float amount)
         {
             target.IncreaseGold((int)amount);
+        }
+
+        private void GiveAmbassadors(Player target, float amount)
+        {
+            target.IncreaseAmbassadors((int)amount);
         }
 
 

@@ -59,8 +59,9 @@ namespace Assets.Scripts.Systems.UiSystem
             var displayTime = spawner.WaveCooldown - spawner.CurrentElapsedTime;
             waveTimer.GetComponentInChildren<Text>().text = "" + displayTime;
 
-            var currentWave = GameManager.Instance.WaveSpawner.CurrentWave;
-            var totalWaves = WaveProvider.WaveCount;
+            var currentWave = GameManager.Instance.WaveSpawner.CurrentWaveCount;
+            var totalWaves = GameManager.Instance.WaveSpawner.NumberOfWaves;
+
             waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
         }
 

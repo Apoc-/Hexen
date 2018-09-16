@@ -4,23 +4,25 @@ using Assets.Scripts.Definitions.Npcs;
 
 namespace Assets.Scripts.Systems.WaveSystem
 {
-    class Wave
+    public class Wave
     {
-        public Type NpcType;
-        public int Size;
-        public float SpawnInterval;
-        public int SpawnCount;
-        public WaveReward WaveReward;
-        public List<Npc> SpawnedNpcs;
+        public List<WavePack> Packs { get; private set; }
+        public int NpcCount { get; private set; }
+        public int NpcSpawnCount { get; set; }
+        public int PackCount { get; private set; }
+        public int PackSpawnCount { get; set; }
 
-        public Wave(Type npcType, int size, float spawnInterval, int goldReward, int towerReward, int ambassadorReward = 0)
+        public int WaveNumber { get; set; }
+
+        public List<Npc> SpawnedNpcs { get; private set; }
+
+        public Wave(List<WavePack> packs)
         {
-            NpcType = npcType;
-            Size = size;
-            SpawnInterval = spawnInterval;
-            SpawnCount = 0;
-            SpawnedNpcs = new List<Npc>();
-            WaveReward = new WaveReward(goldReward, towerReward, ambassadorReward);
+            this.Packs = packs;
+
+            packs.ForEach(pack => { this.NpcCount += pack.GetNpcCount(); });
+            this.PackCount = packs.Count;
+            this.SpawnedNpcs = new List<Npc>();
         }
     }
 }

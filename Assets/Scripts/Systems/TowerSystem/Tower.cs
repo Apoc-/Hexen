@@ -39,7 +39,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         
         public bool IsPlaced = false;
 
-        public TowerRarities Rarity;
+        public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
 
         public UnityEvent OnAttack = new UnityEvent();

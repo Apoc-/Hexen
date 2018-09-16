@@ -23,7 +23,7 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.2f;
             Faction = FactionNames.Orcs;
-            Rarity = TowerRarities.Uncommon;
+            Rarity = Rarities.Uncommon;
         }
 
         protected override void InitAttributes()

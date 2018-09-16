@@ -21,7 +21,7 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.4f;
             Faction = FactionNames.Humans;
-            Rarity = TowerRarities.Common;
+            Rarity = Rarities.Common;
         }
 
         protected override void InitAttributes()

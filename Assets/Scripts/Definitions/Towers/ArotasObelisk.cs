@@ -29,7 +29,7 @@ namespace Assets.Scripts.Definitions.Towers
             WeaponHeight = 0.4f;
 
             Faction = FactionNames.Elves;
-            Rarity = TowerRarities.Legendary;
+            Rarity = Rarities.Legendary;
 
             this.OnAttack.AddListener(CheckMeteoriteTrigger);
         }

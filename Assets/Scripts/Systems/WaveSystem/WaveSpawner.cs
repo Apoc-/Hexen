@@ -10,27 +10,28 @@ namespace Assets.Scripts.Systems.WaveSystem
 {
     class WaveSpawner : MonoBehaviour
     {
+        public int NumberOfWaves = 20;
         public int WaveCooldown = 10;
         public int CurrentElapsedTime = 0;
+        private float npcSpawnInterval = 0.5f;
 
-        private int currentWave = 0;
-        public int CurrentWave
+        private int currentWaveCount = 0;
+        public int CurrentWaveCount
         {
             get
             {
-                return currentWave;
+                return currentWaveCount;
             }
         }
 
         private List<Wave> currentSpawnedWaves;
         private bool waitingForWave = false;
 
-
         private void OnEnable()
         {
             currentSpawnedWaves = new List<Wave>();
             CurrentElapsedTime = 0;
-            currentWave = 0;
+            currentWaveCount = 0;
             waitingForWave = false;
         }
 
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Systems.WaveSystem
         {
             if (!GameManager.Instance.PlayerReady) return;
 
-            if (currentWave >= WaveProvider.WaveCount && currentSpawnedWaves.Count == 0)
+            if (currentWaveCount >= NumberOfWaves && currentSpawnedWaves.Count == 0)
             {
                 GameManager.Instance.WinGame();
             }
@@ -51,51 +52,56 @@ namespace Assets.Scripts.Systems.WaveSystem
 
             currentSpawnedWaves.ForEach(wave =>
             {
-                if (wave.SpawnCount >= wave.Size && wave.SpawnedNpcs.All(npc => npc == null))
+                if (wave.NpcSpawnCount >= wave.NpcCount && wave.SpawnedNpcs.All(npc => npc == null))
                 {
+                    if (wave.WaveNumber % 4 == 0)
+                    {
+                        GameManager.Instance.Player.IncreaseAmbassadors(1);
+                        Debug.Log("Granting ambassador for defeating wave #" + wave.WaveNumber);
+                    }
+
+                    //give new towers
+                    GameManager.Instance.Player.AddRandomBuildableTower();
+                    GameManager.Instance.Player.AddRandomBuildableTower();
+
                     currentSpawnedWaves.Remove(wave);
-                    GiveWaveReward(wave.WaveReward);
                 }
             });
         }
 
-        private void GiveWaveReward(WaveReward reward)
-        {
-            var player = GameManager.Instance.Player;
-            player.IncreaseGold(reward.Gold);
-            player.IncreaseAmbassadors(reward.Ambassadors);
-
-            for (int i = 0; i < reward.Towers; i++)
-            {
-                player.AddRandomBuildableTower();
-            }
-        }
-
         private void StartSpawnWave()
         {
-            if (currentWave >= WaveProvider.WaveCount) return;
+            if (currentWaveCount >= NumberOfWaves) return;
 
-            var wave = WaveProvider.ProvideWaveByID(currentWave);
+            var wave = GameManager.Instance.WaveGenerator.GenerateWave(currentWaveCount);
 
             currentSpawnedWaves.Add(wave);
             waitingForWave = false;
-            currentWave += 1;
-            CurrentElapsedTime = 10;
+            currentWaveCount += 1;
+            CurrentElapsedTime = WaveCooldown;
+            wave.WaveNumber = currentWaveCount;
 
-            Debug.Log("----- Spawning Wave " + currentWave + "-----");
-            StartCoroutine(SpawnWave(wave, currentWave));
+            Debug.Log("----- Spawning Wave " + currentWaveCount + "-----");
+            StartCoroutine(SpawnWave(wave));
         }
 
-        private IEnumerator SpawnWave(Wave wave, int lvl)
+        private IEnumerator SpawnWave(Wave wave)
         {
-            wave.SpawnCount = 0;
-
-            while (wave.SpawnCount < wave.Size)
+            wave.NpcSpawnCount = 0;
+            
+            foreach (var pack in wave.Packs)
             {
-                wave.SpawnCount += 1;
-                SpawnNpc(wave, lvl);
+                foreach (var npc in pack.Npcs)
+                {
+                    SpawnNpc(npc, wave, pack);
+                    wave.NpcSpawnCount += 1;
 
-                yield return new WaitForSeconds(wave.SpawnInterval);
+                    yield return new WaitForSeconds(npcSpawnInterval);
+                }
+
+                wave.PackSpawnCount += 1;
+
+                yield return new WaitForSeconds(npcSpawnInterval*2);
             }
         }
 
@@ -113,22 +119,22 @@ namespace Assets.Scripts.Systems.WaveSystem
             StartSpawnWave();
         }
 
-        void SpawnNpc(Wave wave, int lvl)
+        void SpawnNpc(Npc npc, Wave wave, WavePack pack)
         {
-            var go = new GameObject();
-            var npc = go.AddComponent(wave.NpcType) as Npc;
-
-            if (npc == null) return;
-
-            npc.SetLevel(lvl);
+            npc.InitData();
             
             npc.transform.parent = transform;
-            npc.name = npc.Name + "_" + wave.SpawnCount;
+            npc.name = npc.Name + " (id: " + wave.PackCount + "/" + wave.NpcSpawnCount + ")";
             npc.transform.position = GameManager.Instance.MapManager.StartTile.GetTopCenter();
 
-            wave.SpawnedNpcs.Add(npc);
+            npc.InitVisuals();
 
-            //DebugPrintSpawnNpcData(npc);
+            npc.gameObject.SetActive(true);
+            npc.SetLevel(currentWaveCount);
+
+            wave.SpawnedNpcs.Add(npc);
+            
+            DebugPrintSpawnNpcData(npc);
         }
 
 
@@ -146,7 +152,6 @@ namespace Assets.Scripts.Systems.WaveSystem
 
         public void DebugReset()
         {
-            currentWave = 0;
             GameManager.Instance.Player.Lives = 10000;
         }
 

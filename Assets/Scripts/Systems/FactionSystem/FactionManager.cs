@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Definitions.Factions;
+using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.Towers;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
@@ -13,13 +14,16 @@ namespace Assets.Scripts.Systems.FactionSystem
         private Dictionary<FactionNames, Faction> factions;
         private Dictionary<FactionNames, FactionNames> opponents;
         private List<Tower> availableTowers;
+        private List<Npc> availableNpcs;
         private int registeredTowerCount = 0;
+        private int registeredNpcCount = 0;
         private int sentAmbassadors = 0;
 
         public void Initialize()
         {
             this.InitializeFactions();
             this.InitializeTowers();
+            this.InitializeNpcs();
         }
 
         private void InitializeFactions()
@@ -50,6 +54,14 @@ namespace Assets.Scripts.Systems.FactionSystem
             UpdateAvailableTowers();
         }
 
+        private void InitializeNpcs()
+        {
+            RegisterNpc<OrcTrooper>();
+
+            Debug.Log("Registered " + registeredNpcCount + " Npcs.");
+            UpdateAvailableNpcs();
+        }
+
         private void RegisterTower<T>() where T : Tower
         {
             GameObject go = new GameObject();
@@ -64,6 +76,21 @@ namespace Assets.Scripts.Systems.FactionSystem
 
         }
 
+        private void RegisterNpc<T>() where T : Npc
+        {
+            GameObject go = new GameObject();
+            Npc npc = go.AddComponent<T>();
+
+            go.name = npc.Name;
+            go.transform.parent = transform;
+            go.SetActive(false);
+
+            npc.InitData();
+
+            factions[npc.Faction].AddNpc(npc);
+            registeredNpcCount += 1;
+        }
+
         private void AddFaction(Faction faction)
         {
             this.factions[faction.FactionName] = faction;
@@ -74,9 +101,19 @@ namespace Assets.Scripts.Systems.FactionSystem
             return this.factions[factionName];
         }
 
+        public Dictionary<FactionNames, Faction> GetFactions()
+        {
+            return this.factions;
+        }
+
         public List<Tower> GetAvailableTowers()
         {
             return availableTowers;
+        }
+
+        public List<Npc> GetAvailableNpcs()
+        {
+            return availableNpcs;
         }
 
         public void UpdateAvailableTowers()
@@ -86,6 +123,16 @@ namespace Assets.Scripts.Systems.FactionSystem
             factions.Values.ToList().ForEach(faction =>
             {
                 availableTowers.AddRange(faction.GetAvailableTowers());
+            });
+        }
+
+        public void UpdateAvailableNpcs()
+        {
+            availableNpcs = new List<Npc>();
+
+            factions.Values.ToList().ForEach(faction =>
+            {
+                availableNpcs.AddRange(faction.GetAvailableNpcs());
             });
         }
 
