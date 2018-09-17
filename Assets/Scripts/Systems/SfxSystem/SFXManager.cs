@@ -41,6 +41,28 @@ namespace Assets.Scripts.Systems.SfxSystem
             GameObject.Destroy(containerPrefab);
         }
 
+        public void PlayFloatingText(string effectName, Vector3 position, string text, float size, float duration, Color color)
+        {
+            FloatingText prefab = Resources.Load<FloatingText>(sfxPath + "/FloatingText");
+
+            if (prefab == null) return;
+
+            GameObject container = new GameObject("effectContainer");
+            container.transform.parent = this.transform;
+            container.transform.localPosition = Vector3.zero;
+            container.transform.position = position;
+            
+            var floatingText = Instantiate(prefab, container.transform);
+
+            floatingText.Duration = duration;
+            floatingText.SetSize(size);
+            floatingText.SetText(text);
+            floatingText.SetColor(color);
+            floatingText.IsPlaying = true;
+
+            ongoingEffects.Add(floatingText.gameObject);
+        }
+
         private void Update()
         {
             ongoingEffects.ForEach(go =>
@@ -57,6 +79,12 @@ namespace Assets.Scripts.Systems.SfxSystem
                 if (sounds != null)
                 {
                     destroy = !sounds.isPlaying;
+                }
+
+                var text = go.GetComponentInChildren<FloatingText>();
+                if (text != null)
+                {
+                    destroy = !text.IsPlaying;
                 }
 
                 if (destroyWithOrigin)
