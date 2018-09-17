@@ -70,7 +70,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             this.OnLevelUp.AddListener(() =>
             {
-                GameManager.Instance.SfxManager.PlaySpecialEffect(this, "LevelUpEffect");
+                GameManager.Instance.SfxManager.PlaySpecialEffect("LevelUpEffect", gameObject);
             });
         }
 

@@ -15,7 +15,7 @@ namespace Assets.Scripts.Definitions.Npcs
             this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/StormGlaive");
             this.HealthBarOffset = 0.4f;
 
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Uncommon;
             Faction = FactionNames.Elves;
 
             this.OnHit += TetherDamage;

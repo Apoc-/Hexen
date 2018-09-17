@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Assets.Scripts.Definitions.Npcs
             this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/Arotas");
             this.HealthBarOffset = 0.4f;
 
-            Rarity = Rarities.Legendary;
+            Rarity = Rarities.Common;
             Faction = FactionNames.Elves;
 
             this.OnHit += CheckHit;
@@ -52,6 +53,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         private void MorphToEgg()
         {
+            GameManager.Instance.SfxManager.PlaySpecialEffect("FireCircle", gameObject);
             var maxHealthAttr = Attributes[AttributeName.MaxHealth];
             var movementSpeedAttr = Attributes[AttributeName.MovementSpeed];
 

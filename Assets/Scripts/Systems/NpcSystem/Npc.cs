@@ -243,7 +243,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         void Explode()
         {
-            GameManager.Instance.SfxManager.PlaySpecialEffect(this, "Blood");
+            GameManager.Instance.SfxManager.PlaySpecialEffect("Blood", gameObject);
 
             Destroy(gameObject);
         }

@@ -8,13 +8,24 @@ namespace Assets.Scripts.Systems.SfxSystem
     {
         private const string sfxPath = "Sfx";
         private List<GameObject> ongoingEffects = new List<GameObject>();
+        private GameObject origin;
+        private bool destroyWithOrigin = false;
 
         private GameObject LoadEffect(string name)
         {
             return Resources.Load(System.IO.Path.Combine(sfxPath, name)) as GameObject;
         }
 
-        public void PlaySpecialEffect(MonoBehaviour origin, string effectName)
+        public void PlaySpecialEffect(string effectName, GameObject origin, bool destroyWithOrigin = false)
+        {
+            this.origin = origin;
+            var position = origin.transform.position;
+            var rotation = origin.transform.rotation;
+
+            PlaySpecialEffect(effectName, position, rotation);
+        }
+
+        public void PlaySpecialEffect(string effectName, Vector3 position, Quaternion rotation)
         {
             GameObject effectPrefab = LoadEffect(effectName);
             if (effectPrefab == null)
@@ -24,7 +35,7 @@ namespace Assets.Scripts.Systems.SfxSystem
 
             GameObject containerPrefab = new GameObject("effectContainer");
 
-            var container = Instantiate(containerPrefab, origin.transform.position, origin.transform.rotation, this.transform);
+            var container = Instantiate(containerPrefab, position, rotation, this.transform);
             var go = Instantiate(effectPrefab, container.transform);
             ongoingEffects.Add(go);
             GameObject.Destroy(containerPrefab);
@@ -46,6 +57,11 @@ namespace Assets.Scripts.Systems.SfxSystem
                 if (sounds != null)
                 {
                     destroy = !sounds.isPlaying;
+                }
+
+                if (destroyWithOrigin)
+                {
+                    destroy = origin == null;
                 }
 
                 if (destroy)
