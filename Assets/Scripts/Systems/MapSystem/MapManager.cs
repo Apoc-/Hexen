@@ -58,7 +58,7 @@ namespace Assets.Scripts.Systems.MapSystem
                 {
                     char tileDatum = char.Parse(tileData[rowIdx]);
 
-                    Tile tile = TileProvider.getTile(tileDatum, prefab);
+                    Tile tile = TileProvider.GetTile(tileDatum, prefab);
 
                     tile.transform.SetParent(parent.transform);
 
