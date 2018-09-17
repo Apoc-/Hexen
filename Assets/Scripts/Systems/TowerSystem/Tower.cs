@@ -42,12 +42,13 @@ namespace Assets.Scripts.Systems.TowerSystem
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
 
+        //events
         public UnityEvent OnAttack = new UnityEvent();
-        public UnityEvent OnLevelUp = new UnityEvent();
+
+        public delegate void LevelUpEvent(int level);
+        public event LevelUpEvent OnLevelUp;
 
         [HideInInspector] public Player Owner;
-
-
 
         private void Awake()
         {
@@ -68,10 +69,10 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void InitTowerEffects()
         {
-            this.OnLevelUp.AddListener(() =>
+            this.OnLevelUp += (lvl) =>
             {
                 GameManager.Instance.SfxManager.PlaySpecialEffect("LevelUpEffect", gameObject);
-            });
+            };
         }
 
         public void InitCopyTowerData(Tower source)
@@ -107,8 +108,9 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void LevelUp()
         {
-            OnLevelUp.Invoke();
             Level += 1;
+
+            if (OnLevelUp != null) OnLevelUp.Invoke(Level);
 
             foreach (var keyValuePair in Attributes)
             {

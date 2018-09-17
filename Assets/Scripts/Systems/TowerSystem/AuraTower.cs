@@ -18,14 +18,14 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void Update()
         {
-            if (AuraEffects.Count > 0 && IsPlaced)
+            if (IsPlaced)
             {
                 //TODO: Refactor, runs way to often
                 UpdateAuraTargets();
             }
         }
 
-        public void UpdateAuraTargets()
+        public virtual void UpdateAuraTargets()
         {
             ClearAuraTargets();
 

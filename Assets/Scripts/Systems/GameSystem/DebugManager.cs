@@ -36,5 +36,16 @@ namespace Assets.Scripts.Systems.GameSystem
         {
             Rune.RemoveRune();
         }
+
+        public void DebugAddAmbassador()
+        {
+            GameManager.Instance.Player.IncreaseAmbassadors(1);
+        }
+
+        public void DebugRefreshments()
+        {
+            GameManager.Instance.Player.IncreaseGold(1000);
+            GameManager.Instance.Player.Lives = 1000;
+        }
     }
 }

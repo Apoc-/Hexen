@@ -170,11 +170,6 @@ namespace Assets.Scripts.Systems.WaveSystem
             Debug.Log(s);
         }
 
-        public void DebugReset()
-        {
-            GameManager.Instance.Player.Lives = 10000;
-        }
-
         public void TriggerNextSpawn()
         {
             CurrentElapsedTime = WaveCooldown;

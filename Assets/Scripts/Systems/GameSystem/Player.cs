@@ -25,6 +25,10 @@ namespace Assets.Scripts.Systems.GameSystem
             }
         }
 
+        //events
+        public delegate void GoldGainEvent(int amount);
+        public event GoldGainEvent OnGainGold;
+
         private void Die()
         {
             GameManager.Instance.LoseGame();
@@ -37,6 +41,8 @@ namespace Assets.Scripts.Systems.GameSystem
         public void IncreaseGold(int amount)
         {
             Gold += amount;
+
+            if (OnGainGold != null) OnGainGold(amount);
         }
 
         public void DecreaseGold(int amount)

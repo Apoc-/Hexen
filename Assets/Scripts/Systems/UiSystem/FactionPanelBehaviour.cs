@@ -11,6 +11,8 @@ namespace Assets.Scripts.Systems.UiSystem
     {
         [SerializeField] private Button elvesButton;
         [SerializeField] private Button orcsButton;
+        [SerializeField] private Button dwarfsButton;
+        [SerializeField] private Button goblinsButton;
         [SerializeField] private Text ambassadorsLabel;
         private Dictionary<FactionNames, Button> factionButtons;
 
@@ -19,7 +21,9 @@ namespace Assets.Scripts.Systems.UiSystem
             factionButtons = new Dictionary<FactionNames, Button>
             {
                 { FactionNames.Elves, elvesButton },
-                { FactionNames.Orcs, orcsButton }
+                { FactionNames.Orcs, orcsButton },
+                { FactionNames.Dwarfs, dwarfsButton },
+                { FactionNames.Goblins, goblinsButton }
             };
 
             UpdateFactionButtons();
@@ -28,8 +32,10 @@ namespace Assets.Scripts.Systems.UiSystem
 
         public void UpdateFactionButtons()
         {
-            UpdateFactionButton(this.elvesButton, FactionNames.Elves);
-            UpdateFactionButton(this.orcsButton, FactionNames.Orcs);
+            UpdateFactionButton(FactionNames.Elves);
+            UpdateFactionButton(FactionNames.Orcs);
+            UpdateFactionButton(FactionNames.Dwarfs);
+            UpdateFactionButton(FactionNames.Goblins);
         }
 
         public void UpdateAmbassadorsLabel()
@@ -38,9 +44,10 @@ namespace Assets.Scripts.Systems.UiSystem
             ambassadorsLabel.text = "" + ambassadors;
         }
 
-        private void UpdateFactionButton(Button button, FactionNames factionName)
+        private void UpdateFactionButton(FactionNames factionName)
         {
             var faction = GameManager.Instance.FactionManager.GetFactionByName(factionName);
+            var button = factionButtons[factionName];
             var text = button.GetComponentInChildren<Text>();
 
             if (text != null)
@@ -59,6 +66,16 @@ namespace Assets.Scripts.Systems.UiSystem
             HandleButtonClicked(FactionNames.Orcs);
         }
 
+        public void OnDwarfsButtonClicked()
+        {
+            HandleButtonClicked(FactionNames.Dwarfs);
+        }
+
+        public void OnGoblinsButtonClicked()
+        {
+            HandleButtonClicked(FactionNames.Goblins);
+        }
+
         public void HandleButtonClicked(FactionNames factionName)
         {
             var factionManager = GameManager.Instance.FactionManager;
@@ -66,6 +83,16 @@ namespace Assets.Scripts.Systems.UiSystem
             if (!playerHasAmbassadors()) return;
 
             factionManager.SendAmbassador(factionName);
+            if (factionManager.GetFactionByName(factionName).GetStanding() == 4)
+            {
+                DisableFactionButton(factionName);
+            }
+        }
+
+        private void DisableFactionButton(FactionNames factionName)
+        {
+            var button = factionButtons[factionName];
+            button.interactable = false;
         }
 
         private bool playerHasAmbassadors()

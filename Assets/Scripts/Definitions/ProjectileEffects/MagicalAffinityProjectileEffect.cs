@@ -14,7 +14,6 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
 
         protected override void ApplyEffect(Tower source, Npc target)
         {
-            Debug.Log("Triggering Magical Affinity");
             var dmg = 0f;
             if (source.HasAttribute(AttributeName.AttackDamage))
             {

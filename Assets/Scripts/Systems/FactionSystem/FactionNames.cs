@@ -5,6 +5,8 @@
         Void,
         Humans,
         Orcs,
-        Elves  
+        Elves,
+        Dwarfs,
+        Goblins
     }
 }

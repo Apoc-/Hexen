@@ -33,22 +33,32 @@ namespace Assets.Scripts.Systems.FactionSystem
             AddFaction(new Humans());
             AddFaction(new Orcs());
             AddFaction(new Elves());
+            AddFaction(new Dwarfs());
+            AddFaction(new Goblins());
         }
 
         private void InitializeTowers()
         {
             RegisterTower<ArrowTower>();
             RegisterTower<CannonTower>();
+            
             //orcs
             RegisterTower<MundaneBunker>();
             RegisterTower<SiegeCatapult>();
             RegisterTower<WarBanner>();
             RegisterTower<Shredder>();
+            
             //elves
             RegisterTower<ArcaneNeedle>();
             RegisterTower<StormCaller>();
             RegisterTower<FrostEmitter>();
             RegisterTower<ArotasObelisk>();
+
+            //dwarfs
+            RegisterTower<BuildersShack>();
+            RegisterTower<ArchitectsBureau>();
+            RegisterTower<TaxCollectionOffice>();
+            RegisterTower<LarinsVault>();
 
             Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();

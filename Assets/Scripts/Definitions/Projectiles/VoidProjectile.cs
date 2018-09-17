@@ -15,9 +15,6 @@ namespace Assets.Scripts.Definitions.Projectiles
         {
             ProjectileEffects = new List<ProjectileEffect>();
 
-            AddProjectileEffect(new DamageProjectileEffect());
-            AddProjectileEffect(new FrenzyProjectileEffect());
-            //AddProjectileEffect(new SlowProjectileEffect(0.5f));
         }
     }
 }

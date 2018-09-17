@@ -179,7 +179,6 @@ namespace Assets.Scripts.Definitions.Npcs
             if (HasAttribute(AttributeName.AbsoluteDamageReduction))
             {
                 actualDmg -= Attributes[AttributeName.AbsoluteDamageReduction].Value;
-                Debug.Log("Damage reduced from " + dmg + " to " + actualDmg);
                 if (actualDmg <= 0) return;
             }
 
