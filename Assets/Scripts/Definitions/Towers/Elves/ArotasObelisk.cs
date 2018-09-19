@@ -18,8 +18,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Arotas' Obelisk";
+            Faction = FactionNames.Elves;
+            Rarity = Rarities.Legendary;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "Fire and Brimstone shall hail upon thou. Has Magical Affinity.";
-            GoldCost = 500;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Obelisk");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -28,9 +32,6 @@ namespace Assets.Scripts.Definitions.Towers
             MeteoriteModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Meteorite");
 
             WeaponHeight = 0.4f;
-
-            Faction = FactionNames.Elves;
-            Rarity = Rarities.Legendary;
 
             this.OnAttack.AddListener(CheckMeteoriteTrigger);
         }

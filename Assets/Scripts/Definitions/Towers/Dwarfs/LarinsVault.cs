@@ -18,10 +18,14 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Larins Vault";
+            Faction = FactionNames.Dwarfs;
+            Rarity = Rarities.Legendary;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description =
                 "Deals bonus damage depending on the amount of gold you have. Has a chance to enable a new random tower. " +
                 "Has \"Got some coin?\".";
-            GoldCost = 500;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Vault");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -29,9 +33,6 @@ namespace Assets.Scripts.Definitions.Towers
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
             WeaponHeight = 0.4f;
-
-            Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Legendary;
         }
 
         protected override void InitAttributes()

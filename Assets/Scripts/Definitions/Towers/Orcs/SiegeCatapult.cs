@@ -13,8 +13,11 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Siege Catapult Tower";
+            Faction = FactionNames.Orcs;
+            Rarity = Rarities.Uncommon;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "A tower that launches projectiles that deal damage in an area. Has Frenzy.";
-            GoldCost = 30;
 
             ProjectileType = typeof(OrcAoeProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
@@ -23,8 +26,7 @@ namespace Assets.Scripts.Definitions.Towers
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/Catapult");
 
             WeaponHeight = 0.2f;
-            Faction = FactionNames.Orcs;
-            Rarity = Rarities.Uncommon;
+            
         }
 
         protected override void InitAttributes()

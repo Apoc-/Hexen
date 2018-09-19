@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Systems.UiSystem
@@ -11,6 +12,8 @@ namespace Assets.Scripts.Systems.UiSystem
         [SerializeField]
         private GameObject buttonActiveEffect;
         private bool activated = false;
+
+        public TextMeshProUGUI PriceTag;
         
         public void OnButtonClicked()
         {

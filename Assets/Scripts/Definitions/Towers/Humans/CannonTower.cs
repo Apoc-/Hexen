@@ -13,16 +13,18 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "CannonTower";
+            Faction = FactionNames.Humans;
+            Rarity = Rarities.Common;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "A tower that shoots explosive projectiles";
-            GoldCost = 15;
+            
             ProjectileType = typeof(CannonProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Cannon");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
 
             WeaponHeight = 0.4f;
-            Faction = FactionNames.Humans;
-            Rarity = Rarities.Common;
         }
 
         protected override void InitAttributes()

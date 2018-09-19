@@ -13,8 +13,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Mundane Bunker";
+            Faction = FactionNames.Orcs;
+            Rarity = Rarities.Common;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "An orcish bunker with frenzy.";
-            GoldCost = 15;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Bunker");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/MundaneBunker");
 
@@ -23,8 +27,6 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.2f;
 
-            Faction = FactionNames.Orcs;
-            Rarity = Rarities.Common;
         }
 
         protected override void InitAttributes()

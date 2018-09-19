@@ -15,11 +15,11 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Frost Emitter";
-            Description = "A tower that slows nearby creeps by 25% and deals continous damage to them.";
-            GoldCost = 125;
+            Faction = FactionNames.Elves;
+            Rarity = Rarities.Rare;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
-            //ProjectileType = typeof(VoidProjectile);
-            //ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            Description = "A tower that slows nearby creeps by 25% and deals continous damage to them.";
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Emitter");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
@@ -29,9 +29,6 @@ namespace Assets.Scripts.Definitions.Towers
                 affectsNpcs: true));
 
             WeaponHeight = 1;
-
-            Faction = FactionNames.Elves;
-            Rarity = Rarities.Rare;
         }
 
         protected override void InitAttributes()

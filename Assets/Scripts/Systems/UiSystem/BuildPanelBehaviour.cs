@@ -34,6 +34,8 @@ namespace Assets.Scripts.Systems.UiSystem
             button.gameObject.GetComponent<Image>().sprite = button.Tower.Icon;
             button.transform.SetParent(gameObject.transform);
 
+            button.PriceTag.text = "" + tower.GoldCost;
+
             towerButtons.Enqueue(button);
         }
 

@@ -13,12 +13,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "War Banner";
+            Faction = FactionNames.Orcs;
+            Rarity = Rarities.Rare;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+            
             Description = "A War Banner that increases the damage of nearby towers. This tower does not attack!";
-            GoldCost = 100;
-
-            //ProjectileType = typeof(ArrowProjectile);
-            //ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
-
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Banner");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
             AuraEffects.Add(new AuraEffect(
@@ -27,9 +27,6 @@ namespace Assets.Scripts.Definitions.Towers
                 affectsNpcs: false));
 
             WeaponHeight = 1;
-
-            Faction = FactionNames.Orcs;
-            Rarity = Rarities.Rare;
         }
 
         protected override void InitAttributes()

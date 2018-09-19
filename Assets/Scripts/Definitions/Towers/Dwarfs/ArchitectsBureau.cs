@@ -18,8 +18,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Architect's Bureau";
+            Faction = FactionNames.Dwarfs;
+            Rarity = Rarities.Uncommon;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "This Building enforces nearby towers with a small damage bonus whenever the player earns gold. Has \"Got some coin?\".";
-            GoldCost = 40;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Architect");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -27,9 +31,6 @@ namespace Assets.Scripts.Definitions.Towers
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
             WeaponHeight = 0.4f;
-
-            Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Uncommon;
 
             GameManager.Instance.Player.OnGainGold += EnforceNearbyTower;
         }

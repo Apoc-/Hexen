@@ -13,8 +13,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Storm Caller";
+            Faction = FactionNames.Elves;
+            Rarity = Rarities.Uncommon;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "The Storm Caller's attacks jump to nearby enemies. Has Magical Affinity.";
-            GoldCost = 30;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Caller");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -23,8 +27,6 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.4f;
 
-            Faction = FactionNames.Elves;
-            Rarity = Rarities.Uncommon;
         }
 
         protected override void InitAttributes()

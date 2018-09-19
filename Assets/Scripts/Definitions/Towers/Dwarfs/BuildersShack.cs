@@ -13,8 +13,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Builders Shack";
+            Faction = FactionNames.Dwarfs;
+            Rarity = Rarities.Common;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "A tower that attacks intruders in the hopes of getting some coin. Has \"Got some coin?\".";
-            GoldCost = 10;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Shack");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -22,9 +26,6 @@ namespace Assets.Scripts.Definitions.Towers
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
             WeaponHeight = 0.4f;
-
-            Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Common;
         }
 
         protected override void InitAttributes()

@@ -13,10 +13,13 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Drok'Tol's Shredder";
+            Faction = FactionNames.Orcs;
+            Rarity = Rarities.Legendary;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description =
                 "This deadly contraption is named after the great Drok'Tol. " +
                 "It tosses whirling axes which stay in place to deal continous damage for a certain time.";
-            GoldCost = 500;
 
             ProjectileType = typeof(ShredderProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
@@ -25,8 +28,6 @@ namespace Assets.Scripts.Definitions.Towers
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/Shredder");
 
             WeaponHeight = 0.2f;
-            Faction = FactionNames.Orcs;
-            Rarity = Rarities.Legendary;
         }
 
         protected override void InitAttributes()

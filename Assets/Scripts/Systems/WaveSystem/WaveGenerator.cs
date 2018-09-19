@@ -84,9 +84,11 @@ namespace Assets.Scripts.Systems.WaveSystem
                         Debug.Log("Generating three rare Packs for " + faction.FactionName);
                         packs.AddRange(GeneratePack(faction, 3, GenerateRarePack));
                     }
-
-                    Debug.Log("Generating legendary Pack for " + faction.FactionName + " with count: " + count);
-                    packs.AddRange(GeneratePack(faction, count, GenerateLegendaryPack));
+                    else
+                    {
+                        Debug.Log("Generating legendary Pack for " + faction.FactionName + " with count: " + count);
+                        packs.AddRange(GeneratePack(faction, count, GenerateLegendaryPack));
+                    }
                 }
             }
             

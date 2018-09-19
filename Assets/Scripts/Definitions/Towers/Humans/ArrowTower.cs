@@ -13,8 +13,12 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Arrow Tower";
+            Faction = FactionNames.Humans;
+            Rarity = Rarities.Common;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description = "A tower that shoots arrows";
-            GoldCost = 10;            
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Arrow");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -23,8 +27,6 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.4f;
 
-            Faction = FactionNames.Humans;
-            Rarity = Rarities.Common;
         }
 
         protected override void InitAttributes()

@@ -21,9 +21,13 @@ namespace Assets.Scripts.Definitions.Towers
         public override void InitTower()
         {
             Name = "Tax Collection Office";
+            Faction = FactionNames.Dwarfs;
+            Rarity = Rarities.Rare;
+            GoldCost = GameSettings.BaselineTowerPrice[Rarity];
+
             Description =
                 "Progression Tax: Whenever a nearby tower levels up, the player gets gold and the Collector gets xp equal to the level.";
-            GoldCost = 100;
+            
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Office");
             Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
@@ -32,8 +36,6 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.4f;
 
-            Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Rare;
         }
 
         protected override void InitAttributes()

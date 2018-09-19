@@ -68,6 +68,14 @@ namespace Assets.Scripts.Systems.GameSystem
             {Rarities.Rare, 0.04f},
             {Rarities.Legendary, 0.04f}
         };
+
+        public static Dictionary<Rarities, int> BaselineTowerPrice = new Dictionary<Rarities, int>
+        {
+            {Rarities.Common, 5},
+            {Rarities.Uncommon, 50},
+            {Rarities.Rare, 500},
+            {Rarities.Legendary, 5000}
+        };
         #endregion
 
     }
