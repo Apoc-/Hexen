@@ -29,6 +29,7 @@ namespace Assets.Scripts.Systems.UiSystem
             button.Tower.Name = tower.Name;
             button.Tower.transform.parent = GameManager.Instance.TowerBuildManager.BuildableTowers.transform;
 
+            button.Tower.gameObject.SetActive(true);
             button.Tower.gameObject.SetActive(false);
 
             button.gameObject.GetComponent<Image>().sprite = button.Tower.Icon;

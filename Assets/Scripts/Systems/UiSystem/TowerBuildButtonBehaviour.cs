@@ -14,7 +14,38 @@ namespace Assets.Scripts.Systems.UiSystem
         private bool activated = false;
 
         public TextMeshProUGUI PriceTag;
-        
+        private float hoverTime = 0.75f;
+        private float hoverDuration = 0.0f;
+        private bool isHovering = false;
+
+        public void Update()
+        {
+            if (isHovering)
+            {
+                hoverDuration += Time.deltaTime;
+            }
+
+            if (hoverDuration >= hoverTime)
+            {
+                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower, Input.mousePosition);
+                isHovering = false;
+                hoverDuration = 0;
+            }
+        }
+
+        public void OnPointerEnter()
+        {
+            isHovering = true;
+            hoverDuration = 0;
+        }
+
+        public void OnPointerExit()
+        {
+            isHovering = false;
+            hoverDuration = 0;
+            GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+        }
+
         public void OnButtonClicked()
         {
             if (!activated)

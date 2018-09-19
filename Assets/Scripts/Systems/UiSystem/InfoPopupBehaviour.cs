@@ -23,65 +23,22 @@ namespace Assets.Scripts.Systems.UiSystem
         private List<GameObject> infoElements = new List<GameObject>();
         private bool isEnabled = false;
 
-        private bool animating = false;
-        private float animationTime = 0;
         private Tower infoTower;
 
         public void Update()
         {
-            if (animating)
-            {
-                animationTime += Time.deltaTime;
-                animationTime = 1f + ((animationTime -= 1f) * animationTime * animationTime);
-
-                gameObject.transform.localScale = Vector3.Lerp(new Vector3(1.0f, 0.0f, 1.0f), Vector3.one, animationTime);
-            }
-
-            if (gameObject.transform.localScale.y >= 1.0)
-            {
-                ResetAnimation();
-            }
-
             if (isEnabled)
             {
-                UpdateInfoPopupData();
-                
+                UpdateInfoPopupData();  
             }
-
-            if (infoTower.IsPlaced)
-            {
-                UpdateInfoPopupPosition();
-            }
-        }
-
-        private void ResetAnimation()
-        {
-            gameObject.transform.localScale = Vector3.one;
-            animating = false;
-            animationTime = 0;
         }
 
         public void EnableTowerInfoPopup(Tower tower, Vector3 screenPosition)
         {
             infoTower = tower;
-
-            var rect = GetComponent<RectTransform>().rect;
-            if (screenPosition.x + rect.width > Screen.width)
-            {
-                //show left of pos
-                gameObject.transform.position = new Vector3(screenPosition.x - rect.width / 2 - 16, screenPosition.y);
-            }
-            else
-            {
-                //show right of pos
-                gameObject.transform.position = new Vector3(screenPosition.x + rect.width / 2 + 16, screenPosition.y);
-            }
-
-            ResetAnimation();
+            
             isEnabled = true;
             gameObject.SetActive(true);
-
-            animating = true;
         }
 
         private void UpdateInfoPopupPosition()
