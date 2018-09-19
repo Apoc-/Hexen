@@ -145,6 +145,7 @@ namespace Assets.Scripts.Systems.WaveSystem
             npc.SetLevel(currentWaveCount);
 
             wave.SpawnedNpcs.Add(npc);
+            npc.SpawnedInWave = wave;
             
             DebugPrintSpawnNpcData(npc);
 

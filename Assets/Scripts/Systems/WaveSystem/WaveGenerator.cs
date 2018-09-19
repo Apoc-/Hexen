@@ -6,6 +6,7 @@ using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
+using UnityEngine.Networking;
 using Random = System.Random;
 
 namespace Assets.Scripts.Systems.WaveSystem
@@ -13,15 +14,34 @@ namespace Assets.Scripts.Systems.WaveSystem
     public class WaveGenerator : MonoBehaviour
     {
         private Random rand = new Random();
+        private Dictionary<Faction, int> legendarySpawned = new Dictionary<Faction, int>();
+        private bool initialized = false;
+        
 
         public Wave GenerateWave(int waveNumber)
         {
-            var packs = GeneratePacks(waveNumber);
+            if (!initialized) Initialize();
+
+            var finish = (waveNumber == 25);
+
+            var packs = GeneratePacks(waveNumber, finish);
 
             return new Wave(packs);
         }
 
-        private List<WavePack> GeneratePacks(int wave)
+        private void Initialize()
+        {
+            var factions = GameManager.Instance.FactionManager.GetFactions();
+
+            foreach (var faction in factions.Values)
+            {
+                legendarySpawned[faction] = 0;
+            }
+
+            initialized = true;
+        }
+
+        private List<WavePack> GeneratePacks(int wave, bool finish = false)
         {
             var packs = new List<WavePack>();
             var fm = GameManager.Instance.FactionManager;
@@ -33,35 +53,50 @@ namespace Assets.Scripts.Systems.WaveSystem
 
             foreach (var faction in factions)
             {
-                switch (faction.GetStanding())
+                var standing = faction.GetStanding();
+                var count = ((wave - 1) % 3) + 1;
+
+                if (finish) count = 3;
+
+                if (standing == -1)
                 {
-                    case -1:
-                        Debug.Log("Generating common Pack for " + faction.FactionName);
-                        packs.AddRange(GeneratePacks(faction, wave, GenerateCommonPack));
-                        break;
-                    case -2:
-                        Debug.Log("Generating uncommon Pack for " + faction.FactionName);
-                        packs.AddRange(GeneratePacks(faction, wave, GenerateUncommonPack));
-                        break;
-                    case -3:
-                        Debug.Log("Generating rare Pack for " + faction.FactionName);
-                        packs.AddRange(GeneratePacks(faction, wave, GenerateRarePack));
-                        break;
-                    case -4:
-                        Debug.Log("Generating lgendary Pack for " + faction.FactionName);
-                        packs.AddRange(GeneratePacks(faction, wave, GenerateLegendaryPack));
-                        break;
+                    Debug.Log("Generating common Pack for " + faction.FactionName + " with count: " + count);
+                    packs.AddRange(GeneratePack(faction, count, GenerateCommonPack));
+                }
+
+                if (standing == -2)
+                {
+                    Debug.Log("Generating uncommon Pack for " + faction.FactionName + " with count: " + count);
+                    packs.AddRange(GeneratePack(faction, count, GenerateUncommonPack));
+                }
+
+                if (standing == -3)
+                {
+                    Debug.Log("Generating rare Pack for " + faction.FactionName + " with count: " + count);
+                    packs.AddRange(GeneratePack(faction, count, GenerateRarePack));
+                }
+
+                if (standing == -4)
+                {
+                    // always send three rare packs if all three legendaries have been killed
+                    if (legendarySpawned[faction] == 3 && !finish)
+                    {
+                        Debug.Log("Generating three rare Packs for " + faction.FactionName);
+                        packs.AddRange(GeneratePack(faction, 3, GenerateRarePack));
+                    }
+
+                    Debug.Log("Generating legendary Pack for " + faction.FactionName + " with count: " + count);
+                    packs.AddRange(GeneratePack(faction, count, GenerateLegendaryPack));
                 }
             }
             
             return packs;
         }
 
-        private List<WavePack> GeneratePacks(Faction faction, int wave, Func<Faction, WavePack> packGenerationFunction)
+        private List<WavePack> GeneratePack(Faction faction, int count, Func<Faction, WavePack> packGenerationFunction)
         {
             var packs = new List<WavePack>();
-            var count = ((wave - 1) % 3) + 1;
-
+            
             for (int i = 0; i < count; i++)
             {
                 packs.Add(packGenerationFunction(faction));
@@ -128,8 +163,6 @@ namespace Assets.Scripts.Systems.WaveSystem
             pack.AddNpc(Instantiate(commonNpc));
             pack.AddNpc(Instantiate(commonNpc));
             
-
-
             return pack;
         }
 
@@ -140,7 +173,11 @@ namespace Assets.Scripts.Systems.WaveSystem
 
             // only one legendary
             var npc = GetRandomNpc(legendaries);
+
             pack.AddNpc(Instantiate(npc));
+
+            // remember spawn
+            legendarySpawned[faction] += 1;
 
             return pack;
         }

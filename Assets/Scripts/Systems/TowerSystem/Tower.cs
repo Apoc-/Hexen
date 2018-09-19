@@ -99,10 +99,10 @@ namespace Assets.Scripts.Systems.TowerSystem
         }
         private int NextLevelXP()
         {
-            var fac = 2f;
-            var exp = 2.5f;
-            var c = 10f;
-
+            var c = GameSettings.LvlConst;
+            var fac = GameSettings.LvlFact;
+            var exp = GameSettings.LvlExp;
+            
             return (int)(c + fac * Mathf.Pow(Level, exp));
         }
 

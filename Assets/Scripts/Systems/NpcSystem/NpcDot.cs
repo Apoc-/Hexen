@@ -5,7 +5,7 @@ namespace Assets.Scripts.Definitions.Npcs
     public class NpcDot
     {
         private float activeTime;
-        private readonly int duration;
+        private readonly float duration;
 
         private float ticksPerSecond;
         private float lastTick;
@@ -13,7 +13,7 @@ namespace Assets.Scripts.Definitions.Npcs
         public float Damage { get; private set; }
         public Tower Source { get; private set; }
 
-        public NpcDot(int duration, float damage, float ticksPerSecond, Tower source)
+        public NpcDot(float duration, float damage, float ticksPerSecond, Tower source)
         {
             this.activeTime = 0;
             this.lastTick = 0;

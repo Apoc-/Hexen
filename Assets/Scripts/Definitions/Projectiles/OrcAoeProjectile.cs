@@ -9,7 +9,7 @@ namespace Assets.Scripts.Definitions.Projectiles
         protected override void InitProjectileData()
         {
             Speed = 20;
-            Radius = 3f;
+            Radius = 1f;
         }
 
         protected override void InitProjectile()

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -30,9 +31,13 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 2.5f, 0.0f));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 1.5f));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.5f));
+            AddAttribute(new Attribute(
+                AttributeName.AttackDamage, 
+                GameSettings.BaselineTowerDmg[Rarity],
+                GameSettings.BaselineTowerDmgInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed));
+            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
     }
 }

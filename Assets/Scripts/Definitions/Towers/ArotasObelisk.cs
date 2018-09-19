@@ -2,6 +2,7 @@
 using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
@@ -38,14 +39,18 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 3f, 0.0f));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 50f));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1f));
+            AddAttribute(new Attribute(
+                AttributeName.AttackDamage,
+                GameSettings.BaselineTowerDmg[Rarity],
+                GameSettings.BaselineTowerDmgInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed));
+            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
 
         private void CheckMeteoriteTrigger()
         {
-            var p = 0.5f;
+            var p = 0.1f;
             var rnd = Random.value;
 
             if (rnd > p) return;
@@ -58,6 +63,10 @@ namespace Assets.Scripts.Definitions.Towers
             var go = Instantiate(MeteoriteModel);
 
             var projectile = go.AddComponent<ArotasMeteoriteProjectile>();
+
+            projectile.Duration = 4;
+            projectile.DmgPerTick = Attributes[AttributeName.AttackDamage].Value / 8;
+            projectile.TicksPerSecond = 4;
 
             projectile.transform.SetParent(this.transform);
             projectile.transform.localPosition = new Vector3(0, WeaponHeight + 20, 0);

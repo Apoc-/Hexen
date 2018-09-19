@@ -31,16 +31,21 @@ namespace Assets.Scripts.Definitions.Towers
             WeaponHeight = 0.4f;
 
             Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Legendary;
         }
 
         protected override void InitAttributes()
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f, 0.0f));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 10f));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.25f));
+            
+            AddAttribute(new Attribute(
+                AttributeName.AttackDamage,
+                GameSettings.BaselineTowerDmg[Rarity],
+                GameSettings.BaselineTowerDmgInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed));
+            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
     }
 }

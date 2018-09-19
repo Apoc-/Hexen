@@ -9,11 +9,11 @@ namespace Assets.Scripts.Definitions.Projectiles
     public class ShredderProjectile : DirectProjectile
     {
         private bool aligned = false;
-        private float shreddingDuration = 5;
+        private float shreddingDuration = 1.5f;
        
         protected override void InitProjectileData()
         {
-            Speed = 10;
+            Speed = 30;
         }
 
         protected override void InitProjectile()

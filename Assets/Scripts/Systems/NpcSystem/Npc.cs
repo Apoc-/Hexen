@@ -6,6 +6,7 @@ using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.TowerSystem;
+using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Definitions.Npcs
         public GameObject Model;
         public Tile Target;
         public Tile CurrentTile;
+        public Wave SpawnedInWave = null;
 
         public bool isSpawned = false;
 
@@ -127,8 +129,17 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             Attributes = new AttributeContainer();
 
-            AddAttribute(new Attribute(AttributeName.GoldReward, 1f, 1f, LevelIncrementType.Flat));
-            AddAttribute(new Attribute(AttributeName.XPReward, 2f, 2f, LevelIncrementType.Flat));
+            AddAttribute(new Attribute(
+                AttributeName.GoldReward, 
+                GameSettings.NpcGoldBase, 
+                GameSettings.NpcGoldInc, 
+                LevelIncrementType.Flat));
+
+            AddAttribute(new Attribute(
+                AttributeName.XPReward, 
+                GameSettings.NpcXPBase,
+                GameSettings.NpcXPInc,
+                LevelIncrementType.Flat));
         }
 
         public void AddAttribute(Attribute attr)
@@ -226,17 +237,22 @@ namespace Assets.Scripts.Definitions.Npcs
 
         private void GiveXP(Tower target, float amount)
         {
+            float factor = (Mathf.Pow(GameSettings.NpcGoldFactorExpBase, (int)Rarity));
+            amount *= factor;
             target.GiveXP((int)amount);
         }
 
         private void GiveGold(Player target, float amount)
         {
+            float factor = (Mathf.Pow(GameSettings.NpcXpFactorExpBase, (int)Rarity));
+            amount *= factor;
             target.IncreaseGold((int)amount);
         }
 
         public virtual void Die()
         {
             this.isSpawned = false;
+            this.SpawnedInWave.SpawnedNpcs.Remove(this);
             Explode();
         }
 

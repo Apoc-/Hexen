@@ -27,9 +27,13 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.MaxHealth, 100.0f, 0.4f));
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 0.75f, 0f));
-            AddAttribute(new Attribute(AttributeName.AbsoluteDamageReduction, 10.0f, 0.0f));
+            AddAttribute(new Attribute(
+                AttributeName.MaxHealth,
+                GameSettings.BaselineNpcHp[Rarity],
+                GameSettings.BaselineNpcHpInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, 0.75f));
+            AddAttribute(new Attribute(AttributeName.AbsoluteDamageReduction, 10.0f));
         }
     }
 }

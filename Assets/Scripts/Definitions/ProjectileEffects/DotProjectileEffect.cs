@@ -14,9 +14,9 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
         private readonly float damagePerTick;
         private readonly float ticksPerSecond;
 
-        private readonly int duration;
+        private readonly float duration;
 
-        public DotProjectileEffect(float damagePerTick, float ticksPerSecond, int duration, float triggerChance = 1) : base(triggerChance)
+        public DotProjectileEffect(float damagePerTick, float ticksPerSecond, float duration, float triggerChance = 1) : base(triggerChance)
         {
             this.damagePerTick = damagePerTick;
             this.duration = duration;

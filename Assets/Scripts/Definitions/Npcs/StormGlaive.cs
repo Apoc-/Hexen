@@ -47,8 +47,12 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.MaxHealth, 20.0f, 0.4f, LevelIncrementType.Percentage));
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.2f, 0f));
+            AddAttribute(new Attribute(
+                AttributeName.MaxHealth,
+                GameSettings.BaselineNpcHp[Rarity],
+                GameSettings.BaselineNpcHpInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.2f));
         }
     }
 }

@@ -31,9 +31,13 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 2.5f, 0.0f));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 1.5f));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.5f));
+            AddAttribute(new Attribute(
+                AttributeName.AttackDamage,
+                GameSettings.BaselineTowerDmg[Rarity],
+                GameSettings.BaselineTowerDmgInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed));
+            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
     }
 }

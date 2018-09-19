@@ -38,10 +38,14 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, 1.5f, 0.0f));
-            AddAttribute(new Attribute(AttributeName.AttackDamage, 3f));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, 1.0f));
-            AddAttribute(new Attribute(AttributeName.AuraRange, 1.0f, 0.04f));
+            AddAttribute(new Attribute(
+                AttributeName.AttackDamage,
+                GameSettings.BaselineTowerDmg[Rarity],
+                GameSettings.BaselineTowerDmgInc[Rarity]));
+
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed));
+            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
+            AddAttribute(new Attribute(AttributeName.AuraRange,GameSettings.BaseLineTowerAuraRange));
         }
 
         public void EnforceNearbyTower(int goldAmount)
@@ -58,7 +62,7 @@ namespace Assets.Scripts.Definitions.Towers
 
             if (tower.HasAttribute(AttributeName.AttackDamage))
             {
-                var effect = new AttributeEffect(0.1f, AttributeName.AttackDamage, AttributeEffectType.Flat, this);
+                var effect = new AttributeEffect(0.5f, AttributeName.AttackDamage, AttributeEffectType.Flat, this);
                 tower.Attributes[AttributeName.AttackDamage].AddAttributeEffect(effect);
             }
         }

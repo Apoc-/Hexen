@@ -23,7 +23,7 @@ namespace Assets.Scripts.Definitions.Npcs
             this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/Arotas");
             this.HealthBarOffset = 0.4f;
 
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Legendary;
             Faction = FactionNames.Elves;
 
             this.OnHit += CheckHit;
@@ -33,7 +33,11 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.MaxHealth, 80.0f, 0.4f));
+            AddAttribute(new Attribute(
+                AttributeName.MaxHealth,
+                GameSettings.BaselineNpcHp[Rarity],
+                GameSettings.BaselineNpcHpInc[Rarity]));
+
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.25f, 0f));
         }
 
@@ -57,7 +61,7 @@ namespace Assets.Scripts.Definitions.Npcs
             var maxHealthAttr = Attributes[AttributeName.MaxHealth];
             var movementSpeedAttr = Attributes[AttributeName.MovementSpeed];
 
-            maxHealthAttr.AddAttributeEffect(new AttributeEffect(50.0f, AttributeName.MaxHealth, AttributeEffectType.SetValue, this, hatchTime, MorphToPhoenix));
+            maxHealthAttr.AddAttributeEffect(new AttributeEffect(maxHealthAttr.Value/3, AttributeName.MaxHealth, AttributeEffectType.SetValue, this, hatchTime, MorphToPhoenix));
             Heal();
 
             movementSpeedAttr.AddAttributeEffect(new AttributeEffect(0.0f, AttributeName.MovementSpeed, AttributeEffectType.SetValue, this, hatchTime));

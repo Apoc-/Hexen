@@ -3,6 +3,7 @@ using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -37,8 +38,12 @@ namespace Assets.Scripts.Definitions.Towers
         {
             base.InitAttributes();
 
-            AddAttribute(new Attribute(AttributeName.AuraRange, 1.75f, 0.0f));
-            AddAttribute(new Attribute(AttributeName.AuraDamage, 0.5f));
+            AddAttribute(new Attribute(AttributeName.AuraRange, GameSettings.BaseLineTowerAuraRange));
+
+            AddAttribute(new Attribute(AttributeName.AuraDamage
+                , GameSettings.BaselineTowerDmg[Rarity] / 4  //fourth due to ticks
+                , GameSettings.BaselineTowerDmgInc[Rarity]));
+
             AddAttribute(new Attribute(AttributeName.AuraTicksPerSecond, 4.0f));
         }
     }
