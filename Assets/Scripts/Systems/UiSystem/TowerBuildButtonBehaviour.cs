@@ -27,7 +27,7 @@ namespace Assets.Scripts.Systems.UiSystem
 
             if (hoverDuration >= hoverTime)
             {
-                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower, Input.mousePosition);
+                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower);
                 isHovering = false;
                 hoverDuration = 0;
             }
@@ -41,9 +41,12 @@ namespace Assets.Scripts.Systems.UiSystem
 
         public void OnPointerExit()
         {
-            isHovering = false;
-            hoverDuration = 0;
-            GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+            if (!activated)
+            {
+                isHovering = false;
+                hoverDuration = 0;
+                GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+            }
         }
 
         public void OnButtonClicked()
@@ -51,7 +54,7 @@ namespace Assets.Scripts.Systems.UiSystem
             if (!activated)
             {
                 GameManager.Instance.TowerBuildManager.PickUpTower(this);
-                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower, Input.mousePosition);
+                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower);
                 SetButtonActive();
             }
         }

@@ -51,7 +51,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
                     if (CurrentSelectedTower.IsPlaced)
                     {
-                        GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(CurrentSelectedTower, Input.mousePosition);
+                        GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(CurrentSelectedTower);
                     }
                 }
             }

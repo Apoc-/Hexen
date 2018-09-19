@@ -33,7 +33,7 @@ namespace Assets.Scripts.Systems.UiSystem
             }
         }
 
-        public void EnableTowerInfoPopup(Tower tower, Vector3 screenPosition)
+        public void EnableTowerInfoPopup(Tower tower)
         {
             infoTower = tower;
             
