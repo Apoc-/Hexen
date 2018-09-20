@@ -1,32 +1,32 @@
 fileFormatVersion: 2
-guid: d87081e678942434581daefc957314e1
+guid: 0bbf690a672e98241a1b1463ca2927c8
 TextureImporter:
   fileIDToRecycleName:
-    21300000: spritesheet_0
-    21300002: spritesheet_1
-    21300004: spritesheet_2
-    21300006: spritesheet_3
-    21300008: spritesheet_4
-    21300010: spritesheet_5
-    21300012: spritesheet_6
-    21300014: spritesheet_7
-    21300016: spritesheet_8
-    21300018: spritesheet_9
-    21300020: spritesheet_10
-    21300022: spritesheet_11
-    21300024: spritesheet_12
-    21300026: spritesheet_13
-    21300028: spritesheet_14
-    21300030: spritesheet_15
-    21300032: spritesheet_16
-    21300034: spritesheet_17
-    21300036: spritesheet_18
-    21300038: spritesheet_19
-    21300040: spritesheet_20
-    21300042: spritesheet_21
-    21300044: spritesheet_22
-    21300046: spritesheet_23
-    21300048: spritesheet_24
+    21300000: towerreplace_0
+    21300002: towerreplace_1
+    21300004: towerreplace_2
+    21300006: towerreplace_3
+    21300008: towerreplace_4
+    21300010: towerreplace_5
+    21300012: towerreplace_6
+    21300014: towerreplace_7
+    21300016: towerreplace_8
+    21300018: towerreplace_9
+    21300020: towerreplace_10
+    21300022: towerreplace_11
+    21300024: towerreplace_12
+    21300026: towerreplace_13
+    21300028: towerreplace_14
+    21300030: towerreplace_15
+    21300032: towerreplace_16
+    21300034: towerreplace_17
+    21300036: towerreplace_18
+    21300038: towerreplace_19
+    21300040: towerreplace_20
+    21300042: towerreplace_21
+    21300044: towerreplace_22
+    21300046: towerreplace_23
+    21300048: towerreplace_24
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -109,11 +109,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spritesheet_0
+      name: towerreplace_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2048
+        x: 5
+        y: 2093
         width: 512
         height: 512
       alignment: 0
@@ -123,17 +123,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79c9dd9a015dc1d49aee0e313c468165
+      spriteID: e3e7da001126f2441af914c4297379fe
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_1
+      name: towerreplace_1
       rect:
         serializedVersion: 2
-        x: 512
-        y: 2048
+        x: 527
+        y: 2093
         width: 512
         height: 512
       alignment: 0
@@ -143,17 +143,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5b09639f95561046994a398488b32c0
+      spriteID: 57cc03b4cad620a4aa15d3bd3139d7d8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_2
+      name: towerreplace_2
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 2048
+        x: 1049
+        y: 2093
         width: 512
         height: 512
       alignment: 0
@@ -163,17 +163,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da94e9ffa8d4dd7438aba79e9d9e077a
+      spriteID: b1885a27ef9b86c408ed725016d19e44
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_3
+      name: towerreplace_3
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 2048
+        x: 1571
+        y: 2093
         width: 512
         height: 512
       alignment: 0
@@ -183,17 +183,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3a9dc34af8e20a4eb765836daaebb00
+      spriteID: 5967227b06482f343926c1ec19914492
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_4
+      name: towerreplace_4
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 2048
+        x: 2093
+        y: 2093
         width: 512
         height: 512
       alignment: 0
@@ -203,17 +203,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 867a230dc6fe5ac4b827284331ffe979
+      spriteID: e3a5684671a303641b3fdaf06d85003b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_5
+      name: towerreplace_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1536
+        x: 5
+        y: 1571
         width: 512
         height: 512
       alignment: 0
@@ -223,17 +223,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cd2c784aef61a54fa7b48b88224df83
+      spriteID: 95e46c855a231184192e952068fe126f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_6
+      name: towerreplace_6
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1536
+        x: 527
+        y: 1571
         width: 512
         height: 512
       alignment: 0
@@ -243,17 +243,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c2bf3d4537cfb74e88f7d289ce4cfba
+      spriteID: 6e48cf1ec1e17f540a7c9916ad6b41fc
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_7
+      name: towerreplace_7
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1536
+        x: 1049
+        y: 1571
         width: 512
         height: 512
       alignment: 0
@@ -263,17 +263,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52079c3625093b845917312488bb6f25
+      spriteID: 802ae98811ba85b4b838715379dd06c9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_8
+      name: towerreplace_8
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 1536
+        x: 1571
+        y: 1571
         width: 512
         height: 512
       alignment: 0
@@ -283,17 +283,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d1ddf71620d3a14796cb5545203d55e
+      spriteID: 801f49adb16ecb244b681a46680f0283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_9
+      name: towerreplace_9
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 1536
+        x: 2093
+        y: 1571
         width: 512
         height: 512
       alignment: 0
@@ -303,17 +303,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fe6acb5c6d6634478914505c93df1d1
+      spriteID: 2290c2fa56894014b91f479155b57097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_10
+      name: towerreplace_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1024
+        x: 5
+        y: 1049
         width: 512
         height: 512
       alignment: 0
@@ -323,17 +323,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0380482eeac1d59419ecc1aabae5dae2
+      spriteID: 6b77e510685d76f4f8cba737be178120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_11
+      name: towerreplace_11
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1024
+        x: 527
+        y: 1049
         width: 512
         height: 512
       alignment: 0
@@ -343,17 +343,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5185c111253e2cc46b53602aea3cb85b
+      spriteID: 2887d05a9f898db40a2533af6404a55c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_12
+      name: towerreplace_12
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1024
+        x: 1049
+        y: 1049
         width: 512
         height: 512
       alignment: 0
@@ -363,17 +363,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b3ace354e5219d40a59b767781a0bae
+      spriteID: a793dd0bf1224fd44ab641309834aaf0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_13
+      name: towerreplace_13
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 1024
+        x: 1571
+        y: 1049
         width: 512
         height: 512
       alignment: 0
@@ -383,17 +383,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27096c3c7dea0d740b83bf5379d88cfd
+      spriteID: c898e5d3394c87a4d8f8910b0ac38b8a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_14
+      name: towerreplace_14
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 1024
+        x: 2093
+        y: 1049
         width: 512
         height: 512
       alignment: 0
@@ -403,17 +403,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2235f0dbc624a294cb3ff5f40157d85f
+      spriteID: 69575e9f1a60858459c161b1d6baaf57
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_15
+      name: towerreplace_15
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
+        x: 5
+        y: 527
         width: 512
         height: 512
       alignment: 0
@@ -423,17 +423,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30bde2a4e6310084fa8c250cff6afc42
+      spriteID: 7c29a41a1ae495b46a940109acc26e03
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_16
+      name: towerreplace_16
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
+        x: 527
+        y: 527
         width: 512
         height: 512
       alignment: 0
@@ -443,17 +443,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8afeef1393e4d5f4ba2f39fa8e2a253f
+      spriteID: 55e020b4617694f4bb3f8dab78560ef3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_17
+      name: towerreplace_17
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
+        x: 1049
+        y: 527
         width: 512
         height: 512
       alignment: 0
@@ -463,17 +463,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 093481e10d1a7eb4eaa65d9a3e2d81e6
+      spriteID: 8dcecd4e400018d4898da40e3512edfa
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_18
+      name: towerreplace_18
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 512
+        x: 1571
+        y: 527
         width: 512
         height: 512
       alignment: 0
@@ -483,17 +483,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 557ff5456832a3f41b0d932ddc635a00
+      spriteID: 6c52e246cc04724499017b9bfd21bce6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_19
+      name: towerreplace_19
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 512
+        x: 2093
+        y: 527
         width: 512
         height: 512
       alignment: 0
@@ -503,17 +503,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c42abf39877409140b12149546cbdfee
+      spriteID: 3ad9b2c8a9649f342ac70db357c7a5b7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_20
+      name: towerreplace_20
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 5
+        y: 5
         width: 512
         height: 512
       alignment: 0
@@ -523,17 +523,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5702cab6fbf2a034394dd5545ed6e7bc
+      spriteID: ff7ab33b1de1b6646b741a77d4a2dc77
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_21
+      name: towerreplace_21
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
+        x: 527
+        y: 5
         width: 512
         height: 512
       alignment: 0
@@ -543,17 +543,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9463c09171153014ab03764a24b74dda
+      spriteID: 8430bca7957e94e4aa197716b3f1c4be
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_22
+      name: towerreplace_22
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
+        x: 1049
+        y: 5
         width: 512
         height: 512
       alignment: 0
@@ -563,17 +563,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0dba3df08c36d4b4b8627f6bab3545ad
+      spriteID: 50cf399e37e6ef9438345b136710b46d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_23
+      name: towerreplace_23
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 0
+        x: 1571
+        y: 5
         width: 512
         height: 512
       alignment: 0
@@ -583,17 +583,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2a1b473d24c109498d3a76733e01a16
+      spriteID: d889570df70c811408726010770c488f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_24
+      name: towerreplace_24
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 0
+        x: 2093
+        y: 5
         width: 512
         height: 512
       alignment: 0
@@ -603,7 +603,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4af9ddf5d4fe4d4d8cfa39526d76653
+      spriteID: 12fb05cb025b3e444abdd075cd410fe2
       vertices: []
       indices: 
       edges: []
@@ -611,7 +611,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 55b3df5d81a798f4381b5b6938f1ad1d
+    spriteID: ee26b983c63a5ac43a246c14cf3a4567
     vertices: []
     indices: 
     edges: []

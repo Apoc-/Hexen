@@ -71,7 +71,8 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             this.OnLevelUp += (lvl) =>
             {
-                GameManager.Instance.SfxManager.PlaySpecialEffect("LevelUpEffect", gameObject);
+                var sfx = new SpecialEffect("LevelUpEffect", this.gameObject, 3f);
+                GameManager.Instance.SfxManager.PlaySpecialEffect(sfx);
             };
         }
 

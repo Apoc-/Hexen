@@ -25,7 +25,7 @@ namespace Assets.Scripts.Definitions.Towers
             ProjectileType = typeof(ArrowProjectile);
             ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
 
-            WeaponHeight = 0.4f;
+            WeaponHeight = 0.6f;
 
         }
 

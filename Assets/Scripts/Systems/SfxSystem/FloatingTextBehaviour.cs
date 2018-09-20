@@ -1,21 +1,22 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 namespace Assets.Scripts.Systems.SfxSystem
 {
-    public class FloatingText : MonoBehaviour
+    public class FloatingTextBehaviour : MonoBehaviour
     {
         public bool IsPlaying { get; set; }
         public float Duration { get; set; }
 
         private float timeRunning = 0.0f;
 
-        private TextMesh textMesh;
+        private TextMeshPro textMesh;
 
         public void Awake()
         {
             IsPlaying = false;
             Duration = 3.0f;
-            textMesh = GetComponent<TextMesh>();
+            textMesh = GetComponent<TextMeshPro>();
         }
 
         public void Update()
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Systems.SfxSystem
 
         public void SetSize(float size)
         {
-            textMesh.characterSize = size;
+            textMesh.fontSize = size;
         }
 
         public void SetColor(Color color)

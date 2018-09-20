@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
@@ -258,7 +260,12 @@ namespace Assets.Scripts.Definitions.Npcs
 
         void Explode()
         {
-            GameManager.Instance.SfxManager.PlaySpecialEffect("Blood", gameObject);
+            var specialEffect = new SpecialEffect(
+                effectPrefabName: "Blood",
+                origin: gameObject,
+                duration: 2f);
+
+            GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
 
             Destroy(gameObject);
         }

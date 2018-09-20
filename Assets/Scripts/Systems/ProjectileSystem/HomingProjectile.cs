@@ -15,6 +15,13 @@ namespace Assets.Scripts.Systems.ProjectileSystem
                 return;
             }
 
+            var dist = Vector3.Distance(this.Target.transform.position, this.transform.position);
+            if (dist < 0.1f)
+            {
+                transform.position = this.Target.transform.position;
+                return;
+            }
+
             Vector3 target = Target.GetComponentInChildren<Collider>().transform.position;
             Vector3 position = this.transform.position;
 

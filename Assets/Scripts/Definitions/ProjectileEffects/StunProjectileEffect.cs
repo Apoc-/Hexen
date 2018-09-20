@@ -2,6 +2,7 @@
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 
 namespace Assets.Scripts.Definitions.ProjectileEffects
@@ -29,6 +30,9 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
                     duration: stunDuration);
 
                 movementSpeed.AddAttributeEffect(slowEffect);
+
+                var specialEffect = new SpecialEffect("StunEffect", source.gameObject, stunDuration);
+                GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
             }
         }
     }

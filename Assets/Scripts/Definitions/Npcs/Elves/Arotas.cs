@@ -57,7 +57,9 @@ namespace Assets.Scripts.Definitions.Npcs
 
         private void MorphToEgg()
         {
-            GameManager.Instance.SfxManager.PlaySpecialEffect("FireCircle", gameObject);
+            var sfx = new SpecialEffect("FireCircle", this.gameObject, hatchTime);
+            GameManager.Instance.SfxManager.PlaySpecialEffect(sfx);
+
             var maxHealthAttr = Attributes[AttributeName.MaxHealth];
             var movementSpeedAttr = Attributes[AttributeName.MovementSpeed];
 

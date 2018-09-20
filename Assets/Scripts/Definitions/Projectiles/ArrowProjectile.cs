@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Definitions.ProjectileEffects;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
@@ -8,7 +10,7 @@ namespace Assets.Scripts.Definitions.Projectiles
     {
         protected override void InitProjectileData()
         {
-            Speed = 20;
+            Speed = 30;
         }
 
         protected override void InitProjectile()
@@ -16,7 +18,8 @@ namespace Assets.Scripts.Definitions.Projectiles
             ProjectileEffects = new List<ProjectileEffect>();
 
             AddProjectileEffect(new DamageProjectileEffect());
-            //AddProjectileEffect(new DotProjectileEffect(200.0f, 10000f));
+
+            GameManager.Instance.SfxManager.AttachTrail("ArrowTrail", gameObject);
         }
     }
 }

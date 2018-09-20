@@ -11,7 +11,7 @@ namespace Assets.Scripts.Systems.GameSystem
         [SerializeField] private float zoomMax = 10.0f;
         [SerializeField] private float rotXMin = 20.0f;
         [SerializeField] private float rotXMax = 90.0f;
-        [SerializeField] private float zoomSpeed = 2f;
+        [SerializeField] private float zoomSpeed = 1.5f;
 
         private void Update()
         {

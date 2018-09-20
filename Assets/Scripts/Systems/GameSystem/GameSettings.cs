@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Systems.TowerSystem;
+using UnityEngine;
 
 namespace Assets.Scripts.Systems.GameSystem
 {
@@ -10,6 +11,10 @@ namespace Assets.Scripts.Systems.GameSystem
         public static float SellTax = 0.5f;
         public static int StartingAmbassadors = 1;
 
+        #endregion
+
+        #region Colors
+        public static Color MagicalCritColor = new Color(0.7f, 0.87f, 1.0f);
         #endregion
 
         #region Npc balancing settings
