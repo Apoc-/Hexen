@@ -18,8 +18,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             NoBuildSlot,
             None
         }
-
-
+        
         private Tower currentHeldTower;
         private Tile currentTile;
         private TowerBuildButtonBehaviour currentHeldTowerButton;
@@ -49,6 +48,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 if (PlayerHasGold(currentHeldTower) && TileIsBuildslot(currentTile))
                 {
                     PlaceTower(currentTile);
+                    GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.Standard);
                 }
             }
         }
@@ -76,7 +76,12 @@ namespace Assets.Scripts.Systems.TowerSystem
 
             if (towerHoldState == TowerHoldState.CanReplace)
             {
-                //show tower replace icon
+                GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.ReplaceTower);
+            }
+
+            if (towerHoldState != TowerHoldState.CanReplace)
+            {
+                GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.Standard);
             }
         }
 

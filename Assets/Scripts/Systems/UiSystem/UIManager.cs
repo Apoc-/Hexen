@@ -14,6 +14,15 @@ namespace Assets.Scripts.Systems.UiSystem
         [SerializeField] private BuildPanelBehaviour buildPanel;
         [SerializeField] private InfoPopupBehaviour infoPopup;
         [SerializeField] private FactionPanelBehaviour factionPanel;
+        [SerializeField] private CursorHandler cursorHandler;
+
+        public CursorHandler CursorHandler
+        {
+            get
+            {
+                return cursorHandler;
+            }
+        }
 
         public BuildPanelBehaviour BuildPanel
         {
