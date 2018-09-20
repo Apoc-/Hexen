@@ -9,6 +9,7 @@ namespace Assets.Scripts.Systems.TowerSystem
     {
         public Tower CurrentSelectedTower;
         private GameObject activeRangeIndicator;
+        private Tower activeRangeIndicatorTower;
 
         private void Update()
         {
@@ -22,16 +23,11 @@ namespace Assets.Scripts.Systems.TowerSystem
                 UnselectTower();
             }
 
-            if (CurrentSelectedTower != null && activeRangeIndicator != null)
+            if (activeRangeIndicator != null)
             {
-                if (activeRangeIndicator != null)
-                {
-                    RecalculateRangeIndicatorRadius();
-                }
+                RecalculateRangeIndicatorRadius();
             }
         }
-
-        
 
         private void SelectTower()
         {
@@ -47,7 +43,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 if (tower != null)
                 {
                     CurrentSelectedTower = tower;
-                    DisplayRangeIndicator(CurrentSelectedTower);
+                    UpdateRangeIndicator(CurrentSelectedTower);
 
                     if (CurrentSelectedTower.IsPlaced)
                     {
@@ -64,16 +60,27 @@ namespace Assets.Scripts.Systems.TowerSystem
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
         }
 
-        public void DisplayRangeIndicator(Tower tower)
+        public void UpdateRangeIndicator(Tower tower)
         {
-            if (activeRangeIndicator != null)
+            if (activeRangeIndicator != null && activeRangeIndicatorTower != tower)
             {
                 Destroy(activeRangeIndicator);
+                activeRangeIndicator = null;
             }
 
+            if (activeRangeIndicator == null)
+            {
+                CreateRangeIndicator(tower);
+            }
+        }
+
+        private void CreateRangeIndicator(Tower tower)
+        {
             activeRangeIndicator = Instantiate(Resources.Load<GameObject>("Sfx/RangeIndicator"));
             activeRangeIndicator.transform.SetParent(tower.transform);
             activeRangeIndicator.transform.localPosition = Vector3.zero;
+
+            activeRangeIndicatorTower = tower;
 
             var range = GetRangeIndicatorRange(tower);
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
@@ -83,7 +90,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void RecalculateRangeIndicatorRadius()
         {
-            var range = GetRangeIndicatorRange(CurrentSelectedTower);
+            var range = GetRangeIndicatorRange(activeRangeIndicatorTower);
 
             var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
             var shape = particles.shape;
@@ -101,6 +108,9 @@ namespace Assets.Scripts.Systems.TowerSystem
             {
                 Destroy(activeRangeIndicator);
             }
+
+            activeRangeIndicator = null;
+            activeRangeIndicatorTower = null;
         }
 
         private float GetRangeIndicatorRange(Tower tower)

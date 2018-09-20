@@ -84,7 +84,7 @@ namespace Assets.Scripts.Systems.SfxSystem
             attachedTrailEffects.Add(new TrailEffect(origin, container, trail));
         }
 
-        public void PlaySpriteAnimation(string animationPrefabName, Vector3 position)
+        /*public void PlaySpriteAnimation(string animationPrefabName, Vector3 position)
         {
             Animator prefab = Resources.Load<Animator>(sfxPath + "/" + animationPrefabName);
 
@@ -100,7 +100,7 @@ namespace Assets.Scripts.Systems.SfxSystem
             trail.emitting = true;
 
             attachedTrailEffects.Add(new TrailEffect(origin, container, trail));
-        }
+        }*/
 
         private void Update()
         {

@@ -10,8 +10,20 @@ namespace Assets.Scripts.Systems.TowerSystem
 {
     class TowerBuildManager : MonoBehaviour
     {
+        private enum TowerHoldState
+        {
+            CanPlace,
+            CanReplace,
+            NoGold,
+            NoBuildSlot,
+            None
+        }
+
+
         private Tower currentHeldTower;
+        private Tile currentTile;
         private TowerBuildButtonBehaviour currentHeldTowerButton;
+        private TowerHoldState towerHoldState;
 
         public GameObject PlacedTowers;
         public GameObject BuildableTowers;
@@ -22,22 +34,56 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             if (currentHeldTower != null && !EventSystem.current.IsPointerOverGameObject())
             {
-                HandleTowerHolding();
+                this.towerHoldState = ObtainTowerHoldState();
+
+                UpdateVisualEffects();
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 CancelPickup();
             }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && currentHeldTower != null && currentTile != null)
+            {
+                if (PlayerHasGold(currentHeldTower) && TileIsBuildslot(currentTile))
+                {
+                    PlaceTower(currentTile);
+                }
+            }
         }
 
-        //todo refactor complete system
-        private void HandleTowerHolding()
+        private void UpdateVisualEffects()
         {
-            Tile currentTile;
+            if (currentHeldTower == null)
+            {
+                GameManager.Instance.TowerSelectionManager.DestroyRangeIndicator();
+                return;
+            }
+
+            currentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
+
+            GameManager.Instance.TowerSelectionManager.UpdateRangeIndicator(currentHeldTower);
+
+            if (towerHoldState == TowerHoldState.NoGold || towerHoldState == TowerHoldState.NoBuildSlot)
+            {
+                SetTowerModelNotPlaceableColor();
+            }
+            else
+            {
+                SetTowerModelPlaceableColor();
+            }
+
+            if (towerHoldState == TowerHoldState.CanReplace)
+            {
+                //show tower replace icon
+            }
+        }
+
+        private TowerHoldState ObtainTowerHoldState()
+        {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            //Vector3 objPosition;
             LayerMask mask = LayerMask.GetMask("Tiles");
 
             if (Physics.Raycast(ray, out hit, 100, mask))
@@ -45,45 +91,19 @@ namespace Assets.Scripts.Systems.TowerSystem
                 var hitGameObject = hit.transform.gameObject;
                 currentTile = hitGameObject.GetComponent<Tile>();
 
-                if (currentTile != null)
+                if (currentTile == null || !TileIsBuildslot(currentTile))
                 {
-                    currentHeldTower.Tile = currentTile;
-                    var towerIsPlaceable = TowerIsPlaceableOnTile(currentTile, currentHeldTower);
+                   return TowerHoldState.NoBuildSlot;
+                } 
 
-                    if (towerIsPlaceable)
-                    {
-                        SetTowerModelPlaceableColor();
-                    }
-                    else
-                    {
-                        SetTowerModelNotPlaceableColor();
-                    }
-
-                    if (currentTile.GetTopCenter() != currentHeldTower.gameObject.transform.position)
-                    {
-                        currentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
-
-                        if (towerIsPlaceable)
-                        {
-                            GameManager.Instance.TowerSelectionManager.DisplayRangeIndicator(currentHeldTower);
-                        }
-                        else
-                        {
-                            GameManager.Instance.TowerSelectionManager.DestroyRangeIndicator();
-                        }
-                    }
+                if (PlayerHasGold(currentHeldTower))
+                {
+                    if (currentTile.IsEmpty) return TowerHoldState.CanPlace;
+                    if (currentTile.PlacedTower != null) return TowerHoldState.CanReplace;
                 }
-
-                HandleTowerHoldingInput(currentTile);
             }
-        }
 
-        private void HandleTowerHoldingInput(Tile currentTile)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && TowerIsPlaceableOnTile(currentTile, currentHeldTower))
-            {
-                PlaceTower(currentTile);
-            }
+            return TowerHoldState.NoBuildSlot;
         }
 
         public Tower GetRandomTower()
@@ -186,6 +206,8 @@ namespace Assets.Scripts.Systems.TowerSystem
 
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
             currentHeldTower = null;
+            currentTile = null;
+            towerHoldState = TowerHoldState.None;
         }
 
         public void SetTowerModelTransparency(float alpha)
@@ -231,9 +253,13 @@ namespace Assets.Scripts.Systems.TowerSystem
             SetTowerModelColor(Color.white);
         }
 
-        private bool TowerIsPlaceableOnTile(Tile tile, Tower tower)
+        private bool PlayerHasGold(Tower tower)
         {
-            return tile.TileType.Equals(TileType.Buildslot) && tower.GoldCost <= GameManager.Instance.Player.Gold;
+            return tower.GoldCost <= GameManager.Instance.Player.Gold;
+        }
+        private bool TileIsBuildslot(Tile tile)
+        {
+            return tile.TileType.Equals(TileType.Buildslot);
         }
     }
 }
