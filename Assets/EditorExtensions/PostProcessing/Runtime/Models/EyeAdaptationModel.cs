@@ -28,7 +28,7 @@ namespace Assets.EditorExtensions.PostProcessing.Runtime.Models
             [Tooltip("Maximum average luminance to consider for auto exposure (in EV).")]
             public float maxLuminance;
 
-            [Min(0f), Tooltip("Exposure bias. Use this to offset the global exposure of the scene.")]
+            [Attributes.Min(0f), Tooltip("Exposure bias. Use this to offset the global exposure of the scene.")]
             public float keyValue;
 
             [Tooltip("Set this to true to let Unity handle the key value automatically based on average luminance.")]
@@ -37,10 +37,10 @@ namespace Assets.EditorExtensions.PostProcessing.Runtime.Models
             [Tooltip("Use \"Progressive\" if you want the auto exposure to be animated. Use \"Fixed\" otherwise.")]
             public EyeAdaptationType adaptationType;
 
-            [Min(0f), Tooltip("Adaptation speed from a dark to a light environment.")]
+            [Attributes.Min(0f), Tooltip("Adaptation speed from a dark to a light environment.")]
             public float speedUp;
 
-            [Min(0f), Tooltip("Adaptation speed from a light to a dark environment.")]
+            [Attributes.Min(0f), Tooltip("Adaptation speed from a light to a dark environment.")]
             public float speedDown;
 
             [Range(-16, -1), Tooltip("Lower bound for the brightness range of the generated histogram (in EV). The bigger the spread between min & max, the lower the precision will be.")]

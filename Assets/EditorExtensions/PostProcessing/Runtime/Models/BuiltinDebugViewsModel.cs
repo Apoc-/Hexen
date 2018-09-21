@@ -34,7 +34,7 @@ namespace Assets.EditorExtensions.PostProcessing.Runtime.Models
             [Range(0f, 1f), Tooltip("Opacity of the per-pixel motion vector colors.")]
             public float motionImageOpacity;
 
-            [Min(0f), Tooltip("Because motion vectors are mainly very small vectors, you can use this setting to make them more visible.")]
+            [Attributes.Min(0f), Tooltip("Because motion vectors are mainly very small vectors, you can use this setting to make them more visible.")]
             public float motionImageAmplitude;
 
             [Range(0f, 1f), Tooltip("Opacity for the motion vector arrows.")]
@@ -43,7 +43,7 @@ namespace Assets.EditorExtensions.PostProcessing.Runtime.Models
             [Range(8, 64), Tooltip("The arrow density on screen.")]
             public int motionVectorsResolution;
 
-            [Min(0f), Tooltip("Tweaks the arrows length.")]
+            [Attributes.Min(0f), Tooltip("Tweaks the arrows length.")]
             public float motionVectorsAmplitude;
 
             public static MotionVectorsSettings defaultSettings

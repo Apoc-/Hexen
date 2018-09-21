@@ -1,5 +1,6 @@
 using Assets.EditorExtensions.PostProcessing.Runtime.Attributes;
 using UnityEngine;
+using MinAttribute = Assets.EditorExtensions.PostProcessing.Runtime.Attributes.MinAttribute;
 
 namespace UnityEditor.PostProcessing
 {
