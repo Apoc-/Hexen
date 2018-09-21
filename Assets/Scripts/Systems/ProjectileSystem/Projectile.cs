@@ -15,6 +15,9 @@ namespace Assets.Scripts.Systems.ProjectileSystem
         protected float Speed;
         protected GameObject Model;
 
+        protected Vector3 Velocity = Vector3.zero;
+        protected float VelocityDampeningFactor = 0.5f;
+
         private void Awake()
         {
             this.InitProjectile();
@@ -52,6 +55,15 @@ namespace Assets.Scripts.Systems.ProjectileSystem
         protected void AddProjectileEffect(ProjectileEffect projectileEffect)
         {
             this.ProjectileEffects.Add(projectileEffect);
+        }
+
+        protected void UpdateVelocity()
+        {
+            if (Velocity == Vector3.zero) return;
+
+            Velocity *= VelocityDampeningFactor;
+
+            if (Velocity.magnitude <= 0.000001) Velocity = Vector3.zero;
         }
     }
 }

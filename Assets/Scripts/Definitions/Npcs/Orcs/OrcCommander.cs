@@ -20,7 +20,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Orc Commander";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcCommander");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcCommander");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Rare;
@@ -82,7 +82,7 @@ namespace Assets.Scripts.Definitions.Npcs
             Debug.Log("|||||||||| Triggered second wind for " + npc.GetHashCode() + " My Health: " + this.CurrentHealth);
         }
 
-        public override void Die()
+        public override void Die(bool silent = false)
         {
             affectedNpcs.ForEach(npc => { npc.OnHit -= CheckSecondWind; });
             GameManager.Instance.WaveSpawner.OnNpcSpawned -= AffectNpc;

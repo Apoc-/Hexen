@@ -11,7 +11,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Orc Grunt";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcGrunt");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcGrunt");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Uncommon;

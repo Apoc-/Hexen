@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.MapSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
@@ -27,6 +28,8 @@ namespace Assets.Scripts.Systems.WaveSystem
         }
 
         public List<Wave> CurrentSpawnedWaves { get; private set; }
+
+        public Wave CurrentSpawnedWave { get; private set; }
 
         public int NumberOfWaves
         {
@@ -104,6 +107,7 @@ namespace Assets.Scripts.Systems.WaveSystem
 
             var wave = GameManager.Instance.WaveGenerator.GenerateWave(currentWaveCount);
             wave.WaveNumber = currentWaveCount;
+            CurrentSpawnedWave = wave;
             CurrentSpawnedWaves.Add(wave);
 
             Debug.Log("----- Spawning Wave " + currentWaveCount + "-----");
@@ -163,7 +167,44 @@ namespace Assets.Scripts.Systems.WaveSystem
 
             wave.SpawnedNpcs.Add(npc);
             npc.SpawnedInWave = wave;
-            
+
+            var animator = npc.GetComponentInChildren<Animator>();
+            if (animator != null)
+            {
+                animator.Rebind();
+            }
+
+            DebugPrintSpawnNpcData(npc);
+
+            if (OnNpcSpawned != null) OnNpcSpawned(npc);
+        }
+
+        public void SpawnSingleNpcForCurrentWave(Npc npc, Vector3 position, Tile target)
+        {
+            var wave = CurrentSpawnedWave;
+
+            npc.isSpawned = true;
+            npc.InitData();
+
+            npc.transform.parent = transform;
+            npc.name = npc.Name + " (id: " + wave.PackCount + "/" + wave.NpcSpawnCount + ")";
+            npc.transform.position = position;
+            npc.Target = target;
+
+            npc.InitVisuals();
+
+            npc.gameObject.SetActive(true);
+            npc.SetLevel(currentWaveCount);
+
+            wave.SpawnedNpcs.Add(npc);
+            npc.SpawnedInWave = wave;
+
+            var animator = npc.GetComponentInChildren<Animator>();
+            if (animator != null)
+            {
+                animator.Rebind();
+            }
+
             DebugPrintSpawnNpcData(npc);
 
             if (OnNpcSpawned != null) OnNpcSpawned(npc);

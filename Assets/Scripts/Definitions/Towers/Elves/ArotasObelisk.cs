@@ -33,7 +33,7 @@ namespace Assets.Scripts.Definitions.Towers
 
             WeaponHeight = 0.4f;
 
-            this.OnAttack.AddListener(CheckMeteoriteTrigger);
+            OnAttack += CheckMeteoriteTrigger;
         }
 
         protected override void InitAttributes()

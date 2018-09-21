@@ -20,7 +20,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Arotas";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/Arotas");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/Arotas");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Legendary;

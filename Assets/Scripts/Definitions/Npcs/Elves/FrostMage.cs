@@ -13,7 +13,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Frost Mage";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/FrostMage");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/FrostMage");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Rare;

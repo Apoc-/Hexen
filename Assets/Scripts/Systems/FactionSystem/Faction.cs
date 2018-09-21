@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
@@ -32,7 +34,8 @@ namespace Assets.Scripts.Systems.FactionSystem
                 { Rarities.Common, new List<Tower>() },
                 { Rarities.Uncommon, new List<Tower>() },
                 { Rarities.Rare, new List<Tower>() },
-                { Rarities.Legendary, new List<Tower>() }
+                { Rarities.Legendary, new List<Tower>() },
+                { Rarities.None, new List<Tower>() }
             };
 
             npcs = new Dictionary<Rarities, List<Npc>>
@@ -40,7 +43,8 @@ namespace Assets.Scripts.Systems.FactionSystem
                 { Rarities.Common, new List<Npc>() },
                 { Rarities.Uncommon, new List<Npc>() },
                 { Rarities.Rare, new List<Npc>() },
-                { Rarities.Legendary, new List<Npc>() }
+                { Rarities.Legendary, new List<Npc>() },
+                { Rarities.None, new List<Npc>() }
             };
         }
 
@@ -111,6 +115,21 @@ namespace Assets.Scripts.Systems.FactionSystem
         public List<Npc> GetAvailableNpcsByRarity(Rarities rarity)
         {
             return npcs[rarity];
+        }
+
+        public T GetNpc<T>() where T : Npc
+        {
+            Npc foundNpc = null;
+
+            foreach (var npcsInRarity in npcs.Values)
+            {
+                foundNpc = npcsInRarity.FirstOrDefault(npc => npc is T);
+            }
+
+            var castedNpc = foundNpc as T;
+            if (castedNpc == null) throw new ArgumentOutOfRangeException();
+
+            return castedNpc;
         }
 
         public void IncreaseStanding()

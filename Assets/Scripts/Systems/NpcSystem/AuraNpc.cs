@@ -79,11 +79,11 @@ namespace Assets.Scripts.Systems.NpcSystem
             AffectedAuraTargets = new List<IHasAttributes>();
         }
 
-        public override void Die()
+        public override void Die(bool silent = false)
         {
             ClearAuraTargets();
 
-            base.Die();
+            base.Die(silent);
         }
     }
 }

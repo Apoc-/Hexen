@@ -30,16 +30,19 @@ namespace Assets.Scripts.Systems.GameSystem
         #region Npc balancing settings
 
         public static float NpcXPBase = 0.0f;
-        public static float NpcXPInc = 10.0f;
+        public static float NpcXPInc = 5.0f;
 
         public static float NpcGoldBase = 0.0f;
         public static float NpcGoldInc = 1.0f;
 
         public static float NpcGoldFactorExpBase = 2f;
-        public static float NpcXpFactorExpBase = 10f;
+        public static float NpcXpFactorExpBase = 4f;
+
+        public static float BaseLineNpcAuraRange = 3f;
 
         public static Dictionary<Rarities, float> BaselineNpcHp = new Dictionary<Rarities, float>
         {
+            {Rarities.None, 1.0f },
             {Rarities.Common, 30.0f},
             {Rarities.Uncommon, 60.0f},
             {Rarities.Rare, 90.0f},
@@ -48,6 +51,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static Dictionary<Rarities, float> BaselineNpcHpInc = new Dictionary<Rarities, float>
         {
+            {Rarities.None, 1.0f },
             {Rarities.Common, 0.25f},
             {Rarities.Uncommon, 0.25f},
             {Rarities.Rare, 0.25f},
@@ -62,7 +66,7 @@ namespace Assets.Scripts.Systems.GameSystem
         public static float LvlConst = 0.0f;
 
         public static float BaseLineTowerAttackSpeed = 1.5f;
-        public static float BaseLineTowerAttackRange = 1.5f;
+        public static float BaseLineTowerAttackRange = 2.25f;
 
         public static float BaseLineTowerAuraRange = 1.5f;
         public static float BaseLineTowerAuraRangeInc = 0.05f;
@@ -70,6 +74,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static Dictionary<Rarities, float> BaselineTowerDmg = new Dictionary<Rarities, float>
         {
+            {Rarities.None, 1.0f },
             {Rarities.Common, 25.0f},
             {Rarities.Uncommon, 50.0f},
             {Rarities.Rare, 75.0f},
@@ -78,6 +83,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static Dictionary<Rarities, float> BaselineTowerDmgInc = new Dictionary<Rarities, float>
         {
+            {Rarities.None, 1.0f },
             {Rarities.Common, 0.04f},
             {Rarities.Uncommon, 0.04f},
             {Rarities.Rare, 0.04f},
@@ -86,6 +92,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static Dictionary<Rarities, int> BaselineTowerPrice = new Dictionary<Rarities, int>
         {
+            {Rarities.None, 1 },
             {Rarities.Common, 5},
             {Rarities.Uncommon, 50},
             {Rarities.Rare, 500},

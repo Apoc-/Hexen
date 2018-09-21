@@ -11,7 +11,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Arcane Apprentice";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/ArcaneApprentice");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/ArcaneApprentice");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Common;

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Crazed Goblin";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Goblins/CrazedGoblin");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Goblins/CrazedGoblin");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Uncommon;

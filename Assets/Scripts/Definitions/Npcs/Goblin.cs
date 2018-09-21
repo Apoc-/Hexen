@@ -9,7 +9,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Goblin";
-            this.Model = Resources.Load<GameObject>("Prefabs/NpcModels/GoblinModel");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/NpcModels/GoblinModel");
             this.HealthBarOffset = 0.4f;
         }
 

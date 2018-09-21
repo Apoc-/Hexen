@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
@@ -43,10 +44,11 @@ namespace Assets.Scripts.Systems.TowerSystem
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
 
-        private float height;
+        public float Height { get; private set; }
 
         //events
-        public UnityEvent OnAttack = new UnityEvent();
+        public delegate void OnAttackEvent();
+        public event OnAttackEvent OnAttack;
 
         public delegate void LevelUpEvent(int level);
         public event LevelUpEvent OnLevelUp;
@@ -69,7 +71,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             var mdlGo = Instantiate(Model);
             mdlGo.transform.SetParent(transform, false);
 
-            height = GetComponentInChildren<MeshFilter>().mesh.bounds.max.y;
+            Height = GetComponentInChildren<MeshFilter>().mesh.bounds.max.y;
         }
 
         public void InitTowerEffects()
@@ -173,9 +175,20 @@ namespace Assets.Scripts.Systems.TowerSystem
             return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius));
         }
 
+        public List<Npc> GetNpcsInRadius(float radius)
+        {
+            var colliders = GetCollidersInRadius(radius);
+
+            return colliders
+                .Select(c => c.gameObject.GetComponentInParent<Npc>())
+                .Where(npc => npc != null)
+                .ToList();
+        }
+
         protected virtual void Fire()
         {
-            OnAttack.Invoke();
+            if (OnAttack != null) OnAttack.Invoke();
+
             SpawnProjectile();
         }
 
@@ -206,6 +219,11 @@ namespace Assets.Scripts.Systems.TowerSystem
         public Attribute GetAttribute(AttributeName attrName)
         {
             return Attributes[attrName];
+        }
+
+        public float GetAttributeValue(AttributeName attrName)
+        {
+            return Attributes[attrName].Value;
         }
 
         public bool HasAttribute(AttributeName attrName)
@@ -240,7 +258,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         public void PlaySpecialEffectAboveTower(string effectPrefabName, float duration)
         {
             var specialEffect = new SpecialEffect(effectPrefabName, this.gameObject, duration);
-            GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect, new Vector3(0, height, 0));
+            GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect, new Vector3(0, Height, 0));
         }
     }
 }

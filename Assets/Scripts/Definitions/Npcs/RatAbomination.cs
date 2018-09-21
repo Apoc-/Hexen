@@ -9,7 +9,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "RatAbomination";
-            this.Model = Resources.Load<GameObject>("Prefabs/NpcModels/RatAbominationModel");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/NpcModels/RatAbominationModel");
             this.HealthBarOffset = 0.6f;
             //this.HealthBarScale = 2.0f;
         }

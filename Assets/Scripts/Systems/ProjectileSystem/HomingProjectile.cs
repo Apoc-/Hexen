@@ -28,9 +28,12 @@ namespace Assets.Scripts.Systems.ProjectileSystem
             Vector3 direction = target - position;
             direction.Normalize();
 
+            UpdateVelocity();
+
             transform.SetPositionAndRotation(
-                position + direction * (Speed * Time.fixedDeltaTime),
+                position + direction * (Speed * Time.fixedDeltaTime) + Velocity,
                 Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(90, 0, 0));
+
         }
     }
 }

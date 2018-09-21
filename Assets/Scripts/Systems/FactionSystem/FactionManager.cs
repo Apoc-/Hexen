@@ -60,6 +60,12 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterTower<TaxCollectionOffice>();
             RegisterTower<LarinsVault>();
 
+            //goblins
+            RegisterTower<BoomstickTosser>();
+            RegisterTower<FastBoomstickTosser>();
+            RegisterTower<BoomstickBlacksmithy>();
+            RegisterTower<BoomstickArtillery>();
+
             Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();
         }
@@ -83,6 +89,13 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterNpc<CrazedGoblin>();
             RegisterNpc<GoblinBombsquad>();
             RegisterNpc<GoblinKing>();
+
+            //dwarfs
+            RegisterNpc<DwarfWorker>();
+            RegisterNpc<DwarfArchitect>();
+            RegisterNpc<DwarfTaxCollector>();
+            RegisterNpc<TreasureMasterLarin>();
+            RegisterNpc<GoldCoin>();
 
             Debug.Log("Registered " + registeredNpcCount + " Npcs.");
             UpdateAvailableNpcs();

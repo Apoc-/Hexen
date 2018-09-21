@@ -20,7 +20,8 @@ namespace Assets.Scripts.Definitions.Npcs
         public AttributeContainer Attributes;
 
         public string Name;
-        public GameObject Model;
+        protected GameObject ModelPrefab;
+        private GameObject ModelGameObject;
         public Tile Target;
         public Tile CurrentTile;
         public Wave SpawnedInWave = null;
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Definitions.Npcs
         }
 
         public int Level = 1;
-        private bool shouldDie = false;
+        protected bool ShouldDie = false;
 
         protected NpcHealthBar healthBar;
         protected float HealthBarOffset = 0.0f;
@@ -66,7 +67,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public void InitVisuals()
         {
-            this.InitNpcModel();
+            this.LoadNpcModel();
 
             this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
             this.InitHealthBar();
@@ -93,7 +94,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         protected void Update()
         {
-            if (shouldDie)
+            if (ShouldDie)
             {
 
                 Die();
@@ -125,10 +126,20 @@ namespace Assets.Scripts.Definitions.Npcs
 
         protected abstract void InitNpcData();
 
-        public void InitNpcModel()
+        public void LoadNpcModel()
         {
-            var mdlGo = Instantiate(Model);
-            mdlGo.transform.SetParent(transform, false);
+            if (ModelGameObject != null) return; //already loaded
+
+            ModelGameObject = Instantiate(ModelPrefab);
+            ModelGameObject.transform.SetParent(transform, false);
+        }
+
+        public void ReloadNpcModel()
+        {
+            Destroy(ModelGameObject);
+
+            ModelGameObject = Instantiate(ModelPrefab);
+            ModelGameObject.transform.SetParent(transform, false);
         }
 
         protected virtual void InitAttributes()
@@ -146,6 +157,9 @@ namespace Assets.Scripts.Definitions.Npcs
                 GameSettings.NpcXPBase,
                 GameSettings.NpcXPInc,
                 LevelIncrementType.Flat));
+
+            AddAttribute(new Attribute(AttributeName.XPRewardFactor, 1));
+            AddAttribute(new Attribute(AttributeName.GoldRewardFactor, 1));
         }
 
         public void AddAttribute(Attribute attr)
@@ -157,6 +171,12 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             return Attributes[attrName];
         }
+
+        public float GetAttributeValue(AttributeName attrName)
+        {
+            return Attributes[attrName].Value;
+        }
+
 
         public bool HasAttribute(AttributeName attrName)
         {
@@ -205,7 +225,7 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 CurrentHealth = 0;
                 GiveRewards(source);
-                shouldDie = true;
+                ShouldDie = true;
             }
 
             var maxHealth = Attributes[AttributeName.MaxHealth].Value;
@@ -243,28 +263,42 @@ namespace Assets.Scripts.Definitions.Npcs
 
         private void GiveXP(Tower target, float amount)
         {
-            float factor = (Mathf.Pow(GameSettings.NpcGoldFactorExpBase, (int)Rarity));
+            float factor = (Mathf.Pow(GameSettings.NpcXpFactorExpBase, (int) Rarity-1));
+
+            if (Rarity == Rarities.None) factor = 1;
+
             amount *= factor;
+            amount *= GetAttributeValue(AttributeName.XPRewardFactor);
             target.GiveXP((int)amount);
         }
 
         private void GiveGold(Player target, float amount)
         {
-            float factor = (Mathf.Pow(GameSettings.NpcXpFactorExpBase, (int)Rarity));
+            float factor = (Mathf.Pow(GameSettings.NpcGoldFactorExpBase, (int) Rarity-1 ));
+
+            if (Rarity == Rarities.None) factor = 1;
+
             amount *= factor;
+            amount *= GetAttributeValue(AttributeName.GoldRewardFactor);
             target.IncreaseGold((int)amount);
         }
 
-        public virtual void Die()
+        public virtual void Die(bool silent = false)
         {
             if (OnDeath != null) OnDeath.Invoke(this);
 
             this.isSpawned = false;
             this.SpawnedInWave.SpawnedNpcs.Remove(this);
-            Explode();
+
+            if (!silent)
+            {
+                Splatter();
+            }
+            
+            Destroy(gameObject);
         }
 
-        void Explode()
+        protected void Splatter()
         {
             var specialEffect = new SpecialEffect(
                 effectPrefabName: "BloodEffect",
@@ -274,11 +308,9 @@ namespace Assets.Scripts.Definitions.Npcs
                 diesWithOrigin: false);
 
             GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
-
-            Destroy(gameObject);
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (this.Target == null)
             {

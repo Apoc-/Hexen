@@ -12,7 +12,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Storm Glaive";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Elves/StormGlaive");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/StormGlaive");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Uncommon;

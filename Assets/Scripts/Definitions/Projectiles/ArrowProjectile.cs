@@ -3,6 +3,7 @@ using Assets.Scripts.Definitions.ProjectileEffects;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
+using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
@@ -10,7 +11,9 @@ namespace Assets.Scripts.Definitions.Projectiles
     {
         protected override void InitProjectileData()
         {
-            Speed = 30;
+            Speed = 10;
+            Velocity = new Vector3(0, 1f, 0);
+            VelocityDampeningFactor = 0.2f;
         }
 
         protected override void InitProjectile()

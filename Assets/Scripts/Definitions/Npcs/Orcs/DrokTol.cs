@@ -16,7 +16,7 @@ namespace Assets.Scripts.Definitions.Npcs
         protected override void InitNpcData()
         {
             this.Name = "Drok'Tol";
-            this.Model = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/DrokTol");
+            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/DrokTol");
             this.HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Legendary;

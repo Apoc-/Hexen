@@ -190,6 +190,14 @@ namespace Assets.Scripts.Systems.WaveSystem
             return pack;
         }
 
+        public Npc GenerateSingleNpc(Npc npc)
+        {
+            var generatedNpc = Instantiate(npc);
+            generatedNpc.Name = npc.name;
+
+            return generatedNpc;
+        }
+
         private Npc GetRandomNpc(List<Npc> npcs)
         {
             return npcs[rand.Next(npcs.Count)];
