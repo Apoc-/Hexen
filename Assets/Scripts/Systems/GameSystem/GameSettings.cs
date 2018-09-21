@@ -6,11 +6,21 @@ namespace Assets.Scripts.Systems.GameSystem
 {
     static class GameSettings
     {
-        #region General settings
+        #region Player Settings
+
+        public static string Name = "Parcival";
+        public static int StartingGold = 15;
+        public static int StartingAmbassadors = 1;
+        public static int StartingLives = 20;
+        public static int TowerSlots = 8;
+
+        #endregion end
+
+
+        #region General Settings
 
         public static float SellTax = 0.5f;
-        public static int StartingAmbassadors = 1;
-
+        
         #endregion
 
         #region Colors
@@ -20,12 +30,12 @@ namespace Assets.Scripts.Systems.GameSystem
         #region Npc balancing settings
 
         public static float NpcXPBase = 0.0f;
-        public static float NpcXPInc = 2.0f;
+        public static float NpcXPInc = 10.0f;
 
         public static float NpcGoldBase = 0.0f;
         public static float NpcGoldInc = 1.0f;
 
-        public static float NpcGoldFactorExpBase = 4f;
+        public static float NpcGoldFactorExpBase = 2f;
         public static float NpcXpFactorExpBase = 10f;
 
         public static Dictionary<Rarities, float> BaselineNpcHp = new Dictionary<Rarities, float>

@@ -54,6 +54,10 @@ namespace Assets.Scripts.Definitions.Npcs
         public delegate void NpcHitEvent(NpcHitData hitData, Npc npc);
         public event NpcHitEvent OnHit;
 
+        public delegate void NpcDeathEvent(Npc npc);
+        public event NpcDeathEvent OnDeath;
+
+
         public void InitData()
         {
             this.InitAttributes();
@@ -253,6 +257,8 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public virtual void Die()
         {
+            if (OnDeath != null) OnDeath.Invoke(this);
+
             this.isSpawned = false;
             this.SpawnedInWave.SpawnedNpcs.Remove(this);
             Explode();
@@ -261,9 +267,11 @@ namespace Assets.Scripts.Definitions.Npcs
         void Explode()
         {
             var specialEffect = new SpecialEffect(
-                effectPrefabName: "Blood",
+                effectPrefabName: "BloodEffect",
                 origin: gameObject,
-                duration: 2f);
+                duration: 10f,
+                followsOrigin: false,
+                diesWithOrigin: false);
 
             GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
 
@@ -345,5 +353,12 @@ namespace Assets.Scripts.Definitions.Npcs
             return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius));
         }
 
+        protected List<Tower> GetTowersInRadius(float radius)
+        {
+            return GetCollidersInRadius(radius)
+                .Select(col => col.GetComponentInParent<Tower>())
+                .Where(go => go != null)
+                .ToList();
+        }
     }
 }

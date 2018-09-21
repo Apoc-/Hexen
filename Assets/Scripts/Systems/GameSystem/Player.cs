@@ -7,11 +7,19 @@ namespace Assets.Scripts.Systems.GameSystem
 {
     public class Player : MonoBehaviour
     {
-        public String Name;
-        public int Gold;
+        private readonly String playerName = GameSettings.Name;
+        private int gold = GameSettings.StartingGold;
         private int ambassadors = GameSettings.StartingAmbassadors;
+        private int lives = GameSettings.StartingLives;
+        private int towerSlots = 8;
 
-        [SerializeField] private int lives = 10;
+        private Queue<Tower> BuildableTowers = new Queue<Tower>();
+
+
+        //events
+        public delegate void GoldGainEvent(int amount);
+        public event GoldGainEvent OnGainGold;
+
         public int Lives
         {
             get { return lives; }
@@ -25,18 +33,27 @@ namespace Assets.Scripts.Systems.GameSystem
             }
         }
 
-        //events
-        public delegate void GoldGainEvent(int amount);
-        public event GoldGainEvent OnGainGold;
+        public int Gold
+        {
+            get { return gold; }
+            private set { gold = value; }
+        }
+
+        public string Name
+        {
+            get { return playerName; }
+        }
+
+        public int TowerSlots
+        {
+            get { return towerSlots; }
+        }
 
         private void Die()
         {
             GameManager.Instance.LoseGame();
         }
 
-        public int TowerSlots = 8;
-
-        private Queue<Tower> BuildableTowers = new Queue<Tower>();
 
         public void IncreaseGold(int amount)
         {

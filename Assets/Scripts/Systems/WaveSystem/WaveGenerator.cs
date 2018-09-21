@@ -92,6 +92,12 @@ namespace Assets.Scripts.Systems.WaveSystem
                 }
             }
             
+            //name npc gameobjects
+            packs.ForEach(pack =>
+            {
+                pack.Npcs.ForEach(npc => { npc.gameObject.name = npc.Name; });
+            });
+
             return packs;
         }
 

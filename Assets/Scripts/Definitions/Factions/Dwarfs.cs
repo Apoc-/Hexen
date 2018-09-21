@@ -8,7 +8,7 @@ namespace Assets.Scripts.Definitions.Factions
             name: "Dwarves",
             description: "Dwarfs might be master builders, but first and foremost they are greedy.",
             factionName: FactionNames.Dwarfs,
-            opponentFactionName: FactionNames.Orcs)
+            opponentFactionName: FactionNames.Goblins)
         {
 
         }

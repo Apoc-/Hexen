@@ -41,6 +41,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 CancelPickup();
+                GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.Standard);
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && currentHeldTower != null && currentTile != null)
@@ -55,7 +56,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void UpdateVisualEffects()
         {
-            if (currentHeldTower == null)
+            if (currentHeldTower == null || currentTile == null)
             {
                 GameManager.Instance.TowerSelectionManager.DestroyRangeIndicator();
                 return;

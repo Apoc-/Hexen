@@ -78,6 +78,12 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterNpc<FrostMage>();
             RegisterNpc<Arotas>();
 
+            //goblins
+            RegisterNpc<GoblinUnderling>();
+            RegisterNpc<CrazedGoblin>();
+            RegisterNpc<GoblinBombsquad>();
+            RegisterNpc<GoblinKing>();
+
             Debug.Log("Registered " + registeredNpcCount + " Npcs.");
             UpdateAvailableNpcs();
         }
@@ -100,12 +106,11 @@ namespace Assets.Scripts.Systems.FactionSystem
         {
             GameObject go = new GameObject();
             Npc npc = go.AddComponent<T>();
+            npc.InitData();
 
             go.name = npc.Name;
             go.transform.parent = transform;
             go.SetActive(false);
-
-            npc.InitData();
 
             factions[npc.Faction].AddNpc(npc);
             registeredNpcCount += 1;

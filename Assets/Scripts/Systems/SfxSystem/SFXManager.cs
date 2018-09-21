@@ -20,6 +20,11 @@ namespace Assets.Scripts.Systems.SfxSystem
 
         public void PlaySpecialEffect(SpecialEffect effectData)
         {
+            PlaySpecialEffect(effectData, Vector3.zero);
+        }
+
+        public void PlaySpecialEffect(SpecialEffect effectData, Vector3 offset)
+        {
             GameObject effectPrefab = LoadEffect(effectData.EffectPrefabName);
             if (effectPrefab == null)
             {
@@ -34,10 +39,12 @@ namespace Assets.Scripts.Systems.SfxSystem
                 effectData.Origin.transform.rotation, 
                 this.transform);
 
+            container.transform.localPosition += offset;
+
             var go = Instantiate(effectPrefab, container.transform);
 
             effectData.EffectContainer = go;
-
+            
             ongoingEffects.Add(effectData);
 
             GameObject.Destroy(containerPrefab);

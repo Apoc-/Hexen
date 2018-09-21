@@ -13,9 +13,8 @@ namespace Assets.Scripts.Systems.WaveSystem
 {
     class WaveSpawner : MonoBehaviour
     {
-        public int NumberOfWaves = 20;
-        public int WaveCooldown = 10;
-        public int CurrentElapsedTime = 0;
+        private int numberOfWaves = 25;
+        private int waveCooldown = 10;
         private float npcSpawnInterval = 0.5f;
 
         private int currentWaveCount = 0;
@@ -28,7 +27,25 @@ namespace Assets.Scripts.Systems.WaveSystem
         }
 
         public List<Wave> CurrentSpawnedWaves { get; private set; }
+
+        public int NumberOfWaves
+        {
+            get { return numberOfWaves; }
+        }
+
+        public int WaveCooldown
+        {
+            get { return waveCooldown; }
+        }
+
+        public int CurrentElapsedTime { get; set; }
+
         private bool waitingForWave = false;
+
+        public WaveSpawner()
+        {
+            CurrentElapsedTime = 0;
+        }
 
         //event stuff
         internal delegate void NpcHandler(Npc npc);

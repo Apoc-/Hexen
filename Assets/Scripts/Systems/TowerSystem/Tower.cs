@@ -7,6 +7,7 @@ using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Events;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -42,6 +43,8 @@ namespace Assets.Scripts.Systems.TowerSystem
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
 
+        private float height;
+
         //events
         public UnityEvent OnAttack = new UnityEvent();
 
@@ -65,6 +68,8 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             var mdlGo = Instantiate(Model);
             mdlGo.transform.SetParent(transform, false);
+
+            height = GetComponentInChildren<MeshFilter>().mesh.bounds.max.y;
         }
 
         public void InitTowerEffects()
@@ -216,27 +221,26 @@ namespace Assets.Scripts.Systems.TowerSystem
             }
         }
 
-        //todo feature removed for now, incorporate as a attribute effect at a later time
-        /*public float HeightDependantAttackRange()
-        {
-            var value = AttackRange.Value;
-
-            if (Tile != null) //check if over tile
-            {
-                value *= (1 + Tile.gameObject.transform.position.y);
-            }
-
-            return value;
-        }*/
-
         public virtual void Remove()
         {
             Destroy(gameObject);
         }
 
-        protected virtual void OnCrit()
+        public void Stun(float duration, AttributeEffectSource source)
         {
+            if (this.HasAttribute(AttributeName.AttackSpeed))
+            {
+                var effect = new AttributeEffect(0.0f, AttributeName.AttackSpeed, AttributeEffectType.SetValue, source, duration);
+                this.Attributes[AttributeName.AttackSpeed].AddAttributeEffect(effect);
+            }
 
+            PlaySpecialEffectAboveTower("StunEffect", duration);
+        }
+
+        public void PlaySpecialEffectAboveTower(string effectPrefabName, float duration)
+        {
+            var specialEffect = new SpecialEffect(effectPrefabName, this.gameObject, duration);
+            GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect, new Vector3(0, height, 0));
         }
     }
 }
