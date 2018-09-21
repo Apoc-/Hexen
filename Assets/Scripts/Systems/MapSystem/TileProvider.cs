@@ -18,7 +18,8 @@ namespace Assets.Scripts.Systems.MapSystem
             { TileType.Sand, new List<string>{"Sand"}},
             { TileType.Lava, new List<string>{"Lava"}},
             { TileType.VolcanoLava, new List<string>{"Lava1","Lava2","Lava3"}},
-            { TileType.Water, new List<string>{"Water"}}
+            //{ TileType.Water, new List<string>{"Water"}},
+            { TileType.Water, new List<string>{"Void"}}
         };
 
         private static readonly Random Rng = new Random();

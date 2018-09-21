@@ -11,6 +11,7 @@
         MountainTop,
         Lava,
         VolcanoLava,
-        Sand
+        Sand,
+        Void
     }
 }
