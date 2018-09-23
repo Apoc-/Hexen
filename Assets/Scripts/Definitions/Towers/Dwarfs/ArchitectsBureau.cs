@@ -51,7 +51,7 @@ namespace Assets.Scripts.Definitions.Towers
 
         public void EnforceNearbyTower(int goldAmount)
         {
-            var colliders = GetCollidersInRadius(Attributes[AttributeName.AuraRange].Value);
+            var colliders = GetCollidersInRadius(Attributes[AttributeName.AuraRange].Value, GameSettings.TowersLayerMask);
             var targets = colliders
                 .Select(c => c.GetComponentInParent<Tower>())
                 .Where(e => e != null)

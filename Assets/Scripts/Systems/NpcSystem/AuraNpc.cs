@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
@@ -34,7 +35,8 @@ namespace Assets.Scripts.Systems.NpcSystem
 
             if (!this.HasAttribute(AttributeName.AuraRange)) return;
 
-            var collidersInRange = GetCollidersInAuraRange();
+            var collidersInRange = GetCollidersInAuraRange(GameSettings.NpcLayerMask);
+            collidersInRange.AddRange(GetCollidersInAuraRange(GameSettings.TowersLayerMask));
 
             var targets = collidersInRange
                 .Select(c => c.GetComponentInParent<IHasAttributes>())
@@ -60,9 +62,9 @@ namespace Assets.Scripts.Systems.NpcSystem
             }
         }
 
-        private List<Collider> GetCollidersInAuraRange()
+        private List<Collider> GetCollidersInAuraRange(int layerMask)
         {
-            return GetCollidersInRadius(this.GetAttribute(AttributeName.AuraRange).Value);
+            return GetCollidersInRadius(this.GetAttribute(AttributeName.AuraRange).Value, layerMask);
         }
 
         private void ClearAuraTargets()

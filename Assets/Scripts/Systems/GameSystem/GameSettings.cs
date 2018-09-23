@@ -20,7 +20,12 @@ namespace Assets.Scripts.Systems.GameSystem
         #region General Settings
 
         public static float SellTax = 0.5f;
-        
+
+        public static int TilesLayerMask = 1<<10;
+        public static int TowersLayerMask = 1<<11;
+        public static int ProjectilesLayerMask = 1<<12;
+        public static int NpcLayerMask = 1<<13;
+
         #endregion
 
         #region Colors

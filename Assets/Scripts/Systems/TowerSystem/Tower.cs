@@ -160,7 +160,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             if (this.HasAttribute(AttributeName.AttackRange))
             {
-                var collidersInAttackRange = GetCollidersInRadius(GetAttribute(AttributeName.AttackRange).Value);
+                var collidersInAttackRange = GetCollidersInRadius(GetAttribute(AttributeName.AttackRange).Value, GameSettings.NpcLayerMask);
 
                 foreach (var collider in collidersInAttackRange)
                 {
@@ -171,24 +171,14 @@ namespace Assets.Scripts.Systems.TowerSystem
         }
 
         //todo refactor, npc has the same 
-        public List<Collider> GetCollidersInRadius(float radius)
+        public List<Collider> GetCollidersInRadius(float radius, int layerMask)
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
 
-            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius));
-        }
-
-        public List<Npc> GetNpcsInRadius(float radius)
-        {
-            var colliders = GetCollidersInRadius(radius);
-
-            return colliders
-                .Select(c => c.gameObject.GetComponentInParent<Npc>())
-                .Where(npc => npc != null)
-                .ToList();
+            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius, layerMask));
         }
 
         protected virtual void Fire()

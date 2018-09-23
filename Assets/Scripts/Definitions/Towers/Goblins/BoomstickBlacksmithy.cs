@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Definitions.Projectiles;
+﻿using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
@@ -46,10 +47,11 @@ namespace Assets.Scripts.Definitions.Towers
             GameManager.Instance.SfxManager.PlaySpecialEffect(se, new Vector3(0,WeaponHeight,0));
             var r = GetAttributeValue(AttributeName.AttackRange);
 
-            var npcs = GetNpcsInRadius(r);
+            var colliders = GetCollidersInRadius(r, GameSettings.NpcLayerMask);
 
-            npcs.ForEach(npc =>
+            colliders.ForEach(collider =>
             {
+                var npc = collider.GetComponent<Npc>();
                 npc.DealDamage(GetAttributeValue(AttributeName.AttackDamage), this);
             });
         }

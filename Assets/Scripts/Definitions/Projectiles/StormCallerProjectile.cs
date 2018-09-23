@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.ProjectileEffects;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using UnityEngine;
 using UnityEngine.Assertions.Comparers;
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Definitions.Projectiles
                 hitNpcs.Add(collisionNpc);
 
                 //get nearest next target
-                var collidersInJumpRange = collisionNpc.GetCollidersInRadius(10.0f);
+                var collidersInJumpRange = collisionNpc.GetCollidersInRadius(10.0f, GameSettings.NpcLayerMask);
 
                 var minDistance = float.MaxValue;
                 this.Target = null;

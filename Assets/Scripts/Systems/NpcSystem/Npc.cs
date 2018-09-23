@@ -411,21 +411,20 @@ namespace Assets.Scripts.Definitions.Npcs
         }
 
         //todo refactor, tower has the same 
-        public List<Collider> GetCollidersInRadius(float radius)
+        public List<Collider> GetCollidersInRadius(float radius, int layerMask)
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
 
             var topCap = transform.position + new Vector3(0, 5, 0);
             var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
 
-            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius));
+            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius, layerMask));
         }
 
         protected List<Tower> GetTowersInRadius(float radius)
         {
-            return GetCollidersInRadius(radius)
+            return GetCollidersInRadius(radius, GameSettings.TowersLayerMask)
                 .Select(col => col.GetComponentInParent<Tower>())
-                .Where(go => go != null)
                 .ToList();
         }
 

@@ -73,7 +73,7 @@ namespace Assets.Scripts.Definitions.Towers
             UnsubscribeTowerEvents();
 
             var radius = Attributes[AttributeName.AuraRange].Value;
-            var colliders = GetCollidersInRadius(radius);
+            var colliders = GetCollidersInRadius(radius, GameSettings.TowersLayerMask);
             towers = colliders
                 .Select(e => e.GetComponentInParent<Tower>())
                 .Where(e => e != null)
