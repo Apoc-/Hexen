@@ -93,33 +93,31 @@ namespace Assets.Scripts.Systems.SfxSystem
         
         private void Update()
         {
-            attachedTrailEffects.ForEach(HandleTrailEffectUpdate);
-            ongoingTextEffects.ForEach(HandleTextEffectDestruction);
+            attachedTrailEffects.RemoveAll(HandleTrailEffectUpdate);
+            ongoingTextEffects.RemoveAll(HandleTextEffectDestruction);
 
-            ongoingEffects.ForEach(specialEffect =>
+            ongoingEffects.RemoveAll(specialEffect =>
             {
-                HandleSpecialEffectDestruction(specialEffect);
+                var destroy = HandleSpecialEffectDestruction(specialEffect);
 
-                if (specialEffect.FollowsOrigin)
-                {
-                    UpdateEffectPosition(specialEffect);
-                }
+                return destroy;
             });
         }
 
-        private void HandleTrailEffectUpdate(TrailEffect trailEffect)
+        private bool HandleTrailEffectUpdate(TrailEffect trailEffect)
         {
             if (trailEffect.Trail == null)
             {
                 Destroy(trailEffect.Container);
-                attachedTrailEffects.Remove(trailEffect);
-                return; 
+                return true; 
             }
 
-            if (trailEffect.Origin == null) return;
+            if (trailEffect.Origin == null) return false;
 
             var newPos = trailEffect.Origin.transform.position;
             trailEffect.Container.transform.position = newPos;
+
+            return false;
         }
 
         private void UpdateEffectPosition(SpecialEffect specialEffect)
@@ -131,35 +129,39 @@ namespace Assets.Scripts.Systems.SfxSystem
             specialEffect.EffectContainer.transform.Translate(newPos);
         }
 
-        private void HandleSpecialEffectDestruction(SpecialEffect specialEffect)
+        private bool HandleSpecialEffectDestruction(SpecialEffect specialEffect)
         {
-            var destroy = false;
             specialEffect.TimeActive += Time.deltaTime;
 
             if (specialEffect.TimeActive >= specialEffect.Duration && specialEffect.Duration > -1)
             {
-                destroy = true;
+                Destroy(specialEffect.EffectContainer.transform.parent.gameObject);
+                return true;
             }
 
             if (specialEffect.Origin == null && specialEffect.DiesWithOrigin)
             {
-                destroy = true;
+                Destroy(specialEffect.EffectContainer.transform.parent.gameObject);
+                return true;
             }
 
-            if (destroy)
+            if (specialEffect.FollowsOrigin)
             {
-                Destroy(specialEffect.EffectContainer.transform.parent.gameObject);
-                ongoingEffects.Remove(specialEffect);
+                UpdateEffectPosition(specialEffect);
             }
+
+            return false;
         }
 
-        private void HandleTextEffectDestruction(FloatingTextBehaviour textEffect)
+        private bool HandleTextEffectDestruction(FloatingTextBehaviour textEffect)
         {
             if (!textEffect.IsPlaying)
             {
-                ongoingTextEffects.Remove(textEffect);
                 Destroy(textEffect.Container);
+                return true;
             }
+
+            return false;
         }
         
     }

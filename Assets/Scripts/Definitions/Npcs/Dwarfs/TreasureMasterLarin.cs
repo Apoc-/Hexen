@@ -6,7 +6,6 @@ using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
-using UnityScript.Steps;
 
 namespace Assets.Scripts.Definitions.Npcs
 {

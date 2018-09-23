@@ -77,8 +77,10 @@ namespace Assets.Scripts.Systems.WaveSystem
                 StartCoroutine(WaitForNextWave());
             }
 
+            var wavesToRemove = new List<Wave>();
             CurrentSpawnedWaves.ForEach(wave =>
             {
+                
                 if (wave.NpcSpawnCount >= wave.NpcCount && wave.SpawnedNpcs.All(npc => npc == null))
                 {
                     if (wave.WaveNumber % 3 == 0)
@@ -92,9 +94,11 @@ namespace Assets.Scripts.Systems.WaveSystem
                     GameManager.Instance.Player.AddRandomBuildableTower();
                     GameManager.Instance.Player.AddRandomBuildableTower();
 
-                    CurrentSpawnedWaves.Remove(wave);
+                    wavesToRemove.Add(wave);
                 }
             });
+
+            CurrentSpawnedWaves = CurrentSpawnedWaves.Except(wavesToRemove).ToList();
         }
 
         private void StartSpawnWave()
