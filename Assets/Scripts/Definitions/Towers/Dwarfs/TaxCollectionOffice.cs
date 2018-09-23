@@ -18,7 +18,7 @@ namespace Assets.Scripts.Definitions.Towers
         private int checkTickInterval = 10;
         private int checkTick = 0;
 
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Tax Collection Office";
             Faction = FactionNames.Dwarfs;
@@ -29,10 +29,10 @@ namespace Assets.Scripts.Definitions.Towers
                 "Progression Tax: Whenever a nearby tower levels up, the player gets gold and the Collector gets xp equal to the level.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Office");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(TaxCollectionOfficeProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 

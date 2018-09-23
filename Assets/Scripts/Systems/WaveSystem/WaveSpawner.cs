@@ -168,6 +168,8 @@ namespace Assets.Scripts.Systems.WaveSystem
             wave.SpawnedNpcs.Add(npc);
             npc.SpawnedInWave = wave;
 
+            npc.GetComponentInChildren<Collider>().gameObject.layer = LayerMask.NameToLayer("Npcs");
+
             var animator = npc.GetComponentInChildren<Animator>();
             if (animator != null)
             {

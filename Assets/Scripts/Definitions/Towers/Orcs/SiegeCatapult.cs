@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class SiegeCatapult : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Siege Catapult Tower";
             Faction = FactionNames.Orcs;
@@ -20,10 +20,10 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "A tower that launches projectiles that deal damage in an area. Has Frenzy.";
 
             ProjectileType = typeof(OrcAoeProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Catapult");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/Catapult");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/Catapult");
 
             WeaponHeight = 0.2f;
             

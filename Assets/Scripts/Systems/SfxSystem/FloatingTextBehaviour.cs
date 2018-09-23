@@ -12,6 +12,8 @@ namespace Assets.Scripts.Systems.SfxSystem
 
         private TextMeshPro textMesh;
 
+        public GameObject Container;
+
         public void Awake()
         {
             IsPlaying = false;

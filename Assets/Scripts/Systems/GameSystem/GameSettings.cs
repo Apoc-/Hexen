@@ -100,5 +100,6 @@ namespace Assets.Scripts.Systems.GameSystem
         };
         #endregion
 
+        public static bool Debug = false;
     }
 }

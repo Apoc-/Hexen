@@ -12,6 +12,8 @@ namespace Assets.Scripts.Systems.MapSystem
 
         public bool IsEmpty = true;
 
+        public int NumberInPath = -1;
+
         public float Height { get; set; }
 
         public Vector3 GetTopCenter()

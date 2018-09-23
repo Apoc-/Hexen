@@ -7,9 +7,9 @@ namespace Assets.Scripts.Definitions.Projectiles
 {
     public class LaurinsVaultProjectile : DwarfsProjectile
     {
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
-            base.InitProjectile();
+            base.InitProjectileEffects();
 
             AddProjectileEffect(new LaurinsVaultProjectileEffect());
             AddProjectileEffect(new EnableRandomTowerProjectileEffect(0.05f));

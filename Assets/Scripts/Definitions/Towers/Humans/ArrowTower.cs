@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class ArrowTower : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Arrow Tower";
             Faction = FactionNames.Humans;
@@ -20,12 +20,12 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "A tower that shoots arrows";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Arrow");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(ArrowProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
-            WeaponHeight = 0.6f;
+            WeaponHeight = 0.4f;
 
         }
 

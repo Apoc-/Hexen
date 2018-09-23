@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class StormCaller : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Storm Caller";
             Faction = FactionNames.Elves;
@@ -20,10 +20,10 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "The Storm Caller's attacks jump to nearby enemies. Has Magical Affinity.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Caller");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(StormCallerProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 

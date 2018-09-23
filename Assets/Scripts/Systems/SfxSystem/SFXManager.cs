@@ -63,12 +63,12 @@ namespace Assets.Scripts.Systems.SfxSystem
             
             var floatingText = Instantiate(prefab, container.transform);
 
+            floatingText.Container = container;
             floatingText.Duration = duration;
             floatingText.SetSize(size);
             floatingText.SetText(text);
             floatingText.SetColor(color);
             floatingText.IsPlaying = true;
-
 
             ongoingTextEffects.Add(floatingText);
         }
@@ -90,25 +90,7 @@ namespace Assets.Scripts.Systems.SfxSystem
 
             attachedTrailEffects.Add(new TrailEffect(origin, container, trail));
         }
-
-        /*public void PlaySpriteAnimation(string animationPrefabName, Vector3 position)
-        {
-            Animator prefab = Resources.Load<Animator>(sfxPath + "/" + animationPrefabName);
-
-            if (prefab == null) return;
-
-            GameObject container = new GameObject("effectContainer");
-            container.transform.parent = this.transform;
-            container.transform.localPosition = Vector3.zero;
-            container.transform.position = position;
-
-            var trail = Instantiate(prefab, container.transform);
-
-            trail.emitting = true;
-
-            attachedTrailEffects.Add(new TrailEffect(origin, container, trail));
-        }*/
-
+        
         private void Update()
         {
             attachedTrailEffects.ForEach(HandleTrailEffectUpdate);
@@ -175,8 +157,8 @@ namespace Assets.Scripts.Systems.SfxSystem
         {
             if (!textEffect.IsPlaying)
             {
-                Destroy(textEffect.gameObject);
                 ongoingTextEffects.Remove(textEffect);
+                Destroy(textEffect.Container);
             }
         }
         

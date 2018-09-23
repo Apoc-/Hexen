@@ -12,7 +12,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class FrostEmitter : AuraTower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Frost Emitter";
             Faction = FactionNames.Elves;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "A tower that slows nearby creeps by 25% and deals continous damage to them.";
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Emitter");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
             AuraEffects.Add(new AuraEffect(
                 attributeEffect: new AttributeEffect(-0.25f, AttributeName.MovementSpeed, AttributeEffectType.PercentMul, this), 
                 affectsTowers: false, 

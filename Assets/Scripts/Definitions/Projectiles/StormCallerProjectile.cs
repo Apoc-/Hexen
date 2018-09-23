@@ -8,23 +8,23 @@ using UnityEngine.Assertions.Comparers;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class StormCallerProjectile : HomingProjectile
+    public class StormCallerProjectile : Projectile
     {
         private List<Npc> hitNpcs = new List<Npc>();
 
         protected override void InitProjectileData()
         {
-            Speed = 20;
+            
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 
             AddProjectileEffect(new DamageProjectileEffect());
         }
 
-        public override void Collide(Collider other)
+        public override void Collide(Collider other, Vector3 pos)
         {
             var collisionNpc = other.gameObject.GetComponentInParent<Npc>();
 

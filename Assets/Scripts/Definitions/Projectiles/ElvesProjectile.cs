@@ -4,14 +4,14 @@ using Assets.Scripts.Systems.ProjectileSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class ElvesProjectile : HomingProjectile
+    public class ElvesProjectile : Projectile
     {
         protected override void InitProjectileData()
         {
-            Speed = 12;
+            
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 

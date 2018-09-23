@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class ArotasMeteoriteProjectile : AoeProjectile
+    public class ArotasMeteoriteProjectile : Projectile
     {
         public float DmgPerTick { get; set; }
         public float TicksPerSecond { get; set; }
@@ -14,11 +14,10 @@ namespace Assets.Scripts.Definitions.Projectiles
 
         protected override void InitProjectileData()
         {
-            Speed = 20;
-            Radius = 2.0f;
+            SplashRadius = 2.0f;
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 

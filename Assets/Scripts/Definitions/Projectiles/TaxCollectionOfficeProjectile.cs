@@ -7,9 +7,9 @@ namespace Assets.Scripts.Definitions.Projectiles
 {
     public class TaxCollectionOfficeProjectile : DwarfsProjectile
     {
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
-            base.InitProjectile();
+            base.InitProjectileEffects();
 
             AddProjectileEffect(new DamageProjectileEffect());
         }

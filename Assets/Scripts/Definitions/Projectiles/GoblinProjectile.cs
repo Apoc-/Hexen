@@ -4,15 +4,14 @@ using Assets.Scripts.Systems.ProjectileSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class GoblinProjectile : AoeProjectile
+    public class GoblinProjectile : Projectile
     {
         protected override void InitProjectileData()
         {
-            Speed = 18;
-            Radius = 0.75f;
+            SplashRadius = 0.75f;
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 

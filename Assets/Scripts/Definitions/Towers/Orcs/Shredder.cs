@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class Shredder : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Drok'Tol's Shredder";
             Faction = FactionNames.Orcs;
@@ -22,10 +22,10 @@ namespace Assets.Scripts.Definitions.Towers
                 "It tosses whirling axes which stay in place to deal continous damage for a certain time.";
 
             ProjectileType = typeof(ShredderProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Shredder");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/Shredder");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/Shredder");
 
             WeaponHeight = 0.2f;
         }

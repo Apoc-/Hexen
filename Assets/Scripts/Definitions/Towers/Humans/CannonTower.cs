@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class CannonTower : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "CannonTower";
             Faction = FactionNames.Humans;
@@ -19,10 +19,11 @@ namespace Assets.Scripts.Definitions.Towers
 
             Description = "A tower that shoots explosive projectiles";
             
-            ProjectileType = typeof(CannonProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Bomb");
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Cannon");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
+
+            ProjectileType = typeof(CannonProjectile);
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }

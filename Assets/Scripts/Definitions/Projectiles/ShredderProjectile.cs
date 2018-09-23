@@ -6,24 +6,24 @@ using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class ShredderProjectile : DirectProjectile
+    public class ShredderProjectile : Projectile
     {
         private bool aligned = false;
         private float shreddingDuration = 1.5f;
        
         protected override void InitProjectileData()
         {
-            Speed = 30;
+            
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 
             AddProjectileEffect(new DamageProjectileEffect());
         }
 
-        public override void Collide(Collider other)
+        public override void Collide(Collider other, Vector3 pos)
         {
             var target = other.gameObject.GetComponentInParent<Npc>();
 
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Definitions.Projectiles
         {
             base.UpdateTransform();
 
-            if (!targetReached) return;
+            if (!TargetReached) return;
             if (!aligned) Align();
 
             StartShredding();

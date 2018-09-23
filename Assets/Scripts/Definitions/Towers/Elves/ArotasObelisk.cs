@@ -15,7 +15,7 @@ namespace Assets.Scripts.Definitions.Towers
     {
         private GameObject MeteoriteModel;
 
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Arotas' Obelisk";
             Faction = FactionNames.Elves;
@@ -25,10 +25,10 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "Fire and Brimstone shall hail upon thou. Has Magical Affinity.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Obelisk");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(ElvesProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
             MeteoriteModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Meteorite");
 
             WeaponHeight = 0.4f;

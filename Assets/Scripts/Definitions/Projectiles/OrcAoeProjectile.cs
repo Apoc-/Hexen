@@ -4,15 +4,14 @@ using Assets.Scripts.Systems.ProjectileSystem;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class OrcAoeProjectile : AoeProjectile
+    public class OrcAoeProjectile : Projectile
     {
         protected override void InitProjectileData()
         {
-            Speed = 20;
-            Radius = 1f;
+            SplashRadius = 1f;
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 

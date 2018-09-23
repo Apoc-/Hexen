@@ -15,20 +15,20 @@ namespace Assets.Scripts.Definitions.Towers
     {
         private Random rng = new Random();
 
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Architect's Bureau";
             Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Uncommon;
+            Rarity = Rarities.Common;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "This Building enforces nearby towers with a small damage bonus whenever the player earns gold. Has \"Got some coin?\".";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Architect");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(ArchitectsBureauProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 

@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class MundaneBunker : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Mundane Bunker";
             Faction = FactionNames.Orcs;
@@ -20,10 +20,10 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "An orcish bunker with frenzy.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Bunker");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/MundaneBunker");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/MundaneBunker");
 
             ProjectileType = typeof(OrcProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.2f;
 

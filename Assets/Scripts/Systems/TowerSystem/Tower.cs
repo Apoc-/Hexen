@@ -31,7 +31,8 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public Sprite Icon;
         public Tile Tile;
-        public GameObject Model;
+        public GameObject ModelPrefab;
+        public GameObject ModelGameObject;
 
         public int Level = 1;
         public int Xp = 0;
@@ -55,21 +56,26 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         [HideInInspector] public Player Owner;
 
-        private void Awake()
+        public void InitTower()
         {
-            InitTower();
+            InitTowerData();
             InitAttributes();
             InitTowerModel();
             InitTowerEffects();
+
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
         }
         
-        public abstract void InitTower();
+        public abstract void InitTowerData();
 
         public void InitTowerModel()
         {
-            var mdlGo = Instantiate(Model);
-            mdlGo.transform.SetParent(transform, false);
+            if (ModelGameObject == null)
+            {
+                ModelGameObject = Instantiate(ModelPrefab);
+                ModelGameObject.transform.SetParent(transform, false);
+                ModelGameObject.layer = LayerMask.NameToLayer("Towers");
+            }
 
             Height = GetComponentInChildren<MeshFilter>().mesh.bounds.max.y;
         }
@@ -201,8 +207,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             projectile.transform.SetParent(this.transform);
             projectile.transform.localPosition = new Vector3(0, WeaponHeight, 0);
 
-            projectile.Target = this.lockedTarget;
-            projectile.Source = this;
+            projectile.InitProjectile(lockedTarget, this);
         }
 
         

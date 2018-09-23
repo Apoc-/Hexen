@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class ArcaneNeedle : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Arcane Needle";
             Faction = FactionNames.Elves;
@@ -20,10 +20,10 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "A tower that attacks NPCs with arcane projectiles. Has Magical Affinity.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Needle");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(ElvesProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }

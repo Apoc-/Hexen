@@ -11,7 +11,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class BoomstickBlacksmithy : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Boomstick Blacksmithy";
             Faction = FactionNames.Goblins;
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "Uses Boomsticks for forging Weaponry... makes for big boom. Deals a huge amount of damage in a big radius once in a while.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Goblins/BoomstickBlacksmithy");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             WeaponHeight = 0.4f;
         }

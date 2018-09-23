@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
 
 namespace Assets.Scripts.Systems.MapSystem
@@ -103,6 +104,7 @@ namespace Assets.Scripts.Systems.MapSystem
                 throw new System.Exception("Map has no defined start and/or end tile.");
             }
 
+            StartTile.NumberInPath = 0;
             path.Add(StartTile);
             while (true)
             {
@@ -114,16 +116,29 @@ namespace Assets.Scripts.Systems.MapSystem
 
                 if (nextTile != null)
                 {
+                    nextTile.NumberInPath = path.Last().NumberInPath + 1;
                     path.Add(nextTile);
                 }
                 else if (neighbors.Contains(EndTile))
                 {
+                    EndTile.NumberInPath = path.Last().NumberInPath + 1;
                     path.Add(EndTile);
                     break;
                 }
                 else
                 {
                     throw new System.Exception("No path found from Start to End Tile.");
+                }
+            }
+
+            if (GameSettings.Debug)
+            {
+                for (int i = 0; i < path.Count-1; i++)
+                {
+                    var t1 = path[i];
+                    var t2 = path[i + 1];
+
+                    Debug.DrawLine(t1.GetTopCenter(), t2.GetTopCenter(), Color.white, 9999);
                 }
             }
         }

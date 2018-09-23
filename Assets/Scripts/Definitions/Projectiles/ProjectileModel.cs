@@ -7,7 +7,10 @@ namespace Assets.Scripts.Definitions.Projectiles
     {
         private void OnTriggerEnter(Collider other)
         {
-            GetComponentInParent<Projectile>().Collide(other);
+            var layer1 = other.gameObject.layer;
+            if (Physics.GetIgnoreLayerCollision(layer1, gameObject.layer)) return;
+
+            //GetComponentInParent<Projectile>().Collide(other);
         }
     }
 }

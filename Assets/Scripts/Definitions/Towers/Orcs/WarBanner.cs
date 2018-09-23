@@ -10,7 +10,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class WarBanner : AuraTower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "War Banner";
             Faction = FactionNames.Orcs;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "A War Banner that increases the damage of nearby towers. This tower does not attack!";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Banner");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/Banner");
             AuraEffects.Add(new AuraEffect(
                 attributeEffect: new AttributeEffect(0.25f, AttributeName.AttackDamage, AttributeEffectType.PercentMul, this), 
                 affectsTowers: true, 

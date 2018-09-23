@@ -6,9 +6,9 @@ namespace Assets.Scripts.Definitions.Projectiles
 {
     public class BuildersShackProjectile : DwarfsProjectile
     {
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
-            base.InitProjectile();
+            base.InitProjectileEffects();
 
             AddProjectileEffect(new DamageProjectileEffect());
         }

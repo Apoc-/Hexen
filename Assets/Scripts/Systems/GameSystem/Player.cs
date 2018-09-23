@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
+using Tower = Assets.Scripts.Systems.TowerSystem.Tower;
 
 namespace Assets.Scripts.Systems.GameSystem
 {
@@ -111,34 +112,28 @@ namespace Assets.Scripts.Systems.GameSystem
         public void SellTower(Tower tower)
         {
             var cost = tower.GoldCost;
-            IncreaseGold((int) (cost * GameSettings.SellTax));
-
             tower.Remove();
+
+            IncreaseGold((int) (cost * GameSettings.SellTax));
         }
 
-        public void AddBuildableTower(Tower t)
+        public void AddBuildableTower(Tower tower)
         {
-            CheckBuildableTowersQueueLimit();
-            BuildableTowers.Enqueue(t);
-            GameManager.Instance.UIManager.BuildPanel.AddBuildButtonForTower(t);
+            var buildPanel = GameManager.Instance.UIManager.BuildPanel;
+
+            if (BuildableTowers.Count >= TowerSlots)
+            {
+                var removedTower = BuildableTowers.Dequeue();
+                buildPanel.RemoveBuildButtonForTower(removedTower);
+            }
+
+            BuildableTowers.Enqueue(tower);
+            buildPanel.AddBuildButtonForTower(tower);
         }
 
         public void AddRandomBuildableTower()
         {
-            GameManager.Instance.TowerBuildManager.AddRandomBuildableTower(this);
-        }
-
-        private void CheckBuildableTowersQueueLimit()
-        {
-            while (BuildableTowers.Count >= TowerSlots)
-            {
-                BuildableTowers.Dequeue();
-            }
-        }
-
-        public Queue<Tower> GetBuildableTowers()
-        {
-            return BuildableTowers;
+            GameManager.Instance.TowerBuildManager.AddRandomBuildableTowerForPlayer(this);
         }
     }
 }

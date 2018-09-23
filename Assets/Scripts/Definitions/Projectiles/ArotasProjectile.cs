@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class ArotasProjectile : ElvesProjectile
+    public class ArotasProjectile : Projectile
     {
         protected override void InitProjectileData()
         {
-            Speed = 15;
+            
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 

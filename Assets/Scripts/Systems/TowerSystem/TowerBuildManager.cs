@@ -115,23 +115,28 @@ namespace Assets.Scripts.Systems.TowerSystem
         public Tower GetRandomTower()
         {
             var availableTowers = GameManager.Instance.FactionManager.GetAvailableTowers();
+            var rnd = MathHelper.RandomInt(0, availableTowers.Count);
 
-            var seed = (int) System.DateTime.Now.Ticks;
-            Random rnd = new Random(seed);
-            int r = rnd.Next(availableTowers.Count);
+            var towerPrefab = availableTowers[rnd];
+            var tower = Instantiate(towerPrefab);
 
-            return availableTowers[r];
+            tower.Name = towerPrefab.Name;
+            tower.transform.parent = GameManager.Instance.TowerBuildManager.BuildableTowers.transform;
+
+            tower.InitTower();
+
+            return tower;
         }
 
         public void GenerateStartingBuildableTowers(Player player)
         {
             for (int i = 0; i < player.TowerSlots; i++)
             {
-                AddRandomBuildableTower(player);
+                AddRandomBuildableTowerForPlayer(player);
             }
         }
 
-        public void AddRandomBuildableTower(Player player)
+        public void AddRandomBuildableTowerForPlayer(Player player)
         {
             var t = GetRandomTower();
 
@@ -175,6 +180,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                     currentHeldTower.GiveXP(tile.PlacedTower.Xp);
                     this.SellTower(tile.PlacedTower);
                 }
+
                 builtTowers.Add(currentHeldTower);
 
                 SetTowerModelTransparency(1.0f);
@@ -184,10 +190,11 @@ namespace Assets.Scripts.Systems.TowerSystem
 
                 currentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
                 currentHeldTower.IsPlaced = true;
+                currentHeldTower.Tile = tile;
                 currentHeldTower = null;
-
+                
                 currentHeldTowerButton.SetButtonInactive();
-                GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton);
+                GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton, true);
                 currentHeldTowerButton = null;
 
                 GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();

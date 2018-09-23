@@ -310,8 +310,44 @@ namespace Assets.Scripts.Definitions.Npcs
             GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
         }
 
+        /*bool measured = false;*/
         protected virtual void FixedUpdate()
         {
+            
+            /*if (!measured)
+            {
+                GetPositionInTime(1 / Attributes[AttributeName.MovementSpeed].Value);
+                measured = true;
+                timer = 0;
+            }
+
+            if (measured)
+            {
+                timer += Time.fixedDeltaTime;
+            }
+
+            if (timer >= eta)
+            {
+                Debug.Log("-------------");
+                Debug.Log("Est pos: " + futurePos);
+                Debug.Log("Actual pos: " + transform.position);
+                Debug.Log("Dif " + Vector3.Distance(futurePos, transform.position));
+                Debug.Log("-------------");
+
+                Debug.DrawLine(futurePos, transform.position, Color.green, 30);
+                if (CurrentTile != null)
+                {
+                    Debug.DrawLine(CurrentTile.GetTopCenter(), CurrentTile.GetTopCenter() + Vector3.up, Color.red);
+                }
+
+                if (Target != null)
+                {
+                    Debug.DrawLine(Target.GetTopCenter(), Target.GetTopCenter() + Vector3.up, Color.red);
+                }
+                measured = false;
+            }*/
+
+
             if (this.Target == null)
             {
                 this.Target = GameManager.Instance.MapManager.StartTile;
@@ -320,25 +356,25 @@ namespace Assets.Scripts.Definitions.Npcs
 
             Vector3 target = Target.GetTopCenter();
             Vector3 position = this.transform.position;
+            Vector3 distance = target - position;
 
-            Vector3 direction = target - position;
-
-            var speed = Attributes[AttributeName.MovementSpeed].Value;
-
-            if (direction.magnitude < (speed * Time.fixedDeltaTime * 0.8f))
+            if (distance.magnitude < 0.1f)
             {
                 EnterTile(Target);
+                
                 Target = GameManager.Instance.MapManager.GetNextTileInPath(Target);
             }
 
-            direction.Normalize();
+            var speed = Attributes[AttributeName.MovementSpeed].Value;
+            var direction = distance.normalized;
 
-            if (direction.magnitude > 0.0001f)
+            if (direction.magnitude >= 0.0001f)
             {
                 transform.SetPositionAndRotation(
-                    position + direction * (speed * Time.fixedDeltaTime),
+                    position + direction * speed * Time.fixedDeltaTime,
                     Quaternion.LookRotation(direction, Vector3.up));
             }
+
         }
 
         private void EnterTile(Tile tile)
@@ -391,6 +427,63 @@ namespace Assets.Scripts.Definitions.Npcs
                 .Select(col => col.GetComponentInParent<Tower>())
                 .Where(go => go != null)
                 .ToList();
+        }
+
+       /* private float eta;
+        private Vector3 futurePos;
+        private float timer;*/
+
+        public Vector3 GetPositionInTime(float time)
+        {
+            if (CurrentTile == null || Target == null) return transform.position;
+
+            var velocity = Attributes[AttributeName.MovementSpeed].Value;
+            var totalDistance = velocity * time;
+            
+            //walk to current target
+            var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
+
+            Tile current = CurrentTile;
+            Tile next = Target;
+            float distanceLeft;
+
+            if (distanceToNext < totalDistance)
+            {
+                current = Target;
+                next = GameManager.Instance.MapManager.GetNextTileInPath(Target);
+
+                distanceLeft = totalDistance - distanceToNext;
+                
+                while (true)
+                {
+                    //check for end
+                    if (current.TileType == TileType.End) return current.GetTopCenter();
+
+                    //walk distance
+                    var dist = Vector3.Distance(current.GetTopCenter(), next.GetTopCenter());
+
+                    //check if target can still be reached
+                    if (distanceLeft - dist < 0) break;
+
+                    distanceLeft -= dist;
+
+                    //next target
+                    current = next;
+                    next = GameManager.Instance.MapManager.GetNextTileInPath(next);
+                }
+            }
+            else
+            {
+                distanceLeft = totalDistance;
+            }
+            
+                
+            //walk leftover distance
+            var heading = next.GetTopCenter() - current.GetTopCenter();
+            var pos = current.GetTopCenter() + heading.normalized * distanceLeft;
+            //futurePos = pos;
+            //eta = time;
+            return pos;
         }
     }
 }

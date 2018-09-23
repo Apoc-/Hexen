@@ -15,7 +15,7 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class LarinsVault : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Larins Vault";
             Faction = FactionNames.Dwarfs;
@@ -27,10 +27,10 @@ namespace Assets.Scripts.Definitions.Towers
                 "Has \"Got some coin?\".";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Vault");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(LaurinsVaultProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }

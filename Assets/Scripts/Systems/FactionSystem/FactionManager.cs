@@ -105,14 +105,16 @@ namespace Assets.Scripts.Systems.FactionSystem
         {
             GameObject go = new GameObject();
             Tower tower = go.AddComponent<T>();
+            go.layer = LayerMask.NameToLayer("Towers");
+
+            tower.InitTower();
 
             go.name = tower.Name;
             go.transform.parent = transform;
             go.SetActive(false);
-
+            
             factions[tower.Faction].AddTower(tower);
             registeredTowerCount += 1;
-
         }
 
         private void RegisterNpc<T>() where T : Npc

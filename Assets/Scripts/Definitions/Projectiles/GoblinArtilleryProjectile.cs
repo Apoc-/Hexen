@@ -7,17 +7,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class GoblinArtilleryProjectile : DirectAoeProjectile
+    public class GoblinArtilleryProjectile : Projectile
     {
         protected override void InitProjectileData()
         {
-            Speed = 15;
-            Radius = 2f;
-            Velocity = new Vector3(0,10.0f,0);
-            VelocityDampeningFactor = 0.25f;
+            SplashRadius = 0f; //todo
+            FlightDuration = 1;
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
 

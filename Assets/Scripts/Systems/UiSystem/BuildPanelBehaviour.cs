@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
@@ -9,44 +10,41 @@ namespace Assets.Scripts.Systems.UiSystem
     class BuildPanelBehaviour : MonoBehaviour
     {
         private int maxTowers = 4;
-        private Queue<TowerBuildButtonBehaviour> towerButtons = new Queue<TowerBuildButtonBehaviour>();
+        private List<TowerBuildButtonBehaviour> towerButtons = new List<TowerBuildButtonBehaviour>();
 
         public void AddBuildButtonForTower(Tower tower)
         {
-            while (towerButtons.Count >= GameManager.Instance.Player.TowerSlots)
-            {
-                var destrButton = towerButtons.Dequeue();
-                Destroy(destrButton.gameObject);
-                Debug.Log("Too many buildable towers, destroying " + destrButton.Tower.Name + ".");
-            }
-
             TowerBuildButtonBehaviour button =
                 Instantiate(Resources.Load<TowerBuildButtonBehaviour>("Prefabs/UI/TowerBuildButton"));
 
-
-            button.Tower = Instantiate(tower);
-
-            button.Tower.Name = tower.Name;
-            button.Tower.transform.parent = GameManager.Instance.TowerBuildManager.BuildableTowers.transform;
-
-            button.Tower.gameObject.SetActive(true);
-            button.Tower.gameObject.SetActive(false);
-
+            button.Tower = tower;
             button.gameObject.GetComponent<Image>().sprite = button.Tower.Icon;
             button.transform.SetParent(gameObject.transform);
 
             button.PriceTag.text = "" + tower.GoldCost;
 
-            towerButtons.Enqueue(button);
+            towerButtons.Add(button);
         }
 
-        public void RemoveBuildButton(TowerBuildButtonBehaviour button)
+        public void RemoveBuildButton(TowerBuildButtonBehaviour button, bool placed)
         {
-            var list = new List<TowerBuildButtonBehaviour>(towerButtons);
-            list.Remove(button);
-            towerButtons = new Queue<TowerBuildButtonBehaviour>(list);
+            if (button == null) return;
 
+            towerButtons.Remove(button);
+            
             Destroy(button.gameObject);
+
+            if (!placed)
+            {
+                button.Tower.Remove();
+                Destroy(button.Tower.gameObject);
+            }
+        }
+
+        public void RemoveBuildButtonForTower(Tower tower)
+        {
+            var buildButton = towerButtons.FirstOrDefault(button => button.Tower == tower);
+            RemoveBuildButton(buildButton, false);
         }
     }
 }

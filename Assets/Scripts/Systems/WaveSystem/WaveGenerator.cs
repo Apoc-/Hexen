@@ -46,6 +46,13 @@ namespace Assets.Scripts.Systems.WaveSystem
             var packs = new List<WavePack>();
             var fm = GameManager.Instance.FactionManager;
 
+            if (GameSettings.Debug)
+            {
+                var f = fm.GetFactionByName(FactionNames.Elves);
+                packs.AddRange(GeneratePack(f,1, GenerateDebugPack));
+                return packs;
+            }
+
             var factions = fm.GetFactions().Values
                 .Where(value => value.GetStanding() < 0)
                 .OrderBy(value => value.GetStanding())
@@ -95,7 +102,11 @@ namespace Assets.Scripts.Systems.WaveSystem
             //name npc gameobjects
             packs.ForEach(pack =>
             {
-                pack.Npcs.ForEach(npc => { npc.gameObject.name = npc.Name; });
+                pack.Npcs.ForEach(npc =>
+                {
+                    npc.gameObject.name = npc.Name;
+                });
+                
             });
 
             return packs;
@@ -194,6 +205,7 @@ namespace Assets.Scripts.Systems.WaveSystem
         {
             var generatedNpc = Instantiate(npc);
             generatedNpc.Name = npc.name;
+            generatedNpc.gameObject.layer = LayerMask.NameToLayer("Npcs");
 
             return generatedNpc;
         }
@@ -201,6 +213,18 @@ namespace Assets.Scripts.Systems.WaveSystem
         private Npc GetRandomNpc(List<Npc> npcs)
         {
             return npcs[rand.Next(npcs.Count)];
+        }
+
+        private WavePack GenerateDebugPack(Faction faction)
+        {
+            var commons = faction.GetAvailableNpcsByRarity(Rarities.Common);
+            var commonNpc = GetRandomNpc(commons);
+            var pack = new WavePack();
+
+            //1
+            pack.AddNpc(Instantiate(commonNpc));
+
+            return pack;
         }
     }
 }

@@ -7,19 +7,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
 {
-    public class ArrowProjectile : HomingProjectile
+    public class ArrowProjectile : Projectile
     {
         protected override void InitProjectileData()
         {
-            Speed = 10;
-            Velocity = new Vector3(0, 1f, 0);
-            VelocityDampeningFactor = 0.2f;
+           
         }
 
-        protected override void InitProjectile()
+        protected override void InitProjectileEffects()
         {
             ProjectileEffects = new List<ProjectileEffect>();
-
             AddProjectileEffect(new DamageProjectileEffect());
 
             GameManager.Instance.SfxManager.AttachTrail("ArrowTrail", gameObject);

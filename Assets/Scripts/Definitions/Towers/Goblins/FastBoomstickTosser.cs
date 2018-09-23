@@ -12,7 +12,7 @@ namespace Assets.Scripts.Definitions.Towers
     {
         private int tossComboCount = 0;
 
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "Fast Boomstick Tosser";
             Faction = FactionNames.Goblins;
@@ -22,10 +22,10 @@ namespace Assets.Scripts.Definitions.Towers
             Description = "Also throws boomsticks at npcs with a chance to throw another one with a chance to throw another one and another one... Has a small splash.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Goblins/FastTosser");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(GoblinProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             var p = 0.5f;
 
-            if (MathHelper.Float() <= p)
+            if (MathHelper.RandomFloat() <= p)
             {
                 Fire();
                 tossComboCount++;

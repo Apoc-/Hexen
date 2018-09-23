@@ -11,20 +11,20 @@ namespace Assets.Scripts.Definitions.Towers
 {
     class BoomstickArtillery : Tower
     {
-        public override void InitTower()
+        public override void InitTowerData()
         {
             Name = "The Great Boomstick Artillery";
             Faction = FactionNames.Goblins;
-            Rarity = Rarities.Legendary;
+            Rarity = Rarities.Common; //todo legendary
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "Huge Range with good splash and damage. Moat. At least if you ask the Goblins.";
             
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Goblins/BoomstickArtillery");
-            Model = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
             ProjectileType = typeof(GoblinArtilleryProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Arrow");
+            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }
