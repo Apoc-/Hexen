@@ -11,7 +11,7 @@ namespace Assets.Scripts.Definitions.Projectiles
     {
         protected override void InitProjectileData()
         {
-            SplashRadius = 0f; //todo
+            SplashRadius = 2f;
             FlightDuration = 1;
         }
 

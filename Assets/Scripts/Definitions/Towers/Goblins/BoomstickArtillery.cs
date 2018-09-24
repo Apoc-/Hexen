@@ -15,7 +15,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "The Great Boomstick Artillery";
             Faction = FactionNames.Goblins;
-            Rarity = Rarities.Legendary;
+            Rarity = Rarities.Common;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "Huge Range with good splash and damage. Moat. At least if you ask the Goblins.";
