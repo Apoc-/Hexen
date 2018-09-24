@@ -63,52 +63,52 @@ namespace Assets.Scripts.Systems.MapSystem
             {
                 case '.':
                     tile.TileType = TileType.Path;
-                    tile.Height = -0.2f;
+                    tile.DeltaHeight = -0.2f;
                     break;
                 case 'B':
                     tile.TileType = TileType.Buildslot;
-                    tile.Height = 0.0f;
+                    tile.DeltaHeight = 0.0f;
                     break;
                     
                 case 'S':
                     tile.TileType = TileType.Start;
-                    tile.Height = -0.15f;
+                    tile.DeltaHeight = -0.15f;
                     break;
 
                 case 'E':
                     tile.TileType = TileType.End;
-                    tile.Height = -0.15f;
+                    tile.DeltaHeight = -0.15f;
                     break;
 
                 case 'm':
                     tile.TileType = TileType.Mountain;
-                    tile.Height = 0.55f;
+                    tile.DeltaHeight = 0.55f;
                     break;
 
                 case 'M':
                     tile.TileType = TileType.MountainTop;
-                    tile.Height = 1.35f;
+                    tile.DeltaHeight = 1.35f;
                     break;
 
                 case 's':
                     tile.TileType = TileType.Sand;
-                    tile.Height = -0.45f;
+                    tile.DeltaHeight = -0.45f;
                     break;
 
                 case 'l':
                     tile.TileType = TileType.Lava;
-                    tile.Height = -0.7f;
+                    tile.DeltaHeight = -0.7f;
                     break;
 
                 case 'L':
                     tile.TileType = TileType.VolcanoLava;
-                    tile.Height = 1.25f;
+                    tile.DeltaHeight = 1.25f;
                     break;
 
                 case 'w':
                 default:
                     tile.TileType = TileType.Water;
-                    tile.Height = -0.7f;
+                    tile.DeltaHeight = -0.7f;
                     break;
             }
 

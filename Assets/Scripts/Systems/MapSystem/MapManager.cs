@@ -72,7 +72,7 @@ namespace Assets.Scripts.Systems.MapSystem
                     var rnd = new System.Random(seed);
                     float r = rnd.Next((int)(RandomHeightOffset*100)) / 100.0f;
 
-                    newPosition.y = BaseHeight + r + tile.Height;
+                    newPosition.y = BaseHeight + r + tile.DeltaHeight;
                     
 
                     if (lineIdx % 2 == 0)

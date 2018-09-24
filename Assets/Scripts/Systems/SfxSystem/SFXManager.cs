@@ -33,13 +33,11 @@ namespace Assets.Scripts.Systems.SfxSystem
 
             GameObject containerPrefab = new GameObject("effectContainer");
 
-            var container = Instantiate(
-                containerPrefab, 
-                effectData.Origin.transform.position, 
-                effectData.Origin.transform.rotation, 
-                this.transform);
+            var container = Instantiate(containerPrefab);
 
-            container.transform.localPosition += offset;
+            container.transform.position = effectData.Origin.transform.position + offset;
+            container.transform.rotation = effectData.Origin.transform.rotation;
+            container.transform.parent = transform;
 
             var go = Instantiate(effectPrefab, container.transform);
 

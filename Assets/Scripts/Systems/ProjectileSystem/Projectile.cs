@@ -18,8 +18,6 @@ namespace Assets.Scripts.Systems.ProjectileSystem
         private Vector3 estimatedTargetPosition;
         private Vector3 initialTargetPosition;
 
-        protected bool TargetReached = false;
-
         protected GameObject Model;
 
         protected float SplashRadius = 0;

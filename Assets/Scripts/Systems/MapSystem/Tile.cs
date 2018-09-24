@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Systems.TowerSystem;
+﻿using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.TowerSystem;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Systems.MapSystem
@@ -7,6 +10,9 @@ namespace Assets.Scripts.Systems.MapSystem
     {
         public Material Material { get; set; }
         public TileType TileType { get; set; }
+        [CanBeNull] private TileEffect tileEffect;
+        private float tileEffectDuration;
+        private float tileEffectTimer;
 
         public Tower PlacedTower;
 
@@ -14,13 +20,47 @@ namespace Assets.Scripts.Systems.MapSystem
 
         public int NumberInPath = -1;
 
-        public float Height { get; set; }
+        public float DeltaHeight { get; set; }
+
+        private void Update()
+        {
+            HandleTileEffect();
+        }
+
+        private void HandleTileEffect()
+        {
+            if (!(tileEffectDuration > 0)) return;
+            tileEffectTimer += Time.deltaTime;
+
+            if (!(tileEffectTimer >= tileEffectDuration)) return;
+
+            tileEffect = null;
+            tileEffectTimer = 0;
+            tileEffectDuration = -1;
+        }
 
         public Vector3 GetTopCenter()
         {
-            var meshFilter = GetComponent<MeshFilter>();
-            var h = meshFilter.mesh.bounds.size.y;
+            var h = GetTileHeight();
             return transform.position + new Vector3(0, h, 0);
+        }
+
+        public float GetTileHeight()
+        {
+            var meshFilter = GetComponent<MeshFilter>();
+            return meshFilter.mesh.bounds.size.y;
+        }
+
+        public void SetTileEffect(TileEffect tileEffect, float duration = -1)
+        {
+            this.tileEffect = tileEffect;
+            tileEffectDuration = duration;
+            tileEffectTimer = 0;
+        }
+
+        public void EnterTile(Npc npc)
+        {
+            this.tileEffect?.ApplyEffectToNpc(npc);
         }
     }
 }

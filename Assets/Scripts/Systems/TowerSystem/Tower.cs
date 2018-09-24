@@ -82,11 +82,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void InitTowerEffects()
         {
-            this.OnLevelUp += (lvl) =>
-            {
-                var sfx = new SpecialEffect("LevelUpEffect", this.gameObject, 3f);
-                GameManager.Instance.SfxManager.PlaySpecialEffect(sfx);
-            };
+
         }
 
         public void InitCopyTowerData(Tower source)
@@ -124,12 +120,14 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             Level += 1;
 
-            if (OnLevelUp != null) OnLevelUp.Invoke(Level);
+            OnLevelUp?.Invoke(Level);
 
             foreach (var keyValuePair in Attributes)
             {
                 keyValuePair.Value.LevelUp();
             }
+
+            PlayLevelUpEffect();
         }
 
         protected virtual void DoUpdate()
@@ -254,6 +252,12 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             var specialEffect = new SpecialEffect(effectPrefabName, this.gameObject, duration);
             GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect, new Vector3(0, Height, 0));
+        }
+
+        public void PlayLevelUpEffect()
+        {
+            var sfx = new SpecialEffect("LevelUpEffect", this.gameObject, 3f);
+            GameManager.Instance.SfxManager.PlaySpecialEffect(sfx);
         }
     }
 }

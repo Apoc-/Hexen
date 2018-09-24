@@ -40,7 +40,7 @@ namespace Assets.Scripts.Definitions.Towers
                 GameSettings.BaselineTowerDmg[Rarity],
                 GameSettings.BaselineTowerDmgInc[Rarity]));
 
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed));
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed / 4));
             AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
     }

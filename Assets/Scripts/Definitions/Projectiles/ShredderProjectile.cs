@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.ProjectileEffects;
+using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
@@ -9,8 +13,10 @@ namespace Assets.Scripts.Definitions.Projectiles
     public class ShredderProjectile : Projectile
     {
         private bool aligned = false;
-        private float shreddingDuration = 1.5f;
-       
+        private float shreddingDuration = 3f;
+        private bool targetReached = false;
+
+
         protected override void InitProjectileData()
         {
             
@@ -26,38 +32,22 @@ namespace Assets.Scripts.Definitions.Projectiles
         public override void Collide(Collider other, Vector3 pos)
         {
             var target = other.gameObject.GetComponentInParent<Npc>();
+            var tile = other.gameObject.GetComponent<Tile>();
 
             if (target != null)
             {
                 ProjectileEffects.ForEach(effect => effect.OnHit(Source, target));
+                tile = target.CurrentTile;
             }
-        }
 
-        protected override void UpdateTransform()
-        {
-            base.UpdateTransform();
+            var axe = new SpecialEffect("shred", tile.gameObject, shreddingDuration);
+            var offset = new Vector3(0, 0.2f+tile.GetTileHeight(), 0f);
+            GameManager.Instance.SfxManager.PlaySpecialEffect(axe, offset);
 
-            if (!TargetReached) return;
-            if (!aligned) Align();
+            var dmg = Source.Attributes[AttributeName.AttackDamage].Value;
+            var tileEffect = new DamageTileEffect(tile, dmg, Source);
+            tile.SetTileEffect(tileEffect, shreddingDuration);
 
-            StartShredding();
-
-            this.transform.Rotate(Vector3.forward, 40.0f);
-        }
-
-        private void Align()
-        {
-            this.transform.rotation = Quaternion.identity * Quaternion.Euler(90f, 0f, 0f);
-            aligned = true;
-        }
-
-        private void StartShredding()
-        {
-            Invoke("StopShredding", shreddingDuration);
-        }
-
-        private void StopShredding()
-        {
             Destroy(gameObject);
         }
     }

@@ -303,7 +303,7 @@ namespace Assets.Scripts.Definitions.Npcs
             var specialEffect = new SpecialEffect(
                 effectPrefabName: "BloodEffect",
                 origin: gameObject,
-                duration: 10f,
+                duration: 3f,
                 followsOrigin: false,
                 diesWithOrigin: false);
 
@@ -384,6 +384,8 @@ namespace Assets.Scripts.Definitions.Npcs
                 CurrentTile = tile;
                 CheckEndTile(tile);
             }
+
+            tile.EnterTile(this);
         }
 
         private void CheckEndTile(Tile tile)

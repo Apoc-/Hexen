@@ -20,7 +20,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "Arotas' Obelisk";
             Faction = FactionNames.Elves;
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Legendary;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "Fire and Brimstone shall hail upon thou. Has Magical Affinity.";
