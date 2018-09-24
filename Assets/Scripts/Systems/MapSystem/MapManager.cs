@@ -10,7 +10,7 @@ namespace Assets.Scripts.Systems.MapSystem
         [SerializeField] private TextAsset currentMap;
 
         private float TileSpacing = 0f;
-        public float BaseHeight { get; } = 0f;
+        public float BaseHeight { get; } = -2f;
 
         private float RandomHeightOffset = 0.1f;
 

@@ -16,7 +16,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "Boomstick Blacksmithy";
             Faction = FactionNames.Goblins;
-            Rarity = Rarities.Rare;
+            Rarity = Rarities.Common;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "Uses Boomsticks for forging Weaponry... makes for big boom. Deals a huge amount of damage in a big radius once in a while.";
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Definitions.Towers
 
             colliders.ForEach(collider =>
             {
-                var npc = collider.GetComponent<Npc>();
+                var npc = collider.GetComponentInParent<Npc>();
                 npc.DealDamage(GetAttributeValue(AttributeName.AttackDamage), this);
             });
         }
