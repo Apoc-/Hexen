@@ -9,15 +9,15 @@ namespace Assets.Scripts.Systems.MapSystem
     {
         private static readonly Dictionary<TileType, List<String>> TileMaterials = new Dictionary<TileType, List<string>>
         {
-            { TileType.Path, new List<string>{"Path1","Path2","Path3"}},
-            { TileType.Buildslot, new List<string>{"Buildslot1", "Buildslot2", "Buildslot3"}},
+            { TileType.Path, new List<string>{"Path"}},
+            { TileType.Buildslot, new List<string>{"Buildslot"}},
             { TileType.Start, new List<string>{"StartEnd"}},
             { TileType.End, new List<string>{"StartEnd"}},
             { TileType.MountainTop, new List<string>{"MountainTop"}},
             { TileType.Mountain, new List<string>{"Mountain"}},
             { TileType.Sand, new List<string>{"Sand"}},
             { TileType.Lava, new List<string>{"Lava"}},
-            { TileType.VolcanoLava, new List<string>{"Lava1","Lava2","Lava3"}},
+            { TileType.VolcanoLava, new List<string>{"Lava"}},
             //{ TileType.Water, new List<string>{"Water"}},
             { TileType.Water, new List<string>{"Void"}}
         };

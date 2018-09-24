@@ -9,9 +9,10 @@ namespace Assets.Scripts.Systems.MapSystem
     {
         [SerializeField] private TextAsset currentMap;
 
-        public float TileSpacing = 0.00f;
-        public float BaseHeight = 0f;
-        public float RandomHeightOffset = 0.2f;
+        private float TileSpacing = 0f;
+        public float BaseHeight { get; } = 0f;
+
+        private float RandomHeightOffset = 0.1f;
 
         private List<List<Tile>> tiles = new List<List<Tile>>();
         private List<Tile> path = new List<Tile>();
