@@ -36,8 +36,23 @@ namespace Assets.Scripts.Systems.MapSystem
             var materials = TileMaterials[tile.TileType];
             var rndMaterial = materials[Rng.Next(materials.Count)];
             var material = Resources.Load<Material>("Materials/LandscapeMaterials/" + rndMaterial);
+            var sleeveMaterial = Resources.Load<Material>("Materials/LandscapeMaterials/Sleeve");
+            var voidMaterial = Resources.Load<Material>("Materials/LandscapeMaterials/Void");
+            var renderer = tile.GetComponent<MeshRenderer>();
+            var mats = renderer.materials;
 
             tile.Material = material;
+
+            if (tile.TileType == TileType.Void || tile.TileType == TileType.Water)
+            {
+                mats[1] = voidMaterial;
+            }
+            else
+            {
+                mats[1] = sleeveMaterial;
+            }
+
+            renderer.materials = mats;
         }
 
         private static Tile GetBaseTile(char tileDatum, GameObject tilePrefab)
