@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
@@ -19,7 +20,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "Arotas' Obelisk";
             Faction = FactionNames.Elves;
-            Rarity = Rarities.Legendary;
+            Rarity = Rarities.Common;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "Fire and Brimstone shall hail upon thou. Has Magical Affinity.";
@@ -49,17 +50,17 @@ namespace Assets.Scripts.Definitions.Towers
             AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
 
-        private void CheckMeteoriteTrigger()
+        private void CheckMeteoriteTrigger(Npc target)
         {
-            var p = 0.1f;
+            var p = 1f;
             var rnd = Random.value;
 
             if (rnd > p) return;
 
-            TriggerMeteorite();
+            TriggerMeteorite(target);
         }
 
-        private void TriggerMeteorite()
+        private void TriggerMeteorite(Npc target)
         {
             var go = Instantiate(MeteoriteModel);
 
@@ -70,10 +71,9 @@ namespace Assets.Scripts.Definitions.Towers
             projectile.TicksPerSecond = 4;
 
             projectile.transform.SetParent(this.transform);
-            projectile.transform.localPosition = new Vector3(0, WeaponHeight + 20, 0);
+            projectile.transform.localPosition = new Vector3(0, WeaponHeight + 5, 0);
 
-            projectile.Target = this.lockedTarget;
-            projectile.Source = this;
+            projectile.InitProjectile(target, this);
         }
     }
 }

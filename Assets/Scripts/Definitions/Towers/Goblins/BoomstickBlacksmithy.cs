@@ -16,7 +16,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "Boomstick Blacksmithy";
             Faction = FactionNames.Goblins;
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Rare;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "Uses Boomsticks for forging Weaponry... makes for big boom. Deals a huge amount of damage in a big radius once in a while.";

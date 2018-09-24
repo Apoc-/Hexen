@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.ProjectileEffects;
+using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using UnityEngine;
 
 namespace Assets.Scripts.Definitions.Projectiles
@@ -14,7 +16,11 @@ namespace Assets.Scripts.Definitions.Projectiles
 
         protected override void InitProjectileData()
         {
-            SplashRadius = 2.0f;
+            SplashRadius = 1.75f;
+            FlightDuration = 1.5f;
+
+            var fireTrail = new SpecialEffect("FireTrail", gameObject, 10, true);
+            GameManager.Instance.SfxManager.PlaySpecialEffect(fireTrail);
         }
 
         protected override void InitProjectileEffects()

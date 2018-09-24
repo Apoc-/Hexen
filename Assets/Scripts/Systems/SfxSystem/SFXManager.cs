@@ -126,7 +126,7 @@ namespace Assets.Scripts.Systems.SfxSystem
 
             var newPos = specialEffect.Origin.transform.position;
 
-            specialEffect.EffectContainer.transform.Translate(newPos);
+            specialEffect.EffectContainer.transform.position = newPos;
         }
 
         private bool HandleSpecialEffectDestruction(SpecialEffect specialEffect)

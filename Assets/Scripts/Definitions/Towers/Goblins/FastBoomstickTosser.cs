@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Definitions.Projectiles;
+﻿using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Definitions.Towers
             AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange));
         }
 
-        private void MultiToss()
+        private void MultiToss(Npc target)
         {
             var p = 0.5f;
 

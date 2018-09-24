@@ -37,7 +37,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         public int Level = 1;
         public int Xp = 0;
 
-        protected Npc lockedTarget;
+        protected Npc LockedTarget;
         private float lastShotFired;
         
         public bool IsPlaced = false;
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         public float Height { get; private set; }
 
         //events
-        public delegate void OnAttackEvent();
+        public delegate void OnAttackEvent(Npc attackTarget);
         public event OnAttackEvent OnAttack;
 
         public delegate void LevelUpEvent(int level);
@@ -134,17 +134,17 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         protected virtual void DoUpdate()
         {
-            if (lockedTarget == null)
+            if (LockedTarget == null)
             {
                 AcquireTarget();
                 return; //ea
             }
 
-            var distance = Vector3.Distance(lockedTarget.transform.position, transform.position);
+            var distance = Vector3.Distance(LockedTarget.transform.position, transform.position);
 
             if (distance > GetAttribute(AttributeName.AttackRange).Value)
             {
-                lockedTarget = null;
+                LockedTarget = null;
                 AcquireTarget();
                 return;
             }
@@ -165,7 +165,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 foreach (var collider in collidersInAttackRange)
                 {
                     if (collider.transform.parent.GetComponent<Npc>() == null) continue;
-                    lockedTarget = collider.transform.parent.GetComponent<Npc>();
+                    LockedTarget = collider.transform.parent.GetComponent<Npc>();
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         protected virtual void Fire()
         {
-            if (OnAttack != null) OnAttack.Invoke();
+            OnAttack?.Invoke(LockedTarget);
 
             SpawnProjectile();
         }
@@ -197,7 +197,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             projectile.transform.SetParent(this.transform);
             projectile.transform.localPosition = new Vector3(0, WeaponHeight, 0);
 
-            projectile.InitProjectile(lockedTarget, this);
+            projectile.InitProjectile(LockedTarget, this);
         }
 
         
