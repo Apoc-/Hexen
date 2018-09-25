@@ -19,8 +19,8 @@ namespace Assets.Scripts.Definitions.Towers
 
             Description = "A tower that launches projectiles that deal damage in an area. Has Frenzy.";
 
-            ProjectileType = typeof(OrcAoeProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(OrcAoeProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Catapult");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/Catapult");

@@ -4,6 +4,7 @@ using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Random = System.Random;
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Definitions.Npcs
             if (stunTriggered) return;
             if (npc.CurrentHealth > npc.Attributes[AttributeName.MaxHealth].Value / 2.0f) return;
             
-            var towers = GetTowersInRadius(stunRadius);
+            var towers = TargetingHelper.GetTowersInRadius(transform.position, stunRadius);
 
             towers.ForEach(tower =>
             {

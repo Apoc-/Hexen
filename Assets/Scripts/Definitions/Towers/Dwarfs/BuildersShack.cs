@@ -22,8 +22,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Shack");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(ArchitectsBureauProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(ArchitectsBureauProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }

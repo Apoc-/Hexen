@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
@@ -8,6 +9,7 @@ using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
+using JetBrains.Annotations;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,17 +19,15 @@ namespace Assets.Scripts.Systems.TowerSystem
 {
     public abstract class Tower : MonoBehaviour, IHasAttributes, AuraTarget
     {
-        // TODO: Protected. Apoc- told me I should not change the UI so I don't
-        // TODO: Yes Apoc- did, because Mijago likes to change things everywhere, even if not needed right now :D
         public AttributeContainer Attributes;
         
         public int GoldCost;
         public string Description;
         public string Name;
 
-        public float WeaponHeight;
-        public Type ProjectileType;
-        public GameObject ProjectileModel;
+        protected float WeaponHeight = 0.0f;
+        protected Type AttackType = null;
+        protected GameObject ProjectileModelPrefab = null;
 
         public Sprite Icon;
         public Tile Tile;
@@ -149,7 +149,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
             if (lastShotFired < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AttackSpeed).Value)
             {
-                Fire();
+                Attack();
                 lastShotFired = Time.fixedTime;
             }
         }
@@ -158,46 +158,42 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             if (this.HasAttribute(AttributeName.AttackRange))
             {
-                var collidersInAttackRange = GetCollidersInRadius(GetAttribute(AttributeName.AttackRange).Value, GameSettings.NpcLayerMask);
+                var range = GetAttributeValue(AttributeName.AttackRange);
+                var npcs = TargetingHelper.GetNpcsInRadius(transform.position, range);
 
-                foreach (var collider in collidersInAttackRange)
+                foreach (var npc in npcs)
                 {
-                    if (collider.transform.parent.GetComponent<Npc>() == null) continue;
-                    LockedTarget = collider.transform.parent.GetComponent<Npc>();
+                    LockedTarget = npc;
                 }
             }
         }
 
-        //todo refactor, npc has the same 
-        public List<Collider> GetCollidersInRadius(float radius, int layerMask)
-        {
-            var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-
-            var topCap = transform.position + new Vector3(0, 5, 0);
-            var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
-
-            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius, layerMask));
-        }
-
-        protected virtual void Fire()
+        protected virtual void Attack()
         {
             OnAttack?.Invoke(LockedTarget);
 
-            SpawnProjectile();
+            InitializeAttack(); 
         }
 
-        private void SpawnProjectile()
+        private void InitializeAttack()
         {
-            var go = Instantiate(ProjectileModel);
+            GameObject go;
+            if (ProjectileModelPrefab != null)
+            {
+                go = Instantiate(ProjectileModelPrefab);
+            }
+            else
+            {
+                go = new GameObject(AttackType.Name);
+            }
+            
+            var attack = (AbstractAttack) go.AddComponent(AttackType);
 
-            var projectile = (Projectile) go.AddComponent(ProjectileType);
+            attack.transform.SetParent(this.transform);
+            attack.transform.localPosition = new Vector3(0, WeaponHeight, 0);
 
-            projectile.transform.SetParent(this.transform);
-            projectile.transform.localPosition = new Vector3(0, WeaponHeight, 0);
-
-            projectile.InitProjectile(LockedTarget, this);
+            attack.InitAttack(LockedTarget, this);
         }
-
         
         protected virtual void InitAttributes()
         {

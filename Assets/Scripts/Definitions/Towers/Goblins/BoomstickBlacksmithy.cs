@@ -3,6 +3,7 @@ using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
@@ -40,20 +41,16 @@ namespace Assets.Scripts.Definitions.Towers
             AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed / 10));
         }
 
-        protected override void Fire()
+        protected override void Attack()
         {
             //Does not attack "regulary"
             var se = new SpecialEffect("BlacksmithyExplosion", gameObject, 5);
             GameManager.Instance.SfxManager.PlaySpecialEffect(se, new Vector3(0,WeaponHeight,0));
             var r = GetAttributeValue(AttributeName.AttackRange);
 
-            var colliders = GetCollidersInRadius(r, GameSettings.NpcLayerMask);
+            var npcs = TargetingHelper.GetNpcsInRadius(transform.position, r);
 
-            colliders.ForEach(collider =>
-            {
-                var npc = collider.GetComponentInParent<Npc>();
-                npc.DealDamage(GetAttributeValue(AttributeName.AttackDamage), this);
-            });
+            npcs.ForEach(npc => { npc.DealDamage(GetAttributeValue(AttributeName.AttackDamage), this); });
         }
     }
 }

@@ -22,8 +22,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Bunker");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/MundaneBunker");
 
-            ProjectileType = typeof(OrcProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(OrcProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.2f;
 

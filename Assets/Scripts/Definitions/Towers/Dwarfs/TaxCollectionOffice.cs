@@ -4,6 +4,7 @@ using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -31,8 +32,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Office");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(TaxCollectionOfficeProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(TaxCollectionOfficeProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 
@@ -73,12 +74,8 @@ namespace Assets.Scripts.Definitions.Towers
             UnsubscribeTowerEvents();
 
             var radius = Attributes[AttributeName.AuraRange].Value;
-            var colliders = GetCollidersInRadius(radius, GameSettings.TowersLayerMask);
-            towers = colliders
-                .Select(e => e.GetComponentInParent<Tower>())
-                .Where(e => e != null)
-                .ToList();
-
+            towers = TargetingHelper.GetTowersInRadius(transform.position, radius);
+            
             towers.ForEach(tower => { tower.OnLevelUp += HandleTowerLevelUp; });
         }
 

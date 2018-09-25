@@ -23,8 +23,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Goblins/BoomstickArtillery");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(GoblinArtilleryProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(GoblinArtilleryProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }

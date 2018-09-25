@@ -22,8 +22,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Cannon");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
 
-            ProjectileType = typeof(CannonProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(CannonProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
         }

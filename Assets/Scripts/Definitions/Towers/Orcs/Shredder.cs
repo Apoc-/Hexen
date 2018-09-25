@@ -21,8 +21,8 @@ namespace Assets.Scripts.Definitions.Towers
                 "This deadly contraption is named after the great Drok'Tol. " +
                 "It tosses whirling axes which stay in place to deal continous damage for a certain time.";
 
-            ProjectileType = typeof(ShredderProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(ShredderProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Orcs/Shredder");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/Shredder");

@@ -411,29 +411,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
             this.dots.Add(dot);
         }
-
-        //todo refactor, tower has the same 
-        public List<Collider> GetCollidersInRadius(float radius, int layerMask)
-        {
-            var baseHeight = GameManager.Instance.MapManager.BaseHeight;
-
-            var topCap = transform.position + new Vector3(0, 5, 0);
-            var botCap = new Vector3(transform.position.x, baseHeight - 5, transform.position.z);
-
-            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius, layerMask));
-        }
-
-        protected List<Tower> GetTowersInRadius(float radius)
-        {
-            return GetCollidersInRadius(radius, GameSettings.TowersLayerMask)
-                .Select(col => col.GetComponentInParent<Tower>())
-                .ToList();
-        }
-
-       /* private float eta;
-        private Vector3 futurePos;
-        private float timer;*/
-
+        
         public Vector3 GetPositionInTime(float time)
         {
             if (CurrentTile == null || Target == null) return transform.position;
@@ -482,8 +460,7 @@ namespace Assets.Scripts.Definitions.Npcs
             //walk leftover distance
             var heading = next.GetTopCenter() - current.GetTopCenter();
             var pos = current.GetTopCenter() + heading.normalized * distanceLeft;
-            //futurePos = pos;
-            //eta = time;
+
             return pos;
         }
     }

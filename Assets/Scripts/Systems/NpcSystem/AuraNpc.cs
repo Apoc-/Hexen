@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
@@ -35,36 +36,34 @@ namespace Assets.Scripts.Systems.NpcSystem
 
             if (!this.HasAttribute(AttributeName.AuraRange)) return;
 
-            var collidersInRange = GetCollidersInAuraRange(GameSettings.NpcLayerMask);
-            collidersInRange.AddRange(GetCollidersInAuraRange(GameSettings.TowersLayerMask));
+            var pos = transform.position;
+            var range = GetAttributeValue(AttributeName.AuraRange);
 
-            var targets = collidersInRange
-                .Select(c => c.GetComponentInParent<IHasAttributes>())
-                .Where(e => e != null);
-
-            foreach (var auraTarget in targets)
+            foreach (var auraEffect in AuraEffects)
             {
-                if (AffectedAuraTargets.Contains(auraTarget)) continue;
-
-                foreach (var auraEffect in AuraEffects)
+                if (auraEffect.AffectsNpcs)
                 {
-                    if (auraTarget is Npc && !auraEffect.AffectsNpcs) continue;
-                    if (auraTarget is Tower && !auraEffect.AffectsTowers) continue;
+                    var npcsInRange = TargetingHelper.GetNpcsInRadius(pos, range);
+                    npcsInRange.ForEach(npc => ApplyAuraEffect(npc, auraEffect));
+                }
 
-                    var attributeEffect = auraEffect.AttributeEffect;
-                    var attributeName = attributeEffect.AffectedAttributeName;
-
-                    if (!auraTarget.HasAttribute(attributeName)) continue;
-
-                    auraTarget.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
-                    AffectedAuraTargets.Add(auraTarget);
+                if (auraEffect.AffectsTowers)
+                {
+                    var towersInRange = TargetingHelper.GetTowersInRadius(pos, range);
+                    towersInRange.ForEach(npc => ApplyAuraEffect(npc, auraEffect));
                 }
             }
         }
 
-        private List<Collider> GetCollidersInAuraRange(int layerMask)
+        private void ApplyAuraEffect(IHasAttributes target, AuraEffect auraEffect)
         {
-            return GetCollidersInRadius(this.GetAttribute(AttributeName.AuraRange).Value, layerMask);
+            var attributeEffect = auraEffect.AttributeEffect;
+            var attributeName = attributeEffect.AffectedAttributeName;
+
+            if (!target.HasAttribute(attributeName)) return;
+
+            target.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
+            AffectedAuraTargets.Add(target);
         }
 
         private void ClearAuraTargets()

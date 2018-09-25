@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +12,7 @@ namespace Assets.Scripts.Systems.TowerSystem
     abstract class AuraTower : Tower, AttributeEffectSource
     {
         protected List<AuraEffect> AuraEffects = new List<AuraEffect>();
-        protected List<IHasAttributes> affectedAuraTargets = new List<IHasAttributes>();
+        protected List<IHasAttributes> AffectedAuraTargets = new List<IHasAttributes>();
 
         private float lastAuraDamageTick;
 
@@ -26,47 +27,45 @@ namespace Assets.Scripts.Systems.TowerSystem
             }
         }
 
-        public virtual void UpdateAuraTargets()
+        public void UpdateAuraTargets()
         {
             ClearAuraTargets();
 
             if (!this.HasAttribute(AttributeName.AuraRange)) return;
 
-            var collidersInRange = GetCollidersInAuraRange(GameSettings.NpcLayerMask);
-            collidersInRange.AddRange(GetCollidersInAuraRange(GameSettings.TowersLayerMask));
+            var pos = transform.position;
+            var range = GetAttributeValue(AttributeName.AuraRange);
 
-            var targets = collidersInRange
-                .Select(c => c.GetComponentInParent<IHasAttributes>())
-                .Where(e => e != null);
-
-            foreach (var auraTarget in targets)
+            foreach (var auraEffect in AuraEffects)
             {
-                if (affectedAuraTargets.Contains(auraTarget)) continue;
-
-                foreach (var auraEffect in AuraEffects)
+                if (auraEffect.AffectsNpcs)
                 {
-                    if (auraTarget is Npc && !auraEffect.AffectsNpcs) continue;
-                    if (auraTarget is Tower && !auraEffect.AffectsTowers) continue;
+                    var npcsInRange = TargetingHelper.GetNpcsInRadius(pos, range);
+                    npcsInRange.ForEach(npc => ApplyAuraEffect(npc, auraEffect));
+                }
 
-                    var attributeEffect = auraEffect.AttributeEffect;
-                    var attributeName = attributeEffect.AffectedAttributeName;
-
-                    if (!auraTarget.HasAttribute(attributeName)) continue;
-
-                    auraTarget.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
-                    affectedAuraTargets.Add(auraTarget);
+                if (auraEffect.AffectsTowers)
+                {
+                    var towersInRange = TargetingHelper.GetTowersInRadius(pos, range);
+                    towersInRange.ForEach(npc => ApplyAuraEffect(npc, auraEffect));
                 }
             }
         }
 
-        private List<Collider> GetCollidersInAuraRange(int layerMask)
+        private void ApplyAuraEffect(IHasAttributes target, AuraEffect auraEffect)
         {
-            return GetCollidersInRadius(this.GetAttribute(AttributeName.AuraRange).Value, layerMask);
+            var attributeEffect = auraEffect.AttributeEffect;
+            var attributeName = attributeEffect.AffectedAttributeName;
+
+            if (!target.HasAttribute(attributeName)) return;
+
+            target.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
+            AffectedAuraTargets.Add(target);
         }
-        
+
         private void ClearAuraTargets()
         {
-            affectedAuraTargets.ForEach(target =>
+            AffectedAuraTargets.ForEach(target =>
             {
                 AuraEffects.ForEach(auraEffect =>
                 {
@@ -75,7 +74,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 });
             });
 
-            affectedAuraTargets = new List<IHasAttributes>();
+            AffectedAuraTargets = new List<IHasAttributes>();
         }
 
         public override void Remove()
@@ -88,7 +87,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             this.OnAuraTick.Invoke();
             
-            var targets = this.affectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
+            var targets = this.AffectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
             targets.ForEach(npc =>
             {
                 var dmg = this.Attributes[AttributeName.AuraDamage].Value;

@@ -22,8 +22,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Arrow");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(ArrowProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(ArrowProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 

@@ -4,6 +4,7 @@ using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Random = System.Random;
@@ -41,7 +42,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         private void Explode(Npc npc)
         {
-            var towers = GetTowersInRadius(stunRadius);
+            var towers = TargetingHelper.GetTowersInRadius(transform.position, stunRadius);
             var tower = GetRandomTower(towers);
 
             if (tower == null) return;

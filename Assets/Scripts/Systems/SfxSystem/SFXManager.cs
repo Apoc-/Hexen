@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using DigitalRuby.LightningBolt;
 using UnityEngine;
 
 namespace Assets.Scripts.Systems.SfxSystem
 {
+
+    //todo refactor
     class SFXManager : MonoBehaviour
     {
         private const string sfxPath = "Sfx";
         private List<SpecialEffect> ongoingEffects = new List<SpecialEffect>();
         private List<FloatingTextBehaviour> ongoingTextEffects = new List<FloatingTextBehaviour>();
         private List<Animator> ongoingAnimations = new List<Animator>();
-        private List<TrailEffect> attachedTrailEffects = new List<TrailEffect>(); 
+        private List<TrailEffect> attachedTrailEffects = new List<TrailEffect>();
+        private List<LightningBoltEffect> ongoingLightningEffects = new List<LightningBoltEffect>();
         private bool destroyWithOrigin = false;
 
         private GameObject LoadEffect(string name)

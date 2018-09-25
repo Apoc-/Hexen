@@ -25,8 +25,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Goblins/FastTosser");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(GoblinProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(GoblinProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Definitions.Towers
 
             if (MathHelper.RandomFloat() <= p)
             {
-                Fire();
+                Attack();
                 tossComboCount++;
             }
             else

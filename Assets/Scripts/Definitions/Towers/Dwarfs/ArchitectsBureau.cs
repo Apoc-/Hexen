@@ -3,6 +3,7 @@ using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -27,8 +28,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Dwarfs/Architect");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(ArchitectsBureauProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(ArchitectsBureauProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
 
             WeaponHeight = 0.4f;
 
@@ -51,15 +52,12 @@ namespace Assets.Scripts.Definitions.Towers
 
         public void EnforceNearbyTower(int goldAmount)
         {
-            var colliders = GetCollidersInRadius(Attributes[AttributeName.AuraRange].Value, GameSettings.TowersLayerMask);
-            var targets = colliders
-                .Select(c => c.GetComponentInParent<Tower>())
-                .Where(e => e != null)
-                .ToList();
+            var range = GetAttributeValue(AttributeName.AuraRange);
+            var towers = TargetingHelper.GetTowersInRadius(transform.position, range);
 
-            targets.Add(this);
+            towers.Add(this);
 
-            var tower = targets[rng.Next(targets.Count)];
+            var tower = towers[rng.Next(towers.Count)];
 
             if (tower.HasAttribute(AttributeName.AttackDamage))
             {

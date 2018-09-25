@@ -28,8 +28,8 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Obelisk");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(ElvesProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+            AttackType = typeof(ElvesProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
             MeteoriteModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Meteorite");
 
             WeaponHeight = 0.4f;
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             var go = Instantiate(MeteoriteModel);
 
-            var projectile = go.AddComponent<ArotasMeteoriteProjectile>();
+            var projectile = go.AddComponent<ArotasMeteoriteProjectileAttack>();
 
             projectile.Duration = 4;
             projectile.DmgPerTick = Attributes[AttributeName.AttackDamage].Value / 8;
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Definitions.Towers
             projectile.transform.SetParent(this.transform);
             projectile.transform.localPosition = new Vector3(0, WeaponHeight + 5, 0);
 
-            projectile.InitProjectile(target, this);
+            projectile.InitAttack(target, this);
         }
     }
 }

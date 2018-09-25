@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Definitions.Projectiles;
+﻿using Assets.Scripts.Definitions.DirectAttacks;
+using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "Storm Caller";
             Faction = FactionNames.Elves;
-            Rarity = Rarities.Uncommon;
+            Rarity = Rarities.Common;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "The Storm Caller's attacks jump to nearby enemies. Has Magical Affinity.";
@@ -22,11 +23,7 @@ namespace Assets.Scripts.Definitions.Towers
             Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Caller");
             ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
 
-            ProjectileType = typeof(StormCallerProjectile);
-            ProjectileModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
-
-            WeaponHeight = 0.4f;
-
+            AttackType = typeof(StormCallerDirectAttack);
         }
 
         protected override void InitAttributes()
