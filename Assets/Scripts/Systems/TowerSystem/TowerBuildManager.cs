@@ -188,15 +188,16 @@ namespace Assets.Scripts.Systems.TowerSystem
                 tile.IsEmpty = false;
                 tile.PlacedTower = currentHeldTower;
 
-                currentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
-                currentHeldTower.IsPlaced = true;
-                currentHeldTower.Tile = tile;
-                currentHeldTower = null;
-                
                 currentHeldTowerButton.SetButtonInactive();
                 GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton, true);
                 currentHeldTowerButton = null;
 
+                currentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
+                currentHeldTower.IsPlaced = true;
+                currentHeldTower.Tile = tile;
+                GameManager.Instance.Player.RemoveBuildableTower(currentHeldTower);
+                currentHeldTower = null;
+                
                 GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
             }
             else

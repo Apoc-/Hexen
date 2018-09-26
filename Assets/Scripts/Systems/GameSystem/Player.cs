@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Tower = Assets.Scripts.Systems.TowerSystem.Tower;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Systems.GameSystem
         private int lives = GameSettings.StartingLives;
         private int towerSlots = 8;
 
-        private Queue<Tower> BuildableTowers = new Queue<Tower>();
+        private List<Tower> BuildableTowers = new List<Tower>();
 
 
         //events
@@ -123,12 +124,18 @@ namespace Assets.Scripts.Systems.GameSystem
 
             if (BuildableTowers.Count >= TowerSlots)
             {
-                var removedTower = BuildableTowers.Dequeue();
+                var removedTower = BuildableTowers[0];
+                BuildableTowers.Remove(removedTower);
                 buildPanel.RemoveBuildButtonForTower(removedTower);
             }
 
-            BuildableTowers.Enqueue(tower);
+            BuildableTowers.Add(tower);
             buildPanel.AddBuildButtonForTower(tower);
+        }
+
+        public void RemoveBuildableTower(Tower tower)
+        {
+            BuildableTowers.Remove(tower);
         }
 
         public void AddRandomBuildableTower()

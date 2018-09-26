@@ -56,13 +56,13 @@ Material:
     - _FoamScale: 20
     - _FoamSpeed: 0.5
     - _FoamSpread: 2.5
-    - _FresPower: 0.8
+    - _FresPower: 0.5
     - _HQFoam: 1
     - _Height: 0.5
     - _Height_: 0.5
     - _Length: 5
     - _LightAbs: 1
-    - _NormalOffset: 0.2
+    - _NormalOffset: 0.4
     - _Opacity: 0.7
     - _PointLights: 0
     - _RHeight: 0.3

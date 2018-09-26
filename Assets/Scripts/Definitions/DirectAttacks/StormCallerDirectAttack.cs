@@ -30,9 +30,11 @@ namespace Assets.Scripts.Definitions.DirectAttacks
         protected override void ExecuteAttack()
         {
             var towerPosition = Source.gameObject.transform.position;
+            var targetPosition = Target.gameObject.transform.position;
 
             ApplyEffectsToTarget(Target);
-            PlayBoltEffect(towerPosition, Target.gameObject.transform.position);
+            PlayBoltEffect(towerPosition, targetPosition);
+            lastPosition = targetPosition;
 
             var randomTargets = GetRandomTargets();
             var sortedTargets = SortTargetsByDistance(towerPosition, randomTargets);
@@ -67,6 +69,8 @@ namespace Assets.Scripts.Definitions.DirectAttacks
 
             for (var index = 0; index < otherTargets.Count; index++)
             {
+                yield return new WaitForSecondsRealtime(0.075f);
+
                 var target = otherTargets[index];
                 var targetPosition = otherTargetPositions[index];
 
@@ -77,8 +81,6 @@ namespace Assets.Scripts.Definitions.DirectAttacks
 
                 PlayBoltEffect(lastPosition, targetPosition);
                 lastPosition = targetPosition;
-                
-                yield return new WaitForSecondsRealtime(0.05f);
             }
 
             Destroy(gameObject);

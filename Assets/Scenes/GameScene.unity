@@ -6201,6 +6201,10 @@ PrefabInstance:
       propertyPath: enableReflection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013230019050, guid: 170ec89339f49bb41bcd41ddc3946957, type: 3}
+      propertyPath: noise
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 170ec89339f49bb41bcd41ddc3946957, type: 3}
 --- !u!1 &1981420517
