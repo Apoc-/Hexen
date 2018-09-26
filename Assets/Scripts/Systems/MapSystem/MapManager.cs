@@ -12,7 +12,7 @@ namespace Assets.Scripts.Systems.MapSystem
         private float TileSpacing = 0f;
         public float BaseHeight { get; } = -2f;
 
-        private float RandomHeightOffset = 0.1f;
+        private float RandomHeightOffset = 0.0f;
 
         private List<List<Tile>> tiles = new List<List<Tile>>();
         private List<Tile> path = new List<Tile>();
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Systems.MapSystem
             StartTile = null;
             EndTile = null;
 
-            GameObject prefab = Resources.Load<GameObject>("Prefabs/Tile");
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/Tile_top");
             List<string> lines = map.Split('\n').ToList();
 
             for (int lineIdx = 0; lineIdx < lines.Count; lineIdx++)
