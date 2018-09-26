@@ -31,8 +31,8 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
 
                 movementSpeed.AddAttributeEffect(slowEffect);
 
-                var specialEffect = new SpecialEffect("StunEffect", target.gameObject, stunDuration);
-                GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
+                var effect = new ParticleEffectData("StunEffect", target.gameObject, stunDuration);
+                GameManager.Instance.SpecialEffectManager.PlayParticleEffect(effect);
             }
         }
     }

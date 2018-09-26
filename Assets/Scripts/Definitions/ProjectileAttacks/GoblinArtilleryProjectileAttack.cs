@@ -21,7 +21,8 @@ namespace Assets.Scripts.Definitions.Projectiles
 
             AddAttackEffect(new DamageAttackEffect());
 
-            GameManager.Instance.SfxManager.AttachTrail("SmokeTrail", gameObject);
+            var trail = new TrailEffectData("SmokeTrail", gameObject, FlightDuration + 0.5f);
+            GameManager.Instance.SpecialEffectManager.PlayTrailEffect(trail);
         }
     }
 }

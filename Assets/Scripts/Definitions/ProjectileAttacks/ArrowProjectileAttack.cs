@@ -19,7 +19,8 @@ namespace Assets.Scripts.Definitions.Projectiles
             AttackEffects = new List<AttackEffect>();
             AddAttackEffect(new DamageAttackEffect());
 
-            GameManager.Instance.SfxManager.AttachTrail("ArrowTrail", gameObject);
+            var effect = new TrailEffectData("ArrowTrail", gameObject, FlightDuration + FlightDuration/2);
+            GameManager.Instance.SpecialEffectManager.PlayTrailEffect(effect);
         }
     }
 }

@@ -241,19 +241,20 @@ namespace Assets.Scripts.Systems.TowerSystem
                 this.Attributes[AttributeName.AttackSpeed].AddAttributeEffect(effect);
             }
 
-            PlaySpecialEffectAboveTower("StunEffect", duration);
+            PlayParticleEffectAboveTower("StunEffect", duration);
         }
 
-        public void PlaySpecialEffectAboveTower(string effectPrefabName, float duration)
+        public void PlayParticleEffectAboveTower(string effectPrefabName, float duration)
         {
-            var specialEffect = new SpecialEffect(effectPrefabName, this.gameObject, duration);
-            GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect, new Vector3(0, Height, 0));
+            var offset = new Vector3(0, Height, 0);
+            var pe = new ParticleEffectData(effectPrefabName, gameObject, offset, duration);
+            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(pe);
         }
 
         public void PlayLevelUpEffect()
         {
-            var sfx = new SpecialEffect("LevelUpEffect", this.gameObject, 3f);
-            GameManager.Instance.SfxManager.PlaySpecialEffect(sfx);
+            var pe = new ParticleEffectData("LevelUpEffect", gameObject, 3f);
+            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(pe);
         }
     }
 }

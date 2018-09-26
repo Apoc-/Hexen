@@ -40,9 +40,9 @@ namespace Assets.Scripts.Definitions.Projectiles
                 tile = target.CurrentTile;
             }
 
-            var axe = new SpecialEffect("shred", tile.gameObject, shreddingDuration);
-            var offset = new Vector3(0, 0.2f+tile.GetTileHeight(), 0f);
-            GameManager.Instance.SfxManager.PlaySpecialEffect(axe, offset);
+            var offset = new Vector3(0, 0.2f + tile.GetTileHeight(), 0f);
+            var axe = new ParticleEffectData("shred", tile.gameObject, offset, shreddingDuration);
+            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(axe);
 
             var dmg = Source.Attributes[AttributeName.AttackDamage].Value;
             var tileEffect = new DamageTileEffect(tile, dmg, Source);

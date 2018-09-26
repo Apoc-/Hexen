@@ -300,14 +300,14 @@ namespace Assets.Scripts.Definitions.Npcs
 
         protected void Splatter()
         {
-            var specialEffect = new SpecialEffect(
+            var specialEffect = new ParticleEffectData(
                 effectPrefabName: "BloodEffect",
                 origin: gameObject,
                 duration: 3f,
                 followsOrigin: false,
                 diesWithOrigin: false);
 
-            GameManager.Instance.SfxManager.PlaySpecialEffect(specialEffect);
+            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(specialEffect);
         }
 
         /*bool measured = false;*/

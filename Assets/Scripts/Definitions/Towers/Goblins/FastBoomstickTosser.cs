@@ -62,7 +62,7 @@ namespace Assets.Scripts.Definitions.Towers
                 var pos = transform.position;
                 pos.y += Height;
                 
-                GameManager.Instance.SfxManager.PlayTextEffect(tossComboCount + " x Combo", pos, 1.5f, 1.75f, Color.red);
+                //GameManager.Instance.SpecialEffectManager.PlayTextEffect(tossComboCount + " x Combo", pos, 1.5f, 1.75f, Color.red);
                 tossComboCount = 0;
             }
         }

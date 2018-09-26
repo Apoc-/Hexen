@@ -17,7 +17,7 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
 
         protected override void ApplyEffect(Tower source, Npc target)
         {
-            source.PlaySpecialEffectAboveTower("GotSomeCoinEffect", 3);
+            source.PlayParticleEffectAboveTower("GotSomeCoinEffect", 3);
             source.Owner.IncreaseGold(1);
         }
     }

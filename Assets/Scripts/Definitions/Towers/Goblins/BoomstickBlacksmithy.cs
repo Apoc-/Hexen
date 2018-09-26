@@ -44,12 +44,11 @@ namespace Assets.Scripts.Definitions.Towers
         protected override void Attack()
         {
             //Does not attack "regulary"
-            var se = new SpecialEffect("BlacksmithyExplosion", gameObject, 5);
-            GameManager.Instance.SfxManager.PlaySpecialEffect(se, new Vector3(0,WeaponHeight,0));
+            var se = new ParticleEffectData("BlacksmithyExplosion", gameObject, new Vector3(0, WeaponHeight, 0), 5);
+            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(se);
+
             var r = GetAttributeValue(AttributeName.AttackRange);
-
             var npcs = TargetingHelper.GetNpcsInRadius(transform.position, r);
-
             npcs.ForEach(npc => { npc.DealDamage(GetAttributeValue(AttributeName.AttackDamage), this); });
         }
     }

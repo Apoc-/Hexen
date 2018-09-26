@@ -19,8 +19,8 @@ namespace Assets.Scripts.Definitions.Projectiles
             SplashRadius = 1.75f;
             FlightDuration = 1.5f;
 
-            var fireTrail = new SpecialEffect("FireTrail", gameObject, 10, true);
-            GameManager.Instance.SfxManager.PlaySpecialEffect(fireTrail);
+            var fireTrail = new ParticleEffectData("FireTrail", gameObject, 10, true);
+            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(fireTrail);
         }
 
         protected override void InitAttackEffects()

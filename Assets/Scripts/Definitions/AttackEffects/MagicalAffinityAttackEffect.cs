@@ -2,6 +2,7 @@
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 
@@ -21,10 +22,14 @@ namespace Assets.Scripts.Definitions.ProjectileEffects
                 dmg = source.Attributes.GetAttribute(AttributeName.AttackDamage).Value;
             }
 
+            var offset = new Vector3(0, target.transform.lossyScale.y, 0);
+            var effectText = (int) (2 * dmg) + "!";
+            var textSize = 2;
+            var textDuration = 2.0f;
+            var textEffect = 
+                new TextEffectData(effectText,textSize, GameSettings.MagicalCritColor, target.gameObject,offset,textDuration);
 
-            var pos = target.transform.position;
-            pos.y += target.transform.lossyScale.y;
-            GameManager.Instance.SfxManager.PlayTextEffect((int)(2*dmg) + "!", pos, 2, 2.0f, GameSettings.MagicalCritColor); 
+            GameManager.Instance.SpecialEffectManager.PlayTextEffect(textEffect);
 
             target.DealDamage(dmg, source);
         }

@@ -81,7 +81,7 @@ namespace Assets.Scripts.Definitions.Towers
 
         private void HandleTowerLevelUp(int level)
         {
-            PlaySpecialEffectAboveTower("CoinExplosion", 3);
+            PlayParticleEffectAboveTower("CoinExplosion", 3);
 
             GameManager.Instance.Player.IncreaseGold(level);
             this.GiveXP(level);

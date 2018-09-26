@@ -109,17 +109,17 @@ namespace Assets.Scripts.Systems.GameSystem
             }
         }
 
-        private SFXManager sfxManager;
-        public SFXManager SfxManager
+        private SpecialEffectManager specialEffectManager;
+        public SpecialEffectManager SpecialEffectManager
         {
             get
             {
-                if (sfxManager == null)
+                if (specialEffectManager == null)
                 {
-                    sfxManager = FindObjectOfType<SFXManager>();
+                    specialEffectManager = FindObjectOfType<SpecialEffectManager>();
                 }
 
-                return sfxManager;
+                return specialEffectManager;
             }
         }
 
