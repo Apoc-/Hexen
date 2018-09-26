@@ -44,7 +44,7 @@ namespace Assets.Scripts.Systems.MapSystem
             StartTile = null;
             EndTile = null;
 
-            GameObject prefab = Resources.Load<GameObject>("Prefabs/Tile_top");
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/Terrain/Tile_top");
             List<string> lines = map.Split('\n').ToList();
 
             for (int lineIdx = 0; lineIdx < lines.Count; lineIdx++)
