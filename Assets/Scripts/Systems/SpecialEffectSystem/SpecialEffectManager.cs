@@ -76,9 +76,21 @@ namespace Assets.Scripts.Systems.SfxSystem
             trail.GetComponent<TrailRenderer>().emitting = true;
         }
 
-        public void PlayLightningEffect()
+        public void PlayLightningEffect(LightningEffectData effectData)
         {
+            effectData.Origin = new GameObject("OriginObject");
+            effectData.Target = new GameObject("TargetObject");
 
+            var lightning = InstantiateEffect(effectData);
+            var lightningBolt = lightning.GetComponent<LightningBoltScript>();
+
+            effectData.Origin.transform.parent = lightning.transform;
+            effectData.Target.transform.parent = lightning.transform;
+
+            lightningBolt.StartPosition = effectData.Start;
+            lightningBolt.StartObject = null;
+            lightningBolt.EndPosition = effectData.End;
+            lightningBolt.EndObject = null;
         }
 
         private GameObject InstantiateEffect(SpecialEffectData effectData)

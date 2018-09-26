@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace DigitalRuby.LightningBolt
 {
-    [CustomEditor(typeof(LightningBoltBehaviour))]
+    [CustomEditor(typeof(LightningBoltScript))]
     public class LightningBoltEditor : Editor
     {
         private Texture2D logo;

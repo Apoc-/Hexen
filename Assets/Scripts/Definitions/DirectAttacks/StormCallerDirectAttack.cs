@@ -5,6 +5,7 @@ using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.ProjectileEffects;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using DigitalRuby.LightningBolt;
 using UnityEngine;
 
@@ -14,14 +15,7 @@ namespace Assets.Scripts.Definitions.DirectAttacks
     {
         private List<Npc> hitNpcs = new List<Npc>();
         private int otherTargetsCount = 2;
-        private LightningBoltBehaviour boltPrefab;
-        //private List<GameObject lastBoltTarget;
-        private List<LightningBoltBehaviour> bolts = new List<LightningBoltBehaviour>();
-
-        private void Awake()
-        {
-            boltPrefab = Resources.Load<LightningBoltBehaviour>("Sfx/LightningBolt");
-        }
+        private Vector3 lastPosition;
 
         protected override void InitAttackData()
         {
@@ -35,17 +29,21 @@ namespace Assets.Scripts.Definitions.DirectAttacks
 
         protected override void ExecuteAttack()
         {
+            var towerPosition = Source.gameObject.transform.position;
+
             ApplyEffectsToTarget(Target);
+            PlayBoltEffect(towerPosition, Target.gameObject.transform.position);
 
-            var otherTargets = GetOtherTargets();
+            var randomTargets = GetRandomTargets();
+            var sortedTargets = SortTargetsByDistance(towerPosition, randomTargets);
 
-            if (otherTargets.Count > 0)
+            if (sortedTargets.Count > 0)
             {
-                StartCoroutine(ExecuteChainLightning(otherTargets));
+                StartCoroutine(ExecuteChainLightning(sortedTargets));
             }
         }
 
-        private List<Npc> GetOtherTargets()
+        private List<Npc> GetRandomTargets()
         {
             var npcs = TargetingHelper.GetNpcsInRadius(Target.transform.position, 3);
             npcs.Remove(Target);
@@ -54,19 +52,45 @@ namespace Assets.Scripts.Definitions.DirectAttacks
             return npcs.Take(otherTargetsCount).ToList();
         }
 
+        private List<Npc> SortTargetsByDistance(Vector3 origin, List<Npc> targets)
+        {
+            return targets
+                .OrderBy(target => Vector3.Distance(origin, target.gameObject.transform.position))
+                .ToList();
+        }
+
         private IEnumerator ExecuteChainLightning(List<Npc> otherTargets)
         {
-            foreach (var target in otherTargets)
+            var otherTargetPositions = otherTargets
+                .Select(target => target.gameObject.transform.position)
+                .ToList();
+
+            for (var index = 0; index < otherTargets.Count; index++)
             {
+                var target = otherTargets[index];
+                var targetPosition = otherTargetPositions[index];
+
                 if (target != null)
                 {
                     ApplyEffectsToTarget(target);
                 }
 
-                yield return new WaitForSecondsRealtime(0.25f);
+                PlayBoltEffect(lastPosition, targetPosition);
+                lastPosition = targetPosition;
+                
+                yield return new WaitForSecondsRealtime(0.05f);
             }
 
             Destroy(gameObject);
+        }
+
+        private void PlayBoltEffect(Vector3 start, Vector3 end)
+        {
+            var duration = 0.1f;
+            var offset = new Vector3(0, 0.15f, 0);
+
+            var bolt = new LightningEffectData("LightningBolt", start+offset, end+offset, duration);
+            GameManager.Instance.SpecialEffectManager.PlayLightningEffect(bolt);
         }
     }
 }

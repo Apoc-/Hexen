@@ -40,7 +40,7 @@ namespace DigitalRuby.LightningBolt
     /// Allows creation of simple lightning bolts
     /// </summary>
     [RequireComponent(typeof(LineRenderer))]
-    public class LightningBoltBehaviour : MonoBehaviour
+    public class LightningBoltScript : MonoBehaviour
     {
         [Tooltip("The game object where the lightning will emit from. If null, StartPosition is used.")]
         public GameObject StartObject;
