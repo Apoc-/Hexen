@@ -56,6 +56,18 @@ namespace Assets.Scripts.Systems.GameSystem
             var pos = gameObject.transform.position;
             pos.z += verticalInput * panSpeed;
 
+            //clamp movement to map extends
+            var upper = GameManager.Instance.MapManager.UpperBound;
+            var left = GameManager.Instance.MapManager.LeftBound;
+            var height = GameManager.Instance.MapManager.MapHeight;
+            var width = GameManager.Instance.MapManager.MapWidth;
+
+            if (pos.x < left) pos.x = left;
+            if (pos.x > left + width) pos.x = left + width;
+
+            if (pos.z > upper) pos.z = upper;
+            if (pos.z < upper - height) pos.z = upper - height;
+
             gameObject.transform.position = pos;
         }
     }

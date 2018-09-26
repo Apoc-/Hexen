@@ -10,6 +10,8 @@ namespace Assets.Scripts.Systems.MapSystem
         [SerializeField] private TextAsset currentMap;
 
         private float TileSpacing = 0f;
+        private float outerRadius = 0.5f;
+        private float innerRadius = 0.5f * Mathf.Sqrt(3) / 2;
         public float BaseHeight { get; } = -2f;
 
         private float RandomHeightOffset = 0.0f;
@@ -18,6 +20,11 @@ namespace Assets.Scripts.Systems.MapSystem
         private List<Tile> path = new List<Tile>();
         public Tile StartTile;
         public Tile EndTile;
+
+        public float MapWidth { get; set; }
+        public float MapHeight { get; set; }
+        public float LeftBound { get; set; }
+        public float UpperBound { get; set; }
 
         protected MapManager()
         {
@@ -38,8 +45,6 @@ namespace Assets.Scripts.Systems.MapSystem
             float spacing = TileSpacing;
 
             Mesh mesh = new Mesh();
-            float outerRadius = 0.5f;
-            float innerRadius = outerRadius * Mathf.Sqrt(3) / 2;
             
             StartTile = null;
             EndTile = null;
@@ -95,10 +100,19 @@ namespace Assets.Scripts.Systems.MapSystem
                 }
             }
 
-            createNavMesh();
+            CreateNavMesh();
+            CalculateMapExtents();
         }
 
-        private void createNavMesh()
+        private void CalculateMapExtents()
+        {
+            MapWidth = tiles[0].Count * innerRadius * 2;
+            MapHeight = tiles.Count * outerRadius * 2;
+            LeftBound = tiles[0][0].transform.position.x - innerRadius;
+            UpperBound = tiles[0][0].transform.position.z - outerRadius;
+        }
+
+        private void CreateNavMesh()
         {
             if (StartTile == null || EndTile == null)
             {
