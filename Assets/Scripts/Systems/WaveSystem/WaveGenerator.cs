@@ -16,7 +16,6 @@ namespace Assets.Scripts.Systems.WaveSystem
         private Random rand = new Random();
         private Dictionary<Faction, int> legendarySpawned = new Dictionary<Faction, int>();
         private bool initialized = false;
-        
 
         public Wave GenerateWave(int waveNumber)
         {

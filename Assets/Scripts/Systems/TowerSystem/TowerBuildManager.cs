@@ -18,8 +18,9 @@ namespace Assets.Scripts.Systems.TowerSystem
             NoBuildSlot,
             None
         }
-        
-        private Tower currentHeldTower;
+
+        private Tower CurrentHeldTower => GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
+        private bool isBuilding = false;
         private Tile currentTile;
         private TowerBuildButtonBehaviour currentHeldTowerButton;
         private TowerHoldState towerHoldState;
@@ -31,40 +32,43 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void Update()
         {
-            if (currentHeldTower != null && !EventSystem.current.IsPointerOverGameObject())
+            if (CurrentHeldTower == null) isBuilding = false;
+
+            if (!isBuilding) return;
+
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
                 this.towerHoldState = ObtainTowerHoldState();
 
-                UpdateVisualEffects();
+                if (currentTile != null)
+                {
+                    UpdateVisualEffects();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                CancelPickup();
+                CancelBuilding();
                 GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.Standard);
+                return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && currentHeldTower != null && currentTile != null)
+            if (Input.GetKeyDown(KeyCode.Mouse0) 
+                && currentTile != null 
+                && !EventSystem.current.IsPointerOverGameObject())
             {
-                if (PlayerHasGold(currentHeldTower) && TileIsBuildslot(currentTile))
+                if (PlayerHasGold(CurrentHeldTower) && TileIsBuildslot(currentTile))
                 {
-                    PlaceTower(currentTile);
+                    BuildTower(currentTile);
                     GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.Standard);
+                    GameManager.Instance.TowerSelectionManager.DeselectTower();
                 }
             }
         }
 
         private void UpdateVisualEffects()
         {
-            if (currentHeldTower == null || currentTile == null)
-            {
-                GameManager.Instance.TowerSelectionManager.DestroyRangeIndicator();
-                return;
-            }
-
-            currentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
-
-            GameManager.Instance.TowerSelectionManager.UpdateRangeIndicator(currentHeldTower);
+            CurrentHeldTower.gameObject.transform.position = currentTile.GetTopCenter();
 
             if (towerHoldState == TowerHoldState.NoGold || towerHoldState == TowerHoldState.NoBuildSlot)
             {
@@ -102,7 +106,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                    return TowerHoldState.NoBuildSlot;
                 } 
 
-                if (PlayerHasGold(currentHeldTower))
+                if (PlayerHasGold(CurrentHeldTower))
                 {
                     if (currentTile.IsEmpty) return TowerHoldState.CanPlace;
                     if (currentTile.PlacedTower != null) return TowerHoldState.CanReplace;
@@ -143,24 +147,18 @@ namespace Assets.Scripts.Systems.TowerSystem
             player.AddBuildableTower(t);
         }
 
-        public void DebugAddBuildableTower()
+
+        public void StartBuilding(TowerBuildButtonBehaviour button)
         {
-            var player = GameManager.Instance.Player;
+            CancelBuilding();
 
-            var t = GetRandomTower();
-
-            player.AddBuildableTower(t);
-        }
-
-        public void PickUpTower(TowerBuildButtonBehaviour button)
-        {
-            CancelPickup();
+            isBuilding = true;
+            GameManager.Instance.TowerSelectionManager.SelectTower(button.Tower);
 
             currentHeldTowerButton = button;
             currentHeldTowerButton.SetButtonActive();
             
-            currentHeldTower = button.Tower;
-            currentHeldTower.gameObject.SetActive(true);
+            CurrentHeldTower.gameObject.SetActive(true);
 
             SetTowerModelTransparency(0.25f);
         }
@@ -171,62 +169,65 @@ namespace Assets.Scripts.Systems.TowerSystem
             GameManager.Instance.Player.SellTower(tower);
         }
 
-        private void PlaceTower(Tile tile)
+        private void BuildTower(Tile tile)
         {
-            if (GameManager.Instance.Player.BuyTower(currentHeldTower))
+            if (GameManager.Instance.Player.BuyTower(CurrentHeldTower))
             {
                 if (tile.PlacedTower != null)
                 {
-                    currentHeldTower.GiveXP(tile.PlacedTower.Xp);
+                    CurrentHeldTower.GiveXP(tile.PlacedTower.Xp);
                     this.SellTower(tile.PlacedTower);
                 }
 
-                builtTowers.Add(currentHeldTower);
+                builtTowers.Add(CurrentHeldTower);
 
                 SetTowerModelTransparency(1.0f);
                 ResetTowerModelColor();
                 tile.IsEmpty = false;
-                tile.PlacedTower = currentHeldTower;
+                tile.PlacedTower = CurrentHeldTower;
 
                 currentHeldTowerButton.SetButtonInactive();
                 GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton, true);
                 currentHeldTowerButton = null;
 
-                currentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
-                currentHeldTower.IsPlaced = true;
-                currentHeldTower.Tile = tile;
-                GameManager.Instance.Player.RemoveBuildableTower(currentHeldTower);
-                currentHeldTower = null;
-                
-                GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+                CurrentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
+                CurrentHeldTower.IsPlaced = true;
+                CurrentHeldTower.Tile = tile;
+                CurrentHeldTower.gameObject.SetActive(true);
+
+                GameManager.Instance.Player.RemoveBuildableTower(CurrentHeldTower);
+                isBuilding = false;
             }
             else
             {
-                CancelPickup();
+                CancelBuilding();
             }
         }
 
-        private void CancelPickup()
+        private void CancelBuilding()
         {
             if (currentHeldTowerButton != null)
             {
                 currentHeldTowerButton.SetButtonInactive();
             }
             
-            if (currentHeldTower != null)
+            if (CurrentHeldTower != null && !CurrentHeldTower.IsPlaced)
             {
-                currentHeldTower.gameObject.SetActive(false);
+                CurrentHeldTower.gameObject.SetActive(false);
             }
 
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
-            currentHeldTower = null;
+            GameManager.Instance.TowerSelectionManager.DeselectTower();
+
+            currentHeldTowerButton = null;
             currentTile = null;
             towerHoldState = TowerHoldState.None;
+            isBuilding = false;
         }
 
         public void SetTowerModelTransparency(float alpha)
         {
-            var renderer = currentHeldTower.GetComponentsInChildren<Renderer>();
+            var renderer = CurrentHeldTower.GetComponentsInChildren<Renderer>();
 
             foreach (var r in renderer)
             {
@@ -242,7 +243,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void SetTowerModelColor(Color newColor)
         {
-            var renderer = currentHeldTower.GetComponentsInChildren<MeshRenderer>();
+            var renderer = CurrentHeldTower.GetComponentsInChildren<MeshRenderer>();
 
             foreach (var r in renderer)
             {
@@ -274,6 +275,14 @@ namespace Assets.Scripts.Systems.TowerSystem
         private bool TileIsBuildslot(Tile tile)
         {
             return tile.TileType.Equals(TileType.Buildslot);
+        }
+        public void DebugAddBuildableTower()
+        {
+            var player = GameManager.Instance.Player;
+
+            var t = GetRandomTower();
+
+            player.AddBuildableTower(t);
         }
     }
 }

@@ -1,5 +1,9 @@
-﻿using Assets.Scripts.Systems.AttributeSystem;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Definitions.Npcs;
+using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,125 +12,91 @@ namespace Assets.Scripts.Systems.TowerSystem
     class TowerSelectionManager : MonoBehaviour
     {
         public Tower CurrentSelectedTower;
-        private GameObject activeRangeIndicator;
-        private Tower activeRangeIndicatorTower;
+        private List<RangeIndicator> activeRangeIndicators = new List<RangeIndicator>();
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                SelectTower();
+                var tower = CheckForTower();
+                SelectTower(tower);
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                UnselectTower();
-            }
-
-            if (activeRangeIndicator != null)
-            {
-                RecalculateRangeIndicatorRadius();
+                DeselectTower();
             }
         }
 
-        private void SelectTower()
+        private Tower CheckForTower()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            
-            LayerMask mask = LayerMask.GetMask("Towers");
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                var tower = hit.transform.gameObject.GetComponentInParent<Tower>();
-                
-                if (tower != null)
-                {
-                    CurrentSelectedTower = tower;
-                    UpdateRangeIndicator(CurrentSelectedTower);
+            LayerMask mask = LayerMask.GetMask("Tiles", "Towers");
 
-                    if (CurrentSelectedTower.IsPlaced)
-                    {
-                        GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(CurrentSelectedTower);
-                    }
-                }
-            }
+            if (!Physics.Raycast(ray, out hit, Mathf.Infinity, mask)) return null;
+
+            var tile = hit.transform.gameObject.GetComponent<Tile>();
+            var tower = hit.transform.gameObject.GetComponentInParent<Tower>();
+
+            if (tower != null) return tower;
+
+            return tile.PlacedTower;
         }
 
-        private void UnselectTower()
+        public void SelectTower(Tower tower)
+        {
+            if (tower == null || CurrentSelectedTower == tower) return;
+
+            CurrentSelectedTower = tower;
+            CreateRangeIndicators(CurrentSelectedTower);
+
+            GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(CurrentSelectedTower);
+        }
+
+        public void DeselectTower()
         {
             CurrentSelectedTower = null;
-            DestroyRangeIndicator();
+            DestroyRangeIndicators();
             GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
         }
 
-        public void UpdateRangeIndicator(Tower tower)
+        private void CreateRangeIndicators(Tower tower)
         {
-            if (activeRangeIndicator != null && activeRangeIndicatorTower != tower)
-            {
-                Destroy(activeRangeIndicator);
-                activeRangeIndicator = null;
-            }
-
-            if (activeRangeIndicator == null)
-            {
-                CreateRangeIndicator(tower);
-            }
-        }
-
-        private void CreateRangeIndicator(Tower tower)
-        {
-            activeRangeIndicator = Instantiate(Resources.Load<GameObject>("Sfx/RangeIndicator"));
-            activeRangeIndicator.transform.SetParent(tower.transform);
-            activeRangeIndicator.transform.localPosition = Vector3.zero;
-
-            activeRangeIndicatorTower = tower;
-
-            var range = GetRangeIndicatorRange(tower);
-            var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
-            var shape = particles.shape;
-            shape.radius = range;
-        }
-
-        public void RecalculateRangeIndicatorRadius()
-        {
-            var range = GetRangeIndicatorRange(activeRangeIndicatorTower);
-
-            var particles = activeRangeIndicator.GetComponent<ParticleSystem>();
-            var shape = particles.shape;
-            var radius = shape.radius;
-
-            if (Mathf.Abs(radius - range) > 0.0001f)
-            {
-                shape.radius = range;
-            }
-        }
-
-        public void DestroyRangeIndicator()
-        {
-            if (activeRangeIndicator != null)
-            {
-                Destroy(activeRangeIndicator);
-            }
-
-            activeRangeIndicator = null;
-            activeRangeIndicatorTower = null;
-        }
-
-        private float GetRangeIndicatorRange(Tower tower)
-        {
-            var range = 0.0f;
-
             if (tower.HasAttribute(AttributeName.AttackRange))
             {
-                range = tower.GetAttribute(AttributeName.AttackRange).Value;
+                InstantiateRangeIndicator(
+                    tower, 
+                    tower.GetAttribute(AttributeName.AttackRange), 
+                    GameSettings.RangeIndicatorColor);
             }
-            else if (tower.HasAttribute(AttributeName.AuraRange))
-            {
-                range = tower.GetAttribute(AttributeName.AuraRange).Value;
-            }
-
-            return range;
         }
+
+        private void InstantiateRangeIndicator(Tower tower, Attribute attribute, Color color)
+        {
+            var indicatorPrefab = Resources.Load<GameObject>("Sfx/RangeIndicator");
+            var go = Instantiate(indicatorPrefab);
+            var indicator = go.GetComponent<RangeIndicator>();
+
+            indicator.InitRangeIndicator(attribute, color);
+            indicator.transform.parent = tower.transform;
+            indicator.transform.localPosition = new Vector3(0, 0.25f, 0);
+
+            activeRangeIndicators.Add(indicator);
+        }
+
+        public void DestroyRangeIndicators()
+        {
+            activeRangeIndicators.ForEach(indicator =>
+            {
+                if (indicator == null) return;
+                Destroy(indicator.gameObject);
+            });
+
+            activeRangeIndicators = new List<RangeIndicator>();
+        }
+
+        
     }
 }

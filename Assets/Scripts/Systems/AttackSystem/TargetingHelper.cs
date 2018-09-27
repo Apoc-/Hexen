@@ -9,26 +9,27 @@ namespace Assets.Scripts.Systems.ProjectileSystem
 {
     public static class TargetingHelper
     {
-        public static List<Collider> GetCollidersInRadius(Vector3 origin, float radius, int layerMask)
+        public static List<Collider> GetCollidersInRadius(Vector3 origin, float radius, string layerName)
         {
             var baseHeight = GameManager.Instance.MapManager.BaseHeight;
 
             var topCap = origin + new Vector3(0, 5, 0);
             var botCap = new Vector3(origin.x, baseHeight - 5, origin.z);
 
-            return new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius, layerMask));
+            var colliders = new List<Collider>(Physics.OverlapCapsule(topCap, botCap, radius, LayerMask.GetMask(layerName)));
+            return colliders;
         }
 
         public static List<Tower> GetTowersInRadius(Vector3 origin, float radius)
         {
-            return GetCollidersInRadius(origin, radius, GameSettings.TowersLayerMask)
+            return GetCollidersInRadius(origin, radius, "Towers")
                 .Select(col => col.GetComponentInParent<Tower>())
                 .ToList();
         }
 
         public static List<Npc> GetNpcsInRadius(Vector3 origin, float radius)
         {
-            return GetCollidersInRadius(origin, radius, GameSettings.NpcLayerMask)
+            return GetCollidersInRadius(origin, radius, "Npcs")
                 .Select(col => col.GetComponentInParent<Npc>())
                 .ToList();
         }

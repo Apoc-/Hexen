@@ -21,15 +21,11 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static float SellTax = 0.5f;
 
-        public static int TilesLayerMask = 1<<10;
-        public static int TowersLayerMask = 1<<11;
-        public static int ProjectilesLayerMask = 1<<12;
-        public static int NpcLayerMask = 1<<13;
-
         #endregion
 
         #region Colors
         public static Color MagicalCritColor = new Color(0.7f, 0.87f, 1.0f);
+        public static Color RangeIndicatorColor = new Color(0.44f, 0.55f, 0.84f, .25f);
         #endregion
 
         #region Npc balancing settings

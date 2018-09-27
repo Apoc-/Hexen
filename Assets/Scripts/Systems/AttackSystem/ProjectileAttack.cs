@@ -75,7 +75,7 @@ namespace Assets.Scripts.Systems.ProjectileSystem
             var layer = other.gameObject.layer;
             var npcLayer = LayerMask.NameToLayer("Npcs");
             var tileLayer = LayerMask.NameToLayer("Tiles");
-
+            
             if (layer != npcLayer && layer != tileLayer) return;
 
             /*Debug.DrawLine(estimatedTargetPosition, estimatedTargetPosition + Vector3.up, Color.red, 99999);

@@ -16,13 +16,13 @@ TagManager:
   - 
   - PostProcessing
   - 
-  - Tiles
+  - 
   - Towers
   - Projectiles
   - Npcs
   - 
-  - 
-  - 
+  - Tiles
+  - TransparentTiles
   - 
   - 
   - 

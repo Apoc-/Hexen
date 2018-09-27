@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
 using Random = System.Random;
 
@@ -27,6 +28,11 @@ namespace Assets.Scripts.Systems.MapSystem
         public static Tile GetTile(char tileDatum, GameObject tilePrefab)
         {
             Tile tile = GetBaseTile(tileDatum, tilePrefab);
+            if (tile.TileType == TileType.Void || tile.TileType == TileType.Water)
+            {
+                tile.gameObject.layer = LayerMask.NameToLayer("TransparentTiles");
+            }
+
             SetTileMaterial(tile);
             return tile;
         }

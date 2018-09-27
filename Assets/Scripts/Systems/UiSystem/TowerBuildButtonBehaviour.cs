@@ -53,7 +53,7 @@ namespace Assets.Scripts.Systems.UiSystem
         {
             if (!activated)
             {
-                GameManager.Instance.TowerBuildManager.PickUpTower(this);
+                GameManager.Instance.TowerBuildManager.StartBuilding(this);
                 GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower);
                 SetButtonActive();
             }
