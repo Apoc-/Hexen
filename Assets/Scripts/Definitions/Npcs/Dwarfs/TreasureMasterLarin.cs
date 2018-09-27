@@ -106,10 +106,9 @@ namespace Assets.Scripts.Definitions.Npcs
             var gm = GameManager.Instance;
             var dwarfs = gm.FactionManager.GetFactionByName(FactionNames.Dwarfs);
             var coin = dwarfs.GetNpc<GoldCoin>();
-
+           
             var npc = gm.WaveGenerator.GenerateSingleNpc(coin);
             
-
             gm.WaveSpawner.SpawnSingleNpcForCurrentWave(npc, this.transform.position, Target);
         }
     }
