@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Definitions.DirectAttacks;
-using Assets.Scripts.Definitions.Projectiles;
+﻿using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
@@ -9,21 +8,24 @@ using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Definitions.Towers
 {
-    class StormCaller : Tower
+    class UpgradedCannonTower : Tower
     {
         public override void InitTowerData()
         {
-            Name = "Storm Caller";
-            Faction = FactionNames.Elves;
-            Rarity = Rarities.Uncommon;
+            Name = "Upgraded CannonTower";
+            Faction = FactionNames.Humans;
+            Rarity = Rarities.Legendary;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
-            Description = "The Storm Caller's attacks jump to nearby enemies. Has Magical Affinity.";
+            Description = "A tower that shoots stronger explosive projectiles";
             
-            Icon = Resources.Load<Sprite>("UI/Icons/Towers/Elves/Caller");
-            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/ArrowTower");
+            Icon = Resources.Load<Sprite>("UI/Icons/Towers/Humans/Cannon");
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/TowerModels/CannonTower");
 
-            AttackType = typeof(StormCallerDirectAttack);
+            AttackType = typeof(CannonProjectileAttack);
+            ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
+
+            WeaponHeight = 0.4f;
         }
 
         protected override void InitAttributes()

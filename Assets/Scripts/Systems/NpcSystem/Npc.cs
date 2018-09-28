@@ -425,12 +425,11 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             if (CurrentTile == null || Target == null) return transform.position;
 
+            var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
             var velocity = Attributes[AttributeName.MovementSpeed].Value;
             var totalDistance = velocity * time;
             
             //walk to current target
-            var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
-
             Tile current = CurrentTile;
             Tile next = Target;
             float distanceLeft;

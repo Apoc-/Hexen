@@ -14,7 +14,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "CannonTower";
             Faction = FactionNames.Humans;
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Uncommon;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "A tower that shoots explosive projectiles";

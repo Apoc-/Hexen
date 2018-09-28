@@ -83,10 +83,12 @@ namespace Assets.Scripts.Systems.UiSystem
             if (!playerHasAmbassadors()) return;
 
             factionManager.SendAmbassador(factionName);
-            if (factionManager.GetFactionByName(factionName).GetStanding() == 4)
+
+            //currently no upper limit
+            /*if (factionManager.GetFactionByName(factionName).GetStanding() == 4)
             {
                 DisableFactionButton(factionName);
-            }
+            }*/
         }
 
         private void DisableFactionButton(FactionNames factionName)

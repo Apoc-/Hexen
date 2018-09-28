@@ -85,36 +85,14 @@ namespace Assets.Scripts.Systems.FactionSystem
             return availableTowers;
         }
 
-        public List<Npc> GetAvailableNpcs()
-        {
-            var availableNpcs = new List<Npc>();
-
-            if (standing <= -1)
-            {
-                availableNpcs.AddRange(npcs[Rarities.Common]);
-            }
-
-            if (standing <= -2)
-            {
-                availableNpcs.AddRange(npcs[Rarities.Uncommon]);
-            }
-
-            if (standing <= -3)
-            {
-                availableNpcs.AddRange(npcs[Rarities.Rare]);
-            }
-
-            if (standing <= -4)
-            {
-                availableNpcs.AddRange(npcs[Rarities.Legendary]);
-            }
-
-            return availableNpcs;
-        }
-
-        public List<Npc> GetAvailableNpcsByRarity(Rarities rarity)
+        public List<Npc> GetNpcsByRarity(Rarities rarity)
         {
             return npcs[rarity];
+        }
+
+        public List<Tower> GetTowersByRarity(Rarities rarity)
+        {
+            return towers[rarity];
         }
 
         public T GetNpc<T>() where T : Npc
@@ -136,14 +114,12 @@ namespace Assets.Scripts.Systems.FactionSystem
         {
             this.standing += 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
-            GameManager.Instance.FactionManager.UpdateAvailableNpcs();
         }
 
         public void DecreaseStanding()
         {
             this.standing -= 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
-            GameManager.Instance.FactionManager.UpdateAvailableNpcs();
         }
 
         public int GetStanding()

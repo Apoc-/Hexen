@@ -9,14 +9,10 @@ namespace Assets.Scripts.Systems.GameSystem
 {
     public class Player : MonoBehaviour
     {
-        private readonly String playerName = GameSettings.Name;
-        private int gold = GameSettings.StartingGold;
         private int ambassadors = GameSettings.StartingAmbassadors;
         private int lives = GameSettings.StartingLives;
-        private int towerSlots = 8;
 
-        private List<Tower> BuildableTowers = new List<Tower>();
-
+        private readonly List<Tower> buildableTowers = new List<Tower>();
 
         //events
         public delegate void GoldGainEvent(int amount);
@@ -24,7 +20,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public int Lives
         {
-            get { return lives; }
+            get => lives;
             set
             {
                 lives = value;
@@ -35,21 +31,11 @@ namespace Assets.Scripts.Systems.GameSystem
             }
         }
 
-        public int Gold
-        {
-            get { return gold; }
-            private set { gold = value; }
-        }
+        public int Gold { get; private set; } = GameSettings.StartingGold;
 
-        public string Name
-        {
-            get { return playerName; }
-        }
+        public string Name { get; } = GameSettings.Name;
 
-        public int TowerSlots
-        {
-            get { return towerSlots; }
-        }
+        public int TowerSlots { get; } = 8;
 
         private void Die()
         {
@@ -61,7 +47,7 @@ namespace Assets.Scripts.Systems.GameSystem
         {
             Gold += amount;
 
-            if (OnGainGold != null) OnGainGold(amount);
+            OnGainGold?.Invoke(amount);
         }
 
         public void DecreaseGold(int amount)
@@ -74,14 +60,6 @@ namespace Assets.Scripts.Systems.GameSystem
             this.ambassadors += amount;
 
             GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
-        }
-
-        public void AddRandomBuildableTowers(int amount)
-        {
-            for (int i = 0; i < amount; i++)
-            {
-                AddRandomBuildableTower();
-            }   
         }
 
         public void DecreaseAmbassadors(int amount)
@@ -98,16 +76,13 @@ namespace Assets.Scripts.Systems.GameSystem
         public bool BuyTower(Tower tower)
         {
             var cost = tower.GoldCost;
-            var success = false;
 
-            if (Gold >= cost)
-            {
-                DecreaseGold(cost);
-                tower.Owner = this;
-                success = true;
-            }
+            if (Gold < cost) return false;
 
-            return success;
+            DecreaseGold(cost);
+            tower.Owner = this;
+
+            return true;
         }
 
         public void SellTower(Tower tower)
@@ -122,25 +97,20 @@ namespace Assets.Scripts.Systems.GameSystem
         {
             var buildPanel = GameManager.Instance.UIManager.BuildPanel;
 
-            if (BuildableTowers.Count >= TowerSlots)
+            if (buildableTowers.Count >= TowerSlots)
             {
-                var removedTower = BuildableTowers[0];
-                BuildableTowers.Remove(removedTower);
+                var removedTower = buildableTowers[0];
+                buildableTowers.Remove(removedTower);
                 buildPanel.RemoveBuildButtonForTower(removedTower);
             }
 
-            BuildableTowers.Add(tower);
+            buildableTowers.Add(tower);
             buildPanel.AddBuildButtonForTower(tower);
         }
 
         public void RemoveBuildableTower(Tower tower)
         {
-            BuildableTowers.Remove(tower);
-        }
-
-        public void AddRandomBuildableTower()
-        {
-            GameManager.Instance.TowerBuildManager.AddRandomBuildableTowerForPlayer(this);
+            buildableTowers.Remove(tower);
         }
     }
 }

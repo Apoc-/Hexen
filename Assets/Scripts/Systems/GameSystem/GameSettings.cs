@@ -10,7 +10,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static string Name = "Parcival";
         public static int StartingGold = 15;
-        public static int StartingAmbassadors = 1;
+        public static int StartingAmbassadors = 2;
         public static int StartingLives = 20;
         public static int TowerSlots = 8;
 

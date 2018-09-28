@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.UiSystem;
@@ -119,12 +123,19 @@ namespace Assets.Scripts.Systems.TowerSystem
             return TowerHoldState.NoBuildSlot;
         }
 
-        public Tower GetRandomTower()
+        public Tower GetRandomTowerByStanding()
         {
-            var availableTowers = GameManager.Instance.FactionManager.GetAvailableTowers();
-            var rnd = MathHelper.RandomInt(0, availableTowers.Count);
+            var faction = GameManager.Instance.FactionManager.GetRandomAlliedFactionByStanding();
 
-            var towerPrefab = availableTowers[rnd];
+            //roll rarity depending on current game progress
+            var rarity = GetRandomRarityByWaveAndFaction(faction);
+
+            //roll tower
+            var towers = faction.GetTowersByRarity(rarity);
+            var rnd = MathHelper.RandomInt(0, towers.Count);
+            var towerPrefab = towers[rnd];
+
+            //instantiate
             var tower = Instantiate(towerPrefab);
 
             tower.Name = towerPrefab.Name;
@@ -135,19 +146,35 @@ namespace Assets.Scripts.Systems.TowerSystem
             return tower;
         }
 
+        private Rarities GetRandomRarityByWaveAndFaction(Faction faction)
+        {
+            var currentWave = GameManager.Instance.WaveSpawner.CurrentWaveCount;
+            var maxWaves = GameManager.Instance.WaveSpawner.NumberOfWaves;
+            var bound = maxWaves / 5.0f * 0.5f;
+            var standingFactor = (float) faction.GetStanding() / (2 * currentWave);
+
+            var r = MathHelper.RandomFloat() * currentWave * standingFactor;
+
+            if (r > bound * 4) return Rarities.Legendary;
+            if (r > bound * 3) return Rarities.Rare;
+            if (r > bound * 2) return Rarities.Uncommon;
+
+            return Rarities.Common;
+        }
+
         public void GenerateStartingBuildableTowers(Player player)
         {
-            for (int i = 0; i < player.TowerSlots; i++)
+            for (var i = 0; i < player.TowerSlots; i++)
             {
-                AddRandomBuildableTowerForPlayer(player);
+                AddRandomBuildableTower();
             }
         }
 
-        public void AddRandomBuildableTowerForPlayer(Player player)
+        public void AddRandomBuildableTower()
         {
-            var t = GetRandomTower();
+            var t = GetRandomTowerByStanding();
 
-            player.AddBuildableTower(t);
+            GameManager.Instance.Player.AddBuildableTower(t);
         }
 
 
@@ -281,11 +308,40 @@ namespace Assets.Scripts.Systems.TowerSystem
         }
         public void DebugAddBuildableTower()
         {
-            var player = GameManager.Instance.Player;
+            /*var player = GameManager.Instance.Player;
 
-            var t = GetRandomTower();
+            var t = GetRandomTowerByStanding();
 
-            player.AddBuildableTower(t);
+            player.AddBuildableTower(t);*/
+
+            RarityTest();
+        }
+
+        private void RarityTest()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Dictionary<Rarities, int> count = new Dictionary<Rarities, int>
+                {
+                    { Rarities.Common, 0 },
+                    { Rarities.Uncommon, 0 },
+                    { Rarities.Rare, 0 },
+                    { Rarities.Legendary, 0 },
+                };
+
+                for (int j = 0; j < 1000; j++)
+                {
+                    var t = GetRandomTowerByStanding();
+                    count[t.Rarity] += 1;
+                    Destroy(t);
+                }
+
+                Debug.Log("C " + count[Rarities.Common]);
+                Debug.Log("U " + count[Rarities.Uncommon]);
+                Debug.Log("R " + count[Rarities.Rare]);
+                Debug.Log("L " + count[Rarities.Legendary]);
+                Debug.Log("-------------------------------");
+            }
         }
     }
 }

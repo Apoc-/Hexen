@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Definitions.Factions;
 using Assets.Scripts.Definitions.Npcs;
@@ -39,9 +40,12 @@ namespace Assets.Scripts.Systems.FactionSystem
 
         private void InitializeTowers()
         {
+            //humans
             RegisterTower<ArrowTower>();
             RegisterTower<CannonTower>();
-            
+            RegisterTower<UpgradedArrowTower>();
+            RegisterTower<UpgradedCannonTower>();
+
             //orcs
             RegisterTower<MundaneBunker>();
             RegisterTower<SiegeCatapult>();
@@ -98,7 +102,6 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterNpc<GoldCoin>();
 
             Debug.Log("Registered " + registeredNpcCount + " Npcs.");
-            UpdateAvailableNpcs();
         }
 
         private void RegisterTower<T>() where T : Tower
@@ -141,19 +144,30 @@ namespace Assets.Scripts.Systems.FactionSystem
             return this.factions[factionName];
         }
 
-        public Dictionary<FactionNames, Faction> GetFactions()
+        public Dictionary<FactionNames, Faction> GetFactionDictionary()
         {
             return this.factions;
         }
 
+        public List<Faction> GetFactions()
+        {
+            return this.factions.Values.ToList();
+        }
+
+        //todo remove
         public List<Tower> GetAvailableTowers()
         {
             return availableTowers;
         }
 
-        public List<Npc> GetAvailableNpcs()
+        public List<Npc> GetFactionNpcsByRarity(FactionNames factionName, Rarities rarity)
         {
-            return availableNpcs;
+            return factions[factionName].GetNpcsByRarity(rarity);
+        }
+
+        public List<Tower> GetFactionTowersByRarity(FactionNames factionName, Rarities rarity)
+        {
+            return factions[factionName].GetTowersByRarity(rarity);
         }
 
         public void UpdateAvailableTowers()
@@ -166,16 +180,6 @@ namespace Assets.Scripts.Systems.FactionSystem
             });
         }
 
-        public void UpdateAvailableNpcs()
-        {
-            availableNpcs = new List<Npc>();
-
-            factions.Values.ToList().ForEach(faction =>
-            {
-                availableNpcs.AddRange(faction.GetAvailableNpcs());
-            });
-        }
-
         public void SendAmbassador(FactionNames factionName)
         {
             var gm = GameManager.Instance;
@@ -183,14 +187,13 @@ namespace Assets.Scripts.Systems.FactionSystem
 
             faction.IncreaseStanding();
             gm.Player.DecreaseAmbassadors(1);
-            gm.Player.AddRandomBuildableTowers(4);
 
             gm.UIManager.FactionPanel.UpdateFactionButtons();
 
             HandleWar(faction.OpponentFactionName);
 
             sentAmbassadors += 1;
-            if (sentAmbassadors <= 1)
+            if (sentAmbassadors == GameSettings.StartingAmbassadors)
             {
                 GameManager.Instance.MakePlayerReady();
             }
@@ -206,6 +209,43 @@ namespace Assets.Scripts.Systems.FactionSystem
             {
                 GameManager.Instance.UIManager.FactionPanel.ToggleFactionWarButton(factionName);
             }
+        }
+
+        public Faction GetRandomAlliedFactionByStanding()
+        {
+            bool Predicate(Faction faction) => faction.GetStanding() > 0;
+            return GetRandomFactionByStanding(Predicate, 1);
+        }
+
+        public Faction GetRandomEnemyFactionByStanding()
+        {
+            bool Predicate(Faction faction) => faction.GetStanding() < 0;
+            return GetRandomFactionByStanding(Predicate, -1);
+        }
+
+        private Faction GetRandomFactionByStanding(Predicate<Faction> pred, int factor)
+        {
+            var fm = GameManager.Instance.FactionManager;
+            var factions = fm.GetFactions()
+                .Where(faction => pred(faction))
+                .ToList();
+
+            var rolledFaction = factions[0];
+            var maxRoll = Mathf.NegativeInfinity;
+
+            factions.ForEach(faction =>
+            {
+                var standing = faction.GetStanding();
+                var roll = MathHelper.RandomFloat() * standing * factor;
+
+                if (roll >= maxRoll)
+                {
+                    maxRoll = roll;
+                    rolledFaction = faction;
+                }
+            });
+
+            return rolledFaction;
         }
     }
 }
