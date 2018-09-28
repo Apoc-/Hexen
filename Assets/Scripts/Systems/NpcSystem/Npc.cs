@@ -266,9 +266,12 @@ namespace Assets.Scripts.Definitions.Npcs
             float factor = (Mathf.Pow(GameSettings.NpcXpFactorExpBase, (int) Rarity-1));
 
             if (Rarity == Rarities.None) factor = 1;
-
+            
             amount *= factor;
             amount *= GetAttributeValue(AttributeName.XPRewardFactor);
+
+            if (amount < 1) amount = 1;
+
             target.GiveXP((int)amount);
         }
 
@@ -280,6 +283,9 @@ namespace Assets.Scripts.Definitions.Npcs
 
             amount *= factor;
             amount *= GetAttributeValue(AttributeName.GoldRewardFactor);
+
+            if (amount < 1) amount = 1;
+
             target.IncreaseGold((int)amount);
         }
 
