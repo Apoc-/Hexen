@@ -52,6 +52,8 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 tower.Stun(stunDuration, this);
             });
+
+            stunTriggered = true;
         }
     }
 }

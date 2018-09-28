@@ -240,8 +240,12 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             if (this.HasAttribute(AttributeName.AttackSpeed))
             {
-                var effect = new AttributeEffect(0.0f, AttributeName.AttackSpeed, AttributeEffectType.SetValue, source, duration);
-                this.Attributes[AttributeName.AttackSpeed].AddAttributeEffect(effect);
+                var attr = GetAttribute(AttributeName.AttackSpeed);
+                if(attr.Value > 0)
+                {
+                    var effect = new AttributeEffect(0.0f, AttributeName.AttackSpeed, AttributeEffectType.SetValue, source, duration);
+                    attr.AddAttributeEffect(effect);
+                }
             }
 
             PlayParticleEffectAboveTower("StunEffect", duration);

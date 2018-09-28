@@ -25,7 +25,7 @@ namespace Assets.Scripts.Definitions.Npcs
             Rarity = Rarities.Rare;
             Faction = FactionNames.Goblins;
 
-            OnDeath += Explode;
+            OnDeath += StunKiller;
         }
 
         protected override void InitAttributes()
@@ -40,24 +40,13 @@ namespace Assets.Scripts.Definitions.Npcs
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.2f));
         }
 
-        private void Explode(Npc npc)
+        private void StunKiller(Npc npc, Tower killer)
         {
             var towers = TargetingHelper.GetTowersInRadius(transform.position, stunRadius);
-            var tower = GetRandomTower(towers);
+            
+            if (killer == null) return;
 
-            if (tower == null) return;
-
-            tower.Stun(stunDuration, this);
-        }
-
-        private Tower GetRandomTower(List<Tower> towers)
-        {
-            if (towers.Count == 0) return null;
-
-            var rng = new Random();
-            var n = rng.Next(towers.Count);
-
-            return towers[n];
+            killer.Stun(stunDuration, this);
         }
     }
 }

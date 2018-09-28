@@ -50,12 +50,13 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
+        private Tower killer;
 
         //events
         public delegate void NpcHitEvent(NpcHitData hitData, Npc npc);
         public event NpcHitEvent OnHit;
 
-        public delegate void NpcDeathEvent(Npc npc);
+        public delegate void NpcDeathEvent(Npc killee, Tower killer);
         public event NpcDeathEvent OnDeath;
 
 
@@ -205,7 +206,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public virtual void HitNpc(NpcHitData hitData)
         {
-            if (OnHit != null) OnHit(hitData, this);
+            OnHit?.Invoke(hitData, this);
 
             DealDamage(hitData.Dmg, hitData.Source);
         }
@@ -225,12 +226,14 @@ namespace Assets.Scripts.Definitions.Npcs
             {
                 CurrentHealth = 0;
                 GiveRewards(source);
+                killer = source;
                 ShouldDie = true;
             }
 
             var maxHealth = Attributes[AttributeName.MaxHealth].Value;
             healthBar.UpdateHealth(CurrentHealth / maxHealth);
         }
+
 
         public void Heal(float amount = -1)
         {
@@ -291,7 +294,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public virtual void Die(bool silent = false)
         {
-            if (OnDeath != null) OnDeath.Invoke(this);
+            OnDeath?.Invoke(this, killer);
 
             this.isSpawned = false;
             this.SpawnedInWave.SpawnedNpcs.Remove(this);
