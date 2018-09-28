@@ -168,10 +168,13 @@ namespace Assets.Scripts.Systems.TowerSystem
             }
         }
 
-        protected virtual void Attack()
+        protected virtual void Attack(bool triggering = true)
         {
-            OnAttack?.Invoke(LockedTarget);
-
+            if (triggering)
+            {
+                OnAttack?.Invoke(LockedTarget);
+            }
+            
             InitializeAttack(); 
         }
 

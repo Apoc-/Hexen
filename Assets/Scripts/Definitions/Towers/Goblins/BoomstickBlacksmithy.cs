@@ -41,7 +41,7 @@ namespace Assets.Scripts.Definitions.Towers
             AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed / 10));
         }
 
-        protected override void Attack()
+        protected override void Attack(bool triggering = true)
         {
             //Does not attack "regulary"
             var se = new ParticleEffectData("BlacksmithyExplosion", gameObject, new Vector3(0, WeaponHeight, 0), 5);

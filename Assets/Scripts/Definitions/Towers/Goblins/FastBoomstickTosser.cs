@@ -1,8 +1,11 @@
-﻿using Assets.Scripts.Definitions.Npcs;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Definitions.Projectiles;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using UnityEngine;
 using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
@@ -52,18 +55,28 @@ namespace Assets.Scripts.Definitions.Towers
 
             if (MathHelper.RandomFloat() <= p)
             {
-                Attack();
+                
                 tossComboCount++;
             }
             else
             {
                 if (tossComboCount == 0) return;
-                
-                var pos = transform.position;
-                pos.y += Height;
-                
-                //GameManager.Instance.SpecialEffectManager.PlayTextEffect(tossComboCount + " x Combo", pos, 1.5f, 1.75f, Color.red);
+
+                StartCoroutine(ExecuteAttacks(tossComboCount));
+
+                var offset = new Vector3(0, Height, 0);
+                var textEffect = new TextEffectData(tossComboCount + "x!", 1.5f, GameSettings.CritColor, gameObject, offset, 1.75f);
+                GameManager.Instance.SpecialEffectManager.PlayTextEffect(textEffect);
                 tossComboCount = 0;
+            }
+        }
+
+        private IEnumerator ExecuteAttacks(int comboCount)
+        {
+            for (int i = 0; i < comboCount; i++)
+            {
+                Attack(false);
+                yield return new WaitForSecondsRealtime(0.2f);
             }
         }
     }
