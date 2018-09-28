@@ -9,7 +9,6 @@ namespace Assets.Scripts.Systems.UiSystem
 {
     class BuildPanelBehaviour : MonoBehaviour
     {
-        private int maxTowers = 4;
         private List<TowerBuildButtonBehaviour> towerButtons = new List<TowerBuildButtonBehaviour>();
 
         public void AddBuildButtonForTower(Tower tower)

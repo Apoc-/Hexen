@@ -16,7 +16,7 @@ namespace Assets.Scripts.Systems.NpcSystem
 
         private int updateCount = 0;
 
-        private void Update()
+        private new void Update()
         {
             updateCount += 1;
 

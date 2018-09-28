@@ -21,7 +21,7 @@ namespace Assets.Scripts.Definitions.Npcs
             this.OnHit += TetherDamage;
         }
 
-        private void TetherDamage(NpcHitData hitdata, Npc npc)
+        private void TetherDamage(Npc npc, NpcHitData hitdata)
         {
             var dmg = hitdata.Dmg;
             var source = hitdata.Source;

@@ -41,7 +41,7 @@ namespace Assets.Scripts.Definitions.Npcs
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.2f));
         }
 
-        private void CheckExplode(NpcHitData hitData, Npc npc)
+        private void CheckExplode(Npc npc, NpcHitData hitData)
         {
             if (stunTriggered) return;
             if (npc.CurrentHealth > npc.Attributes[AttributeName.MaxHealth].Value / 2.0f) return;

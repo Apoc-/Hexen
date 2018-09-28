@@ -53,10 +53,10 @@ namespace Assets.Scripts.Definitions.Npcs
         private Tower killer;
 
         //events
-        public delegate void NpcHitEvent(NpcHitData hitData, Npc npc);
+        public delegate void NpcHitEvent(Npc sender, NpcHitData hitData);
         public event NpcHitEvent OnHit;
 
-        public delegate void NpcDeathEvent(Npc killee, Tower killer);
+        public delegate void NpcDeathEvent(Npc sender, Tower killer);
         public event NpcDeathEvent OnDeath;
 
 
@@ -206,7 +206,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
         public virtual void HitNpc(NpcHitData hitData)
         {
-            OnHit?.Invoke(hitData, this);
+            OnHit?.Invoke(this, hitData);
 
             DealDamage(hitData.Dmg, hitData.Source);
         }

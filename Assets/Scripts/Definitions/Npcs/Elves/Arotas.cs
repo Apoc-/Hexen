@@ -41,7 +41,7 @@ namespace Assets.Scripts.Definitions.Npcs
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.25f, 0f));
         }
 
-        private void CheckHit(NpcHitData hitData, Npc npc)
+        private void CheckHit(Npc npc, NpcHitData hitData)
         {
             if (isEgg) return;
 

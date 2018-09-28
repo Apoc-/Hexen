@@ -65,7 +65,7 @@ namespace Assets.Scripts.Definitions.Npcs
             }
         }
 
-        protected virtual void FixedUpdate()
+        protected new virtual void FixedUpdate()
         {
             if (!isChest)
             {

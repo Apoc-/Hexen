@@ -35,7 +35,7 @@ namespace Assets.Scripts.Definitions.Npcs
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 3.0f));
         }
 
-        private void SlowDown(NpcHitData hitData, Npc npc)
+        private void SlowDown(Npc npc, NpcHitData hitData)
         {
             var effect = new AttributeEffect(-0.75f, AttributeName.MovementSpeed, AttributeEffectType.PercentMul, this, 0.5f);
             Attributes[AttributeName.MovementSpeed].AddAttributeEffect(effect);

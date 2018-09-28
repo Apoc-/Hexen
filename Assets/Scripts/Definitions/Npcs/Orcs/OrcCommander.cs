@@ -61,7 +61,7 @@ namespace Assets.Scripts.Definitions.Npcs
             affectedNpcs.Add(npc);
         }
 
-        private void CheckSecondWind(NpcHitData hitData, Npc npc)
+        private void CheckSecondWind(Npc npc, NpcHitData hitData)
         {
             //cannot pull himself out of the swamp
             if (npc == this) return;

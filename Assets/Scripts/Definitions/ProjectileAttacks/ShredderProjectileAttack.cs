@@ -12,10 +12,7 @@ namespace Assets.Scripts.Definitions.Projectiles
 {
     public class ShredderProjectileAttack : ProjectileAttack
     {
-        private bool aligned = false;
         private float shreddingDuration = 3f;
-        private bool targetReached = false;
-
 
         protected override void InitAttackData()
         {

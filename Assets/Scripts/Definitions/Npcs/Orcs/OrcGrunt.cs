@@ -32,7 +32,7 @@ namespace Assets.Scripts.Definitions.Npcs
             AddAttribute(new Attribute(AttributeName.MovementSpeed, 1f));
         }
 
-        protected void SpeedBurst(NpcHitData hitData, Npc npc)
+        protected void SpeedBurst(Npc npc, NpcHitData hitData)
         {
             var effect = new AttributeEffect(0.5f, AttributeName.MovementSpeed, AttributeEffectType.Flat, this, 0.5f);
             Attributes[AttributeName.MovementSpeed].AddAttributeEffect(effect);
