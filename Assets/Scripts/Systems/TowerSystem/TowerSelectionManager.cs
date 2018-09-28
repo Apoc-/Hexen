@@ -16,7 +16,9 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetKeyDown(KeyCode.Mouse0) 
+                && !EventSystem.current.IsPointerOverGameObject()
+                && !GameManager.Instance.TowerBuildManager.IsBuilding)
             {
                 var tower = CheckForTower();
                 SelectTower(tower);
@@ -49,6 +51,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             if (tower == null || CurrentSelectedTower == tower) return;
 
+            DeselectTower();
             CurrentSelectedTower = tower;
             CreateRangeIndicators(CurrentSelectedTower);
 
@@ -69,11 +72,21 @@ namespace Assets.Scripts.Systems.TowerSystem
                 InstantiateRangeIndicator(
                     tower, 
                     tower.GetAttribute(AttributeName.AttackRange), 
-                    GameSettings.RangeIndicatorColor);
+                    GameSettings.AttackRangeIndicatorColor);
+            }
+
+            if (tower.HasAttribute(AttributeName.AuraRange))
+            {
+                var indicator = InstantiateRangeIndicator(
+                    tower,
+                    tower.GetAttribute(AttributeName.AuraRange),
+                    GameSettings.AuraRangeIndicatorColor);
+
+                indicator.transform.Translate(new Vector3(0,0.05f,0));
             }
         }
 
-        private void InstantiateRangeIndicator(Tower tower, Attribute attribute, Color color)
+        private RangeIndicator InstantiateRangeIndicator(Tower tower, Attribute attribute, Color color)
         {
             var indicatorPrefab = Resources.Load<GameObject>("Sfx/RangeIndicator");
             var go = Instantiate(indicatorPrefab);
@@ -84,6 +97,8 @@ namespace Assets.Scripts.Systems.TowerSystem
             indicator.transform.localPosition = new Vector3(0, 0.25f, 0);
 
             activeRangeIndicators.Add(indicator);
+
+            return indicator;
         }
 
         public void DestroyRangeIndicators()

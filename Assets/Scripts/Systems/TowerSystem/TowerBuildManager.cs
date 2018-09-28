@@ -20,7 +20,9 @@ namespace Assets.Scripts.Systems.TowerSystem
         }
 
         private Tower CurrentHeldTower => GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
-        private bool isBuilding = false;
+
+        public bool IsBuilding { get; private set; } = false;
+
         private Tile currentTile;
         private TowerBuildButtonBehaviour currentHeldTowerButton;
         private TowerHoldState towerHoldState;
@@ -32,9 +34,9 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void Update()
         {
-            if (CurrentHeldTower == null) isBuilding = false;
+            if (CurrentHeldTower == null) IsBuilding = false;
 
-            if (!isBuilding) return;
+            if (!IsBuilding) return;
 
             if (!EventSystem.current.IsPointerOverGameObject())
             {
@@ -62,6 +64,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                     BuildTower(currentTile);
                     GameManager.Instance.UIManager.CursorHandler.SwitchCursor(Cursors.Standard);
                     GameManager.Instance.TowerSelectionManager.DeselectTower();
+
                 }
             }
         }
@@ -152,7 +155,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             CancelBuilding();
 
-            isBuilding = true;
+            IsBuilding = true;
             GameManager.Instance.TowerSelectionManager.SelectTower(button.Tower);
 
             currentHeldTowerButton = button;
@@ -196,7 +199,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 CurrentHeldTower.gameObject.SetActive(true);
 
                 GameManager.Instance.Player.RemoveBuildableTower(CurrentHeldTower);
-                isBuilding = false;
+                IsBuilding = false;
             }
             else
             {
@@ -222,7 +225,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             currentHeldTowerButton = null;
             currentTile = null;
             towerHoldState = TowerHoldState.None;
-            isBuilding = false;
+            IsBuilding = false;
         }
 
         public void SetTowerModelTransparency(float alpha)

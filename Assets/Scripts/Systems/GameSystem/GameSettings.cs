@@ -25,7 +25,8 @@ namespace Assets.Scripts.Systems.GameSystem
 
         #region Colors
         public static Color MagicalCritColor = new Color(0.7f, 0.87f, 1.0f);
-        public static Color RangeIndicatorColor = new Color(0.44f, 0.55f, 0.84f, .25f);
+        public static Color AttackRangeIndicatorColor = new Color(0.71f, 0.52f, 0.19f, .70f);
+        public static Color AuraRangeIndicatorColor = new Color(0.44f, 0.55f, 0.84f, .70f);
         #endregion
 
         #region Npc balancing settings
