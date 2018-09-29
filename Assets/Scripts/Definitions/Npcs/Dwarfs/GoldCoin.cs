@@ -29,7 +29,7 @@ namespace Assets.Scripts.Definitions.Npcs
                 GameSettings.BaselineNpcHp[Rarities.Rare],
                 GameSettings.BaselineNpcHpInc[Rarities.Rare]));
 
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.5f));
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, GameSettings.BaseLineNpcMovementspeed));
 
             var goldEffect = new AttributeEffect(1, AttributeName.GoldReward, AttributeEffectType.SetValue, this);
             var xpEffect = new AttributeEffect(0, AttributeName.XPReward, AttributeEffectType.SetValue, this);

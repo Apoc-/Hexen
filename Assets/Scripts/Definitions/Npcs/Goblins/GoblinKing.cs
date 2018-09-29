@@ -38,7 +38,7 @@ namespace Assets.Scripts.Definitions.Npcs
                 GameSettings.BaselineNpcHp[Rarity],
                 GameSettings.BaselineNpcHpInc[Rarity]));
 
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.2f));
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, GameSettings.BaseLineNpcMovementspeed));
         }
 
         private void CheckExplode(Npc npc, NpcHitData hitData)

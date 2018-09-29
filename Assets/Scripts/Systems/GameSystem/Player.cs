@@ -35,7 +35,7 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public string Name { get; } = GameSettings.Name;
 
-        public int TowerSlots { get; } = 8;
+        public int TowerSlots { get; } = GameSettings.TowerSlots;
 
         private void Die()
         {

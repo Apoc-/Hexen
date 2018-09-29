@@ -37,8 +37,8 @@ namespace Assets.Scripts.Definitions.Towers
                 GameSettings.BaselineTowerDmg[Rarity],
                 GameSettings.BaselineTowerDmgInc[Rarity]));
 
-            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange * 2.5f));
-            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed / 10));
+            AddAttribute(new Attribute(AttributeName.AttackRange, GameSettings.BaseLineTowerAttackRange * 1.2f));
+            AddAttribute(new Attribute(AttributeName.AttackSpeed, GameSettings.BaseLineTowerAttackSpeed / 20));
         }
 
         protected override void Attack(bool triggering = true)

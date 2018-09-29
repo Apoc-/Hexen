@@ -68,9 +68,12 @@ namespace Assets.Scripts.Systems.WaveSystem
                 if (wave.NpcSpawnCount >= wave.NpcCount && wave.SpawnedNpcs.All(npc => npc == null))
                 {
                     //give rewards
-                    GameManager.Instance.Player.IncreaseAmbassadors(2);
-                    GameManager.Instance.TowerBuildManager.AddRandomBuildableTower();
-                    GameManager.Instance.TowerBuildManager.AddRandomBuildableTower();
+                    GameManager.Instance.Player.IncreaseAmbassadors(GameSettings.AmbassadorsPerWave);
+
+                    for (int i = 0; i < GameSettings.TowersPerWave; i++)
+                    {
+                        GameManager.Instance.TowerBuildManager.AddRandomBuildableTower();
+                    }
 
                     wavesToRemove.Add(wave);
                 }

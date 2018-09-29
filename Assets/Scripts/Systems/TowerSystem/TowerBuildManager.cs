@@ -155,8 +155,8 @@ namespace Assets.Scripts.Systems.TowerSystem
 
             var r = MathHelper.RandomFloat() * currentWave * standingFactor;
 
-            if (r > bound * 4) return Rarities.Legendary;
-            if (r > bound * 3) return Rarities.Rare;
+            if (r > bound * 6) return Rarities.Legendary;
+            if (r > bound * 4) return Rarities.Rare;
             if (r > bound * 2) return Rarities.Uncommon;
 
             return Rarities.Common;
@@ -164,7 +164,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         public void GenerateStartingBuildableTowers(Player player)
         {
-            for (var i = 0; i < player.TowerSlots; i++)
+            for (var i = 0; i < GameSettings.StartingTowers; i++)
             {
                 AddRandomBuildableTower();
             }

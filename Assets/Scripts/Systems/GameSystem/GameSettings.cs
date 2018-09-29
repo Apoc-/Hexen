@@ -6,12 +6,20 @@ namespace Assets.Scripts.Systems.GameSystem
 {
     static class GameSettings
     {
+        //balancing settings changed 29.08.2018
+        
+
         #region Player Settings
 
         public static string Name = "Parcival";
-        public static int StartingGold = 15;
-        public static int StartingAmbassadors = 2;
+        public static int StartingGold = 45;
         public static int StartingLives = 20;
+
+        public static int StartingAmbassadors = 2;
+        public static int AmbassadorsPerWave = 2;
+
+        public static int StartingTowers = 2;
+        public static int TowersPerWave = 1;
         public static int TowerSlots = 8;
 
         #endregion end
@@ -36,29 +44,30 @@ namespace Assets.Scripts.Systems.GameSystem
         public static float NpcXPInc = 5.0f;
 
         public static float NpcGoldBase = 0.0f;
-        public static float NpcGoldInc = 1.0f;
+        public static float NpcGoldInc = 0.5f;
 
         public static float NpcGoldFactorExpBase = 2f;
         public static float NpcXpFactorExpBase = 4f;
 
         public static float BaseLineNpcAuraRange = 3f;
+        public static float BaseLineNpcMovementspeed = 0.75f;
 
         public static Dictionary<Rarities, float> BaselineNpcHp = new Dictionary<Rarities, float>
         {
             {Rarities.None, 1.0f },
-            {Rarities.Common, 30.0f},
-            {Rarities.Uncommon, 60.0f},
-            {Rarities.Rare, 90.0f},
-            {Rarities.Legendary, 120.0f}
+            {Rarities.Common, 80.0f},
+            {Rarities.Uncommon, 120.0f},
+            {Rarities.Rare, 160.0f},
+            {Rarities.Legendary, 200.0f}
         };
 
         public static Dictionary<Rarities, float> BaselineNpcHpInc = new Dictionary<Rarities, float>
         {
             {Rarities.None, 1.0f },
-            {Rarities.Common, 0.25f},
-            {Rarities.Uncommon, 0.25f},
-            {Rarities.Rare, 0.25f},
-            {Rarities.Legendary, 0.25f}
+            {Rarities.Common, 0.2f},
+            {Rarities.Uncommon, 0.2f},
+            {Rarities.Rare, 0.2f},
+            {Rarities.Legendary, 0.2f}
         };
         #endregion
 
@@ -68,7 +77,7 @@ namespace Assets.Scripts.Systems.GameSystem
         public static float LvlExp = 3.0f;
         public static float LvlConst = 0.0f;
 
-        public static float BaseLineTowerAttackSpeed = 1.5f;
+        public static float BaseLineTowerAttackSpeed = 1.2f;
         public static float BaseLineTowerAttackRange = 2.25f;
 
         public static float BaseLineTowerAuraRange = 1.5f;
@@ -78,28 +87,28 @@ namespace Assets.Scripts.Systems.GameSystem
         public static Dictionary<Rarities, float> BaselineTowerDmg = new Dictionary<Rarities, float>
         {
             {Rarities.None, 1.0f },
-            {Rarities.Common, 25.0f},
-            {Rarities.Uncommon, 50.0f},
-            {Rarities.Rare, 75.0f},
-            {Rarities.Legendary, 100.0f}
+            {Rarities.Common, 30.0f},
+            {Rarities.Uncommon, 90.0f},
+            {Rarities.Rare, 270.0f},
+            {Rarities.Legendary, 810.0f}
         };
 
         public static Dictionary<Rarities, float> BaselineTowerDmgInc = new Dictionary<Rarities, float>
         {
             {Rarities.None, 1.0f },
-            {Rarities.Common, 0.04f},
-            {Rarities.Uncommon, 0.04f},
-            {Rarities.Rare, 0.04f},
-            {Rarities.Legendary, 0.04f}
+            {Rarities.Common, 0.1f},
+            {Rarities.Uncommon, 0.1f},
+            {Rarities.Rare, 0.1f},
+            {Rarities.Legendary, 0.1f}
         };
 
         public static Dictionary<Rarities, int> BaselineTowerPrice = new Dictionary<Rarities, int>
         {
             {Rarities.None, 1 },
-            {Rarities.Common, 5},
-            {Rarities.Uncommon, 50},
-            {Rarities.Rare, 500},
-            {Rarities.Legendary, 5000}
+            {Rarities.Common, 25},
+            {Rarities.Uncommon, 100},
+            {Rarities.Rare, 400},
+            {Rarities.Legendary, 1600}
         };
         #endregion
 

@@ -38,7 +38,7 @@ namespace Assets.Scripts.Definitions.Npcs
                 AttributeName.AuraRange,
                 GameSettings.BaseLineNpcAuraRange));
 
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 1.2f));
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, GameSettings.BaseLineNpcMovementspeed * 1.2f));
         }
     }
 }

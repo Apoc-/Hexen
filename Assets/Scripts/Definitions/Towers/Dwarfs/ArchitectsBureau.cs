@@ -20,7 +20,7 @@ namespace Assets.Scripts.Definitions.Towers
         {
             Name = "Architect's Bureau";
             Faction = FactionNames.Dwarfs;
-            Rarity = Rarities.Common;
+            Rarity = Rarities.Uncommon;
             GoldCost = GameSettings.BaselineTowerPrice[Rarity];
 
             Description = "This Building enforces nearby towers with a small damage bonus whenever the player earns gold. Has \"Got some coin?\".";
