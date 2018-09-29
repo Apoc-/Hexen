@@ -86,20 +86,20 @@ namespace Assets.Scripts.Systems.GameSystem
 
         public static Dictionary<Rarities, float> BaselineTowerDmg = new Dictionary<Rarities, float>
         {
-            {Rarities.None, 1.0f },
-            {Rarities.Common, 30.0f},
-            {Rarities.Uncommon, 90.0f},
-            {Rarities.Rare, 270.0f},
-            {Rarities.Legendary, 810.0f}
+            {Rarities.None, 1 },
+            {Rarities.Common, 10 },
+            {Rarities.Uncommon, 45 },
+            {Rarities.Rare, 190 },
+            {Rarities.Legendary, 775 }
         };
 
         public static Dictionary<Rarities, float> BaselineTowerDmgInc = new Dictionary<Rarities, float>
         {
             {Rarities.None, 1.0f },
-            {Rarities.Common, 0.1f},
-            {Rarities.Uncommon, 0.1f},
-            {Rarities.Rare, 0.1f},
-            {Rarities.Legendary, 0.1f}
+            {Rarities.Common, 0.04f },
+            {Rarities.Uncommon, 0.04f },
+            {Rarities.Rare, 0.04f },
+            {Rarities.Legendary, 0.04f }
         };
 
         public static Dictionary<Rarities, int> BaselineTowerPrice = new Dictionary<Rarities, int>

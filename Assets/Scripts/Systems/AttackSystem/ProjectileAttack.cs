@@ -25,7 +25,11 @@ namespace Assets.Scripts.Systems.ProjectileSystem
         {
             base.InitAttack(target, source);
 
-            estimatedTargetPosition = Target.GetPositionInTime(FlightDuration);
+            if (Target != null)
+            {
+                estimatedTargetPosition = Target.GetPositionInTime(FlightDuration);
+            }
+            
             currentVelocity = ProjectileHelper.ComputeVelocityToHitTargetAtTime(
                 transform.position,
                 estimatedTargetPosition,

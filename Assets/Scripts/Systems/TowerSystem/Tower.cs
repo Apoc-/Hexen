@@ -132,20 +132,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         protected virtual void DoUpdate()
         {
-            if (LockedTarget == null)
-            {
-                AcquireTarget();
-                return; //ea
-            }
-
-            var distance = Vector3.Distance(LockedTarget.transform.position, transform.position);
-
-            if (distance > GetAttribute(AttributeName.AttackRange).Value)
-            {
-                LockedTarget = null;
-                AcquireTarget();
-                return;
-            }
+            CheckTarget();
 
             if (lastShotFired < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AttackSpeed).Value)
             {
@@ -154,22 +141,44 @@ namespace Assets.Scripts.Systems.TowerSystem
             }
         }
 
-        private void AcquireTarget()
+        private void CheckTarget()
         {
-            if (this.HasAttribute(AttributeName.AttackRange))
+            if (!this.HasAttribute(AttributeName.AttackRange)) return;
+
+            var targetingHelper = GameManager.Instance.TargetingHelper;
+            if (targetingHelper.CurrentTargetInRange(this))
+            {
+                LockedTarget = targetingHelper.CurrentTargetedNpc;
+            }
+            else
             {
                 var range = GetAttributeValue(AttributeName.AttackRange);
-                var npcs = TargetingHelper.GetNpcsInRadius(transform.position, range);
 
-                foreach (var npc in npcs)
+                if (LockedTarget != null)
+                {    
+                    var dist = Vector3.Distance(LockedTarget.gameObject.transform.position, transform.position);
+                    if (dist > range)
+                    {
+                        LockedTarget = AquireTargetInRange(range);
+                    }
+                }
+                else
                 {
-                    LockedTarget = npc;
+                    LockedTarget = AquireTargetInRange(range);
                 }
             }
         }
 
+        private Npc AquireTargetInRange(float range)
+        {
+            var npcs = TargetingHelper.GetNpcsInRadius(transform.position, range);
+            return npcs.FirstOrDefault();
+        }
+
         protected virtual void Attack(bool triggering = true)
         {
+            if (LockedTarget == null) return;
+
             if (triggering)
             {
                 OnAttack?.Invoke(LockedTarget);
@@ -262,6 +271,11 @@ namespace Assets.Scripts.Systems.TowerSystem
         {
             var pe = new ParticleEffectData("LevelUpEffect", gameObject, 3f);
             GameManager.Instance.SpecialEffectManager.PlayParticleEffect(pe);
+        }
+
+        public void ForceRetarget()
+        {
+            this.LockedTarget = null;
         }
     }
 }

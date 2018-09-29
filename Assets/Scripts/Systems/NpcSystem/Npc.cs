@@ -424,6 +424,7 @@ namespace Assets.Scripts.Definitions.Npcs
         public Vector3 GetPositionInTime(float time)
         {
             if (CurrentTile == null || Target == null) return transform.position;
+            if (transform == null) return Vector3.zero;
 
             var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
             var velocity = Attributes[AttributeName.MovementSpeed].Value;

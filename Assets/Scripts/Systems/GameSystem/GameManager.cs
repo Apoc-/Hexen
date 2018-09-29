@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.MapSystem;
+using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using Assets.Scripts.Systems.UiSystem;
@@ -149,6 +150,21 @@ namespace Assets.Scripts.Systems.GameSystem
                 }
 
                 return waveGenerator;
+            }
+        }
+
+        private TargetingHelper targetingHelper;
+
+        public TargetingHelper TargetingHelper
+        {
+            get
+            {
+                if (targetingHelper == null)
+                {
+                    targetingHelper = FindObjectOfType<TargetingHelper>();
+                }
+
+                return targetingHelper;
             }
         }
 

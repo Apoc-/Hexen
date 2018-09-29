@@ -31,10 +31,10 @@ namespace Assets.Scripts.Systems.TowerSystem
         private TowerBuildButtonBehaviour currentHeldTowerButton;
         private TowerHoldState towerHoldState;
 
-        public GameObject PlacedTowers;
-        public GameObject BuildableTowers;
+        public GameObject PlacedTowersContainer;
+        public GameObject BuildableTowersContainer;
 
-        private List<Tower> builtTowers = new List<Tower>();
+        public List<Tower> BuiltTowers { get; } = new List<Tower>();
 
         private void Update()
         {
@@ -139,7 +139,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             var tower = Instantiate(towerPrefab);
 
             tower.Name = towerPrefab.Name;
-            tower.transform.parent = GameManager.Instance.TowerBuildManager.BuildableTowers.transform;
+            tower.transform.parent = GameManager.Instance.TowerBuildManager.BuildableTowersContainer.transform;
 
             tower.InitTower();
 
@@ -195,7 +195,7 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         private void SellTower(Tower tower)
         {
-            builtTowers.Remove(tower);
+            BuiltTowers.Remove(tower);
             GameManager.Instance.Player.SellTower(tower);
         }
 
@@ -209,7 +209,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                     this.SellTower(tile.PlacedTower);
                 }
 
-                builtTowers.Add(CurrentHeldTower);
+                BuiltTowers.Add(CurrentHeldTower);
 
                 SetTowerModelTransparency(1.0f);
                 ResetTowerModelColor();
@@ -220,7 +220,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 GameManager.Instance.UIManager.BuildPanel.RemoveBuildButton(currentHeldTowerButton, true);
                 currentHeldTowerButton = null;
 
-                CurrentHeldTower.gameObject.transform.parent = PlacedTowers.transform;
+                CurrentHeldTower.gameObject.transform.parent = PlacedTowersContainer.transform;
                 CurrentHeldTower.IsPlaced = true;
                 CurrentHeldTower.Tile = tile;
                 CurrentHeldTower.gameObject.SetActive(true);
@@ -308,13 +308,13 @@ namespace Assets.Scripts.Systems.TowerSystem
         }
         public void DebugAddBuildableTower()
         {
-            /*var player = GameManager.Instance.Player;
+            var player = GameManager.Instance.Player;
 
             var t = GetRandomTowerByStanding();
 
-            player.AddBuildableTower(t);*/
+            player.AddBuildableTower(t);
 
-            RarityTest();
+            //RarityTest();
         }
 
         private void RarityTest()
