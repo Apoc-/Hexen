@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Systems.GameSystem;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ namespace Assets.Scripts.Systems.UiSystem
 {
     class GameFinishedScreenBehaviour : MonoBehaviour
     {
-        [SerializeField] private Text title;
+        [SerializeField] private TextMeshProUGUI title;
 
         public void EnableWithMessage(string msg)
         {

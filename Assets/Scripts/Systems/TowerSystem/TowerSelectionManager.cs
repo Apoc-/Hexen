@@ -55,14 +55,14 @@ namespace Assets.Scripts.Systems.TowerSystem
             CurrentSelectedTower = tower;
             CreateRangeIndicators(CurrentSelectedTower);
 
-            GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(CurrentSelectedTower);
+            GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPopup(CurrentSelectedTower);
         }
 
         public void DeselectTower()
         {
             CurrentSelectedTower = null;
             DestroyRangeIndicators();
-            GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+            GameManager.Instance.UIManager.TowerInfoPanel.DisableTowerInfoPopup();
         }
 
         private void CreateRangeIndicators(Tower tower)

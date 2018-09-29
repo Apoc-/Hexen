@@ -7,14 +7,12 @@ namespace Assets.Scripts.Systems.UiSystem
 {
     class UIManager : MonoBehaviour
     {
-        [SerializeField] private GameObject goldInfo;
-        [SerializeField] private GameObject lifeInfo;
-        [SerializeField] private GameObject waveInfo;
-        [SerializeField] private GameObject waveTimer;
         [SerializeField] private BuildPanelBehaviour buildPanel;
-        [SerializeField] private InfoPopupBehaviour infoPopup;
+        [SerializeField] private TowerInfoPanelBehaviour towerInfoPanel;
         [SerializeField] private FactionPanelBehaviour factionPanel;
         [SerializeField] private CursorHandler cursorHandler;
+        [SerializeField] private GameFinishedScreenBehaviour finishScreen;
+
 
         public CursorHandler CursorHandler
         {
@@ -32,11 +30,11 @@ namespace Assets.Scripts.Systems.UiSystem
             }
         }
 
-        public InfoPopupBehaviour InfoPopup
+        public TowerInfoPanelBehaviour TowerInfoPanel
         {
             get
             {
-                return infoPopup;
+                return towerInfoPanel;
             }
         }
 
@@ -45,7 +43,7 @@ namespace Assets.Scripts.Systems.UiSystem
             get { return factionPanel; }
         }
 
-        [SerializeField] private GameFinishedScreenBehaviour finishScreen;
+        
         public GameFinishedScreenBehaviour FinishScreen
         {
             get
@@ -61,17 +59,7 @@ namespace Assets.Scripts.Systems.UiSystem
 
         private void UpdateInfoPanels()
         {
-            goldInfo.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Gold;
-            lifeInfo.GetComponentInChildren<Text>().text = "" + GameManager.Instance.Player.Lives;
 
-            var spawner = GameManager.Instance.WaveSpawner;
-            var displayTime = spawner.WaveCooldown - spawner.CurrentElapsedTime;
-            waveTimer.GetComponentInChildren<Text>().text = "" + displayTime;
-
-            var currentWave = GameManager.Instance.WaveSpawner.CurrentWaveCount;
-            var totalWaves = GameManager.Instance.WaveSpawner.NumberOfWaves;
-
-            waveInfo.GetComponentInChildren<Text>().text = currentWave + "/" + totalWaves;
         }
 
         public void InitializeUI()

@@ -58,14 +58,11 @@ namespace Assets.Scripts.Systems.GameSystem
         public void IncreaseAmbassadors(int amount)
         {
             this.ambassadors += amount;
-
-            GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
         }
 
         public void DecreaseAmbassadors(int amount)
         {
             this.ambassadors -= amount;
-            GameManager.Instance.UIManager.FactionPanel.UpdateAmbassadorsLabel();
         }
 
         public int GetAmbassadors()

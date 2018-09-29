@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,6 @@ namespace Assets.Scripts.Systems.UiSystem
         [SerializeField] private Button orcsButton;
         [SerializeField] private Button dwarfsButton;
         [SerializeField] private Button goblinsButton;
-        [SerializeField] private Text ambassadorsLabel;
         private Dictionary<FactionNames, Button> factionButtons;
 
         public void Initialize()
@@ -27,7 +27,6 @@ namespace Assets.Scripts.Systems.UiSystem
             };
 
             UpdateFactionButtons();
-            UpdateAmbassadorsLabel();
         }
 
         public void UpdateFactionButtons()
@@ -38,17 +37,11 @@ namespace Assets.Scripts.Systems.UiSystem
             UpdateFactionButton(FactionNames.Goblins);
         }
 
-        public void UpdateAmbassadorsLabel()
-        {
-            var ambassadors = GameManager.Instance.Player.GetAmbassadors();
-            ambassadorsLabel.text = "" + ambassadors;
-        }
-
         private void UpdateFactionButton(FactionNames factionName)
         {
             var faction = GameManager.Instance.FactionManager.GetFactionByName(factionName);
             var button = factionButtons[factionName];
-            var text = button.GetComponentInChildren<Text>();
+            var text = button.GetComponentInChildren<TextMeshProUGUI>();
 
             if (text != null)
             {
@@ -107,8 +100,8 @@ namespace Assets.Scripts.Systems.UiSystem
             var button = factionButtons[factionName];
 
             button.interactable = false;
-            button.GetComponentInChildren<Text>().gameObject.SetActive(false);
-            button.gameObject.transform.Find("Badge/Swords").gameObject.SetActive(true);
+            button.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
+            button.gameObject.transform.Find("Icon/Badge/Swords").gameObject.SetActive(true);
         }
     }
 }

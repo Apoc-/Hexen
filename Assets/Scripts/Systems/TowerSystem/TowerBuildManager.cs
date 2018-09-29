@@ -246,7 +246,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 CurrentHeldTower.gameObject.SetActive(false);
             }
 
-            GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+            GameManager.Instance.UIManager.TowerInfoPanel.DisableTowerInfoPopup();
             GameManager.Instance.TowerSelectionManager.DeselectTower();
 
             currentHeldTowerButton = null;

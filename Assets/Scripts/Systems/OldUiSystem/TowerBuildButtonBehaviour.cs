@@ -2,6 +2,7 @@
 using Assets.Scripts.Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Systems.UiSystem
 {
@@ -11,6 +12,10 @@ namespace Assets.Scripts.Systems.UiSystem
 
         [SerializeField]
         private GameObject buttonActiveEffect;
+
+        [SerializeField]
+        private Image icon;
+
         private bool activated = false;
 
         public TextMeshProUGUI PriceTag;
@@ -27,7 +32,7 @@ namespace Assets.Scripts.Systems.UiSystem
 
             if (hoverDuration >= hoverTime)
             {
-                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower);
+                GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPopup(Tower);
                 isHovering = false;
                 hoverDuration = 0;
             }
@@ -45,7 +50,7 @@ namespace Assets.Scripts.Systems.UiSystem
             {
                 isHovering = false;
                 hoverDuration = 0;
-                GameManager.Instance.UIManager.InfoPopup.DisableTowerInfoPopup();
+                GameManager.Instance.UIManager.TowerInfoPanel.DisableTowerInfoPopup();
             }
         }
 
@@ -54,9 +59,14 @@ namespace Assets.Scripts.Systems.UiSystem
             if (!activated)
             {
                 GameManager.Instance.TowerBuildManager.StartBuilding(this);
-                GameManager.Instance.UIManager.InfoPopup.EnableTowerInfoPopup(Tower);
+                GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPopup(Tower);
                 SetButtonActive();
             }
+        }
+
+        public void SetIcon(Sprite sprite)
+        {
+            icon.GetComponent<Image>().sprite = sprite;
         }
 
         public void SetButtonActive()

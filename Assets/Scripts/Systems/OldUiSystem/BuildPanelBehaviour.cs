@@ -10,6 +10,7 @@ namespace Assets.Scripts.Systems.UiSystem
     class BuildPanelBehaviour : MonoBehaviour
     {
         private List<TowerBuildButtonBehaviour> towerButtons = new List<TowerBuildButtonBehaviour>();
+        [SerializeField] private GameObject towerButtonContainer;
 
         public void AddBuildButtonForTower(Tower tower)
         {
@@ -17,8 +18,8 @@ namespace Assets.Scripts.Systems.UiSystem
                 Instantiate(Resources.Load<TowerBuildButtonBehaviour>("Prefabs/UI/TowerBuildButton"));
 
             button.Tower = tower;
-            button.gameObject.GetComponent<Image>().sprite = button.Tower.Icon;
-            button.transform.SetParent(gameObject.transform);
+            button.SetIcon(button.Tower.Icon);
+            button.transform.SetParent(towerButtonContainer.transform);
 
             button.PriceTag.text = "" + tower.GoldCost;
 

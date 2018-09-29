@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Assets.Scripts.Systems.FactionSystem;
+using Assets.Scripts.Systems.HandSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
@@ -48,6 +49,20 @@ namespace Assets.Scripts.Systems.GameSystem
                 }
 
                 return towerBuildManager;
+            }
+        }
+
+        private HiredHandManager hiredHandManager;
+        public HiredHandManager HiredHandManager
+        {
+            get
+            {
+                if (hiredHandManager == null)
+                {
+                    hiredHandManager = FindObjectOfType<HiredHandManager>();
+                }
+
+                return hiredHandManager;
             }
         }
 

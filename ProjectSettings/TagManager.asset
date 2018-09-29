@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameMenu
+  - Icon
   layers:
   - Default
   - TransparentFX
