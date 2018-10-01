@@ -28,7 +28,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         public bool IsBuilding { get; private set; } = false;
 
         private Tile currentTile;
-        private TowerBuildButtonBehaviour currentHeldTowerButton;
+        private TowerBuildButton currentHeldTowerButton;
         private TowerHoldState towerHoldState;
 
         public GameObject PlacedTowersContainer;
@@ -178,7 +178,7 @@ namespace Assets.Scripts.Systems.TowerSystem
         }
 
 
-        public void StartBuilding(TowerBuildButtonBehaviour button)
+        public void StartBuilding(TowerBuildButton button)
         {
             CancelBuilding();
 

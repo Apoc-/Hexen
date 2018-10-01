@@ -55,7 +55,7 @@ namespace Assets.Scripts.Systems.TowerSystem
             CurrentSelectedTower = tower;
             CreateRangeIndicators(CurrentSelectedTower);
 
-            GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPopup(CurrentSelectedTower);
+            GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPanel(CurrentSelectedTower);
         }
 
         public void DeselectTower()

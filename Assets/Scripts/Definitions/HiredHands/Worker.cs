@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Definitions.HiredHands
 {
-    public class Worker : HiredHand
+    public class Worker : HiredHandItem
     {
         protected override void InitData()
         {

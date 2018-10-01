@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Systems.UiSystem
 {
-    class TowerBuildButtonBehaviour : MonoBehaviour
+    class TowerBuildButton : MonoBehaviour
     {
         public Tower Tower;
 
@@ -32,9 +32,7 @@ namespace Assets.Scripts.Systems.UiSystem
 
             if (hoverDuration >= hoverTime)
             {
-                GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPopup(Tower);
-                isHovering = false;
-                hoverDuration = 0;
+                GameManager.Instance.PopupManager.DisplayTowerPopup(Tower);
             }
         }
 
@@ -46,12 +44,9 @@ namespace Assets.Scripts.Systems.UiSystem
 
         public void OnPointerExit()
         {
-            if (!activated)
-            {
-                isHovering = false;
-                hoverDuration = 0;
-                GameManager.Instance.UIManager.TowerInfoPanel.DisableTowerInfoPopup();
-            }
+            isHovering = false;
+            hoverDuration = 0;
+            GameManager.Instance.PopupManager.DestroyPopup();
         }
 
         public void OnButtonClicked()
@@ -59,7 +54,7 @@ namespace Assets.Scripts.Systems.UiSystem
             if (!activated)
             {
                 GameManager.Instance.TowerBuildManager.StartBuilding(this);
-                GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPopup(Tower);
+                GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPanel(Tower);
                 SetButtonActive();
             }
         }

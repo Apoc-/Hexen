@@ -27,7 +27,7 @@ namespace Assets.Scripts.Definitions.Npcs
                 GameSettings.BaselineNpcHp[Rarity],
                 GameSettings.BaselineNpcHpInc[Rarity]));
 
-            AddAttribute(new Attribute(AttributeName.MovementSpeed, 1f));
+            AddAttribute(new Attribute(AttributeName.MovementSpeed, GameSettings.BaseLineNpcMovementspeed));
         }
     }
 }

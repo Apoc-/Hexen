@@ -423,8 +423,10 @@ namespace Assets.Scripts.Definitions.Npcs
         
         public Vector3 GetPositionInTime(float time)
         {
+            Debug.Log("estimating");
             if (CurrentTile == null || Target == null) return transform.position;
             if (transform == null) return Vector3.zero;
+            Debug.Log("new target");
 
             var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
             var velocity = Attributes[AttributeName.MovementSpeed].Value;
@@ -437,6 +439,7 @@ namespace Assets.Scripts.Definitions.Npcs
 
             if (distanceToNext < totalDistance)
             {
+                
                 current = Target;
                 next = GameManager.Instance.MapManager.GetNextTileInPath(Target);
 
@@ -444,6 +447,8 @@ namespace Assets.Scripts.Definitions.Npcs
                 
                 while (true)
                 {
+                    Debug.Log("new tile");
+
                     //check for end
                     if (current.TileType == TileType.End) return current.GetTopCenter();
 

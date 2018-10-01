@@ -6,6 +6,7 @@ using Assets.Scripts.Definitions.Npcs;
 using Assets.Scripts.Systems.AttributeSystem;
 using Assets.Scripts.Systems.FactionSystem;
 using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.HandSystem;
 using Assets.Scripts.Systems.MapSystem;
 using Assets.Scripts.Systems.ProjectileSystem;
 using Assets.Scripts.Systems.SfxSystem;
@@ -20,10 +21,13 @@ namespace Assets.Scripts.Systems.TowerSystem
     public abstract class Tower : MonoBehaviour, IHasAttributes, AuraTarget
     {
         public AttributeContainer Attributes;
-        
+
+        public Inventory Inventory;
+
         public int GoldCost;
         public string Description;
         public string Name;
+        protected int InventorySize = 1;
 
         protected float WeaponHeight = 0.0f;
         protected Type AttackType = null;
@@ -56,16 +60,31 @@ namespace Assets.Scripts.Systems.TowerSystem
 
         [HideInInspector] public Player Owner;
 
+        public List<HiredHandButton> HiredHands = new List<HiredHandButton>();
+
         public void InitTower()
         {
             InitTowerData();
             InitAttributes();
             InitTowerModel();
             InitTowerEffects();
+            InitTowerInventory();
 
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
         }
-        
+
+        private void InitTowerInventory()
+        {
+            if (Inventory == null)
+            {
+                GameObject go = new GameObject("Inventory", typeof(Inventory));
+                go.transform.parent = transform;
+                Inventory = go.GetComponent<Inventory>();       
+            }
+
+            Inventory.InitInventory(InventorySize);
+        }
+
         public abstract void InitTowerData();
 
         public void InitTowerModel()
@@ -157,7 +176,7 @@ namespace Assets.Scripts.Systems.TowerSystem
                 if (LockedTarget != null)
                 {    
                     var dist = Vector3.Distance(LockedTarget.gameObject.transform.position, transform.position);
-                    if (dist > range)
+                    if (dist > range*1.1f) //some slack
                     {
                         LockedTarget = AquireTargetInRange(range);
                     }

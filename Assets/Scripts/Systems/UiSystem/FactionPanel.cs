@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Systems.UiSystem
 {
-    public class FactionPanelBehaviour : MonoBehaviour
+    public class FactionPanel : MonoBehaviour
     {
         [SerializeField] private Button elvesButton;
         [SerializeField] private Button orcsButton;

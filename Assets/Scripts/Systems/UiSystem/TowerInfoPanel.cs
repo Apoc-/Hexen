@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Systems.AttributeSystem;
+using Assets.Scripts.Systems.HandSystem;
 using Assets.Scripts.Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
@@ -10,7 +11,7 @@ using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
 
 namespace Assets.Scripts.Systems.UiSystem
 {
-    class TowerInfoPanelBehaviour : MonoBehaviour
+    class TowerInfoPanel : MonoBehaviour
     {
         private string towerInfoElementPrefab = "Prefabs/UI/TowerInfoElement";
 
@@ -21,6 +22,8 @@ namespace Assets.Scripts.Systems.UiSystem
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI level;
+
+        public GameObject HiredHandsContainer;
 
         private List<TowerInfoElement> towerInfoElements = new List<TowerInfoElement>();
         private bool isEnabled = false;
@@ -35,7 +38,7 @@ namespace Assets.Scripts.Systems.UiSystem
             }
         }
 
-        public void EnableTowerInfoPopup(Tower tower)
+        public void EnableTowerInfoPanel(Tower tower)
         {
             infoTower = tower;
             
@@ -64,6 +67,8 @@ namespace Assets.Scripts.Systems.UiSystem
             {
                 CreateNewInfoElement(attribute.Value);
             }
+
+            //infoTower.HiredHands.ForEach(HiredHandsContainer);
         }
 
         public void ClearInformation()

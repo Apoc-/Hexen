@@ -52,17 +52,17 @@ namespace Assets.Scripts.Systems.GameSystem
             }
         }
 
-        private HiredHandManager hiredHandManager;
-        public HiredHandManager HiredHandManager
+        private HiredHandMerchant hiredHandMerchant;
+        public HiredHandMerchant HiredHandMerchant
         {
             get
             {
-                if (hiredHandManager == null)
+                if (hiredHandMerchant == null)
                 {
-                    hiredHandManager = FindObjectOfType<HiredHandManager>();
+                    hiredHandMerchant = FindObjectOfType<HiredHandMerchant>();
                 }
 
-                return hiredHandManager;
+                return hiredHandMerchant;
             }
         }
 
@@ -92,6 +92,21 @@ namespace Assets.Scripts.Systems.GameSystem
                 }
 
                 return uiManager;
+            }
+        }
+
+        private PopupManager popupManager;
+
+        public PopupManager PopupManager
+        {
+            get
+            {
+                if (popupManager == null)
+                {
+                    popupManager = FindObjectOfType<PopupManager>();
+                }
+
+                return popupManager;
             }
         }
 

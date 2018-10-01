@@ -37,6 +37,11 @@ namespace Assets.Scripts.Systems.AttributeSystem
             }
         }
 
+        public int Count()
+        {
+            return attributes.Count;
+        }
+
         public IEnumerator<KeyValuePair<AttributeName, Attribute>> GetEnumerator()
         {
             return attributes.GetEnumerator();

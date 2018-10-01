@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Systems.GameSystem;
+using Assets.Scripts.Systems.HandSystem;
 using Assets.Scripts.Systems.WaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,11 +8,12 @@ namespace Assets.Scripts.Systems.UiSystem
 {
     class UIManager : MonoBehaviour
     {
-        [SerializeField] private BuildPanelBehaviour buildPanel;
-        [SerializeField] private TowerInfoPanelBehaviour towerInfoPanel;
-        [SerializeField] private FactionPanelBehaviour factionPanel;
+        [SerializeField] private BuildPanel buildPanel;
+        [SerializeField] private TowerInfoPanel towerInfoPanel;
+        [SerializeField] private FactionPanel factionPanel;
         [SerializeField] private CursorHandler cursorHandler;
         [SerializeField] private GameFinishedScreenBehaviour finishScreen;
+        [SerializeField] private HiredHandPanel hiredHandPanel;
 
 
         public CursorHandler CursorHandler
@@ -22,7 +24,7 @@ namespace Assets.Scripts.Systems.UiSystem
             }
         }
 
-        public BuildPanelBehaviour BuildPanel
+        public BuildPanel BuildPanel
         {
             get
             {
@@ -30,7 +32,7 @@ namespace Assets.Scripts.Systems.UiSystem
             }
         }
 
-        public TowerInfoPanelBehaviour TowerInfoPanel
+        public TowerInfoPanel TowerInfoPanel
         {
             get
             {
@@ -38,7 +40,7 @@ namespace Assets.Scripts.Systems.UiSystem
             }
         }
 
-        public FactionPanelBehaviour FactionPanel
+        public FactionPanel FactionPanel
         {
             get { return factionPanel; }
         }
@@ -49,6 +51,14 @@ namespace Assets.Scripts.Systems.UiSystem
             get
             {
                 return finishScreen;
+            }
+        }
+
+        public HiredHandPanel HiredHandPanel
+        {
+            get
+            {
+                return hiredHandPanel;
             }
         }
 

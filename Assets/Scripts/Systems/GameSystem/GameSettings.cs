@@ -6,7 +6,7 @@ namespace Assets.Scripts.Systems.GameSystem
 {
     static class GameSettings
     {
-        //balancing settings changed 29.08.2018
+        //balancing settings changed 01.10.2018
         
 
         #region Player Settings
@@ -50,15 +50,15 @@ namespace Assets.Scripts.Systems.GameSystem
         public static float NpcXpFactorExpBase = 4f;
 
         public static float BaseLineNpcAuraRange = 3f;
-        public static float BaseLineNpcMovementspeed = 0.75f;
+        public static float BaseLineNpcMovementspeed = 0.5f;
 
         public static Dictionary<Rarities, float> BaselineNpcHp = new Dictionary<Rarities, float>
         {
             {Rarities.None, 1.0f },
-            {Rarities.Common, 80.0f},
-            {Rarities.Uncommon, 120.0f},
-            {Rarities.Rare, 160.0f},
-            {Rarities.Legendary, 200.0f}
+            {Rarities.Common, 40.0f},
+            {Rarities.Uncommon, 70.0f},
+            {Rarities.Rare, 130.0f},
+            {Rarities.Legendary, 210.0f}
         };
 
         public static Dictionary<Rarities, float> BaselineNpcHpInc = new Dictionary<Rarities, float>

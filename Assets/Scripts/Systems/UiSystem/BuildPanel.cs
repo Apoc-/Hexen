@@ -7,15 +7,15 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Systems.UiSystem
 {
-    class BuildPanelBehaviour : MonoBehaviour
+    class BuildPanel : MonoBehaviour
     {
-        private List<TowerBuildButtonBehaviour> towerButtons = new List<TowerBuildButtonBehaviour>();
+        private List<TowerBuildButton> towerButtons = new List<TowerBuildButton>();
         [SerializeField] private GameObject towerButtonContainer;
 
         public void AddBuildButtonForTower(Tower tower)
         {
-            TowerBuildButtonBehaviour button =
-                Instantiate(Resources.Load<TowerBuildButtonBehaviour>("Prefabs/UI/TowerBuildButton"));
+            TowerBuildButton button =
+                Instantiate(Resources.Load<TowerBuildButton>("Prefabs/UI/TowerBuildButton"));
 
             button.Tower = tower;
             button.SetIcon(button.Tower.Icon);
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Systems.UiSystem
             towerButtons.Add(button);
         }
 
-        public void RemoveBuildButton(TowerBuildButtonBehaviour button, bool placed)
+        public void RemoveBuildButton(TowerBuildButton button, bool placed)
         {
             if (button == null) return;
 
