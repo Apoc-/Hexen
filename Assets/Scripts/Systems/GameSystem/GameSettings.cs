@@ -70,7 +70,7 @@ namespace Assets.Scripts.Systems.GameSystem
             {Rarities.Legendary, 0.2f}
         };
         #endregion
-
+        
         #region Tower balancing settings
         public static int TowerMaxLevel = 50;
         public static float LvlFact = 6.0f;

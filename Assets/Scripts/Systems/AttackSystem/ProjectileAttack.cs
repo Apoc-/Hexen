@@ -17,7 +17,7 @@ namespace Assets.Scripts.Systems.ProjectileSystem
         //protected GameObject Model;
 
         protected float SplashRadius = 0;
-        protected float FlightDuration = 0.4f;
+        protected float FlightDuration = 0.7f;
         private Vector3 currentVelocity = new Vector3();
         private readonly float gravity = Physics.gravity.y;
 

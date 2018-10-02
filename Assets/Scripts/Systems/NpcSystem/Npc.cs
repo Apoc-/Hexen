@@ -420,12 +420,53 @@ namespace Assets.Scripts.Definitions.Npcs
 
             this.dots.Add(dot);
         }
-        
+
+
         public Vector3 GetPositionInTime(float time)
+        {
+            if (CurrentTile == null || Target == null) return transform.position;
+            if (transform == null) return Vector3.zero;
+
+            var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
+            var velocity = Attributes[AttributeName.MovementSpeed].Value;
+            var totalDistance = velocity * time;
+
+            Vector3 currentPosition = transform.position;
+            Tile next = Target;
+            float distanceLeft = totalDistance;
+            
+            while (true)
+            {
+                //check for end
+                //if (current.TileType == TileType.End) return current.GetTopCenter();
+
+                //walk distance
+                var dist = Vector3.Distance(currentPosition, next.GetTopCenter());
+
+                //check if target can still be reached
+                if (distanceLeft - dist < 0) break;
+
+                distanceLeft -= dist;
+
+                //next target
+                currentPosition = next.GetTopCenter();
+                next = GameManager.Instance.MapManager.GetNextTileInPath(next);
+            }
+            
+
+            //walk leftover distance
+            var heading = next.GetTopCenter() - currentPosition;
+            var pos = currentPosition + heading.normalized * distanceLeft;
+
+            return pos;
+        }
+    
+    public Vector3 GetPositionInTime2(float time)
         {
             Debug.Log("estimating");
             if (CurrentTile == null || Target == null) return transform.position;
             if (transform == null) return Vector3.zero;
+
             Debug.Log("new target");
 
             var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
