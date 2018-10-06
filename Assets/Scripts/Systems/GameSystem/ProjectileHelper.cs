@@ -205,7 +205,7 @@ namespace Systems.GameSystem
         {
             if (timeToTargetPosition <= 0.0f)
             {
-                UnityEngine.Debug.LogError("ComputeStartVelocity called with invalid timeToTargetPosition");
+                Debug.LogError("ComputeStartVelocity called with invalid timeToTargetPosition");
             }
     
             // calculate forward speed

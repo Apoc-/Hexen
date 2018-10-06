@@ -30,9 +30,9 @@ namespace Systems.FactionSystem
 
         public void Initialize()
         {
-            this.InitializeFactions();
-            this.InitializeTowers();
-            this.InitializeNpcs();
+            InitializeFactions();
+            InitializeTowers();
+            InitializeNpcs();
         }
 
         private void InitializeFactions()
@@ -78,7 +78,7 @@ namespace Systems.FactionSystem
             RegisterTower<BoomstickBlacksmithy>();
             RegisterTower<BoomstickArtillery>();
 
-            UnityEngine.Debug.Log("Registered " + registeredTowerCount + " Towers.");
+            Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();
         }
 
@@ -109,7 +109,7 @@ namespace Systems.FactionSystem
             RegisterNpc<TreasureMasterLarin>();
             RegisterNpc<GoldCoin>();
 
-            UnityEngine.Debug.Log("Registered " + registeredNpcCount + " Npcs.");
+            Debug.Log("Registered " + registeredNpcCount + " Npcs.");
         }
 
         private void RegisterTower<T>() where T : Tower
@@ -144,22 +144,22 @@ namespace Systems.FactionSystem
 
         private void AddFaction(Faction faction)
         {
-            this.factions[faction.FactionName] = faction;
+            factions[faction.FactionName] = faction;
         }
 
         public Faction GetFactionByName(FactionNames factionName)
         {
-            return this.factions[factionName];
+            return factions[factionName];
         }
 
         public Dictionary<FactionNames, Faction> GetFactionDictionary()
         {
-            return this.factions;
+            return factions;
         }
 
         public List<Faction> GetFactions()
         {
-            return this.factions.Values.ToList();
+            return factions.Values.ToList();
         }
 
         //todo remove
@@ -191,7 +191,7 @@ namespace Systems.FactionSystem
         public void SendAmbassador(FactionNames factionName)
         {
             var gm = GameManager.Instance;
-            var faction = this.GetFactionByName(factionName);
+            var faction = GetFactionByName(factionName);
 
             faction.IncreaseStanding();
             gm.Player.DecreaseAmbassadors(1);

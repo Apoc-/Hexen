@@ -11,9 +11,9 @@ namespace Definitions.Npcs.Orcs
     {
         protected override void InitNpcData()
         {
-            this.Name = "Orc Grunt";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcGrunt");
-            this.HealthBarOffset = 0.4f;
+            Name = "Orc Grunt";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcGrunt");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Uncommon;
             Faction = FactionNames.Orcs;

@@ -19,9 +19,9 @@ namespace Definitions.Npcs.Dwarfs
 
         protected override void InitNpcData()
         {
-            this.Name = "Treasure Master Larin";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/TreasureMasterLarin");
-            this.HealthBarOffset = 0.4f;
+            Name = "Treasure Master Larin";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/TreasureMasterLarin");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Legendary;
             Faction = FactionNames.Dwarfs;
@@ -52,8 +52,8 @@ namespace Definitions.Npcs.Dwarfs
                 Heal();
                 ShouldDie = false;
 
-                this.target = this.transform.position;
-                this.transform.Translate(Vector3.up * 3f);
+                target = transform.position;
+                transform.Translate(Vector3.up * 3f);
 
                 isChest = true;
             }
@@ -71,10 +71,10 @@ namespace Definitions.Npcs.Dwarfs
                 return;
             }
 
-            var position = this.transform.position;
-            if (Vector3.Distance(position, this.target) > 0.1f)
+            var position = transform.position;
+            if (Vector3.Distance(position, target) > 0.1f)
             {
-                var direction = this.target - position;
+                var direction = target - position;
 
                 transform.SetPositionAndRotation(
                     position + direction.normalized * 16f * Time.fixedDeltaTime,
@@ -85,7 +85,7 @@ namespace Definitions.Npcs.Dwarfs
                 if (!landed)
                 {
                     landed = true;
-                    this.Splatter();
+                    Splatter();
                 }
             }
 
@@ -107,7 +107,7 @@ namespace Definitions.Npcs.Dwarfs
            
             var npc = gm.WaveGenerator.GenerateSingleNpc(coin);
             
-            gm.WaveSpawner.SpawnSingleNpcForCurrentWave(npc, this.transform.position, Target);
+            gm.WaveSpawner.SpawnSingleNpcForCurrentWave(npc, transform.position, Target);
         }
     }
 }

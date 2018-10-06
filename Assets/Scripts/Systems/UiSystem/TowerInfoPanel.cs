@@ -98,7 +98,7 @@ namespace Systems.UiSystem
 
         private void SetLevel(String value)
         {
-            this.level.text = value;
+            level.text = value;
         }
 
         private void SetDescription(String description)

@@ -11,15 +11,15 @@ namespace Definitions.Npcs.Elves
     {
         protected override void InitNpcData()
         {
-            this.Name = "Frost Mage";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/FrostMage");
-            this.HealthBarOffset = 0.4f;
+            Name = "Frost Mage";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/FrostMage");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Rare;
             Faction = FactionNames.Elves;
 
             var auraAttrEffect = new AttributeEffect(-0.25f, AttributeName.AttackSpeed, AttributeEffectType.PercentMul, this);
-            this.AuraEffects.Add(new AuraEffect(auraAttrEffect, true, false));
+            AuraEffects.Add(new AuraEffect(auraAttrEffect, true, false));
         }
 
         protected override void InitAttributes()

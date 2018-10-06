@@ -35,8 +35,8 @@
 
         public ClampedAttribute(ClampedAttribute source) : base(source)
         {
-            this.maxValue = source.maxValue;
-            this.minValue = source.minValue;
+            maxValue = source.maxValue;
+            minValue = source.minValue;
         }
 
         protected override float CalculateValue()

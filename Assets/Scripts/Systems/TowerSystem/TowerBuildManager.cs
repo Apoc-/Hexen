@@ -41,7 +41,7 @@ namespace Systems.TowerSystem
 
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                this.towerHoldState = ObtainTowerHoldState();
+                towerHoldState = ObtainTowerHoldState();
 
                 if (currentTile != null)
                 {
@@ -203,7 +203,7 @@ namespace Systems.TowerSystem
                 if (tile.PlacedTower != null)
                 {
                     CurrentHeldTower.GiveXP(tile.PlacedTower.Xp);
-                    this.SellTower(tile.PlacedTower);
+                    SellTower(tile.PlacedTower);
                 }
 
                 BuiltTowers.Add(CurrentHeldTower);
@@ -333,11 +333,11 @@ namespace Systems.TowerSystem
                     Destroy(t);
                 }
 
-                UnityEngine.Debug.Log("C " + count[Rarities.Common]);
-                UnityEngine.Debug.Log("U " + count[Rarities.Uncommon]);
-                UnityEngine.Debug.Log("R " + count[Rarities.Rare]);
-                UnityEngine.Debug.Log("L " + count[Rarities.Legendary]);
-                UnityEngine.Debug.Log("-------------------------------");
+                Debug.Log("C " + count[Rarities.Common]);
+                Debug.Log("U " + count[Rarities.Uncommon]);
+                Debug.Log("R " + count[Rarities.Rare]);
+                Debug.Log("L " + count[Rarities.Legendary]);
+                Debug.Log("-------------------------------");
             }
         }
     }

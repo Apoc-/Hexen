@@ -59,7 +59,7 @@ namespace Systems.MapSystem
 
         public void EnterTile(Npc npc)
         {
-            this.tileEffect?.ApplyEffectToNpc(npc);
+            tileEffect?.ApplyEffectToNpc(npc);
         }
     }
 }

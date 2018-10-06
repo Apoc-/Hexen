@@ -17,11 +17,11 @@ namespace Systems.WaveSystem
 
         public Wave(List<WavePack> packs)
         {
-            this.Packs = packs;
+            Packs = packs;
 
-            packs.ForEach(pack => { this.NpcCount += pack.GetNpcCount(); });
-            this.PackCount = packs.Count;
-            this.SpawnedNpcs = new List<Npc>();
+            packs.ForEach(pack => { NpcCount += pack.GetNpcCount(); });
+            PackCount = packs.Count;
+            SpawnedNpcs = new List<Npc>();
         }
     }
 }

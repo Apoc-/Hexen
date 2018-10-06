@@ -55,7 +55,7 @@ namespace Systems.AttributeSystem
             LevelIncrementType = source.LevelIncrementType;
             AttributeName = source.AttributeName;
             AttributeLevel = 1; //is leveled up by tower levelup
-            this.baseValue = source.baseValue;
+            baseValue = source.baseValue;
             isDirty = true;
 
             attributeEffects = new List<AttributeEffect>();
@@ -173,7 +173,7 @@ namespace Systems.AttributeSystem
 
         public void RemovedFinishedAttributeEffects()
         {
-            var finishedEffects = this.attributeEffects
+            var finishedEffects = attributeEffects
                 .Where(effect => effect.Duration > 0)
                 .Where(effect => Time.time - effect.AppliedTimestamp >= effect.Duration)
                 .ToList();

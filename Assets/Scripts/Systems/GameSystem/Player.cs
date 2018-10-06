@@ -54,17 +54,17 @@ namespace Systems.GameSystem
 
         public void IncreaseAmbassadors(int amount)
         {
-            this.ambassadors += amount;
+            ambassadors += amount;
         }
 
         public void DecreaseAmbassadors(int amount)
         {
-            this.ambassadors -= amount;
+            ambassadors -= amount;
         }
 
         public int GetAmbassadors()
         {
-            return this.ambassadors;
+            return ambassadors;
         }
 
         public bool BuyTower(Tower tower)

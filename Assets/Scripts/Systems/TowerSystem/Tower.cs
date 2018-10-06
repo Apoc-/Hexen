@@ -103,7 +103,7 @@ namespace Systems.TowerSystem
 
         public void InitCopyTowerData(Tower source)
         {
-            this.GiveXP(source.Xp);
+            GiveXP(source.Xp);
         }
 
         private void FixedUpdate()
@@ -118,7 +118,7 @@ namespace Systems.TowerSystem
         {
             Xp += amount;
 
-            while (Xp >= NextLevelXP() && this.Level < GameSettings.TowerMaxLevel)
+            while (Xp >= NextLevelXP() && Level < GameSettings.TowerMaxLevel)
             {
                 LevelUp();
             }
@@ -159,7 +159,7 @@ namespace Systems.TowerSystem
 
         private void CheckTarget()
         {
-            if (!this.HasAttribute(AttributeName.AttackRange)) return;
+            if (!HasAttribute(AttributeName.AttackRange)) return;
 
             var targetingHelper = GameManager.Instance.TargetingHelper;
             if (targetingHelper.CurrentTargetInRange(this))
@@ -217,7 +217,7 @@ namespace Systems.TowerSystem
             
             var attack = (AbstractAttack) go.AddComponent(AttackType);
 
-            attack.transform.SetParent(this.transform);
+            attack.transform.SetParent(transform);
             attack.transform.localPosition = new Vector3(0, WeaponHeight, 0);
 
             attack.InitAttack(LockedTarget, this);
@@ -250,7 +250,7 @@ namespace Systems.TowerSystem
 
         public void RemoveFinishedTimedAttributeEffects()
         {
-            foreach (var pair in this.Attributes)
+            foreach (var pair in Attributes)
             {
                 pair.Value.RemovedFinishedAttributeEffects();
             }
@@ -263,7 +263,7 @@ namespace Systems.TowerSystem
 
         public void Stun(float duration, AttributeEffectSource source)
         {
-            if (this.HasAttribute(AttributeName.AttackSpeed))
+            if (HasAttribute(AttributeName.AttackSpeed))
             {
                 var attr = GetAttribute(AttributeName.AttackSpeed);
                 if(attr.Value > 0)
@@ -291,7 +291,7 @@ namespace Systems.TowerSystem
 
         public void ForceRetarget()
         {
-            this.LockedTarget = null;
+            LockedTarget = null;
         }
     }
 }

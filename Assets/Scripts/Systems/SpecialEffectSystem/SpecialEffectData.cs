@@ -17,12 +17,12 @@ namespace Systems.SpecialEffectSystem
 
         protected SpecialEffectData(string effectPrefabName, GameObject origin, float duration, bool followsOrigin = false, bool diesWithOrigin = true)
         {
-            this.EffectPrefabName = effectPrefabName;
-            this.Origin = origin;
-            this.FollowsOrigin = followsOrigin;
-            this.DiesWithOrigin = diesWithOrigin;
-            this.Duration = duration;
-            this.TimeActive = 0.0f;
+            EffectPrefabName = effectPrefabName;
+            Origin = origin;
+            FollowsOrigin = followsOrigin;
+            DiesWithOrigin = diesWithOrigin;
+            Duration = duration;
+            TimeActive = 0.0f;
         }
 
         protected SpecialEffectData(
@@ -33,7 +33,7 @@ namespace Systems.SpecialEffectSystem
             bool followsOrigin = false, 
             bool diesWithOrigin = true) : this(effectPrefabName, origin, duration, followsOrigin, diesWithOrigin)
         {
-            this.Offset = offset;
+            Offset = offset;
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Systems.FactionSystem
 {
     public abstract class Faction
     {
-        protected string Name;
-        protected string Description;
-        public FactionNames FactionName;
-        public FactionNames OpponentFactionName;
-        private int standing = 0;
+        private string _name;
+        private string _description;
+        public readonly FactionNames FactionName;
+        public readonly FactionNames OpponentFactionName;
+        private int standing;
 
         private readonly Dictionary<Rarities, List<Tower>> towers;
         private readonly Dictionary<Rarities, List<Npc>> npcs;
@@ -24,10 +24,10 @@ namespace Systems.FactionSystem
             FactionNames factionName, 
             FactionNames opponentFactionName = FactionNames.Void)
         {
-            this.Name = name;
-            this.Description = description;
-            this.FactionName = factionName;
-            this.OpponentFactionName = opponentFactionName;
+            _name = name;
+            _description = description;
+            FactionName = factionName;
+            OpponentFactionName = opponentFactionName;
 
             towers = new Dictionary<Rarities, List<Tower>>
             {
@@ -50,12 +50,12 @@ namespace Systems.FactionSystem
 
         public void AddTower(Tower tower)
         {
-            this.towers[tower.Rarity].Add(tower);
+            towers[tower.Rarity].Add(tower);
         }
 
         public void AddNpc(Npc npc)
         {
-            this.npcs[npc.Rarity].Add(npc);
+            npcs[npc.Rarity].Add(npc);
         }
 
         public List<Tower> GetAvailableTowers()
@@ -112,13 +112,13 @@ namespace Systems.FactionSystem
 
         public void IncreaseStanding()
         {
-            this.standing += 1;
+            standing += 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
         }
 
         public void DecreaseStanding()
         {
-            this.standing -= 1;
+            standing -= 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
         }
 

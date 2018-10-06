@@ -17,8 +17,8 @@ namespace Systems.AttackSystem
             InitAttackData();
             InitAttackEffects();
 
-            this.Target = target;
-            this.Source = source;
+            Target = target;
+            Source = source;
         }
 
         protected abstract void InitAttackData();
@@ -32,7 +32,7 @@ namespace Systems.AttackSystem
 
         protected void AddAttackEffect(AttackEffect attackEffect)
         {
-            this.AttackEffects.Add(attackEffect);
+            AttackEffects.Add(attackEffect);
         }
     }
 }

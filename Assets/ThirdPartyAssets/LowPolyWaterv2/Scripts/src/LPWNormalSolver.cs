@@ -149,7 +149,7 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
         struct LPWPair : IEquatable<LPWPair> {
             public int x, y;
 
-            public LPWPair(int i, int j) { this.x = i; this.y = j; }
+            public LPWPair(int i, int j) { x = i; y = j; }
 
             public override int GetHashCode() {
                 return x.GetHashCode() + y.GetHashCode();

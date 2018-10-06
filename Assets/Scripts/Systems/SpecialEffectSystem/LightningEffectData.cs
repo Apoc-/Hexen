@@ -12,14 +12,14 @@ namespace Systems.SpecialEffectSystem
         public LightningEffectData(string effectPrefabName, Vector3 start, Vector3 end, float duration)
             : base(effectPrefabName, null, Vector3.zero, duration, false, false)
         {
-            this.Start = start;
-            this.End = end;
+            Start = start;
+            End = end;
             
         }
         public LightningEffectData(string effectPrefabName, GameObject origin, GameObject target, float duration)
             : base(effectPrefabName, origin, Vector3.zero, duration, true, true)
         {
-            this.Target = target;
+            Target = target;
         }
     }
 }

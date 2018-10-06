@@ -30,7 +30,7 @@ namespace Systems.TowerSystem
         {
             ClearAuraTargets();
 
-            if (!this.HasAttribute(AttributeName.AuraRange)) return;
+            if (!HasAttribute(AttributeName.AuraRange)) return;
 
             var pos = transform.position;
             var range = GetAttributeValue(AttributeName.AuraRange);
@@ -84,12 +84,12 @@ namespace Systems.TowerSystem
 
         protected void TickAura()
         {
-            this.OnAuraTick.Invoke();
+            OnAuraTick.Invoke();
             
-            var targets = this.AffectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
+            var targets = AffectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
             targets.ForEach(npc =>
             {
-                var dmg = this.Attributes[AttributeName.AuraDamage].Value;
+                var dmg = Attributes[AttributeName.AuraDamage].Value;
                 npc.DealDamage(dmg, this);
             });
         }

@@ -82,7 +82,7 @@ namespace Definitions.Towers.Dwarfs
             PlayParticleEffectAboveTower("CoinExplosion", 3);
 
             GameManager.Instance.Player.IncreaseGold(level);
-            this.GiveXP(level);
+            GiveXP(level);
         }
 
         public override void Remove()

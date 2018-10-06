@@ -265,9 +265,9 @@ namespace Systems.GameSystem
 
         private void ResetGame()
         {
-            this.player = null;
-            this.waveSpawner = null;
-            this.towerBuildManager = null;
+            player = null;
+            waveSpawner = null;
+            towerBuildManager = null;
         }
 
         

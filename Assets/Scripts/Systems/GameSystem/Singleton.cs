@@ -21,7 +21,7 @@ namespace Systems.GameSystem
             {
                 if (applicationIsQuitting)
                 {
-                    UnityEngine.Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
+                    Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
                         "' already destroyed on application quit." +
                         " Won't create again - returning null.");
                     return null;
@@ -35,7 +35,7 @@ namespace Systems.GameSystem
 
                         if (FindObjectsOfType(typeof(T)).Length > 1)
                         {
-                            UnityEngine.Debug.LogError("[Singleton] Something went really wrong " +
+                            Debug.LogError("[Singleton] Something went really wrong " +
                                 " - there should never be more than 1 singleton!" +
                                 " Reopening the scene might fix it.");
                             return _instance;
@@ -49,13 +49,13 @@ namespace Systems.GameSystem
 
                             DontDestroyOnLoad(singleton);
 
-                            UnityEngine.Debug.Log("[Singleton] An instance of " + typeof(T) +
+                            Debug.Log("[Singleton] An instance of " + typeof(T) +
                                 " is needed in the scene, so '" + singleton +
                                 "' was created with DontDestroyOnLoad.");
                         }
                         else
                         {
-                            UnityEngine.Debug.Log("[Singleton] Using instance already created: " +
+                            Debug.Log("[Singleton] Using instance already created: " +
                                 _instance.gameObject.name);
                         }
                     }

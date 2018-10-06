@@ -14,12 +14,12 @@ namespace Systems.WaveSystem
 
         public void AddNpc(Npc npc)
         {
-            this.npcs.Add(npc);
+            npcs.Add(npc);
         }
 
         public void AddPack(WavePack pack)
         {
-            this.npcs.AddRange(pack.npcs);
+            npcs.AddRange(pack.npcs);
         }
 
         public int GetNpcCount()

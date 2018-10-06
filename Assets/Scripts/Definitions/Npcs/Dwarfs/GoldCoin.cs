@@ -11,9 +11,9 @@ namespace Definitions.Npcs.Dwarfs
     {
         protected override void InitNpcData()
         {
-            this.Name = "Gold Coin";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/GoldCoin");
-            this.HealthBarOffset = 0.4f;
+            Name = "Gold Coin";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/GoldCoin");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.None;
             Faction = FactionNames.Dwarfs;

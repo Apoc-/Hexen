@@ -9,8 +9,8 @@ namespace Systems.NpcSystem
 
         public NpcHitData(float dmg, Tower source)
         {
-            this.Dmg = dmg;
-            this.Source = source;
+            Dmg = dmg;
+            Source = source;
         }
     }
 }

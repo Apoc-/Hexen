@@ -11,17 +11,17 @@ namespace Systems.SpecialEffectSystem
         public TextEffectData(string text, float size, Color color, GameObject origin, float duration) 
             : base("BasicFloatingTextEffect", origin, duration, false, false)
         {
-            this.Text = text;
-            this.Size = size;
-            this.Color = color;
+            Text = text;
+            Size = size;
+            Color = color;
         }
 
         public TextEffectData(string text, float size, Color color, GameObject origin, Vector3 offset, float duration)
             : base("BasicFloatingTextEffect", origin, offset, duration, false, false)
         {
-            this.Text = text;
-            this.Size = size;
-            this.Color = color;
+            Text = text;
+            Size = size;
+            Color = color;
         }
     }
 }

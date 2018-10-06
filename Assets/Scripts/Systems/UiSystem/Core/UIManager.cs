@@ -12,52 +12,12 @@ namespace Systems.UiSystem.Core
         [SerializeField] private GameFinishedScreenBehaviour finishScreen;
         [SerializeField] private HiredHandPanel hiredHandPanel;
 
-
-        public CursorHandler CursorHandler
-        {
-            get
-            {
-                return cursorHandler;
-            }
-        }
-
-        public BuildPanel BuildPanel
-        {
-            get
-            {
-                return buildPanel;
-            }
-        }
-
-        public TowerInfoPanel TowerInfoPanel
-        {
-            get
-            {
-                return towerInfoPanel;
-            }
-        }
-
-        public FactionPanel FactionPanel
-        {
-            get { return factionPanel; }
-        }
-
-        
-        public GameFinishedScreenBehaviour FinishScreen
-        {
-            get
-            {
-                return finishScreen;
-            }
-        }
-
-        public HiredHandPanel HiredHandPanel
-        {
-            get
-            {
-                return hiredHandPanel;
-            }
-        }
+        public CursorHandler CursorHandler => cursorHandler;
+        public BuildPanel BuildPanel => buildPanel;
+        public TowerInfoPanel TowerInfoPanel => towerInfoPanel;
+        public FactionPanel FactionPanel => factionPanel;
+        public GameFinishedScreenBehaviour FinishScreen => finishScreen;
+        public HiredHandPanel HiredHandPanel => hiredHandPanel;
 
         public void Update()
         {

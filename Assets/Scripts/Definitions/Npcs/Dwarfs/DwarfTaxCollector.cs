@@ -11,9 +11,9 @@ namespace Definitions.Npcs.Dwarfs
     {
         protected override void InitNpcData()
         {
-            this.Name = "Dwarf Tax Collector";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/DwarfTaxCollector");
-            this.HealthBarOffset = 0.4f;
+            Name = "Dwarf Tax Collector";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/DwarfTaxCollector");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Rare;
             Faction = FactionNames.Dwarfs;

@@ -12,14 +12,14 @@ namespace Definitions.Npcs.Elves
     {
         protected override void InitNpcData()
         {
-            this.Name = "Storm Glaive";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/StormGlaive");
-            this.HealthBarOffset = 0.4f;
+            Name = "Storm Glaive";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/StormGlaive");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Uncommon;
             Faction = FactionNames.Elves;
 
-            this.OnHit += TetherDamage;
+            OnHit += TetherDamage;
         }
 
         private void TetherDamage(Npc npc, NpcHitData hitdata)

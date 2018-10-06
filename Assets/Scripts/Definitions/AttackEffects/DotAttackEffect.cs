@@ -21,7 +21,7 @@ namespace Definitions.AttackEffects
 
         protected override void ApplyEffect(Tower source, Npc target)
         {
-            target.ApplyDot(new NpcDot(this.duration, this.damagePerTick, this.ticksPerSecond, source));
+            target.ApplyDot(new NpcDot(duration, damagePerTick, ticksPerSecond, source));
         }
     }
 }

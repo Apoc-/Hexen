@@ -12,7 +12,7 @@ namespace Systems.ItemSystem
         public void InitInventory(int size)
         {
             this.size = size;
-            this.Items = new List<Item>();
+            Items = new List<Item>();
         }
 
         public bool AddItem(Item item)

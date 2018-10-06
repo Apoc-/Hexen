@@ -29,7 +29,7 @@ namespace Systems.NpcSystem
         {
             ClearAuraTargets();
 
-            if (!this.HasAttribute(AttributeName.AuraRange)) return;
+            if (!HasAttribute(AttributeName.AuraRange)) return;
 
             var pos = transform.position;
             var range = GetAttributeValue(AttributeName.AuraRange);

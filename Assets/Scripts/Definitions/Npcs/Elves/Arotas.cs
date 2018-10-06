@@ -16,14 +16,14 @@ namespace Definitions.Npcs.Elves
 
         protected override void InitNpcData()
         {
-            this.Name = "Arotas";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/Arotas");
-            this.HealthBarOffset = 0.4f;
+            Name = "Arotas";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/Arotas");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Legendary;
             Faction = FactionNames.Elves;
 
-            this.OnHit += CheckHit;
+            OnHit += CheckHit;
         }
 
         protected override void InitAttributes()
@@ -65,7 +65,7 @@ namespace Definitions.Npcs.Elves
 
             movementSpeedAttr.AddAttributeEffect(new AttributeEffect(0.0f, AttributeName.MovementSpeed, AttributeEffectType.SetValue, this, hatchTime));
 
-            this.healthBar.UpdateHealth(CurrentHealth / maxHealthAttr.Value);
+            healthBar.UpdateHealth(CurrentHealth / maxHealthAttr.Value);
 
             isEgg = true;
         }

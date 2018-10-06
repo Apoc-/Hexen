@@ -11,9 +11,9 @@ namespace Definitions.Npcs.Dwarfs
     {
         protected override void InitNpcData()
         {
-            this.Name = "Dwarf Worker";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/DwarfWorker");
-            this.HealthBarOffset = 0.4f;
+            Name = "Dwarf Worker";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/DwarfWorker");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Common;
             Faction = FactionNames.Dwarfs;

@@ -68,7 +68,7 @@ namespace Definitions.Towers.Elves
             projectile.DmgPerTick = Attributes[AttributeName.AttackDamage].Value / 8;
             projectile.TicksPerSecond = 4;
 
-            projectile.transform.SetParent(this.transform);
+            projectile.transform.SetParent(transform);
             projectile.transform.localPosition = new Vector3(0, WeaponHeight + 5, 0);
 
             projectile.InitAttack(target, this);

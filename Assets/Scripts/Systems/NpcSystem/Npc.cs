@@ -59,16 +59,16 @@ namespace Systems.NpcSystem
 
         public void InitData()
         {
-            this.InitAttributes();
-            this.InitNpcData();
+            InitAttributes();
+            InitNpcData();
         }
 
         public void InitVisuals()
         {
-            this.LoadNpcModel();
+            LoadNpcModel();
 
-            this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
-            this.InitHealthBar();
+            CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
+            InitHealthBar();
 
             InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
         }
@@ -80,7 +80,7 @@ namespace Systems.NpcSystem
             bar.transform.SetParent(transform);
 
             var pos = Vector3.zero;
-            pos.y = pos.y + this.HealthBarOffset;
+            pos.y = pos.y + HealthBarOffset;
             bar.transform.localPosition = pos;
 
             healthBar = bar.GetComponent<NpcHealthBar>();
@@ -116,7 +116,7 @@ namespace Systems.NpcSystem
 
                 if (dot.ShouldTick(Time.time))
                 {
-                    this.DealDamage(dot.Damage, dot.Source);
+                    DealDamage(dot.Damage, dot.Source);
                     dot.DoTick(Time.time);
                 }
             });
@@ -195,10 +195,10 @@ namespace Systems.NpcSystem
         {
             for (int i = 1; i < lvl; i++)
             {
-                this.LevelUp();
+                LevelUp();
             }
 
-            this.CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
+            CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
         }
 
         public virtual void HitNpc(NpcHitData hitData)
@@ -250,14 +250,14 @@ namespace Systems.NpcSystem
 
         private void GiveRewards(Tower source)
         {
-            if (this.HasAttribute(AttributeName.XPReward))
+            if (HasAttribute(AttributeName.XPReward))
             {
-                GiveXP(source, this.GetAttribute(AttributeName.XPReward).Value);
+                GiveXP(source, GetAttribute(AttributeName.XPReward).Value);
             }
 
-            if (this.HasAttribute(AttributeName.GoldReward))
+            if (HasAttribute(AttributeName.GoldReward))
             {
-                GiveGold(source.Owner, this.GetAttribute(AttributeName.GoldReward).Value);
+                GiveGold(source.Owner, GetAttribute(AttributeName.GoldReward).Value);
             }
         }
 
@@ -293,8 +293,8 @@ namespace Systems.NpcSystem
         {
             OnDeath?.Invoke(this, killer);
 
-            this.isSpawned = false;
-            this.SpawnedInWave.SpawnedNpcs.Remove(this);
+            isSpawned = false;
+            SpawnedInWave.SpawnedNpcs.Remove(this);
 
             if (!silent)
             {
@@ -354,14 +354,14 @@ namespace Systems.NpcSystem
             }*/
 
 
-            if (this.Target == null)
+            if (Target == null)
             {
-                this.Target = GameManager.Instance.MapManager.StartTile;
+                Target = GameManager.Instance.MapManager.StartTile;
                 transform.position = Target.GetTopCenter();
             }
 
             Vector3 target = Target.GetTopCenter();
-            Vector3 position = this.transform.position;
+            Vector3 position = transform.position;
             Vector3 distance = target - position;
 
             if (distance.magnitude < 0.1f)
@@ -404,7 +404,7 @@ namespace Systems.NpcSystem
 
         public void RemoveFinishedTimedAttributeEffects()
         {
-            foreach (var pair in this.Attributes)
+            foreach (var pair in Attributes)
             {
                 pair.Value.RemovedFinishedAttributeEffects();
             }
@@ -415,7 +415,7 @@ namespace Systems.NpcSystem
             //only one dot per source for now
             if (dots.Any(d => d.Source == dot.Source)) return;
 
-            this.dots.Add(dot);
+            dots.Add(dot);
         }
 
 
@@ -460,11 +460,11 @@ namespace Systems.NpcSystem
     
     public Vector3 GetPositionInTime2(float time)
         {
-            UnityEngine.Debug.Log("estimating");
+            Debug.Log("estimating");
             if (CurrentTile == null || Target == null) return transform.position;
             if (transform == null) return Vector3.zero;
 
-            UnityEngine.Debug.Log("new target");
+            Debug.Log("new target");
 
             var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
             var velocity = Attributes[AttributeName.MovementSpeed].Value;
@@ -485,7 +485,7 @@ namespace Systems.NpcSystem
                 
                 while (true)
                 {
-                    UnityEngine.Debug.Log("new tile");
+                    Debug.Log("new tile");
 
                     //check for end
                     if (current.TileType == TileType.End) return current.GetTopCenter();

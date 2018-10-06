@@ -15,8 +15,8 @@ namespace Systems.NpcSystem
 
         public NpcDot(float duration, float damage, float ticksPerSecond, Tower source)
         {
-            this.activeTime = 0;
-            this.lastTick = 0;
+            activeTime = 0;
+            lastTick = 0;
             this.duration = duration;
             this.ticksPerSecond = ticksPerSecond;
 

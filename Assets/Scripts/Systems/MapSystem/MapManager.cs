@@ -41,7 +41,7 @@ namespace Systems.MapSystem
 
         private void parseMapFile(string map)
         {
-            GameObject parent = this.gameObject;
+            GameObject parent = gameObject;
             float spacing = TileSpacing;
 
             Mesh mesh = new Mesh();
@@ -59,7 +59,7 @@ namespace Systems.MapSystem
                 List<string> tileData = line.Split(' ').ToList();
 
                 List<Tile> tileRow = new List<Tile>();
-                this.tiles.Add(tileRow);
+                tiles.Add(tileRow);
 
                 for (int rowIdx = 0; rowIdx < tileData.Count; rowIdx++)
                 {
@@ -153,7 +153,7 @@ namespace Systems.MapSystem
                     var t1 = path[i];
                     var t2 = path[i + 1];
 
-                    UnityEngine.Debug.DrawLine(t1.GetTopCenter(), t2.GetTopCenter(), Color.white, 9999);
+                    Debug.DrawLine(t1.GetTopCenter(), t2.GetTopCenter(), Color.white, 9999);
                 }
             }
         }

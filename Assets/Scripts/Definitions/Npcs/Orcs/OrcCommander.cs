@@ -18,14 +18,14 @@ namespace Definitions.Npcs.Orcs
 
         protected override void InitNpcData()
         {
-            this.Name = "Orc Commander";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcCommander");
-            this.HealthBarOffset = 0.4f;
+            Name = "Orc Commander";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Orcs/OrcCommander");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Rare;
             Faction = FactionNames.Orcs;
 
-            if (this.isSpawned)
+            if (isSpawned)
             {
                 affectedNpcs = new List<Npc>();
                 CheckForAffectableNpcs();
@@ -78,7 +78,7 @@ namespace Definitions.Npcs.Orcs
 
             npc.Heal();
 
-            UnityEngine.Debug.Log("|||||||||| Triggered second wind for " + npc.GetHashCode() + " My Health: " + this.CurrentHealth);
+            Debug.Log("|||||||||| Triggered second wind for " + npc.GetHashCode() + " My Health: " + CurrentHealth);
         }
 
         public override void Die(bool silent = false)

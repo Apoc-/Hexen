@@ -16,9 +16,9 @@ namespace Definitions.Npcs.Goblins
 
         protected override void InitNpcData()
         {
-            this.Name = "Goblin King";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Goblins/GoblinKing");
-            this.HealthBarOffset = 0.4f;
+            Name = "Goblin King";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Goblins/GoblinKing");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Legendary;
             Faction = FactionNames.Goblins;

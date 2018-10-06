@@ -11,9 +11,9 @@ namespace Definitions.Npcs.Elves
     {
         protected override void InitNpcData()
         {
-            this.Name = "Arcane Apprentice";
-            this.ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/ArcaneApprentice");
-            this.HealthBarOffset = 0.4f;
+            Name = "Arcane Apprentice";
+            ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Elves/ArcaneApprentice");
+            HealthBarOffset = 0.4f;
 
             Rarity = Rarities.Common;
             Faction = FactionNames.Elves;
