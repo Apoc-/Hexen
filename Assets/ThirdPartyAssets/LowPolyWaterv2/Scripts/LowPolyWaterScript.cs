@@ -25,10 +25,10 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Scripts {
         public int sizeZ = 30;
         [Range(0, 1)]
         public float noise = 0.5f;
-        public bool enableReflection = false;
-        public bool enableRefraction = false;
+        public bool enableReflection;
+        public bool enableRefraction;
         public LPWReflectionParams reflection;
-        public bool receiveShadows = false;
+        public bool receiveShadows;
         #endregion
 
         #region Constants
@@ -181,7 +181,7 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Scripts {
         }
 
         [HideInInspector]
-        public bool displayProgress = false;
+        public bool displayProgress;
         public void Progress(float progress) {
             EditorUtility.DisplayProgressBar("Low Poly Water GPU", "Generating Mesh..", progress);
         }

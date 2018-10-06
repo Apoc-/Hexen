@@ -3,13 +3,13 @@
 namespace ThirdPartyAssets.LowPolyWaterv2.Demos.Scripts {
     public class DemoFreeFlyCamera : MonoBehaviour {
 
-        public bool lockCursor = false;
+        public bool lockCursor;
         public float cameraSensitivity = 4;
         public float normalMoveSpeed = 10;
         public float smoothTime = 10f;
 
-        private float rotationX = 0.0f;
-        private float rotationY = 0.0f;
+        private float rotationX;
+        private float rotationY;
 
         void Start() {
             if (lockCursor) {

@@ -5,7 +5,7 @@ using Systems.TowerSystem;
 
 namespace Definitions.AttackEffects
 {
-    public class SlowAttackEffect : AttackEffect, AttributeEffectSource
+    public class SlowAttackEffect : AttackEffect, IAttributeEffectSource
     {
         private float slowAmount;
 

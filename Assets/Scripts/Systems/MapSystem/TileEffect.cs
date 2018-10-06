@@ -4,11 +4,12 @@ namespace Systems.MapSystem
 {
     public abstract class TileEffect
     {
-        private Tile tile;
+        // ReSharper disable once NotAccessedField.Local
+        private Tile _tile;
 
         protected TileEffect(Tile tile)
         {
-            this.tile = tile;
+            _tile = tile;
         }
 
 

@@ -12,7 +12,7 @@ namespace Definitions.Towers.Elves
 {
     class ArotasObelisk : Tower
     {
-        private GameObject MeteoriteModel;
+        private GameObject _meteoriteModel;
 
         public override void InitTowerData()
         {
@@ -28,7 +28,7 @@ namespace Definitions.Towers.Elves
 
             AttackType = typeof(ElvesProjectileAttack);
             ProjectileModelPrefab = Resources.Load<GameObject>("Prefabs/ProjectileModels/Default");
-            MeteoriteModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Meteorite");
+            _meteoriteModel = Resources.Load<GameObject>("Prefabs/ProjectileModels/Meteorite");
 
             WeaponHeight = 0.4f;
 
@@ -60,7 +60,7 @@ namespace Definitions.Towers.Elves
 
         private void TriggerMeteorite(Npc target)
         {
-            var go = Instantiate(MeteoriteModel);
+            var go = Instantiate(_meteoriteModel);
 
             var projectile = go.AddComponent<ArotasMeteoriteProjectileAttack>();
 

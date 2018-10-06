@@ -5,7 +5,7 @@ using Systems.TowerSystem;
 
 namespace Definitions.AttackEffects
 {
-    public class FrenzyAttackEffect : AttackEffect, AttributeEffectSource
+    public class FrenzyAttackEffect : AttackEffect, IAttributeEffectSource
     {
         protected override void ApplyEffect(Tower source, Npc target)
         {

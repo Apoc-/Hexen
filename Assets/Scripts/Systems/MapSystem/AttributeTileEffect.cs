@@ -5,17 +5,17 @@ namespace Systems.MapSystem
 {
     public class AttributeTileEffect : TileEffect
     {
-        private readonly AttributeEffect effect;
+        private readonly AttributeEffect _effect;
 
         public AttributeTileEffect(Tile tile, AttributeEffect effect) : base(tile)
         {
-            this.effect = effect;
+            _effect = effect;
         }
 
         public override void ApplyEffectToNpc(Npc enteringNpc)
         {
-            var attr = enteringNpc.Attributes[effect.AffectedAttributeName];
-            attr.AddAttributeEffect(effect);
+            var attr = enteringNpc.Attributes[_effect.AffectedAttributeName];
+            attr.AddAttributeEffect(_effect);
         }
     }
 }

@@ -20,13 +20,13 @@ namespace Systems.FactionSystem
 {
     public class FactionManager : MonoBehaviour
     {
-        private Dictionary<FactionNames, Faction> factions;
-        private Dictionary<FactionNames, FactionNames> opponents;
-        private List<Tower> availableTowers;
-        private List<Npc> availableNpcs;
-        private int registeredTowerCount = 0;
-        private int registeredNpcCount = 0;
-        private int sentAmbassadors = 0;
+        private Dictionary<FactionNames, Faction> _factions;
+        private Dictionary<FactionNames, FactionNames> _opponents;
+        private List<Tower> _availableTowers;
+        private List<Npc> _availableNpcs;
+        private int _registeredTowerCount;
+        private int _registeredNpcCount;
+        private int _sentAmbassadors;
 
         public void Initialize()
         {
@@ -37,7 +37,7 @@ namespace Systems.FactionSystem
 
         private void InitializeFactions()
         {
-            factions = new Dictionary<FactionNames, Faction>();
+            _factions = new Dictionary<FactionNames, Faction>();
 
             AddFaction(new Humans());
             AddFaction(new Orcs());
@@ -78,7 +78,7 @@ namespace Systems.FactionSystem
             RegisterTower<BoomstickBlacksmithy>();
             RegisterTower<BoomstickArtillery>();
 
-            Debug.Log("Registered " + registeredTowerCount + " Towers.");
+            Debug.Log("Registered " + _registeredTowerCount + " Towers.");
             UpdateAvailableTowers();
         }
 
@@ -109,7 +109,7 @@ namespace Systems.FactionSystem
             RegisterNpc<TreasureMasterLarin>();
             RegisterNpc<GoldCoin>();
 
-            Debug.Log("Registered " + registeredNpcCount + " Npcs.");
+            Debug.Log("Registered " + _registeredNpcCount + " Npcs.");
         }
 
         private void RegisterTower<T>() where T : Tower
@@ -124,8 +124,8 @@ namespace Systems.FactionSystem
             go.transform.parent = transform;
             go.SetActive(false);
             
-            factions[tower.Faction].AddTower(tower);
-            registeredTowerCount += 1;
+            _factions[tower.Faction].AddTower(tower);
+            _registeredTowerCount += 1;
         }
 
         private void RegisterNpc<T>() where T : Npc
@@ -138,53 +138,53 @@ namespace Systems.FactionSystem
             go.transform.parent = transform;
             go.SetActive(false);
 
-            factions[npc.Faction].AddNpc(npc);
-            registeredNpcCount += 1;
+            _factions[npc.Faction].AddNpc(npc);
+            _registeredNpcCount += 1;
         }
 
         private void AddFaction(Faction faction)
         {
-            factions[faction.FactionName] = faction;
+            _factions[faction.FactionName] = faction;
         }
 
         public Faction GetFactionByName(FactionNames factionName)
         {
-            return factions[factionName];
+            return _factions[factionName];
         }
 
         public Dictionary<FactionNames, Faction> GetFactionDictionary()
         {
-            return factions;
+            return _factions;
         }
 
         public List<Faction> GetFactions()
         {
-            return factions.Values.ToList();
+            return _factions.Values.ToList();
         }
 
         //todo remove
         public List<Tower> GetAvailableTowers()
         {
-            return availableTowers;
+            return _availableTowers;
         }
 
         public List<Npc> GetFactionNpcsByRarity(FactionNames factionName, Rarities rarity)
         {
-            return factions[factionName].GetNpcsByRarity(rarity);
+            return _factions[factionName].GetNpcsByRarity(rarity);
         }
 
         public List<Tower> GetFactionTowersByRarity(FactionNames factionName, Rarities rarity)
         {
-            return factions[factionName].GetTowersByRarity(rarity);
+            return _factions[factionName].GetTowersByRarity(rarity);
         }
 
         public void UpdateAvailableTowers()
         {
-            availableTowers = new List<Tower>();
+            _availableTowers = new List<Tower>();
 
-            factions.Values.ToList().ForEach(faction =>
+            _factions.Values.ToList().ForEach(faction =>
             {
-                availableTowers.AddRange(faction.GetAvailableTowers());
+                _availableTowers.AddRange(faction.GetAvailableTowers());
             });
         }
 
@@ -200,8 +200,8 @@ namespace Systems.FactionSystem
 
             HandleWar(faction.OpponentFactionName);
 
-            sentAmbassadors += 1;
-            if (sentAmbassadors == GameSettings.StartingAmbassadors)
+            _sentAmbassadors += 1;
+            if (_sentAmbassadors == GameSettings.StartingAmbassadors)
             {
                 GameManager.Instance.MakePlayerReady();
             }

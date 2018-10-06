@@ -10,9 +10,9 @@ namespace Definitions.Npcs.Goblins
 {
     public class GoblinKing : Npc
     {
-        private float stunDuration = 4.0f;
-        private float stunRadius = 3.0f;
-        private bool stunTriggered = false;
+        private float _stunDuration = 4.0f;
+        private float _stunRadius = 3.0f;
+        private bool _stunTriggered;
 
         protected override void InitNpcData()
         {
@@ -40,17 +40,17 @@ namespace Definitions.Npcs.Goblins
 
         private void CheckExplode(Npc npc, NpcHitData hitData)
         {
-            if (stunTriggered) return;
+            if (_stunTriggered) return;
             if (npc.CurrentHealth > npc.Attributes[AttributeName.MaxHealth].Value / 2.0f) return;
             
-            var towers = TargetingHelper.GetTowersInRadius(transform.position, stunRadius);
+            var towers = TargetingHelper.GetTowersInRadius(transform.position, _stunRadius);
 
             towers.ForEach(tower =>
             {
-                tower.Stun(stunDuration, this);
+                tower.Stun(_stunDuration, this);
             });
 
-            stunTriggered = true;
+            _stunTriggered = true;
         }
     }
 }

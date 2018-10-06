@@ -10,8 +10,8 @@ namespace Systems.AttackSystem
 {
     public class TargetingHelper : MonoBehaviour
     {
-        public Npc CurrentTargetedNpc = null;
-        private GameObject selectionEffect = null;
+        public Npc CurrentTargetedNpc;
+        private GameObject _selectionEffect;
 
         public void Update()
         {
@@ -36,13 +36,16 @@ namespace Systems.AttackSystem
 
         private void TargetNpc()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Npcs")))
+            if (Camera.main != null)
             {
-                CurrentTargetedNpc = hit.transform.gameObject.GetComponentInParent<Npc>();
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Npcs")))
+                {
+                    CurrentTargetedNpc = hit.transform.gameObject.GetComponentInParent<Npc>();
 
-                DisplaySelectionEffect();
+                    DisplaySelectionEffect();
+                }
             }
 
             GameManager.Instance.TowerBuildManager.BuiltTowers.ForEach(tower => tower.ForceRetarget());
@@ -56,15 +59,15 @@ namespace Systems.AttackSystem
 
         private void DisplaySelectionEffect()
         {
-            selectionEffect = Instantiate(Resources.Load<GameObject>("Sfx/SelectionEffect"));
-            selectionEffect.transform.parent = CurrentTargetedNpc.transform;
-            selectionEffect.transform.localPosition = Vector3.zero;
+            _selectionEffect = Instantiate(Resources.Load<GameObject>("Sfx/SelectionEffect"));
+            _selectionEffect.transform.parent = CurrentTargetedNpc.transform;
+            _selectionEffect.transform.localPosition = Vector3.zero;
         }
 
         private void RemoveSelectionEffect()
         {
-            Destroy(selectionEffect.gameObject);
-            selectionEffect = null;
+            Destroy(_selectionEffect.gameObject);
+            _selectionEffect = null;
         }
 
         public bool CurrentTargetInRange(Tower tower)

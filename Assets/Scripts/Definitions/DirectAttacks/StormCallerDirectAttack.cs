@@ -12,9 +12,8 @@ namespace Definitions.DirectAttacks
 {
     public class StormCallerDirectAttack : DirectAttack
     {
-        private List<Npc> hitNpcs = new List<Npc>();
-        private int otherTargetsCount = 2;
-        private Vector3 lastPosition;
+        private const int OtherTargetsCount = 2;
+        private Vector3 _lastPosition;
 
         protected override void InitAttackData()
         {
@@ -33,7 +32,7 @@ namespace Definitions.DirectAttacks
 
             ApplyEffectsToTarget(Target);
             PlayBoltEffect(towerPosition, targetPosition);
-            lastPosition = targetPosition;
+            _lastPosition = targetPosition;
 
             var randomTargets = GetRandomTargets();
             var sortedTargets = SortTargetsByDistance(towerPosition, randomTargets);
@@ -50,7 +49,7 @@ namespace Definitions.DirectAttacks
             npcs.Remove(Target);
             npcs.Shuffle();
 
-            return npcs.Take(otherTargetsCount).ToList();
+            return npcs.Take(OtherTargetsCount).ToList();
         }
 
         private List<Npc> SortTargetsByDistance(Vector3 origin, List<Npc> targets)
@@ -78,8 +77,8 @@ namespace Definitions.DirectAttacks
                     ApplyEffectsToTarget(target);
                 }
 
-                PlayBoltEffect(lastPosition, targetPosition);
-                lastPosition = targetPosition;
+                PlayBoltEffect(_lastPosition, targetPosition);
+                _lastPosition = targetPosition;
             }
 
             Destroy(gameObject);

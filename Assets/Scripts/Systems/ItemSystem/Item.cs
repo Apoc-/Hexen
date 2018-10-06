@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Systems.ItemSystem
 {
-    public abstract class Item : MonoBehaviour, AttributeEffectSource
+    public abstract class Item : MonoBehaviour, IAttributeEffectSource
     {
-        private List<AttributeEffect> attributeEffects = new List<AttributeEffect>();
+        private List<AttributeEffect> _attributeEffects = new List<AttributeEffect>();
         public Sprite Icon { get; set; }
         public int Cost { get; set; }
         public Rarities Rarity { get; set; }
@@ -24,7 +24,7 @@ namespace Systems.ItemSystem
         protected abstract void InitAttributeEffects();
         protected void AddAttributeEffect(AttributeEffect effect)
         {
-            attributeEffects.Add(effect);
+            _attributeEffects.Add(effect);
         }
     }
 }

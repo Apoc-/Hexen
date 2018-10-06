@@ -104,7 +104,6 @@
               <e p="LaurinsVaultProjectileAttack.cs" t="Include" />
               <e p="OrcAoeProjectileAttack.cs" t="Include" />
               <e p="OrcProjectileAttack.cs" t="Include" />
-              <e p="ProjectileModel.cs" t="Include" />
               <e p="ShredderProjectileAttack.cs" t="Include" />
               <e p="TaxCollectionOfficeProjectileAttack.cs" t="Include" />
               <e p="VoidProjectileAttack.cs" t="Include" />

@@ -7,65 +7,65 @@ namespace Systems.HiredHandSystem
 {
     public class HiredHandButton : MonoBehaviour
     {
-        [SerializeField] private GameObject buttonActiveEffect;
-        [SerializeField] private Image icon;
-        [SerializeField] private TextMeshProUGUI priceTag;
+        [SerializeField] private GameObject _buttonActiveEffect;
+        [SerializeField] private Image _icon;
+        [SerializeField] private TextMeshProUGUI _priceTag;
 
-        private HiredHandItem item;
+        private HiredHandItem _item;
 
-        private float hoverTime = 0.75f;
-        private float hoverDuration = 0.0f;
-        private bool isHovering = false;
+        private float _hoverTime = 0.75f;
+        private float _hoverDuration;
+        private bool _isHovering;
 
-        private bool isActive = false;
+        private bool _isActive;
 
         public void InitButton(HiredHandItem item)
         {
-            this.item = item;
-            icon.sprite = item.Icon;
-            priceTag.text = item.Cost.ToString();
+            _item = item;
+            _icon.sprite = item.Icon;
+            _priceTag.text = item.Cost.ToString();
         }
 
         public void Update()
         {
-            if (isHovering)
+            if (_isHovering)
             {
-                hoverDuration += Time.deltaTime;
+                _hoverDuration += Time.deltaTime;
             }
 
-            if (hoverDuration >= hoverTime)
+            if (_hoverDuration >= _hoverTime)
             {
-                GameManager.Instance.PopupManager.DisplayHiredHandPopup(item);
+                GameManager.Instance.PopupManager.DisplayHiredHandPopup(_item);
             }
         }
 
         public void OnPointerEnter()
         {
-            isHovering = true;
-            hoverDuration = 0;
+            _isHovering = true;
+            _hoverDuration = 0;
         }
 
         public void OnPointerExit()
         {
-            isHovering = false;
-            hoverDuration = 0;
+            _isHovering = false;
+            _hoverDuration = 0;
             GameManager.Instance.PopupManager.DestroyPopup();
         }
 
         public void OnButtonClicked()
         {
-            if (isActive)
+            if (_isActive)
             {
-                isActive = false;
+                _isActive = false;
                 //GameManager.Instance.UIManager.HiredHandPanel.UnstageHiredHand(this);
                 
             } else
             {
-                isActive = true;
+                _isActive = true;
                 //GameManager.Instance.UIManager.HiredHandPanel.StageHiredHand(this);
             }
 
-            buttonActiveEffect.SetActive(isActive);
+            _buttonActiveEffect.SetActive(_isActive);
         }
     }
 }

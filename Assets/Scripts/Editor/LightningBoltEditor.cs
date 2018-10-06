@@ -8,24 +8,24 @@ namespace Editor
     [CustomEditor(typeof(LightningBoltScript))]
     public class LightningBoltEditor : UnityEditor.Editor
     {
-        private Texture2D logo;
+        private Texture2D _logo;
 
         public override void OnInspectorGUI()
         {
-            if (logo == null)
+            if (_logo == null)
             {
                 string[] guids = AssetDatabase.FindAssets("LightningBoltLogo");
                 foreach (string guid in guids)
                 {
                     string path = AssetDatabase.GUIDToAssetPath(guid);
-                    logo = AssetDatabase.LoadMainAssetAtPath(path) as Texture2D;
-                    if (logo != null)
+                    _logo = AssetDatabase.LoadMainAssetAtPath(path) as Texture2D;
+                    if (_logo != null)
                     {
                         break;
                     }
                 }
             }
-            if (logo != null)
+            if (_logo != null)
             {
                 const float maxLogoWidth = 430.0f;
                 EditorGUILayout.Separator();
@@ -36,7 +36,7 @@ namespace Editor
                 Rect r2 = GUILayoutUtility.GetRect(r.width, r.height);
                 r.x = ((EditorGUIUtility.currentViewWidth - r.width) * 0.5f) - 4.0f;
                 r.y = r2.y;
-                GUI.DrawTexture(r, logo, ScaleMode.StretchToFill);
+                GUI.DrawTexture(r, _logo, ScaleMode.StretchToFill);
                 if (GUI.Button(r, "", new GUIStyle()))
                 {
                     Application.OpenURL("https://www.assetstore.unity3d.com/en/#!/content/34217?aid=1011lGnL");

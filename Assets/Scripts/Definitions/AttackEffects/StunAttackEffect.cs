@@ -7,13 +7,13 @@ using Systems.TowerSystem;
 
 namespace Definitions.AttackEffects
 {
-    public class StunAttackEffect : AttackEffect, AttributeEffectSource
+    public class StunAttackEffect : AttackEffect, IAttributeEffectSource
     {
-        private readonly int stunDuration;
+        private readonly int _stunDuration;
 
         public StunAttackEffect(int stunDuration, float triggerChance = 1) : base(triggerChance)
         {
-            this.stunDuration = stunDuration;
+            _stunDuration = stunDuration;
         }
 
         protected override void ApplyEffect(Tower source, Npc target)
@@ -23,15 +23,15 @@ namespace Definitions.AttackEffects
                 var movementSpeed = target.GetAttribute(AttributeName.MovementSpeed);
 
                 var slowEffect = new AttributeEffect(
-                    value: 0.0f,
-                    affectedAttributeName: AttributeName.MovementSpeed,
-                    effectType: AttributeEffectType.SetValue,
-                    effectSource: this,
-                    duration: stunDuration);
+                    0.0f,
+                    AttributeName.MovementSpeed,
+                    AttributeEffectType.SetValue,
+                    this,
+                    _stunDuration);
 
                 movementSpeed.AddAttributeEffect(slowEffect);
 
-                var effect = new ParticleEffectData("StunEffect", target.gameObject, stunDuration);
+                var effect = new ParticleEffectData("StunEffect", target.gameObject, _stunDuration);
                 GameManager.Instance.SpecialEffectManager.PlayParticleEffect(effect);
             }
         }

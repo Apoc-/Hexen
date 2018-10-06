@@ -11,8 +11,8 @@ namespace Definitions.Npcs.Elves
 {
     public class Arotas : Npc
     {
-        private bool isEgg;
-        private float hatchTime = 5.0f;
+        private bool _isEgg;
+        private float _hatchTime = 5.0f;
 
         protected override void InitNpcData()
         {
@@ -40,9 +40,9 @@ namespace Definitions.Npcs.Elves
 
         private void CheckHit(Npc npc, NpcHitData hitData)
         {
-            if (isEgg) return;
+            if (_isEgg) return;
 
-            if (!isSpawned) return;
+            if (!IsSpawned) return;
 
             var wouldKill = (CurrentHealth - hitData.Dmg <= 0);
             if (!wouldKill) return;
@@ -54,25 +54,25 @@ namespace Definitions.Npcs.Elves
 
         private void MorphToEgg()
         {
-            var sfx = new ParticleEffectData("FireCircle", gameObject, hatchTime);
+            var sfx = new ParticleEffectData("FireCircle", gameObject, _hatchTime);
             GameManager.Instance.SpecialEffectManager.PlayParticleEffect(sfx);
 
             var maxHealthAttr = Attributes[AttributeName.MaxHealth];
             var movementSpeedAttr = Attributes[AttributeName.MovementSpeed];
 
-            maxHealthAttr.AddAttributeEffect(new AttributeEffect(maxHealthAttr.Value/3, AttributeName.MaxHealth, AttributeEffectType.SetValue, this, hatchTime, MorphToPhoenix));
+            maxHealthAttr.AddAttributeEffect(new AttributeEffect(maxHealthAttr.Value/3, AttributeName.MaxHealth, AttributeEffectType.SetValue, this, _hatchTime, MorphToPhoenix));
             Heal();
 
-            movementSpeedAttr.AddAttributeEffect(new AttributeEffect(0.0f, AttributeName.MovementSpeed, AttributeEffectType.SetValue, this, hatchTime));
+            movementSpeedAttr.AddAttributeEffect(new AttributeEffect(0.0f, AttributeName.MovementSpeed, AttributeEffectType.SetValue, this, _hatchTime));
 
-            healthBar.UpdateHealth(CurrentHealth / maxHealthAttr.Value);
+            HealthBar.UpdateHealth(CurrentHealth / maxHealthAttr.Value);
 
-            isEgg = true;
+            _isEgg = true;
         }
 
         private void MorphToPhoenix(Attribute attribute)
         {
-            isEgg = false;
+            _isEgg = false;
             Heal();
 
             var burstEffect = new AttributeEffect(2f, AttributeName.MovementSpeed, AttributeEffectType.PercentMul, this, 1.5f);

@@ -7,7 +7,7 @@ namespace Systems.ItemSystem
 {
     public abstract class Merchant : MonoBehaviour
     {
-        private Dictionary<Rarities, List<Item>> registeredItems = new Dictionary<Rarities, List<Item>>
+        private Dictionary<Rarities, List<Item>> _registeredItems = new Dictionary<Rarities, List<Item>>
         {
             { Rarities.Common, new List<Item>() },
             { Rarities.Uncommon, new List<Item>() },
@@ -37,12 +37,12 @@ namespace Systems.ItemSystem
             go.transform.parent = RegisteredItemsContainer.transform;
             go.SetActive(false);
 
-            registeredItems[item.Rarity].Add(item);
+            _registeredItems[item.Rarity].Add(item);
         }
 
         public List<Item> GetRegisteredItemsOfRarity(Rarities rarity)
         {
-            return registeredItems[rarity];
+            return _registeredItems[rarity];
         }
 
         public void OfferItem(Item item)
@@ -58,13 +58,10 @@ namespace Systems.ItemSystem
         {
             if (item.Cost > player.Gold) return false;
 
-            if (ItemInventory.MoveItem(item, inventory))
-            {
-                player.DecreaseGold(item.Cost);
-                return true;
-            };
-
-            return false;
+            if (!ItemInventory.MoveItem(item, inventory)) return false;
+            
+            player.DecreaseGold(item.Cost);
+            return true;
         }
     }
 }

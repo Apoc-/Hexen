@@ -18,6 +18,6 @@ namespace Systems.AttributeSystem
         GoldRewardFactor,
         XPRewardFactor,
         MovementSpeed,
-        AbsoluteDamageReduction,
+        AbsoluteDamageReduction
     }
 }

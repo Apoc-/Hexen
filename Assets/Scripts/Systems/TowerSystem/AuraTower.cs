@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace Systems.TowerSystem
 {
-    abstract class AuraTower : Tower, AttributeEffectSource
+    abstract class AuraTower : Tower, IAttributeEffectSource
     {
         protected List<AuraEffect> AuraEffects = new List<AuraEffect>();
         protected List<IHasAttributes> AffectedAuraTargets = new List<IHasAttributes>();

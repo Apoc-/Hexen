@@ -8,46 +8,47 @@ using Systems.SpecialEffectSystem;
 using Systems.TowerSystem;
 using Systems.WaveSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Attribute = Systems.AttributeSystem.Attribute;
 
 namespace Systems.NpcSystem
 {
-    public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource, AuraTarget
+    public abstract class Npc : MonoBehaviour, IHasAttributes, IAttributeEffectSource, IAuraTarget
     {
         public AttributeContainer Attributes;
 
         public string Name;
         protected GameObject ModelPrefab;
-        private GameObject ModelGameObject;
+        private GameObject _modelGameObject;
         public Tile Target;
         public Tile CurrentTile;
-        public Wave SpawnedInWave = null;
+        public Wave SpawnedInWave;
 
-        public bool isSpawned = false;
+        [FormerlySerializedAs("isSpawned")] public bool IsSpawned;
 
-        [SerializeField]
-        private float currentHealth;
+        [FormerlySerializedAs("currentHealth")] [SerializeField]
+        private float _currentHealth;
 
         public float CurrentHealth
         {
-            get { return currentHealth; }
-            private set { currentHealth = value; }
+            get { return _currentHealth; }
+            private set { _currentHealth = value; }
         }
 
         public int Level = 1;
-        protected bool ShouldDie = false;
+        protected bool ShouldDie;
 
-        protected NpcHealthBar healthBar;
+        protected NpcHealthBar HealthBar;
         protected float HealthBarOffset = 0.0f;
         protected float HealthBarScale = 1.0f;
 
-        private List<NpcDot> dots = new List<NpcDot>();
-        private float tickTime = 0;
-        private float dotCheckInterval = 0.1f;
+        private List<NpcDot> _dots = new List<NpcDot>();
+        private float _tickTime;
+        private float _dotCheckInterval = 0.1f;
 
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
-        private Tower killer;
+        private Tower _killer;
 
         //events
         public delegate void NpcHitEvent(Npc sender, NpcHitData hitData);
@@ -83,11 +84,11 @@ namespace Systems.NpcSystem
             pos.y = pos.y + HealthBarOffset;
             bar.transform.localPosition = pos;
 
-            healthBar = bar.GetComponent<NpcHealthBar>();
+            HealthBar = bar.GetComponent<NpcHealthBar>();
 
             bar.transform.localScale *= HealthBarScale;
 
-            healthBar.UpdateHealth(1.0f);
+            HealthBar.UpdateHealth(1.0f);
         }
 
         protected void Update()
@@ -98,19 +99,19 @@ namespace Systems.NpcSystem
                 Die();
             }
 
-            tickTime += Time.deltaTime;
-            if (tickTime >= dotCheckInterval)
+            _tickTime += Time.deltaTime;
+            if (_tickTime >= _dotCheckInterval)
             {
                 DoDots();
-                tickTime = 0.0f;
+                _tickTime = 0.0f;
             }
         }
 
         private void DoDots()
         {
-            dots.RemoveAll(dot => dot.IsFinished());
+            _dots.RemoveAll(dot => dot.IsFinished());
 
-            dots.ForEach(dot =>
+            _dots.ForEach(dot =>
             {
                 dot.IncreaseActiveTime(Time.deltaTime);
 
@@ -126,18 +127,18 @@ namespace Systems.NpcSystem
 
         public void LoadNpcModel()
         {
-            if (ModelGameObject != null) return; //already loaded
+            if (_modelGameObject != null) return; //already loaded
 
-            ModelGameObject = Instantiate(ModelPrefab);
-            ModelGameObject.transform.SetParent(transform, false);
+            _modelGameObject = Instantiate(ModelPrefab);
+            _modelGameObject.transform.SetParent(transform, false);
         }
 
         public void ReloadNpcModel()
         {
-            Destroy(ModelGameObject);
+            Destroy(_modelGameObject);
 
-            ModelGameObject = Instantiate(ModelPrefab);
-            ModelGameObject.transform.SetParent(transform, false);
+            _modelGameObject = Instantiate(ModelPrefab);
+            _modelGameObject.transform.SetParent(transform, false);
         }
 
         protected virtual void InitAttributes()
@@ -223,12 +224,12 @@ namespace Systems.NpcSystem
             {
                 CurrentHealth = 0;
                 GiveRewards(source);
-                killer = source;
+                _killer = source;
                 ShouldDie = true;
             }
 
             var maxHealth = Attributes[AttributeName.MaxHealth].Value;
-            healthBar.UpdateHealth(CurrentHealth / maxHealth);
+            HealthBar.UpdateHealth(CurrentHealth / maxHealth);
         }
 
 
@@ -245,7 +246,7 @@ namespace Systems.NpcSystem
                 CurrentHealth += amount;
             }
 
-            healthBar.UpdateHealth(CurrentHealth / maxHealth);
+            HealthBar.UpdateHealth(CurrentHealth / maxHealth);
         }
 
         private void GiveRewards(Tower source)
@@ -291,9 +292,9 @@ namespace Systems.NpcSystem
 
         public virtual void Die(bool silent = false)
         {
-            OnDeath?.Invoke(this, killer);
+            OnDeath?.Invoke(this, _killer);
 
-            isSpawned = false;
+            IsSpawned = false;
             SpawnedInWave.SpawnedNpcs.Remove(this);
 
             if (!silent)
@@ -413,9 +414,9 @@ namespace Systems.NpcSystem
         public void ApplyDot(NpcDot dot)
         {
             //only one dot per source for now
-            if (dots.Any(d => d.Source == dot.Source)) return;
+            if (_dots.Any(d => d.Source == dot.Source)) return;
 
-            dots.Add(dot);
+            _dots.Add(dot);
         }
 
 

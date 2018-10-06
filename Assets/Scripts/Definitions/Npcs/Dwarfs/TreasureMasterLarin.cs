@@ -9,13 +9,13 @@ namespace Definitions.Npcs.Dwarfs
 {
     public class TreasureMasterLarin : Npc
     {
-        private bool isChest = false;
-        private bool landed = false;
-        private Vector3 target;
-        private float coinSpawnInterval = 0.25f;
-        private float coinSpawnTimer = 0;
-        private float coinSpawnMaxCount = 10;
-        private float coinSpawnCount = 0;
+        private bool _isChest;
+        private bool _landed;
+        private Vector3 _target;
+        private float _coinSpawnInterval = 0.25f;
+        private float _coinSpawnTimer;
+        private float _coinSpawnMaxCount = 10;
+        private float _coinSpawnCount;
 
         protected override void InitNpcData()
         {
@@ -41,7 +41,7 @@ namespace Definitions.Npcs.Dwarfs
 
         public override void Die(bool silent = false)
         {
-            if (isChest == false)
+            if (_isChest == false)
             {
                 ModelPrefab = Resources.Load<GameObject>("Prefabs/Npcs/Dwarfs/TreasureChest");
                 ReloadNpcModel();
@@ -52,10 +52,10 @@ namespace Definitions.Npcs.Dwarfs
                 Heal();
                 ShouldDie = false;
 
-                target = transform.position;
+                _target = transform.position;
                 transform.Translate(Vector3.up * 3f);
 
-                isChest = true;
+                _isChest = true;
             }
             else
             {
@@ -65,16 +65,16 @@ namespace Definitions.Npcs.Dwarfs
 
         protected new virtual void FixedUpdate()
         {
-            if (!isChest)
+            if (!_isChest)
             {
                 base.FixedUpdate();
                 return;
             }
 
             var position = transform.position;
-            if (Vector3.Distance(position, target) > 0.1f)
+            if (Vector3.Distance(position, _target) > 0.1f)
             {
-                var direction = target - position;
+                var direction = _target - position;
 
                 transform.SetPositionAndRotation(
                     position + direction.normalized * 16f * Time.fixedDeltaTime,
@@ -82,25 +82,25 @@ namespace Definitions.Npcs.Dwarfs
             }
             else
             {
-                if (!landed)
+                if (!_landed)
                 {
-                    landed = true;
+                    _landed = true;
                     Splatter();
                 }
             }
 
-            coinSpawnTimer += Time.fixedDeltaTime;
-            if (coinSpawnTimer >= coinSpawnInterval && landed)
+            _coinSpawnTimer += Time.fixedDeltaTime;
+            if (_coinSpawnTimer >= _coinSpawnInterval && _landed)
             {
-                if(coinSpawnCount >= coinSpawnMaxCount) base.Die(true);
+                if(_coinSpawnCount >= _coinSpawnMaxCount) base.Die(true);
                 SpawnCoin();
-                coinSpawnTimer = 0f;
+                _coinSpawnTimer = 0f;
             }
         }
 
         private void SpawnCoin()
         {
-            coinSpawnCount += 1;
+            _coinSpawnCount += 1;
             var gm = GameManager.Instance;
             var dwarfs = gm.FactionManager.GetFactionByName(FactionNames.Dwarfs);
             var coin = dwarfs.GetNpc<GoldCoin>();

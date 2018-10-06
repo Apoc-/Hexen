@@ -22,7 +22,7 @@ namespace Systems.TowerSystem
 
         private Tower CurrentHeldTower => GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
 
-        public bool IsBuilding { get; private set; } = false;
+        public bool IsBuilding { get; private set; }
 
         private Tile currentTile;
         private TowerBuildButton currentHeldTowerButton;

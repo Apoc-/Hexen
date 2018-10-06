@@ -9,7 +9,6 @@
                 case HexenScene.GameScene:
                     return "GameScene";
                 default:
-                case HexenScene.StartMenuScene:
                     return "StartMenuScene";
             }
         }
@@ -21,7 +20,6 @@
                 case "GameScene":
                     return HexenScene.GameScene;
                 default:
-                case "StartMenuScene":
                     return HexenScene.StartMenuScene;
             }
         }

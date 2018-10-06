@@ -15,30 +15,26 @@ namespace Systems.AttributeSystem
     [Serializable]
     public class AttributeEffect
     {
-        [SerializeField] private AttributeName affectedAttributeName;
+        private AttributeName _affectedAttributeName;
 
         public AttributeName AffectedAttributeName
         {
-            get { return affectedAttributeName; }
-            private set { affectedAttributeName = value; }
+            get => _affectedAttributeName;
+            private set => _affectedAttributeName = value;
         }
 
-        
-
-        public float Value { get; private set; }
-        public AttributeEffectType EffectType { get; private set; }
-
-        public AttributeEffectSource EffectSource { get; private set; }
-
-        public float AppliedTimestamp { get; private set; }
-        public float Duration { get; private set; }
-        public Action<Attribute> FinishedCallback { get; set; }
+        public float Value { get; }
+        public AttributeEffectType EffectType { get; }
+        public IAttributeEffectSource EffectSource { get; }
+        public float AppliedTimestamp { get; }
+        public float Duration { get; }
+        public Action<Attribute> FinishedCallback { get; }
 
         public AttributeEffect(
             float value, 
             AttributeName affectedAttributeName, 
             AttributeEffectType effectType, 
-            AttributeEffectSource effectSource, 
+            IAttributeEffectSource effectSource, 
             float duration = -1.0f, 
             Action<Attribute> finishedCallback = null)
         {
@@ -62,6 +58,7 @@ namespace Systems.AttributeSystem
             AppliedTimestamp = Time.time;
         }
 
+        // ReSharper disable once UnusedMember.Local
         private sealed class ValueEffectTypeEffectSourceEqualityComparer : IEqualityComparer<AttributeEffect>
         {
             public bool Equals(AttributeEffect x, AttributeEffect y)
@@ -87,11 +84,10 @@ namespace Systems.AttributeSystem
 
         public override bool Equals(object obj)
         {
-            var effect = obj as AttributeEffect;
-            return effect != null &&
-                   Value == effect.Value &&
+            return obj is AttributeEffect effect &&
+                   Math.Abs(Value - effect.Value) < 1e-10000 &&
                    EffectType == effect.EffectType &&
-                   EqualityComparer<AttributeEffectSource>.Default.Equals(EffectSource, effect.EffectSource);
+                   EqualityComparer<IAttributeEffectSource>.Default.Equals(EffectSource, effect.EffectSource);
         }
 
         public override int GetHashCode()
@@ -99,7 +95,7 @@ namespace Systems.AttributeSystem
             var hashCode = -321209641;
             hashCode = hashCode * -1521134295 + Value.GetHashCode();
             hashCode = hashCode * -1521134295 + EffectType.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<AttributeEffectSource>.Default.GetHashCode(EffectSource);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IAttributeEffectSource>.Default.GetHashCode(EffectSource);
             return hashCode;
         }
     }

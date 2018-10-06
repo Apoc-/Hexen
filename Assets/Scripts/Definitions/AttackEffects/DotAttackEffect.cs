@@ -5,23 +5,23 @@ using Systems.TowerSystem;
 
 namespace Definitions.AttackEffects
 {
-    public class DotAttackEffect : AttackEffect, AttributeEffectSource
+    public class DotAttackEffect : AttackEffect, IAttributeEffectSource
     {
-        private readonly float damagePerTick;
-        private readonly float ticksPerSecond;
+        private readonly float _damagePerTick;
+        private readonly float _ticksPerSecond;
 
-        private readonly float duration;
+        private readonly float _duration;
 
         public DotAttackEffect(float damagePerTick, float ticksPerSecond, float duration, float triggerChance = 1) : base(triggerChance)
         {
-            this.damagePerTick = damagePerTick;
-            this.duration = duration;
-            this.ticksPerSecond = ticksPerSecond;
+            _damagePerTick = damagePerTick;
+            _duration = duration;
+            _ticksPerSecond = ticksPerSecond;
         }
 
         protected override void ApplyEffect(Tower source, Npc target)
         {
-            target.ApplyDot(new NpcDot(duration, damagePerTick, ticksPerSecond, source));
+            target.ApplyDot(new NpcDot(_duration, _damagePerTick, _ticksPerSecond, source));
         }
     }
 }

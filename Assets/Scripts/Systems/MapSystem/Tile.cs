@@ -9,9 +9,9 @@ namespace Systems.MapSystem
     {
         public Material Material { get; set; }
         public TileType TileType { get; set; }
-        [CanBeNull] private TileEffect tileEffect;
-        private float tileEffectDuration;
-        private float tileEffectTimer;
+        [CanBeNull] private TileEffect _tileEffect;
+        private float _tileEffectDuration;
+        private float _tileEffectTimer;
 
         public Tower PlacedTower;
 
@@ -28,14 +28,14 @@ namespace Systems.MapSystem
 
         private void HandleTileEffect()
         {
-            if (!(tileEffectDuration > 0)) return;
-            tileEffectTimer += Time.deltaTime;
+            if (!(_tileEffectDuration > 0)) return;
+            _tileEffectTimer += Time.deltaTime;
 
-            if (!(tileEffectTimer >= tileEffectDuration)) return;
+            if (!(_tileEffectTimer >= _tileEffectDuration)) return;
 
-            tileEffect = null;
-            tileEffectTimer = 0;
-            tileEffectDuration = -1;
+            _tileEffect = null;
+            _tileEffectTimer = 0;
+            _tileEffectDuration = -1;
         }
 
         public Vector3 GetTopCenter()
@@ -52,14 +52,14 @@ namespace Systems.MapSystem
 
         public void SetTileEffect(TileEffect tileEffect, float duration = -1)
         {
-            this.tileEffect = tileEffect;
-            tileEffectDuration = duration;
-            tileEffectTimer = 0;
+            _tileEffect = tileEffect;
+            _tileEffectDuration = duration;
+            _tileEffectTimer = 0;
         }
 
         public void EnterTile(Npc npc)
         {
-            tileEffect?.ApplyEffectToNpc(npc);
+            _tileEffect?.ApplyEffectToNpc(npc);
         }
     }
 }

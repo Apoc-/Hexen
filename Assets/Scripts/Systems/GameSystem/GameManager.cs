@@ -21,181 +21,182 @@ namespace Systems.GameSystem
 
     class GameManager : Singleton<GameManager>
     {
-        public bool PlayerReady = false;
+        public bool PlayerReady;
 
-        private HexenScene currentScene = HexenScene.StartMenuScene;
+        // ReSharper disable once NotAccessedField.Local
+        private HexenScene _currentScene = HexenScene.StartMenuScene;
 
-        private Player player;
+        private Player _player;
         public Player Player
         {
             get
             {
-                if (player == null)
+                if (_player == null)
                 {
-                    player = InitPlayer();
+                    _player = InitPlayer();
                 }
 
-                return player;
+                return _player;
             }
         }
 
-        private TowerBuildManager towerBuildManager;
+        private TowerBuildManager _towerBuildManager;
         public TowerBuildManager TowerBuildManager
         {
             get
             {
-                if (towerBuildManager == null)
+                if (_towerBuildManager == null)
                 {
-                    towerBuildManager = FindObjectOfType<TowerBuildManager>();
+                    _towerBuildManager = FindObjectOfType<TowerBuildManager>();
                 }
 
-                return towerBuildManager;
+                return _towerBuildManager;
             }
         }
 
-        private HiredHandMerchant hiredHandMerchant;
+        private HiredHandMerchant _hiredHandMerchant;
         public HiredHandMerchant HiredHandMerchant
         {
             get
             {
-                if (hiredHandMerchant == null)
+                if (_hiredHandMerchant == null)
                 {
-                    hiredHandMerchant = FindObjectOfType<HiredHandMerchant>();
+                    _hiredHandMerchant = FindObjectOfType<HiredHandMerchant>();
                 }
 
-                return hiredHandMerchant;
+                return _hiredHandMerchant;
             }
         }
 
-        private WaveSpawner waveSpawner;
+        private WaveSpawner _waveSpawner;
         public WaveSpawner WaveSpawner
         {
             get
             {
-                if (waveSpawner == null)
+                if (_waveSpawner == null)
                 {
-                    waveSpawner = FindObjectOfType<WaveSpawner>();
+                    _waveSpawner = FindObjectOfType<WaveSpawner>();
                 }
 
-                return waveSpawner;
+                return _waveSpawner;
             }
         }
 
-        private UIManager uiManager;
+        private UIManager _uiManager;
 
         public UIManager UIManager
         {
             get
             {
-                if (uiManager == null)
+                if (_uiManager == null)
                 {
-                    uiManager = FindObjectOfType<UIManager>();
+                    _uiManager = FindObjectOfType<UIManager>();
                 }
 
-                return uiManager;
+                return _uiManager;
             }
         }
 
-        private PopupManager popupManager;
+        private PopupManager _popupManager;
 
         public PopupManager PopupManager
         {
             get
             {
-                if (popupManager == null)
+                if (_popupManager == null)
                 {
-                    popupManager = FindObjectOfType<PopupManager>();
+                    _popupManager = FindObjectOfType<PopupManager>();
                 }
 
-                return popupManager;
+                return _popupManager;
             }
         }
 
-        private MapManager mapManager;
+        private MapManager _mapManager;
 
         public MapManager MapManager
         {
             get
             {
-                if (mapManager == null)
+                if (_mapManager == null)
                 {
-                    mapManager = FindObjectOfType<MapManager>();
+                    _mapManager = FindObjectOfType<MapManager>();
                 }
 
-                return mapManager;
+                return _mapManager;
             }
         }
 
-        private TowerSelectionManager towerSelectionManager;
+        private TowerSelectionManager _towerSelectionManager;
 
         public TowerSelectionManager TowerSelectionManager
         {
             get
             {
-                if (towerSelectionManager == null)
+                if (_towerSelectionManager == null)
                 {
-                    towerSelectionManager = FindObjectOfType<TowerSelectionManager>();
+                    _towerSelectionManager = FindObjectOfType<TowerSelectionManager>();
                 }
 
-                return towerSelectionManager;
+                return _towerSelectionManager;
             }
         }
 
-        private SpecialEffectManager specialEffectManager;
+        private SpecialEffectManager _specialEffectManager;
         public SpecialEffectManager SpecialEffectManager
         {
             get
             {
-                if (specialEffectManager == null)
+                if (_specialEffectManager == null)
                 {
-                    specialEffectManager = FindObjectOfType<SpecialEffectManager>();
+                    _specialEffectManager = FindObjectOfType<SpecialEffectManager>();
                 }
 
-                return specialEffectManager;
+                return _specialEffectManager;
             }
         }
 
-        private FactionManager factionManager;
+        private FactionManager _factionManager;
         public FactionManager FactionManager
         {
             get
             {
-                if (factionManager == null)
+                if (_factionManager == null)
                 {
-                    factionManager = FindObjectOfType<FactionManager>();
+                    _factionManager = FindObjectOfType<FactionManager>();
                 }
 
-                return factionManager;
+                return _factionManager;
             }
         }
 
-        private WaveGenerator waveGenerator;
+        private WaveGenerator _waveGenerator;
 
         public WaveGenerator WaveGenerator
         {
             get
             {
-                if (waveGenerator == null)
+                if (_waveGenerator == null)
                 {
-                    waveGenerator = FindObjectOfType<WaveGenerator>();
+                    _waveGenerator = FindObjectOfType<WaveGenerator>();
                 }
 
-                return waveGenerator;
+                return _waveGenerator;
             }
         }
 
-        private TargetingHelper targetingHelper;
+        private TargetingHelper _targetingHelper;
 
         public TargetingHelper TargetingHelper
         {
             get
             {
-                if (targetingHelper == null)
+                if (_targetingHelper == null)
                 {
-                    targetingHelper = FindObjectOfType<TargetingHelper>();
+                    _targetingHelper = FindObjectOfType<TargetingHelper>();
                 }
 
-                return targetingHelper;
+                return _targetingHelper;
             }
         }
 
@@ -213,7 +214,7 @@ namespace Systems.GameSystem
 
         private void HandleSceneChange(HexenScene scene)
         {
-            currentScene = scene;
+            _currentScene = scene;
 
             switch (scene)
             {
@@ -265,12 +266,10 @@ namespace Systems.GameSystem
 
         private void ResetGame()
         {
-            player = null;
-            waveSpawner = null;
-            towerBuildManager = null;
+            _player = null;
+            _waveSpawner = null;
+            _towerBuildManager = null;
         }
-
-        
 
         private Player InitPlayer()
         {

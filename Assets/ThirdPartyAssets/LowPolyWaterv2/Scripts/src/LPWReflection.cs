@@ -22,8 +22,8 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
 
         internal Dictionary<Camera, Camera> reflCams = new Dictionary<Camera, Camera>();
         internal Dictionary<Camera, Camera> refrCams = new Dictionary<Camera, Camera>();
-        internal RenderTexture reflTex = null;
-        internal RenderTexture refrTex = null;
+        internal RenderTexture reflTex;
+        internal RenderTexture refrTex;
 
         internal WaterMode hwSupport = WaterMode.Refractive;
         internal int oldReflTexSize;
@@ -35,7 +35,7 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
     [ExecuteInEditMode]
     public class LPWReflection : MonoBehaviour {
 
-        static LPWReflectionParams p = null;
+        static LPWReflectionParams p;
 
         static bool recursiveGuard;
         static bool hideObjects = true;

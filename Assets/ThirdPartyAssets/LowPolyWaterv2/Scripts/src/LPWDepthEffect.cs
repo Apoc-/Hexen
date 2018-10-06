@@ -7,9 +7,9 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
 
         static Dictionary<Camera, Camera> depthCams = new Dictionary<Camera, Camera>();
         static Dictionary<Camera, float> camState = new Dictionary<Camera, float>();
-        static RenderTexture depthTex = null;
+        static RenderTexture depthTex;
 
-        static Shader depthShader = null;
+        static Shader depthShader;
         bool receiveShadows;
         static bool recursiveGuard;
 

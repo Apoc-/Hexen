@@ -9,19 +9,19 @@
         {
             get
             {
-                if (isDirty) value = CalculateValue();
+                if (IsDirty) value = CalculateValue();
 
                 return value;
             }
 
             set
             {
-                baseValue = value;
+                BaseValue = value;
 
-                if (baseValue < minValue) baseValue = minValue;
-                if (baseValue > maxValue) baseValue = maxValue;
+                if (BaseValue < minValue) BaseValue = minValue;
+                if (BaseValue > maxValue) BaseValue = maxValue;
 
-                isDirty = true;
+                IsDirty = true;
             }
         }
 

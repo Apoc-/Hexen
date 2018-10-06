@@ -4,21 +4,21 @@ namespace Systems.NpcSystem
 {
     public class NpcDot
     {
-        private float activeTime;
-        private readonly float duration;
+        private float _activeTime;
+        private readonly float _duration;
 
-        private float ticksPerSecond;
-        private float lastTick;
+        private float _ticksPerSecond;
+        private float _lastTick;
 
         public float Damage { get; private set; }
         public Tower Source { get; private set; }
 
         public NpcDot(float duration, float damage, float ticksPerSecond, Tower source)
         {
-            activeTime = 0;
-            lastTick = 0;
-            this.duration = duration;
-            this.ticksPerSecond = ticksPerSecond;
+            _activeTime = 0;
+            _lastTick = 0;
+            this._duration = duration;
+            this._ticksPerSecond = ticksPerSecond;
 
             Damage = damage;
             Source = source;
@@ -26,22 +26,22 @@ namespace Systems.NpcSystem
 
         public bool ShouldTick(float currentTime)
         {
-            return lastTick < currentTime - (1.0f / ticksPerSecond);
+            return _lastTick < currentTime - (1.0f / _ticksPerSecond);
         }
 
         public void DoTick(float currentTime)
         {
-            lastTick = currentTime;
+            _lastTick = currentTime;
         }
 
         public bool IsFinished()
         {
-            return activeTime > duration;
+            return _activeTime > _duration;
         }
 
         public void IncreaseActiveTime(float increment)
         {
-            activeTime += increment;
+            _activeTime += increment;
         }
     }
 }

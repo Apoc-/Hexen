@@ -9,16 +9,16 @@ namespace Systems.AttackSystem
 {
     public abstract class ProjectileAttack : AbstractAttack
     {
-        private Vector3 lastTargetPosition;
-        private Vector3 estimatedTargetPosition;
-        private Vector3 initialTargetPosition;
+        private Vector3 _lastTargetPosition;
+        private Vector3 _estimatedTargetPosition;
+        private Vector3 _initialTargetPosition;
 
         //protected GameObject Model;
 
         protected float SplashRadius = 0;
         protected float FlightDuration = 0.7f;
-        private Vector3 currentVelocity = new Vector3();
-        private readonly float gravity = Physics.gravity.y;
+        private Vector3 _currentVelocity;
+        private readonly float _gravity = Physics.gravity.y;
 
         public override void InitAttack(Npc target, Tower source)
         {
@@ -26,13 +26,13 @@ namespace Systems.AttackSystem
 
             if (Target != null)
             {
-                estimatedTargetPosition = Target.GetPositionInTime(FlightDuration);
+                _estimatedTargetPosition = Target.GetPositionInTime(FlightDuration);
             }
             
-            currentVelocity = ProjectileHelper.ComputeVelocityToHitTargetAtTime(
+            _currentVelocity = ProjectileHelper.ComputeVelocityToHitTargetAtTime(
                 transform.position,
-                estimatedTargetPosition,
-                gravity,
+                _estimatedTargetPosition,
+                _gravity,
                 FlightDuration);
         }
 
@@ -43,11 +43,11 @@ namespace Systems.AttackSystem
 
         public Vector3 GetTargetPosition()
         {
-            if (Target == null) return lastTargetPosition;
+            if (Target == null) return _lastTargetPosition;
 
-            lastTargetPosition = Target.transform.position;
+            _lastTargetPosition = Target.transform.position;
 
-            return lastTargetPosition;
+            return _lastTargetPosition;
         }
 
         protected virtual void UpdateTransform()
@@ -57,7 +57,7 @@ namespace Systems.AttackSystem
             if (Vector3.Distance(target, transform.position) > 0.01f)
             {
                 Vector3 position = transform.position;
-                ProjectileHelper.UpdateProjectile(ref position, ref currentVelocity, gravity, Time.fixedDeltaTime);
+                ProjectileHelper.UpdateProjectile(ref position, ref _currentVelocity, _gravity, Time.fixedDeltaTime);
 
                 transform.position = position;
             }

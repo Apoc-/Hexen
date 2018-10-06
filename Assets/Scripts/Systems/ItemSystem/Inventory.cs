@@ -6,19 +6,19 @@ namespace Systems.ItemSystem
 {
     public class Inventory : MonoBehaviour
     {
-        private int size;
+        private int _size;
         public List<Item> Items { get; private set; } = new List<Item>();
 
         public void InitInventory(int size)
         {
-            this.size = size;
+            _size = size;
             Items = new List<Item>();
         }
 
         public bool AddItem(Item item)
         {
-            if (Items.Count > size) throw new Exception("Inventory overflow.");
-            if (Items.Count == size) return false;
+            if (Items.Count > _size) throw new Exception("Inventory overflow.");
+            if (Items.Count == _size) return false;
 
             Items.Add(item);
             item.transform.parent = transform;

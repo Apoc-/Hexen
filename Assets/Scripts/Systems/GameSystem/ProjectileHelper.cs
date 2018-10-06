@@ -12,16 +12,16 @@ namespace Systems.GameSystem
         /// Given a maximum range (on flat ground) and gravity, what is the maximum speed the projectile can be launched?
         /// Use case: The player can only throw grenades with a max range of 30 meters on flat ground. What is the max speed he can throw it? </summary>
         /// <param name="range"> Maximum range of the projectile on flat ground, in meters</param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="timeToLand"> Outputs the time taken for the projectile to reach max range on flat ground. In seconds. </param>
         /// <returns> Returns the speed needed to reach the max range.</returns>
-        public static float ComputeSpeedToReachMaxFlatRange(float range, float gravity_negative, out float timeToLand)
+        public static float ComputeSpeedToReachMaxFlatRange(float range, float gravityNegative, out float timeToLand)
         {
             // to reach max range, we need to throw it at 45 degrees
-            const float cos45deg = 0.70710678118f;
-            timeToLand           = Mathf.Sqrt(range / (-0.5f * gravity_negative));
+            const float cos45Deg = 0.70710678118f;
+            timeToLand           = Mathf.Sqrt(range / (-0.5f * gravityNegative));
             float forwardSpeed   = range / timeToLand;
-            float speed          = forwardSpeed / cos45deg;
+            float speed          = forwardSpeed / cos45Deg;
         
             return speed;
         }
@@ -32,13 +32,13 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="startPosition"> Starting Position of the projectile. </param>
         /// <param name="targetPosition"> Target Position of the projectile. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="speed"> Initial speed of the projectile. </param>
         /// <returns> Returns true if the target position can be reached with the given parameters. </returns>
         public static bool CanReachTargetWithSpeed(
             Vector3 startPosition,
             Vector3 targetPosition,
-            float gravity_negative,
+            float gravityNegative,
             float speed)
         {
             Vector3 startToEndFlat = targetPosition - startPosition;
@@ -47,7 +47,7 @@ namespace Systems.GameSystem
             float heightDiff       = targetPosition.y - startPosition.y;
         
             float toRoot           = Mathf.Pow(speed, 4.0f);
-            toRoot                 += gravity_negative * (-gravity_negative * flatDistance * flatDistance + 2.0f * heightDiff * speed * speed);
+            toRoot                 += gravityNegative * (-gravityNegative * flatDistance * flatDistance + 2.0f * heightDiff * speed * speed);
             if (toRoot < 0.0f)
             {
                 return false;
@@ -61,7 +61,7 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="startPosition"> Starting Position of the projectile. </param>
         /// <param name="targetPosition"> Target Position of the projectile. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="speed"> Initial speed of the projectile. </param>
         /// <param name="direction1"> First possible direction for the projectile </param>
         /// <param name="direction2"> Second possible direction for the projectile </param>
@@ -69,7 +69,7 @@ namespace Systems.GameSystem
         public static bool ComputeDirectionToHitTargetWithSpeed(
             Vector3 startPosition,
             Vector3 targetPosition,
-            float gravity_negative,
+            float gravityNegative,
             float speed,
             out Vector3 direction1,
             out Vector3 direction2)
@@ -81,7 +81,7 @@ namespace Systems.GameSystem
             float heightDiff       = targetPosition.y - startPosition.y;
         
             float toRoot           = Mathf.Pow(speed, 4.0f);
-            toRoot                 += gravity_negative * (-gravity_negative * flatDistance * flatDistance + 2.0f * heightDiff * speed * speed);
+            toRoot                 += gravityNegative * (-gravityNegative * flatDistance * flatDistance + 2.0f * heightDiff * speed * speed);
             if (toRoot < 0.0f)
             {
                 // we can't reach the target
@@ -93,12 +93,12 @@ namespace Systems.GameSystem
             Vector3 startToEndFlatNorm = startToEndFlat.normalized;
             Vector4 horizonAxis        = Vector3.Cross(startToEndFlatNorm, Vector3.up);
         
-            float angle1    = ((speed * speed) + root) / (-gravity_negative * flatDistance);
+            float angle1    = ((speed * speed) + root) / (-gravityNegative * flatDistance);
             angle1          = Mathf.Atan(angle1);
             float angle1Deg = Mathf.Rad2Deg * angle1;
             direction1      = Quaternion.AngleAxis(angle1Deg, horizonAxis) * startToEndFlatNorm;    
         
-            float angle2    = ((speed * speed) - root) / (-gravity_negative * flatDistance);
+            float angle2    = ((speed * speed) - root) / (-gravityNegative * flatDistance);
             angle2          = Mathf.Atan(angle2);
             float angle2Deg = Mathf.Rad2Deg * angle2;
             direction2      = Quaternion.AngleAxis(angle2Deg, horizonAxis) * startToEndFlatNorm;
@@ -114,28 +114,28 @@ namespace Systems.GameSystem
         /// <param name="startPosition"> Starting position of the projectile. </param>
         /// <param name="velocity"> Initial velocity of the projectile. </param>
         /// <param name="groundLevel"> The y-value of the ground level. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="timeToHit"> Output: Time to reach the groundlevel specified. </param>
         /// <returns> Returns true if the ground level can be reached with the given parameters. </returns>
         public static bool ComputeTimeToHitGround(
             Vector3 startPosition,
             Vector3 velocity,
             float groundLevel,
-            float gravity_negative,
+            float gravityNegative,
             out float timeToHit)
         {
             float heightDiff = groundLevel - startPosition.y;
             float speed      = velocity.y;
-            float b2minus4ac = (speed * speed) + (2.0f * gravity_negative * heightDiff);
-            if (b2minus4ac < 0.0f)
+            float b2Minus4Ac = (speed * speed) + (2.0f * gravityNegative * heightDiff);
+            if (b2Minus4Ac < 0.0f)
             {
                 timeToHit = -1.0f;
                 return false;
             }
         
-            float sqrtB2minus4ac = Mathf.Sqrt(b2minus4ac);
-            float time1          = (-speed + sqrtB2minus4ac) / gravity_negative;
-            float time2          = (-speed - sqrtB2minus4ac) / gravity_negative;
+            float sqrtB2Minus4Ac = Mathf.Sqrt(b2Minus4Ac);
+            float time1          = (-speed + sqrtB2Minus4Ac) / gravityNegative;
+            float time2          = (-speed - sqrtB2Minus4Ac) / gravityNegative;
         
             // two possible times to hit, since the projectile goes up and down
             // take the bigger one since we assume we want to hit the ground when going down
@@ -156,16 +156,16 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="currentPosition"> Current position of the projectile. </param>
         /// <param name="velocity"> Current velocity of the projectile. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="timeAhead"> The amount of time in the future at which you want to know the position</param>
         /// <returns> Returns the position of the projectile after the specified time. </returns>
         public static Vector3 ComputePositionAtTimeAhead(
             Vector3 currentPosition,
             Vector3 velocity,
-            float gravity_negative,
+            float gravityNegative,
             float timeAhead)
         {
-            Vector3 acceleration = new Vector3(0.0f, gravity_negative, 0.0f);
+            Vector3 acceleration = new Vector3(0.0f, gravityNegative, 0.0f);
             Vector3 move         = (velocity * timeAhead) + (0.5f * acceleration * timeAhead * timeAhead);
             return currentPosition + move;
         }
@@ -175,16 +175,16 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="currentPosition"> Current position of the projectile. </param>
         /// <param name="currentVelocity"> Current velocity of the projectile. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="timeAhead"> The amount of time in the future at which you want to know the velocity</param>
         /// <returns> Returns the velocity of the projectile after the specified time. </returns>
         public static Vector3 ComputeVelocityAtTimeAhead(
             Vector3 currentPosition,
             Vector3 currentVelocity,
-            float gravity_negative,
+            float gravityNegative,
             float timeAhead)
         {
-            Vector3 acceleration = new Vector3(0.0f, gravity_negative, 0.0f);
+            Vector3 acceleration = new Vector3(0.0f, gravityNegative, 0.0f);
             return currentVelocity + (acceleration * timeAhead);
         }
 
@@ -194,13 +194,13 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="startPosition"> Starting position of the projectile. </param>
         /// <param name="targetPosition"> Target position of the projectile. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="timeToTargetPosition"> The amount of time the projectile should take to reach the target</param>
         /// <returns> Returns the necessary initial velocity of the projectile. </returns>
         public static Vector3 ComputeVelocityToHitTargetAtTime(
             Vector3 startPosition, 
             Vector3 targetPosition,
-            float gravity_negative,
+            float gravityNegative,
             float timeToTargetPosition)
         {
             if (timeToTargetPosition <= 0.0f)
@@ -216,7 +216,7 @@ namespace Systems.GameSystem
         
             // calculate vertical speed
             float heightDiff       = targetPosition.y - startPosition.y;
-            float upSpeed          = (heightDiff - (0.5f * gravity_negative * timeToTargetPosition * timeToTargetPosition)) / timeToTargetPosition;
+            float upSpeed          = (heightDiff - (0.5f * gravityNegative * timeToTargetPosition * timeToTargetPosition)) / timeToTargetPosition;
         
             // initialize velocity
             Vector3 velocity       = startToEndFlat.normalized * forwardSpeed;
@@ -230,16 +230,16 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="currentPosition"> Current position of the projectile. Will be modified to give the new position. </param>
         /// <param name="currentVelocity"> Current velocity of the projectile. Will be modified to give the new velocity. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="deltaTime"> The amount of time elapsed since the last update</param>
         public static void UpdateProjectile(
             ref Vector3 currentPosition,
             ref Vector3 currentVelocity,
-            float gravity_negative,
+            float gravityNegative,
             float deltaTime)
         {
             currentPosition   += currentVelocity * deltaTime;
-            currentVelocity.y += gravity_negative * deltaTime;
+            currentVelocity.y += gravityNegative * deltaTime;
         }
 
         /// <summary>
@@ -268,10 +268,10 @@ namespace Systems.GameSystem
         /// <param name="startPosition"> Starting position of the projectile. </param>
         /// <param name="targetPosition"> Target position of the projectile. </param>
         /// <param name="elevationRadians"> Elevation angle the projectile will be fired at. This should be less than PiBy2 radians, ie 90degrees. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="outSpeed"> Output: The calculated speed needed. </param>
         /// <returns> Returns true if the target can be reached with the given elevation, otherwise false </returns>
-        public static bool ComputeSpeedToReachTargetWithElevation(Vector3 startPosition, Vector3 targetPosition, float elevationRadians, float gravity_negative, ref float outSpeed)
+        public static bool ComputeSpeedToReachTargetWithElevation(Vector3 startPosition, Vector3 targetPosition, float elevationRadians, float gravityNegative, ref float outSpeed)
         {
             outSpeed = 0.0f;
 
@@ -295,7 +295,7 @@ namespace Systems.GameSystem
                 }
 
                 // if the target is above me, any velocity higher than a minimum speed will do.
-                outSpeed = Mathf.Sqrt(-2.0f * gravity_negative * verticalOffset);
+                outSpeed = Mathf.Sqrt(-2.0f * gravityNegative * verticalOffset);
                 return true;
             }
 
@@ -308,7 +308,7 @@ namespace Systems.GameSystem
                 return false;
             }
 
-            outSpeed = gravity_negative * horizontalOffset * horizontalOffset;
+            outSpeed = gravityNegative * horizontalOffset * horizontalOffset;
             outSpeed /= 2.0f * cosAngle * cosAngle * (verticalOffset - horizontalOffset * tanAngle);
             outSpeed = Mathf.Sqrt(outSpeed);
 
@@ -324,7 +324,7 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="elevationRadians"> Elevation angle the projectile will be fired at. </param>
         /// <param name="range"> Flat distance away from the starting position. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="speed"> Output: Speed of projectile needed to reach the wanted range. </param>
         /// <returns> Returns true if the range can be reached. This could be false, for eg if the elevation is lower than zero. </returns>
         public static bool ComputeSpeedToReachFlatRangeWithElevation(
@@ -357,7 +357,7 @@ namespace Systems.GameSystem
         /// </summary>
         /// <param name="heightOffset"> Difference in height of the target from the starting position </param>
         /// <param name="distanceOffset"> Flat distance away from the starting position. </param>
-        /// <param name="gravity_negative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
+        /// <param name="gravityNegative"> Acceleration due to gravity on y-axis. Should be negative, eg -9.8f </param>
         /// <param name="speed"> Initial speed of the projectile. </param>
         /// <param name="useSmallerAngle"> Whether to calculate the smaller or larger elevation angle, since two elevations are possible. </param>
         /// <param name="angleRadians"> Output: the elevation angle needed. </param>

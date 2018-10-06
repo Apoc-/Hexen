@@ -12,9 +12,9 @@ namespace Definitions.Npcs.Orcs
 {
     public class OrcCommander : Npc
     {
-        private float secondWindChance = 0.5f;
-        private float secondWindHealthFactor = 0.5f;
-        private List<Npc> affectedNpcs;
+        private float _secondWindChance = 0.5f;
+        private float _secondWindHealthFactor = 0.5f;
+        private List<Npc> _affectedNpcs;
 
         protected override void InitNpcData()
         {
@@ -25,9 +25,9 @@ namespace Definitions.Npcs.Orcs
             Rarity = Rarities.Rare;
             Faction = FactionNames.Orcs;
 
-            if (isSpawned)
+            if (IsSpawned)
             {
-                affectedNpcs = new List<Npc>();
+                _affectedNpcs = new List<Npc>();
                 CheckForAffectableNpcs();
                 GameManager.Instance.WaveSpawner.OnNpcSpawned += AffectNpc;
             }
@@ -38,7 +38,7 @@ namespace Definitions.Npcs.Orcs
             var waves = GameManager.Instance.WaveSpawner.CurrentSpawnedWaves;
             waves.ForEach(wave =>
             {
-                affectedNpcs.AddRange(wave.SpawnedNpcs.Where(npc => npc != this));
+                _affectedNpcs.AddRange(wave.SpawnedNpcs.Where(npc => npc != this));
             });
         }
 
@@ -57,7 +57,7 @@ namespace Definitions.Npcs.Orcs
         private void AffectNpc(Npc npc)
         {
             npc.OnHit += CheckSecondWind;
-            affectedNpcs.Add(npc);
+            _affectedNpcs.Add(npc);
         }
 
         private void CheckSecondWind(Npc npc, NpcHitData hitData)
@@ -69,12 +69,12 @@ namespace Definitions.Npcs.Orcs
             if ( !wouldKill ) return;
 
             var rnd = Random.value;
-            if (rnd > secondWindChance) return;
+            if (rnd > _secondWindChance) return;
 
             hitData.Dmg = 0;
 
             var hpAttr = npc.GetAttribute(AttributeName.MaxHealth);
-            hpAttr.Value = hpAttr.Value * secondWindHealthFactor;
+            hpAttr.Value = hpAttr.Value * _secondWindHealthFactor;
 
             npc.Heal();
 
@@ -83,7 +83,7 @@ namespace Definitions.Npcs.Orcs
 
         public override void Die(bool silent = false)
         {
-            affectedNpcs.ForEach(npc => { npc.OnHit -= CheckSecondWind; });
+            _affectedNpcs.ForEach(npc => { npc.OnHit -= CheckSecondWind; });
             GameManager.Instance.WaveSpawner.OnNpcSpawned -= AffectNpc;
 
             base.Die();

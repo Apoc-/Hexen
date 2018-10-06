@@ -1,6 +1,6 @@
 ﻿namespace Systems.AttributeSystem
 {
-    public interface AttributeEffectSource
+    public interface IAttributeEffectSource
     {
     }
 }

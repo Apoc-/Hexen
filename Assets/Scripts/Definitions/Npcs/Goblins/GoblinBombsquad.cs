@@ -1,5 +1,4 @@
-﻿using Systems.AttackSystem;
-using Systems.AttributeSystem;
+﻿using Systems.AttributeSystem;
 using Systems.FactionSystem;
 using Systems.GameSystem;
 using Systems.NpcSystem;
@@ -10,8 +9,7 @@ namespace Definitions.Npcs.Goblins
 {
     public class GoblinBombsquad : Npc
     {
-        private float stunDuration = 4.0f;
-        private float stunRadius = 1.0f;
+        private float _stunDuration = 4.0f;
 
         protected override void InitNpcData()
         {
@@ -39,11 +37,9 @@ namespace Definitions.Npcs.Goblins
 
         private void StunKiller(Npc npc, Tower killer)
         {
-            var towers = TargetingHelper.GetTowersInRadius(transform.position, stunRadius);
-            
             if (killer == null) return;
 
-            killer.Stun(stunDuration, this);
+            killer.Stun(_stunDuration, this);
         }
     }
 }

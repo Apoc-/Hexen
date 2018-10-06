@@ -28,7 +28,7 @@ namespace Systems.AttributeSystem
             return attributes.ContainsKey(attrName);
         }
 
-        public void RemoveAttributeEffectsFromSource(AttributeEffectSource source)
+        public void RemoveAttributeEffectsFromSource(IAttributeEffectSource source)
         {
             foreach (var keyValuePair in attributes)
             {

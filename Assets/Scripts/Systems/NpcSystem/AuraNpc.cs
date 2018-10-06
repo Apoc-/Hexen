@@ -6,18 +6,17 @@ namespace Systems.NpcSystem
 {
     public abstract class AuraNpc : Npc
     {
-        protected List<AuraEffect> AuraEffects = new List<AuraEffect>();
-        protected List<IHasAttributes> AffectedAuraTargets = new List<IHasAttributes>();
-
-        private int updateCount = 0;
+        protected readonly List<AuraEffect> AuraEffects = new List<AuraEffect>();
+        private List<IHasAttributes> _affectedAuraTargets = new List<IHasAttributes>();
+        private int _updateCount;
 
         private new void Update()
         {
-            updateCount += 1;
+            _updateCount += 1;
 
-            if (updateCount % 10 != 0) return;
+            if (_updateCount % 10 != 0) return;
 
-            if (AuraEffects.Count > 0 && isSpawned)
+            if (AuraEffects.Count > 0 && IsSpawned)
             {
                 UpdateAuraTargets();
             }
@@ -58,12 +57,12 @@ namespace Systems.NpcSystem
             if (!target.HasAttribute(attributeName)) return;
 
             target.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
-            AffectedAuraTargets.Add(target);
+            _affectedAuraTargets.Add(target);
         }
 
         private void ClearAuraTargets()
         {
-            AffectedAuraTargets.ForEach(target =>
+            _affectedAuraTargets.ForEach(target =>
             {
                 AuraEffects.ForEach(auraEffect =>
                 {
@@ -72,7 +71,7 @@ namespace Systems.NpcSystem
                 });
             });
 
-            AffectedAuraTargets = new List<IHasAttributes>();
+            _affectedAuraTargets = new List<IHasAttributes>();
         }
 
         public override void Die(bool silent = false)

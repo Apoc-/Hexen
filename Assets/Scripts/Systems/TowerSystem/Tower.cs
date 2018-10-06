@@ -15,7 +15,7 @@ using Attribute = Systems.AttributeSystem.Attribute;
 
 namespace Systems.TowerSystem
 {
-    public abstract class Tower : MonoBehaviour, IHasAttributes, AuraTarget
+    public abstract class Tower : MonoBehaviour, IHasAttributes, IAuraTarget
     {
         public AttributeContainer Attributes;
 
@@ -36,12 +36,12 @@ namespace Systems.TowerSystem
         public GameObject ModelGameObject;
 
         public int Level = 1;
-        public int Xp = 0;
+        public int Xp;
 
         protected Npc LockedTarget;
         private float lastShotFired;
         
-        public bool IsPlaced = false;
+        public bool IsPlaced;
 
         public Rarities Rarity;
         public FactionNames Faction = FactionNames.Humans;
@@ -261,7 +261,7 @@ namespace Systems.TowerSystem
             Destroy(gameObject);
         }
 
-        public void Stun(float duration, AttributeEffectSource source)
+        public void Stun(float duration, IAttributeEffectSource source)
         {
             if (HasAttribute(AttributeName.AttackSpeed))
             {

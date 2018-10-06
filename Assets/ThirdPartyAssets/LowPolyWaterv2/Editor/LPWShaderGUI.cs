@@ -7,58 +7,58 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
 
         enum Shading { Flat, VertexLit, PixelLit };
 
-        MaterialProperty _Shadow = null;
-        MaterialProperty _Color = null;
-        MaterialProperty _Opacity = null;
-        MaterialProperty _Gloss = null;
-        MaterialProperty _Specular = null;
-        MaterialProperty _SpecColor = null;
-        MaterialProperty _Diffuse = null;
-        MaterialProperty _PointLights = null;
-        MaterialProperty _Shading = null;
+        MaterialProperty _Shadow;
+        MaterialProperty _Color;
+        MaterialProperty _Opacity;
+        MaterialProperty _Gloss;
+        MaterialProperty _Specular;
+        MaterialProperty _SpecColor;
+        MaterialProperty _Diffuse;
+        MaterialProperty _PointLights;
+        MaterialProperty _Shading;
 
-        MaterialProperty _Waves = null;
-        MaterialProperty _Length = null;
-        MaterialProperty _Stretch = null;
-        MaterialProperty _Speed = null;
-        MaterialProperty _Height = null;
-        MaterialProperty _Steepness = null;
-        MaterialProperty _Direction = null;
+        MaterialProperty _Waves;
+        MaterialProperty _Length;
+        MaterialProperty _Stretch;
+        MaterialProperty _Speed;
+        MaterialProperty _Height;
+        MaterialProperty _Steepness;
+        MaterialProperty _Direction;
 
-        MaterialProperty _RSpeed = null;
-        MaterialProperty _RHeight = null;
+        MaterialProperty _RSpeed;
+        MaterialProperty _RHeight;
 
-        MaterialProperty _FresnelTex = null;
-        MaterialProperty _FresPower = null;
-        MaterialProperty _FresColor = null;
-        MaterialProperty _Reflection = null;
-        MaterialProperty _Refraction = null;
-        MaterialProperty _NormalOffset = null;
-        MaterialProperty _Distortion = null;
-        MaterialProperty _Distort = null;
-        MaterialProperty _BumpTex = null;
-        MaterialProperty _BumpScale = null;
-        MaterialProperty _BumpSpeed = null;
+        MaterialProperty _FresnelTex;
+        MaterialProperty _FresPower;
+        MaterialProperty _FresColor;
+        MaterialProperty _Reflection;
+        MaterialProperty _Refraction;
+        MaterialProperty _NormalOffset;
+        MaterialProperty _Distortion;
+        MaterialProperty _Distort;
+        MaterialProperty _BumpTex;
+        MaterialProperty _BumpScale;
+        MaterialProperty _BumpSpeed;
 
-        MaterialProperty _EdgeBlend = null;
-        MaterialProperty _ShoreColor = null;
-        MaterialProperty _ShoreIntensity = null;
-        MaterialProperty _HQFoam = null;
-        MaterialProperty _FoamScale = null;
-        MaterialProperty _FoamSpeed = null;
-        MaterialProperty _FoamSpread = null;
-        MaterialProperty _ShoreDistance = null;
-        MaterialProperty _LightAbs = null;
-        MaterialProperty _Absorption = null;
-        MaterialProperty _DeepColor = null;
+        MaterialProperty _EdgeBlend;
+        MaterialProperty _ShoreColor;
+        MaterialProperty _ShoreIntensity;
+        MaterialProperty _HQFoam;
+        MaterialProperty _FoamScale;
+        MaterialProperty _FoamSpeed;
+        MaterialProperty _FoamSpread;
+        MaterialProperty _ShoreDistance;
+        MaterialProperty _LightAbs;
+        MaterialProperty _Absorption;
+        MaterialProperty _DeepColor;
 
-        MaterialProperty _NoiseTex = null;
-        MaterialProperty _ZWrite = null;
-        MaterialProperty _GlobScale = null;
-        MaterialProperty _Cull = null;
+        MaterialProperty _NoiseTex;
+        MaterialProperty _ZWrite;
+        MaterialProperty _GlobScale;
+        MaterialProperty _Cull;
 
-        MaterialProperty __Cull = null;
-        MaterialProperty _EnableShadows = null;
+        MaterialProperty __Cull;
+        MaterialProperty _EnableShadows;
 
         static readonly GUIContent fresnelLbl = new GUIContent("Fresnel (A)");
         static readonly GUIContent bumpLbl = new GUIContent("Distortion Map");
@@ -348,7 +348,7 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
             GUILayout.Space(0);
         }
 
-        bool init = false;
+        bool init;
         public override void OnMaterialPreviewGUI(MaterialEditor materialEditor, Rect r, GUIStyle background) {
             base.OnMaterialPreviewGUI(materialEditor, r, background);
             if (init) return;

@@ -4,32 +4,33 @@ using Systems.GameSystem;
 using Systems.ItemSystem;
 using Systems.TowerSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.HiredHandSystem
 {
     public class HiredHandPanel : MonoBehaviour
     {
-        [SerializeField] private HiredHandMerchant merchant;
-        [SerializeField] private GameObject buttonContainer;
+        [FormerlySerializedAs("merchant")] [SerializeField] private HiredHandMerchant _merchant;
+        [FormerlySerializedAs("buttonContainer")] [SerializeField] private GameObject _buttonContainer;
 
-        private Dictionary<Item, HiredHandButton> itemButtons = new Dictionary<Item, HiredHandButton>();
-        private Tower currentSelectedTower => GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
+        private readonly Dictionary<Item, HiredHandButton> _itemButtons = new Dictionary<Item, HiredHandButton>();
+        private Tower CurrentSelectedTower => GameManager.Instance.TowerSelectionManager.CurrentSelectedTower;
         
         public void Update()
         {
-            var items = merchant.ItemInventory.Items;
+            var items = _merchant.ItemInventory.Items;
             var itemsToAdd = new List<Item>();
             var itemsToRemove = new List<Item>();
 
             items.ForEach(item =>
             {
-                if (!itemButtons.ContainsKey(item))
+                if (!_itemButtons.ContainsKey(item))
                 {
                     itemsToAdd.Add(item);
                 }
             });
             
-            itemButtons.Keys.ToList().ForEach(item =>
+            _itemButtons.Keys.ToList().ForEach(item =>
             {
                 if (!items.Contains(item))
                 {
@@ -46,15 +47,15 @@ namespace Systems.HiredHandSystem
             HiredHandButton button = Instantiate(Resources.Load<HiredHandButton>("Prefabs/UI/HiredHandButton"));
 
             button.InitButton(item as HiredHandItem);
-            button.transform.parent = buttonContainer.transform;
+            button.transform.parent = _buttonContainer.transform;
             
-            itemButtons.Add(item, button);
+            _itemButtons.Add(item, button);
         }
 
         public void RemoveButton(Item item)
         {
-            var button = itemButtons[item];
-            itemButtons.Remove(item);
+            var button = _itemButtons[item];
+            _itemButtons.Remove(item);
 
             Destroy(button.gameObject);
         }

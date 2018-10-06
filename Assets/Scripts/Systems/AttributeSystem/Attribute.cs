@@ -13,20 +13,18 @@ namespace Systems.AttributeSystem
     }
 
     [Serializable]
-    public class Attribute : AttributeEffectSource
+    public class Attribute : IAttributeEffectSource
     {
-        private List<AttributeEffect> attributeEffects;
+        private readonly List<AttributeEffect> _attributeEffects;
 
-        private Dictionary<int, AttributeEffect> levelAttributeEffects;
-        private Dictionary<int, AttributeEffect> LevelAttributeEffects
-        {
-            get { return levelAttributeEffects ?? (levelAttributeEffects = new Dictionary<int, AttributeEffect>()); }
-        }
+        private Dictionary<int, AttributeEffect> _levelAttributeEffects;
+        private Dictionary<int, AttributeEffect> LevelAttributeEffects => _levelAttributeEffects 
+               ?? (_levelAttributeEffects = new Dictionary<int, AttributeEffect>());
 
-        protected int AttributeLevel;
+        private int _attributeLevel;
         public AttributeName AttributeName;
-        protected float baseValue;
-        protected bool isDirty;
+        protected float BaseValue;
+        protected bool IsDirty;
 
         public float LevelIncrement;
         public LevelIncrementType LevelIncrementType;
@@ -40,13 +38,13 @@ namespace Systems.AttributeSystem
             LevelIncrement = levelIncrement;
             LevelIncrementType = levelIncrementType;
             AttributeName = attributeName;
-            this.baseValue = baseValue;
-            AttributeLevel = 1;
-            isDirty = true;
+            BaseValue = baseValue;
+            _attributeLevel = 1;
+            IsDirty = true;
            
 
-            attributeEffects = new List<AttributeEffect>();
-            levelAttributeEffects = new Dictionary<int, AttributeEffect>();
+            _attributeEffects = new List<AttributeEffect>();
+            _levelAttributeEffects = new Dictionary<int, AttributeEffect>();
         }
 
         public Attribute(Attribute source)
@@ -54,52 +52,53 @@ namespace Systems.AttributeSystem
             LevelIncrement = source.LevelIncrement;
             LevelIncrementType = source.LevelIncrementType;
             AttributeName = source.AttributeName;
-            AttributeLevel = 1; //is leveled up by tower levelup
-            baseValue = source.baseValue;
-            isDirty = true;
+            _attributeLevel = 1; //is leveled up by tower levelup
+            BaseValue = source.BaseValue;
+            IsDirty = true;
 
-            attributeEffects = new List<AttributeEffect>();
+            _attributeEffects = new List<AttributeEffect>();
 
-            source.attributeEffects.ForEach(effect =>
+            source._attributeEffects.ForEach(effect =>
             {
-                attributeEffects.Add(new AttributeEffect(effect));
+                _attributeEffects.Add(new AttributeEffect(effect));
             });
             
-            levelAttributeEffects = new Dictionary<int, AttributeEffect>();
+            _levelAttributeEffects = new Dictionary<int, AttributeEffect>();
         }
 
+        // ReSharper disable once InconsistentNaming
         protected float value;
         public virtual float Value
         {
             get
             {
-                if (isDirty) value = CalculateValue();
+                if (IsDirty) value = CalculateValue();
 
                 return value;
             }
 
             set
             {
-                baseValue = value;
-                isDirty = true;
+                BaseValue = value;
+                IsDirty = true;
             }
         }
 
         public void AddAttributeEffect(AttributeEffect effect)
         {
-            attributeEffects.Add(effect);
-            isDirty = true;
+            _attributeEffects.Add(effect);
+            IsDirty = true;
         }
 
-        public void RemoveAttributeEffect(AttributeEffect effect)
+        private void RemoveAttributeEffect(AttributeEffect effect)
         {
-            attributeEffects.Remove(effect);
-            isDirty = true;
+            _attributeEffects.Remove(effect);
+            IsDirty = true;
         }
 
-        public void RemoveAttributeEffectsFromSource(AttributeEffectSource source)
+        public void RemoveAttributeEffectsFromSource(IAttributeEffectSource source)
         {
-            attributeEffects
+            _attributeEffects
                 .Where(effect => effect.EffectSource == source)
                 .ToList()
                 .ForEach(RemoveAttributeEffect);
@@ -107,37 +106,37 @@ namespace Systems.AttributeSystem
 
         public void LevelUp()
         {
-            AttributeLevel += 1;
+            _attributeLevel += 1;
 
             if (LevelIncrementType == LevelIncrementType.Flat)
             {
                 var levelEffect = new AttributeEffect(LevelIncrement, AttributeName, AttributeEffectType.Flat, this);
-                LevelAttributeEffects.Add(AttributeLevel, levelEffect);
+                LevelAttributeEffects.Add(_attributeLevel, levelEffect);
             }
             else
             {
                 var levelEffect = new AttributeEffect(LevelIncrement, AttributeName, AttributeEffectType.PercentMul, this);
-                LevelAttributeEffects.Add(AttributeLevel, levelEffect);
+                LevelAttributeEffects.Add(_attributeLevel, levelEffect);
             }
 
-            isDirty = true;
+            IsDirty = true;
         }
 
         public void LevelDown()
         {
-            AttributeLevel -= 1;
-            LevelAttributeEffects.Remove(AttributeLevel);
-            isDirty = true;
+            _attributeLevel -= 1;
+            LevelAttributeEffects.Remove(_attributeLevel);
+            IsDirty = true;
         }
 
         protected virtual float CalculateValue()
         {
-            var calcValue = baseValue;
+            var calcValue = BaseValue;
             var addPercBonusSum = 0.0f;
 
             var effects = new List<AttributeEffect>();
 
-            if (attributeEffects.Count > 0) effects.AddRange(attributeEffects);
+            if (_attributeEffects.Count > 0) effects.AddRange(_attributeEffects);
 
             //check of SetValue Effect
             var setValueEffect = effects.FirstOrDefault(effect => effect.EffectType == AttributeEffectType.SetValue);
@@ -166,14 +165,14 @@ namespace Systems.AttributeSystem
 
             //finally apply additive percentage bonusses
             calcValue *= 1 + addPercBonusSum;
-            isDirty = false;
+            IsDirty = false;
 
             return calcValue;
         }
 
         public void RemovedFinishedAttributeEffects()
         {
-            var finishedEffects = attributeEffects
+            var finishedEffects = _attributeEffects
                 .Where(effect => effect.Duration > 0)
                 .Where(effect => Time.time - effect.AppliedTimestamp >= effect.Duration)
                 .ToList();
@@ -181,7 +180,7 @@ namespace Systems.AttributeSystem
             finishedEffects.ForEach(effect =>
             {
                 RemoveAttributeEffect(effect);
-                if (effect.FinishedCallback != null) effect.FinishedCallback(this);
+                effect.FinishedCallback?.Invoke(this);
             });
         }
     }

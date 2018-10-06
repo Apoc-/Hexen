@@ -5,13 +5,12 @@ namespace Systems.GameSystem
 {
     public class CameraHandler : MonoBehaviour
     {
-        [SerializeField] private float panSpeed = 0.5f;
-
-        [SerializeField] private float zoomMin = 2.5f;
-        [SerializeField] private float zoomMax = 10.0f;
-        [SerializeField] private float rotXMin = 20.0f;
-        [SerializeField] private float rotXMax = 90.0f;
-        [SerializeField] private float zoomSpeed = 1.5f;
+        [SerializeField] private float _panSpeed = 0.5f;
+        [SerializeField] private float _zoomMin = 2.5f;
+        [SerializeField] private float _zoomMax = 15.0f;
+        [SerializeField] private float _rotXMin = 30.0f;
+        [SerializeField] private float _rotXMax = 90.0f;
+        [SerializeField] private float _zoomSpeed = 2f;
 
         private void Update()
         {
@@ -32,17 +31,16 @@ namespace Systems.GameSystem
 
         private void ZoomCamera(float zoomInput)
         {
-            var cam = GetComponent<Camera>();
-            var zoom = -zoomInput * zoomSpeed;
+            var zoom = -zoomInput * _zoomSpeed;
 
             transform.Translate(0, zoom, 0, Space.World);
             var pos = transform.position;
-            var y = Mathf.Clamp(transform.position.y, zoomMin, zoomMax);
+            var y = Mathf.Clamp(transform.position.y, _zoomMin, _zoomMax);
             transform.position = new Vector3(pos.x, y, pos.z);
 
             var zoomVal = transform.position.y;
-            var p = (zoomVal - zoomMin) / (zoomMax - zoomMin);
-            var rotVal = (rotXMax - rotXMin) * p + rotXMin;
+            var p = (zoomVal - _zoomMin) / (_zoomMax - _zoomMin);
+            var rotVal = (_rotXMax - _rotXMin) * p + _rotXMin;
             var euler = transform.localEulerAngles;
             euler.x = rotVal;
 
@@ -51,10 +49,10 @@ namespace Systems.GameSystem
 
         private void PanCamera(float horizontalInput, float verticalInput)
         {
-            gameObject.transform.Translate(Vector3.right * horizontalInput * panSpeed);
+            gameObject.transform.Translate(Vector3.right * horizontalInput * _panSpeed);
 
             var pos = gameObject.transform.position;
-            pos.z += verticalInput * panSpeed;
+            pos.z += verticalInput * _panSpeed;
 
             //clamp movement to map extends
             var upper = GameManager.Instance.MapManager.UpperBound;

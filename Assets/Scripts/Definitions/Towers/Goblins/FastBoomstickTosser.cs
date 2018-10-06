@@ -13,7 +13,7 @@ namespace Definitions.Towers.Goblins
 {
     class FastBoomstickTosser : Tower
     {
-        private int tossComboCount = 0;
+        private int _tossComboCount;
 
         public override void InitTowerData()
         {
@@ -55,18 +55,18 @@ namespace Definitions.Towers.Goblins
             if (MathHelper.RandomFloat() <= p)
             {
                 
-                tossComboCount++;
+                _tossComboCount++;
             }
             else
             {
-                if (tossComboCount == 0) return;
+                if (_tossComboCount == 0) return;
 
-                StartCoroutine(ExecuteAttacks(tossComboCount));
+                StartCoroutine(ExecuteAttacks(_tossComboCount));
 
                 var offset = new Vector3(0, Height, 0);
-                var textEffect = new TextEffectData(tossComboCount + "x!", 1.5f, GameSettings.CritColor, gameObject, offset, 1.75f);
+                var textEffect = new TextEffectData(_tossComboCount + "x!", 1.5f, GameSettings.CritColor, gameObject, offset, 1.75f);
                 GameManager.Instance.SpecialEffectManager.PlayTextEffect(textEffect);
-                tossComboCount = 0;
+                _tossComboCount = 0;
             }
         }
 

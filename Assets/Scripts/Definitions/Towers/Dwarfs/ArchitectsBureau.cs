@@ -11,9 +11,9 @@ using Random = System.Random;
 
 namespace Definitions.Towers.Dwarfs
 {
-    class ArchitectsBureau : Tower, AttributeEffectSource
+    class ArchitectsBureau : Tower, IAttributeEffectSource
     {
-        private Random rng = new Random();
+        private Random _rng = new Random();
 
         public override void InitTowerData()
         {
@@ -56,7 +56,7 @@ namespace Definitions.Towers.Dwarfs
 
             towers.Add(this);
 
-            var tower = towers[rng.Next(towers.Count)];
+            var tower = towers[_rng.Next(towers.Count)];
 
             if (tower.HasAttribute(AttributeName.AttackDamage))
             {

@@ -22,7 +22,7 @@ namespace Systems.UiSystem
         public GameObject HiredHandsContainer;
 
         private List<TowerInfoElement> towerInfoElements = new List<TowerInfoElement>();
-        private bool isEnabled = false;
+        private bool isEnabled;
 
         private Tower infoTower;
 

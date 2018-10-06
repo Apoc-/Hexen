@@ -13,10 +13,10 @@ namespace Systems.FactionSystem
         private string _description;
         public readonly FactionNames FactionName;
         public readonly FactionNames OpponentFactionName;
-        private int standing;
+        private int _standing;
 
-        private readonly Dictionary<Rarities, List<Tower>> towers;
-        private readonly Dictionary<Rarities, List<Npc>> npcs;
+        private readonly Dictionary<Rarities, List<Tower>> _towers;
+        private readonly Dictionary<Rarities, List<Npc>> _npcs;
 
         protected Faction(
             string name, 
@@ -29,7 +29,7 @@ namespace Systems.FactionSystem
             FactionName = factionName;
             OpponentFactionName = opponentFactionName;
 
-            towers = new Dictionary<Rarities, List<Tower>>
+            _towers = new Dictionary<Rarities, List<Tower>>
             {
                 { Rarities.Common, new List<Tower>() },
                 { Rarities.Uncommon, new List<Tower>() },
@@ -38,7 +38,7 @@ namespace Systems.FactionSystem
                 { Rarities.None, new List<Tower>() }
             };
 
-            npcs = new Dictionary<Rarities, List<Npc>>
+            _npcs = new Dictionary<Rarities, List<Npc>>
             {
                 { Rarities.Common, new List<Npc>() },
                 { Rarities.Uncommon, new List<Npc>() },
@@ -50,36 +50,36 @@ namespace Systems.FactionSystem
 
         public void AddTower(Tower tower)
         {
-            towers[tower.Rarity].Add(tower);
+            _towers[tower.Rarity].Add(tower);
         }
 
         public void AddNpc(Npc npc)
         {
-            npcs[npc.Rarity].Add(npc);
+            _npcs[npc.Rarity].Add(npc);
         }
 
         public List<Tower> GetAvailableTowers()
         {
             var availableTowers = new List<Tower>();
 
-            if (standing >= 1)
+            if (_standing >= 1)
             {
-                availableTowers.AddRange(towers[Rarities.Common]);
+                availableTowers.AddRange(_towers[Rarities.Common]);
             }
 
-            if (standing >= 2)
+            if (_standing >= 2)
             {
-                availableTowers.AddRange(towers[Rarities.Uncommon]);
+                availableTowers.AddRange(_towers[Rarities.Uncommon]);
             }
 
-            if (standing >= 3)
+            if (_standing >= 3)
             {
-                availableTowers.AddRange(towers[Rarities.Rare]);
+                availableTowers.AddRange(_towers[Rarities.Rare]);
             }
 
-            if (standing >= 4)
+            if (_standing >= 4)
             {
-                availableTowers.AddRange(towers[Rarities.Legendary]);
+                availableTowers.AddRange(_towers[Rarities.Legendary]);
             }
 
             return availableTowers;
@@ -87,19 +87,19 @@ namespace Systems.FactionSystem
 
         public List<Npc> GetNpcsByRarity(Rarities rarity)
         {
-            return npcs[rarity];
+            return _npcs[rarity];
         }
 
         public List<Tower> GetTowersByRarity(Rarities rarity)
         {
-            return towers[rarity];
+            return _towers[rarity];
         }
 
         public T GetNpc<T>() where T : Npc
         {
             Npc foundNpc = null;
 
-            foreach (var npcsInRarity in npcs.Values)
+            foreach (var npcsInRarity in _npcs.Values)
             {
                 foundNpc = npcsInRarity.FirstOrDefault(npc => npc is T);
             }
@@ -112,19 +112,19 @@ namespace Systems.FactionSystem
 
         public void IncreaseStanding()
         {
-            standing += 1;
+            _standing += 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
         }
 
         public void DecreaseStanding()
         {
-            standing -= 1;
+            _standing -= 1;
             GameManager.Instance.FactionManager.UpdateAvailableTowers();
         }
 
         public int GetStanding()
         {
-            return standing;
+            return _standing;
         }
     }
 }

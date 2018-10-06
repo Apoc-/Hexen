@@ -6,10 +6,10 @@ namespace Systems.GameSystem
 {
     public class Player : MonoBehaviour
     {
-        private int ambassadors = GameSettings.StartingAmbassadors;
-        private int lives = GameSettings.StartingLives;
+        private int _ambassadors = GameSettings.StartingAmbassadors;
+        private int _lives = GameSettings.StartingLives;
 
-        private readonly List<Tower> buildableTowers = new List<Tower>();
+        private readonly List<Tower> _buildableTowers = new List<Tower>();
 
         //events
         public delegate void GoldGainEvent(int amount);
@@ -17,11 +17,11 @@ namespace Systems.GameSystem
 
         public int Lives
         {
-            get => lives;
+            get => _lives;
             set
             {
-                lives = value;
-                if (lives <= 0)
+                _lives = value;
+                if (_lives <= 0)
                 {
                     Die();
                 }
@@ -54,17 +54,17 @@ namespace Systems.GameSystem
 
         public void IncreaseAmbassadors(int amount)
         {
-            ambassadors += amount;
+            _ambassadors += amount;
         }
 
         public void DecreaseAmbassadors(int amount)
         {
-            ambassadors -= amount;
+            _ambassadors -= amount;
         }
 
         public int GetAmbassadors()
         {
-            return ambassadors;
+            return _ambassadors;
         }
 
         public bool BuyTower(Tower tower)
@@ -91,20 +91,20 @@ namespace Systems.GameSystem
         {
             var buildPanel = GameManager.Instance.UIManager.BuildPanel;
 
-            if (buildableTowers.Count >= TowerSlots)
+            if (_buildableTowers.Count >= TowerSlots)
             {
-                var removedTower = buildableTowers[0];
-                buildableTowers.Remove(removedTower);
+                var removedTower = _buildableTowers[0];
+                _buildableTowers.Remove(removedTower);
                 buildPanel.RemoveBuildButtonForTower(removedTower);
             }
 
-            buildableTowers.Add(tower);
+            _buildableTowers.Add(tower);
             buildPanel.AddBuildButtonForTower(tower);
         }
 
         public void RemoveBuildableTower(Tower tower)
         {
-            buildableTowers.Remove(tower);
+            _buildableTowers.Remove(tower);
         }
     }
 }

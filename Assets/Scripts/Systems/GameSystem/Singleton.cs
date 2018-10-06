@@ -19,7 +19,7 @@ namespace Systems.GameSystem
         {
             get
             {
-                if (applicationIsQuitting)
+                if (_applicationIsQuitting)
                 {
                     Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
                         "' already destroyed on application quit." +
@@ -45,7 +45,7 @@ namespace Systems.GameSystem
                         {
                             GameObject singleton = new GameObject();
                             _instance = singleton.AddComponent<T>();
-                            singleton.name = "(singleton) " + typeof(T).ToString();
+                            singleton.name = "(singleton) " + typeof(T);
 
                             DontDestroyOnLoad(singleton);
 
@@ -65,7 +65,7 @@ namespace Systems.GameSystem
             }
         }
 
-        private static bool applicationIsQuitting = false;
+        private static bool _applicationIsQuitting;
         /// <summary>
         /// When Unity quits, it destroys objects in a random order.
         /// In principle, a Singleton is only destroyed when application quits.
@@ -76,7 +76,7 @@ namespace Systems.GameSystem
         /// </summary>
         public void OnDestroy()
         {
-            applicationIsQuitting = true;
+            _applicationIsQuitting = true;
         }
     }
 }

@@ -19,7 +19,8 @@ namespace Systems.MapSystem
             { TileType.Lava, new List<string>{"Lava"}},
             { TileType.VolcanoLava, new List<string>{"Lava"}},
             //{ TileType.Water, new List<string>{"Water"}},
-            { TileType.Water, new List<string>{"Void"}}
+            { TileType.Water, new List<string>{"Void"}},
+            { TileType.Void, new List<string>{"Void"}}
         };
 
         private static readonly Random Rng = new Random();
@@ -110,9 +111,8 @@ namespace Systems.MapSystem
                     tile.DeltaHeight = 1.25f;
                     break;
 
-                case 'w':
                 default:
-                    tile.TileType = TileType.Water;
+                    tile.TileType = TileType.Void;
                     tile.DeltaHeight = -0.7f;
                     break;
             }

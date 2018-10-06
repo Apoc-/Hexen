@@ -13,9 +13,9 @@ namespace Definitions.Towers.Dwarfs
 {
     class TaxCollectionOffice : Tower
     {
-        private List<Tower> towers = new List<Tower>();
-        private int checkTickInterval = 10;
-        private int checkTick = 0;
+        private List<Tower> _towers = new List<Tower>();
+        private int _checkTickInterval = 10;
+        private int _checkTick;
 
         public override void InitTowerData()
         {
@@ -59,10 +59,10 @@ namespace Definitions.Towers.Dwarfs
         {
             base.DoUpdate();
 
-            checkTick += 1;
-            if (checkTick >= checkTickInterval)
+            _checkTick += 1;
+            if (_checkTick >= _checkTickInterval)
             {
-                checkTick = 0;
+                _checkTick = 0;
                 RefreshNearbyTowers();
             }
         }
@@ -72,9 +72,9 @@ namespace Definitions.Towers.Dwarfs
             UnsubscribeTowerEvents();
 
             var radius = Attributes[AttributeName.AuraRange].Value;
-            towers = TargetingHelper.GetTowersInRadius(transform.position, radius);
+            _towers = TargetingHelper.GetTowersInRadius(transform.position, radius);
             
-            towers.ForEach(tower => { tower.OnLevelUp += HandleTowerLevelUp; });
+            _towers.ForEach(tower => { tower.OnLevelUp += HandleTowerLevelUp; });
         }
 
         private void HandleTowerLevelUp(int level)
@@ -94,7 +94,7 @@ namespace Definitions.Towers.Dwarfs
 
         private void UnsubscribeTowerEvents()
         {
-            towers.ForEach(tower => { tower.OnLevelUp -= HandleTowerLevelUp; });
+            _towers.ForEach(tower => { tower.OnLevelUp -= HandleTowerLevelUp; });
         }
     }
 }

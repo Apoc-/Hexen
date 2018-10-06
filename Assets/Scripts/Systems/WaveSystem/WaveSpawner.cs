@@ -16,7 +16,7 @@ namespace Systems.WaveSystem
         public int WaveCooldown { get; } = WaveData.WaveCooldown;
 
 
-        public int CurrentWaveCount { get; private set; } = 0;
+        public int CurrentWaveCount { get; private set; }
 
         public List<Wave> CurrentSpawnedWaves { get; private set; }
 
@@ -24,7 +24,7 @@ namespace Systems.WaveSystem
 
         public int CurrentElapsedTime { get; set; }
 
-        private bool waitingForWave = false;
+        private bool waitingForWave;
 
         public WaveSpawner()
         {
@@ -135,7 +135,7 @@ namespace Systems.WaveSystem
 
         void SpawnNpc(Npc npc, Wave wave, WavePack pack)
         {
-            npc.isSpawned = true;
+            npc.IsSpawned = true;
             npc.InitData();
             
             npc.transform.parent = transform;
@@ -167,7 +167,7 @@ namespace Systems.WaveSystem
         {
             var wave = CurrentSpawnedWave;
 
-            npc.isSpawned = true;
+            npc.IsSpawned = true;
             npc.InitData();
 
             npc.transform.parent = transform;

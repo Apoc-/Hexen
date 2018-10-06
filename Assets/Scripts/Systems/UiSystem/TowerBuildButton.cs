@@ -16,12 +16,12 @@ namespace Systems.UiSystem
         [SerializeField]
         private Image icon;
 
-        private bool activated = false;
+        private bool activated;
 
         public TextMeshProUGUI PriceTag;
         private float hoverTime = 0.75f;
-        private float hoverDuration = 0.0f;
-        private bool isHovering = false;
+        private float hoverDuration;
+        private bool isHovering;
 
         public void Update()
         {

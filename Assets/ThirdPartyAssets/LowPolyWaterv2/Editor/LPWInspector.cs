@@ -12,13 +12,13 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
         // We need to use and to call an instnace of the default MaterialEditor
         private MaterialEditor _materialEditor;
 
-        static GUIContent reflCfgLbl = new GUIContent("Camera Settings for Reflection & Refraction");
-        static Texture2D bannerTex = null;
-        static GUIStyle rateTxt = null;
-        static GUIStyle title = null;
-        static GUIStyle linkStyle = null;
+        private static GUIContent _reflCfgLbl = new GUIContent("Camera Settings for Reflection & Refraction");
+        private static Texture2D _bannerTex;
+        private static GUIStyle _rateTxt;
+        private static GUIStyle _title;
+        private static GUIStyle _linkStyle;
 
-        void OnEnable() {
+        private void OnEnable() {
             _target = (LowPolyWaterScript)target;
             //SetKeywords();
 
@@ -27,27 +27,27 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
                 _materialEditor = (MaterialEditor)CreateEditor(_target.material);
             }
 
-            if (bannerTex == null) bannerTex = Resources.Load<Texture2D>("banner");
+            if (_bannerTex == null) _bannerTex = Resources.Load<Texture2D>("banner");
 
-            if (rateTxt == null) {
-                rateTxt = new GUIStyle();
+            if (_rateTxt == null) {
+                _rateTxt = new GUIStyle();
                 //rateTxt.alignment = TextAnchor.LowerCenter;
-                rateTxt.alignment = TextAnchor.LowerRight;
-                rateTxt.normal.textColor = new Color(0.9f, 0.9f, 0.9f);
-                rateTxt.fontSize = 9;
-                rateTxt.padding = new RectOffset(0, 0, 0, 0);
+                _rateTxt.alignment = TextAnchor.LowerRight;
+                _rateTxt.normal.textColor = new Color(0.9f, 0.9f, 0.9f);
+                _rateTxt.fontSize = 9;
+                _rateTxt.padding = new RectOffset(0, 0, 0, 0);
             }
 
-            if (title == null) {
-                title = new GUIStyle(rateTxt);
+            if (_title == null) {
+                _title = new GUIStyle(_rateTxt);
                 //title.alignment = TextAnchor.UpperCenter;
-                title.normal.textColor = new Color(1f, 1f, 1f);
-                title.alignment = TextAnchor.MiddleCenter;
-                title.fontSize = 19;
-                title.padding = new RectOffset(0, 0, 0, 3);
+                _title.normal.textColor = new Color(1f, 1f, 1f);
+                _title.alignment = TextAnchor.MiddleCenter;
+                _title.fontSize = 19;
+                _title.padding = new RectOffset(0, 0, 0, 3);
             }
 
-            linkStyle = new GUIStyle();
+            _linkStyle = new GUIStyle();
 
             LPWHiddenProps.Scale(_target);
 
@@ -73,15 +73,15 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
             bool guiChanged = false;
 
             // Banner
-            if (bannerTex != null ) {
+            if (_bannerTex != null ) {
                 GUILayout.Space(5);
                 var rect = GUILayoutUtility.GetRect(0, int.MaxValue, 30, 30);
-                EditorGUI.DrawPreviewTexture(rect, bannerTex, null, ScaleMode.ScaleAndCrop);
+                EditorGUI.DrawPreviewTexture(rect, _bannerTex, null, ScaleMode.ScaleAndCrop);
                 //EditorGUI.LabelField(rect, "Rate \u2605\u2605\u2605\u2605\u2605", rateTxt);
-                EditorGUI.LabelField(rect, "Rate | Review", rateTxt);
-                EditorGUI.LabelField(rect, "Low Poly Water", title);
+                EditorGUI.LabelField(rect, "Rate | Review", _rateTxt);
+                EditorGUI.LabelField(rect, "Low Poly Water", _title);
                 
-                if (GUI.Button(rect, "", linkStyle) ){
+                if (GUI.Button(rect, "", _linkStyle) ){
                     Application.OpenURL("https://www.assetstore.unity3d.com/en/#!/account/downloads/search=Low%20Poly%20Water");
                 }
                 GUILayout.Space(3);
@@ -192,7 +192,7 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
                         if (_target.material != null && _target.material.HasProperty("_ZWrite"))
                             _target.material.SetFloat("_ZWrite", 1);
                     }
-                    EditorGUILayout.PropertyField(refOptions, reflCfgLbl,  true);
+                    EditorGUILayout.PropertyField(refOptions, _reflCfgLbl,  true);
                 }
             } else {
                 _target.enableReflection = false; 
@@ -255,7 +255,7 @@ namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
 
         }
 
-        void OnDisable() {
+        private void OnDisable() {
             if (_materialEditor != null) {
                 // Free the memory used by default MaterialEditor
                 DestroyImmediate(_materialEditor);
