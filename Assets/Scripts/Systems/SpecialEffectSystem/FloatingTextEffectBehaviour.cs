@@ -5,12 +5,11 @@ namespace Systems.SpecialEffectSystem
 {
     public class FloatingTextEffectBehaviour : MonoBehaviour
     {
-        private TextMeshPro textMesh;
-        public TextEffectData EffectData { get; set; }
+        private TextMeshPro _textMesh;
 
         public void Awake()
         {
-            textMesh = GetComponent<TextMeshPro>();
+            _textMesh = GetComponent<TextMeshPro>();
         }
 
         public void Update()
@@ -20,17 +19,17 @@ namespace Systems.SpecialEffectSystem
 
         public void SetSize(float size)
         {
-            textMesh.fontSize = size;
+            _textMesh.fontSize = size;
         }
 
         public void SetColor(Color color)
         {
-            textMesh.color = color;
+            _textMesh.color = color;
         }
 
         public void SetText(string text)
         {
-            textMesh.text = text;
+            _textMesh.text = text;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.UiSystem
@@ -10,27 +11,27 @@ namespace Systems.UiSystem
     {
         public Tower Tower;
 
-        [SerializeField]
-        private GameObject buttonActiveEffect;
+        [FormerlySerializedAs("buttonActiveEffect")] [SerializeField]
+        private GameObject _buttonActiveEffect;
 
-        [SerializeField]
-        private Image icon;
+        [FormerlySerializedAs("icon")] [SerializeField]
+        private Image _icon;
 
-        private bool activated;
+        private bool _activated;
 
         public TextMeshProUGUI PriceTag;
-        private float hoverTime = 0.75f;
-        private float hoverDuration;
-        private bool isHovering;
+        private float _hoverTime = 0.75f;
+        private float _hoverDuration;
+        private bool _isHovering;
 
         public void Update()
         {
-            if (isHovering)
+            if (_isHovering)
             {
-                hoverDuration += Time.deltaTime;
+                _hoverDuration += Time.deltaTime;
             }
 
-            if (hoverDuration >= hoverTime)
+            if (_hoverDuration >= _hoverTime)
             {
                 GameManager.Instance.PopupManager.DisplayTowerPopup(Tower);
             }
@@ -38,20 +39,20 @@ namespace Systems.UiSystem
 
         public void OnPointerEnter()
         {
-            isHovering = true;
-            hoverDuration = 0;
+            _isHovering = true;
+            _hoverDuration = 0;
         }
 
         public void OnPointerExit()
         {
-            isHovering = false;
-            hoverDuration = 0;
+            _isHovering = false;
+            _hoverDuration = 0;
             GameManager.Instance.PopupManager.DestroyPopup();
         }
 
         public void OnButtonClicked()
         {
-            if (!activated)
+            if (!_activated)
             {
                 GameManager.Instance.TowerBuildManager.StartBuilding(this);
                 GameManager.Instance.UIManager.TowerInfoPanel.EnableTowerInfoPanel(Tower);
@@ -61,19 +62,19 @@ namespace Systems.UiSystem
 
         public void SetIcon(Sprite sprite)
         {
-            icon.GetComponent<Image>().sprite = sprite;
+            _icon.GetComponent<Image>().sprite = sprite;
         }
 
         public void SetButtonActive()
         {
-            buttonActiveEffect.gameObject.SetActive(true);
-            activated = true;
+            _buttonActiveEffect.gameObject.SetActive(true);
+            _activated = true;
         }
 
         public void SetButtonInactive()
         {
-            buttonActiveEffect.gameObject.SetActive(false);
-            activated = false;
+            _buttonActiveEffect.gameObject.SetActive(false);
+            _activated = false;
         }
     }
 }

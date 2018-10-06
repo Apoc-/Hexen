@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.UiSystem.Core
 {
@@ -12,36 +13,36 @@ namespace Systems.UiSystem.Core
 
     public class CursorHandler : MonoBehaviour
     {
-        private Cursors currentCursor = Cursors.Standard;
-        private GameObject currentCursorGameObject;
+        private Cursors _currentCursor = Cursors.Standard;
+        private GameObject _currentCursorGameObject;
 
-        [SerializeField] private GameObject replaceTowerCursor;
+        [FormerlySerializedAs("replaceTowerCursor")] [SerializeField] private GameObject _replaceTowerCursor;
 
-        private readonly Dictionary<Cursors, GameObject> cursorDictionary = new Dictionary<Cursors, GameObject>();
+        private readonly Dictionary<Cursors, GameObject> _cursorDictionary = new Dictionary<Cursors, GameObject>();
 
         private void Start()
         {
-            cursorDictionary.Add(Cursors.ReplaceTower, replaceTowerCursor);
+            _cursorDictionary.Add(Cursors.ReplaceTower, _replaceTowerCursor);
         }
 
         private void Update()
         {
-            currentCursorGameObject = replaceTowerCursor;
+            _currentCursorGameObject = _replaceTowerCursor;
             
 
-            if (currentCursor != Cursors.None && currentCursor != Cursors.Standard)
+            if (_currentCursor != Cursors.None && _currentCursor != Cursors.Standard)
             {
                 var pos = Input.mousePosition + new Vector3(32f, 16f, 0f);
-                currentCursorGameObject.transform.position = pos;
+                _currentCursorGameObject.transform.position = pos;
             }
         }
 
         public void SwitchCursor(Cursors cursor)
         {
-            if (currentCursor == cursor) return;
+            if (_currentCursor == cursor) return;
 
             DisableCursors();
-            currentCursor = cursor;
+            _currentCursor = cursor;
             
             if (cursor == Cursors.None)
             {
@@ -60,18 +61,18 @@ namespace Systems.UiSystem.Core
 
         private void EnableCursor(Cursors cursor)
         {
-            if (!cursorDictionary.ContainsKey(cursor)) return;
+            if (!_cursorDictionary.ContainsKey(cursor)) return;
 
-            currentCursorGameObject = cursorDictionary[cursor];
-            currentCursorGameObject.SetActive(true);
+            _currentCursorGameObject = _cursorDictionary[cursor];
+            _currentCursorGameObject.SetActive(true);
         }
 
         public void DisableCursors()
         {
-            currentCursor = Cursors.None;
-            currentCursorGameObject = null;
+            _currentCursor = Cursors.None;
+            _currentCursorGameObject = null;
 
-            foreach (var go in cursorDictionary.Values)
+            foreach (var go in _cursorDictionary.Values)
             {
                 go.SetActive(false);
             }

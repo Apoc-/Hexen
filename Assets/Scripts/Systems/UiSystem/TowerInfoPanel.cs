@@ -3,32 +3,33 @@ using System.Collections.Generic;
 using Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Attribute = Systems.AttributeSystem.Attribute;
 
 namespace Systems.UiSystem
 {
     class TowerInfoPanel : MonoBehaviour
     {
-        private string towerInfoElementPrefab = "Prefabs/UI/TowerInfoElement";
+        private string _towerInfoElementPrefab = "Prefabs/UI/TowerInfoElement";
 
-        [SerializeField]
-        private GameObject towerInfoElementsContainer;
+        [FormerlySerializedAs("towerInfoElementsContainer")] [SerializeField]
+        private GameObject _towerInfoElementsContainer;
 
         //[SerializeField] private Image icon;
-        [SerializeField] private TextMeshProUGUI title;
-        [SerializeField] private TextMeshProUGUI description;
-        [SerializeField] private TextMeshProUGUI level;
+        [FormerlySerializedAs("title")] [SerializeField] private TextMeshProUGUI _title;
+        [FormerlySerializedAs("description")] [SerializeField] private TextMeshProUGUI _description;
+        [FormerlySerializedAs("level")] [SerializeField] private TextMeshProUGUI _level;
 
         public GameObject HiredHandsContainer;
 
-        private List<TowerInfoElement> towerInfoElements = new List<TowerInfoElement>();
-        private bool isEnabled;
+        private List<TowerInfoElement> _towerInfoElements = new List<TowerInfoElement>();
+        private bool _isEnabled;
 
-        private Tower infoTower;
+        private Tower _infoTower;
 
         public void Update()
         {
-            if (isEnabled)
+            if (_isEnabled)
             {
                 UpdateInfoPopupData();  
             }
@@ -36,16 +37,16 @@ namespace Systems.UiSystem
 
         public void EnableTowerInfoPanel(Tower tower)
         {
-            infoTower = tower;
+            _infoTower = tower;
             
-            isEnabled = true;
+            _isEnabled = true;
             gameObject.SetActive(true);
         }
         
         public void DisableTowerInfoPopup()
         {
-            infoTower = null;
-            isEnabled = false;
+            _infoTower = null;
+            _isEnabled = false;
             gameObject.SetActive(false);
 
             ClearInformation();
@@ -54,12 +55,12 @@ namespace Systems.UiSystem
         public void UpdateInfoPopupData()
         {
             //SetIcon(infoTower.Icon);
-            SetTitle(infoTower.Name);
-            SetLevel(infoTower.Level.ToString());
-            SetDescription(infoTower.Description);
+            SetTitle(_infoTower.Name);
+            SetLevel(_infoTower.Level.ToString());
+            SetDescription(_infoTower.Description);
             ClearInfoElements();
 
-            foreach (var attribute in infoTower.Attributes)
+            foreach (var attribute in _infoTower.Attributes)
             {
                 CreateNewInfoElement(attribute.Value);
             }
@@ -78,12 +79,12 @@ namespace Systems.UiSystem
 
         private void ClearInfoElements()
         {
-            towerInfoElements.ForEach(element =>
+            _towerInfoElements.ForEach(element =>
             {
                 Destroy(element.gameObject);
             });
 
-            towerInfoElements = new List<TowerInfoElement>();
+            _towerInfoElements = new List<TowerInfoElement>();
         }
 
         /*private void SetIcon(Sprite icon)
@@ -93,27 +94,27 @@ namespace Systems.UiSystem
 
         private void SetTitle(String title)
         {
-            this.title.text = title;
+            _title.text = title;
         }
 
         private void SetLevel(String value)
         {
-            level.text = value;
+            _level.text = value;
         }
 
         private void SetDescription(String description)
         {
-            this.description.text = description;
+            _description.text = description;
         }
 
 
         private void CreateNewInfoElement(Attribute attribute)
         {
-            var element = Instantiate(Resources.Load<TowerInfoElement>(towerInfoElementPrefab));
-            element.transform.SetParent(towerInfoElementsContainer.transform);
+            var element = Instantiate(Resources.Load<TowerInfoElement>(_towerInfoElementPrefab));
+            element.transform.SetParent(_towerInfoElementsContainer.transform);
             element.InitTowerInfoElement(attribute);
 
-            towerInfoElements.Add(element);
+            _towerInfoElements.Add(element);
         }
     }
 }

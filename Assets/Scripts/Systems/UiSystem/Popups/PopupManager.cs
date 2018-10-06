@@ -7,39 +7,39 @@ namespace Systems.UiSystem.Popups
 {
     public class PopupManager : MonoBehaviour
     {
-        private Popup currentDisplayedPopup;
-        private GameObject curentDisplayOrigin;
+        private Popup _currentDisplayedPopup;
+        private GameObject _curentDisplayOrigin;
 
         private void InitPopup(GameObject origin)
         {
-            currentDisplayedPopup = Instantiate(Resources.Load<Popup>("Prefabs/Ui/Popup"));
+            _currentDisplayedPopup = Instantiate(Resources.Load<Popup>("Prefabs/Ui/Popup"));
 
-            currentDisplayedPopup.transform.SetParent(transform);
-            currentDisplayedPopup.transform.position = Input.mousePosition;
-            curentDisplayOrigin = origin;
+            _currentDisplayedPopup.transform.SetParent(transform);
+            _currentDisplayedPopup.transform.position = Input.mousePosition;
+            _curentDisplayOrigin = origin;
         }
 
         public void DisplayHiredHandPopup(HiredHandItem handItem)
         {
-            if (curentDisplayOrigin == handItem.gameObject) return;
+            if (_curentDisplayOrigin == handItem.gameObject) return;
 
             InitPopup(handItem.gameObject);
 
             string text = handItem.Name;
 
-            currentDisplayedPopup.SetText(text);
+            _currentDisplayedPopup.SetText(text);
         }
 
         public void DisplayTowerPopup(Tower tower)
         {
-            if (curentDisplayOrigin == tower.gameObject) return;
+            if (_curentDisplayOrigin == tower.gameObject) return;
 
             InitPopup(tower.gameObject);
 
             string text = tower.Name + "\n";
 
-            var tmp = currentDisplayedPopup.GetComponentInChildren<TextMeshProUGUI>();
-            var rect = currentDisplayedPopup.GetComponent<RectTransform>();
+            var tmp = _currentDisplayedPopup.GetComponentInChildren<TextMeshProUGUI>();
+            var rect = _currentDisplayedPopup.GetComponent<RectTransform>();
 
             var lineHeight = tmp.fontSize + tmp.lineSpacing + 2;
 
@@ -49,23 +49,23 @@ namespace Systems.UiSystem.Popups
 
             foreach (var keyValuePair in tower.Attributes)
             {
-                var name = keyValuePair.Key;
-                var attr = keyValuePair.Value;
+                var towerName = keyValuePair.Key;
+                var towerAttribute = keyValuePair.Value;
 
-                text += "\n" + name;
-                text += " " + attr.Value;
+                text += "\n" + towerName;
+                text += " " + towerAttribute.Value;
             }
 
             //rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
-            currentDisplayedPopup.SetText(text);
+            _currentDisplayedPopup.SetText(text);
         }
 
         public void DestroyPopup()
         {
-            if (currentDisplayedPopup == null) return;
+            if (_currentDisplayedPopup == null) return;
 
-            Destroy(currentDisplayedPopup.gameObject);
-            curentDisplayOrigin = null;
+            Destroy(_currentDisplayedPopup.gameObject);
+            _curentDisplayOrigin = null;
         }
     }
 }

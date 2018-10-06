@@ -8,7 +8,7 @@ namespace Systems.WaveSystem
 {
     public class WaveGenerator : MonoBehaviour
     {
-        private bool initialized = false;
+        private bool _initialized = false;
 
         public Wave GenerateWave(int waveNumber)
         {

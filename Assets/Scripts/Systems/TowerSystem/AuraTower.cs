@@ -10,10 +10,10 @@ namespace Systems.TowerSystem
 {
     abstract class AuraTower : Tower, IAttributeEffectSource
     {
-        protected List<AuraEffect> AuraEffects = new List<AuraEffect>();
-        protected List<IHasAttributes> AffectedAuraTargets = new List<IHasAttributes>();
+        protected readonly List<AuraEffect> AuraEffects = new List<AuraEffect>();
+        private List<IHasAttributes> _affectedAuraTargets = new List<IHasAttributes>();
 
-        private float lastAuraDamageTick;
+        private float _lastAuraDamageTick;
 
         public UnityEvent OnAuraTick = new UnityEvent();
 
@@ -59,12 +59,12 @@ namespace Systems.TowerSystem
             if (!target.HasAttribute(attributeName)) return;
 
             target.GetAttribute(attributeName).AddAttributeEffect(attributeEffect);
-            AffectedAuraTargets.Add(target);
+            _affectedAuraTargets.Add(target);
         }
 
         private void ClearAuraTargets()
         {
-            AffectedAuraTargets.ForEach(target =>
+            _affectedAuraTargets.ForEach(target =>
             {
                 AuraEffects.ForEach(auraEffect =>
                 {
@@ -73,7 +73,7 @@ namespace Systems.TowerSystem
                 });
             });
 
-            AffectedAuraTargets = new List<IHasAttributes>();
+            _affectedAuraTargets = new List<IHasAttributes>();
         }
 
         public override void Remove()
@@ -86,7 +86,7 @@ namespace Systems.TowerSystem
         {
             OnAuraTick.Invoke();
             
-            var targets = AffectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
+            var targets = _affectedAuraTargets.Select(it => it as Npc).Where(it => it != null).ToList();
             targets.ForEach(npc =>
             {
                 var dmg = Attributes[AttributeName.AuraDamage].Value;
@@ -99,12 +99,10 @@ namespace Systems.TowerSystem
             if (!Attributes.HasAttribute(AttributeName.AuraDamage)) return;
             if (!Attributes.HasAttribute(AttributeName.AuraTicksPerSecond)) return;
 
-            var interval = Attributes[AttributeName.AuraTicksPerSecond].Value;
-
-            if (lastAuraDamageTick < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AuraTicksPerSecond).Value)
+            if (_lastAuraDamageTick < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AuraTicksPerSecond).Value)
             {
                 TickAura();
-                lastAuraDamageTick = Time.fixedTime;
+                _lastAuraDamageTick = Time.fixedTime;
             }
         }
     }

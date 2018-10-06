@@ -1,14 +1,15 @@
 ﻿using Systems.AttributeSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.UiSystem
 {
     //todo wrapper is mainly for later, mouse over stuff etc
     public class TowerInfoElement : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI textElement;
-        private Attribute attribute;
+        [FormerlySerializedAs("textElement")] [SerializeField] private TextMeshProUGUI _textElement;
+        private Attribute _attribute;
 
         public void InitTowerInfoElement(Attribute attribute)
         {
@@ -21,7 +22,7 @@ namespace Systems.UiSystem
                 str += " (+" + lvlInc + typeStr;
             }
 
-            textElement.text = str;
+            _textElement.text = str;
         }
     }
 }

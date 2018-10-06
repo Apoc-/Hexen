@@ -425,7 +425,6 @@ namespace Systems.NpcSystem
             if (CurrentTile == null || Target == null) return transform.position;
             if (transform == null) return Vector3.zero;
 
-            var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
             var velocity = Attributes[AttributeName.MovementSpeed].Value;
             var totalDistance = velocity * time;
 
@@ -435,7 +434,7 @@ namespace Systems.NpcSystem
             
             while (true)
             {
-                //check for end
+                //todo check end
                 //if (current.TileType == TileType.End) return current.GetTopCenter();
 
                 //walk distance
@@ -455,64 +454,6 @@ namespace Systems.NpcSystem
             //walk leftover distance
             var heading = next.GetTopCenter() - currentPosition;
             var pos = currentPosition + heading.normalized * distanceLeft;
-
-            return pos;
-        }
-    
-    public Vector3 GetPositionInTime2(float time)
-        {
-            Debug.Log("estimating");
-            if (CurrentTile == null || Target == null) return transform.position;
-            if (transform == null) return Vector3.zero;
-
-            Debug.Log("new target");
-
-            var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
-            var velocity = Attributes[AttributeName.MovementSpeed].Value;
-            var totalDistance = velocity * time;
-            
-            //walk to current target
-            Tile current = CurrentTile;
-            Tile next = Target;
-            float distanceLeft;
-
-            if (distanceToNext < totalDistance)
-            {
-                
-                current = Target;
-                next = GameManager.Instance.MapManager.GetNextTileInPath(Target);
-
-                distanceLeft = totalDistance - distanceToNext;
-                
-                while (true)
-                {
-                    Debug.Log("new tile");
-
-                    //check for end
-                    if (current.TileType == TileType.End) return current.GetTopCenter();
-
-                    //walk distance
-                    var dist = Vector3.Distance(current.GetTopCenter(), next.GetTopCenter());
-
-                    //check if target can still be reached
-                    if (distanceLeft - dist < 0) break;
-
-                    distanceLeft -= dist;
-
-                    //next target
-                    current = next;
-                    next = GameManager.Instance.MapManager.GetNextTileInPath(next);
-                }
-            }
-            else
-            {
-                distanceLeft = totalDistance;
-            }
-            
-                
-            //walk leftover distance
-            var heading = next.GetTopCenter() - current.GetTopCenter();
-            var pos = current.GetTopCenter() + heading.normalized * distanceLeft;
 
             return pos;
         }

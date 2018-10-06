@@ -1,16 +1,17 @@
 ﻿using Systems.GameSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.UiSystem.Core
 {
     class GameFinishedScreenBehaviour : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI title;
+        [FormerlySerializedAs("title")] [SerializeField] private TextMeshProUGUI _title;
 
         public void EnableWithMessage(string msg)
         {
-            title.text = msg;
+            _title.text = msg;
             gameObject.SetActive(true);
         }
 

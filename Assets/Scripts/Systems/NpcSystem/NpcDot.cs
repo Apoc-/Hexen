@@ -7,18 +7,18 @@ namespace Systems.NpcSystem
         private float _activeTime;
         private readonly float _duration;
 
-        private float _ticksPerSecond;
+        private readonly float _ticksPerSecond;
         private float _lastTick;
 
-        public float Damage { get; private set; }
-        public Tower Source { get; private set; }
+        public float Damage { get; }
+        public Tower Source { get; }
 
         public NpcDot(float duration, float damage, float ticksPerSecond, Tower source)
         {
             _activeTime = 0;
             _lastTick = 0;
-            this._duration = duration;
-            this._ticksPerSecond = ticksPerSecond;
+            _duration = duration;
+            _ticksPerSecond = ticksPerSecond;
 
             Damage = damage;
             Source = source;

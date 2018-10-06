@@ -7,8 +7,7 @@ namespace Systems.TowerSystem
     {
         public ParticleSystem Outline;
         public ParticleSystem InnerEffect;
-        private Attribute attribute;
-        private Color color;
+        private Attribute _attribute;
 
         public void Awake()
         {
@@ -21,8 +20,7 @@ namespace Systems.TowerSystem
 
         public void InitRangeIndicator(Attribute attribute, Color color)
         {
-            this.color = color;
-            this.attribute = attribute;
+            _attribute = attribute;
 
             var innerEffectMain = InnerEffect.main;
             innerEffectMain.startColor = color;
@@ -38,7 +36,7 @@ namespace Systems.TowerSystem
 
         private void UpdateRangeIndicator()
         {
-            var range = attribute.Value;
+            var range = _attribute.Value;
 
             UpdateOutlineRange(range);
             UpdateInnerRange(range);

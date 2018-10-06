@@ -17,7 +17,7 @@ namespace Systems.SpecialEffectSystem
             
         }
         public LightningEffectData(string effectPrefabName, GameObject origin, GameObject target, float duration)
-            : base(effectPrefabName, origin, Vector3.zero, duration, true, true)
+            : base(effectPrefabName, origin, Vector3.zero, duration, true)
         {
             Target = target;
         }

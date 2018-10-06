@@ -39,7 +39,7 @@ namespace Systems.TowerSystem
         public int Xp;
 
         protected Npc LockedTarget;
-        private float lastShotFired;
+        private float _lastShotFired;
         
         public bool IsPlaced;
 
@@ -150,10 +150,10 @@ namespace Systems.TowerSystem
         {
             CheckTarget();
 
-            if (lastShotFired < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AttackSpeed).Value)
+            if (_lastShotFired < Time.fixedTime - 1.0f / GetAttribute(AttributeName.AttackSpeed).Value)
             {
                 Attack();
-                lastShotFired = Time.fixedTime;
+                _lastShotFired = Time.fixedTime;
             }
         }
 

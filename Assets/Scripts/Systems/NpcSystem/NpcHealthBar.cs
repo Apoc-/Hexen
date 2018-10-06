@@ -9,11 +9,6 @@ namespace Systems.NpcSystem
         [FormerlySerializedAs("health")] [SerializeField]
         private Image _health;
 
-        public void Update()
-        {
-            //transform.LookAt(Vector3.up);
-        }
-
         public void UpdateHealth(float percent)
         {
             if (_health == null) return;

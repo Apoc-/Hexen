@@ -11,7 +11,7 @@ namespace Systems.WaveSystem
 {
     class WaveSpawner : MonoBehaviour
     {
-        private readonly float npcSpawnInterval = WaveData.NpcSpawnInterval;
+        private readonly float _npcSpawnInterval = WaveData.NpcSpawnInterval;
         public int NumberOfWaves { get; } = WaveData.WavePacks.Count;
         public int WaveCooldown { get; } = WaveData.WaveCooldown;
 
@@ -24,7 +24,7 @@ namespace Systems.WaveSystem
 
         public int CurrentElapsedTime { get; set; }
 
-        private bool waitingForWave;
+        private bool _waitingForWave;
 
         public WaveSpawner()
         {
@@ -40,7 +40,7 @@ namespace Systems.WaveSystem
             CurrentSpawnedWaves = new List<Wave>();
             CurrentElapsedTime = 0;
             CurrentWaveCount = 0;
-            waitingForWave = false;
+            _waitingForWave = false;
         }
 
         private void Update()
@@ -52,9 +52,9 @@ namespace Systems.WaveSystem
                 GameManager.Instance.WinGame();
             }
 
-            if (CurrentSpawnedWaves.Count == 0 && !waitingForWave)
+            if (CurrentSpawnedWaves.Count == 0 && !_waitingForWave)
             {
-                waitingForWave = true;
+                _waitingForWave = true;
                 StartCoroutine(WaitForNextWave());
             }
 
@@ -83,7 +83,7 @@ namespace Systems.WaveSystem
         {
             if (CurrentWaveCount >= NumberOfWaves) return;
 
-            waitingForWave = false;
+            _waitingForWave = false;
             CurrentWaveCount += 1;
             CurrentElapsedTime = WaveCooldown;
 
@@ -107,12 +107,12 @@ namespace Systems.WaveSystem
                     SpawnNpc(npc, wave, pack);
                     wave.NpcSpawnCount += 1;
 
-                    yield return new WaitForSeconds(npcSpawnInterval);
+                    yield return new WaitForSeconds(_npcSpawnInterval);
                 }
 
                 wave.PackSpawnCount += 1;
 
-                yield return new WaitForSeconds(npcSpawnInterval*2);
+                yield return new WaitForSeconds(_npcSpawnInterval*2);
             }
 
             Debug.Log("----- Finished spawning Wave " + CurrentWaveCount + "-----");

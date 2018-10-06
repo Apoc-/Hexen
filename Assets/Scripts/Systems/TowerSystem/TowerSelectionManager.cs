@@ -10,7 +10,7 @@ namespace Systems.TowerSystem
     class TowerSelectionManager : MonoBehaviour
     {
         public Tower CurrentSelectedTower;
-        private List<RangeIndicator> activeRangeIndicators = new List<RangeIndicator>();
+        private List<RangeIndicator> _activeRangeIndicators = new List<RangeIndicator>();
 
         private void Update()
         {
@@ -30,6 +30,8 @@ namespace Systems.TowerSystem
 
         private Tower CheckForTower()
         {
+            if (Camera.main == null) return null;
+            
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -94,20 +96,20 @@ namespace Systems.TowerSystem
             indicator.transform.parent = tower.transform;
             indicator.transform.localPosition = new Vector3(0, 0.25f, 0);
 
-            activeRangeIndicators.Add(indicator);
+            _activeRangeIndicators.Add(indicator);
 
             return indicator;
         }
 
         public void DestroyRangeIndicators()
         {
-            activeRangeIndicators.ForEach(indicator =>
+            _activeRangeIndicators.ForEach(indicator =>
             {
                 if (indicator == null) return;
                 Destroy(indicator.gameObject);
             });
 
-            activeRangeIndicators = new List<RangeIndicator>();
+            _activeRangeIndicators = new List<RangeIndicator>();
         }
 
         

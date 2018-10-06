@@ -2,13 +2,14 @@
 using System.Linq;
 using Systems.TowerSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.UiSystem
 {
     class BuildPanel : MonoBehaviour
     {
-        private List<TowerBuildButton> towerButtons = new List<TowerBuildButton>();
-        [SerializeField] private GameObject towerButtonContainer;
+        private readonly List<TowerBuildButton> _towerButtons = new List<TowerBuildButton>();
+        [FormerlySerializedAs("towerButtonContainer")] [SerializeField] private GameObject _towerButtonContainer;
 
         public void AddBuildButtonForTower(Tower tower)
         {
@@ -17,18 +18,18 @@ namespace Systems.UiSystem
 
             button.Tower = tower;
             button.SetIcon(button.Tower.Icon);
-            button.transform.SetParent(towerButtonContainer.transform);
+            button.transform.SetParent(_towerButtonContainer.transform);
 
             button.PriceTag.text = "" + tower.GoldCost;
 
-            towerButtons.Add(button);
+            _towerButtons.Add(button);
         }
 
         public void RemoveBuildButton(TowerBuildButton button, bool placed)
         {
             if (button == null) return;
 
-            towerButtons.Remove(button);
+            _towerButtons.Remove(button);
             
             Destroy(button.gameObject);
 
@@ -41,7 +42,7 @@ namespace Systems.UiSystem
 
         public void RemoveBuildButtonForTower(Tower tower)
         {
-            var buildButton = towerButtons.FirstOrDefault(button => button.Tower == tower);
+            var buildButton = _towerButtons.FirstOrDefault(button => button.Tower == tower);
             RemoveBuildButton(buildButton, false);
         }
     }

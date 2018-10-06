@@ -8,13 +8,13 @@ namespace Systems.SpecialEffectSystem
     class SpecialEffectManager : MonoBehaviour
     {
         private const string SfxPath = "Sfx";
-        private List<SpecialEffectData> runningSpecialEffects = new List<SpecialEffectData>();
+        private List<SpecialEffectData> _runningSpecialEffects = new List<SpecialEffectData>();
 
         public void Update()
         {
             var finishedEffects = new List<SpecialEffectData>();
 
-            runningSpecialEffects.ForEach(effect =>
+            _runningSpecialEffects.ForEach(effect =>
             {
                 if (IsFinished(effect))
                 {
@@ -29,7 +29,7 @@ namespace Systems.SpecialEffectSystem
                 }
             });
 
-            runningSpecialEffects = runningSpecialEffects.Except(finishedEffects).ToList();
+            _runningSpecialEffects = _runningSpecialEffects.Except(finishedEffects).ToList();
             finishedEffects.ForEach(effect =>
             {
                 Destroy(effect.EffectContainer);
@@ -105,7 +105,7 @@ namespace Systems.SpecialEffectSystem
             effectGameObject.transform.SetParent(effectContainer.transform);
             effectGameObject.transform.localPosition = Vector3.zero;
 
-            runningSpecialEffects.Add(effectData);
+            _runningSpecialEffects.Add(effectData);
 
             return effectGameObject;
         }
