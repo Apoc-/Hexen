@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Core
 {
     public enum Cursors
     {

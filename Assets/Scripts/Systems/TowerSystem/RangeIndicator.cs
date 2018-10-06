@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
+﻿using UnityEngine;
+using Attribute = Systems.AttributeSystem.Attribute;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.TowerSystem
 {
     public class RangeIndicator : MonoBehaviour
     {

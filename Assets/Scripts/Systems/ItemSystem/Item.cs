@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Systems.AttributeSystem;
+using Systems.AttributeSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.ItemSystem
 {
     public abstract class Item : MonoBehaviour, AttributeEffectSource
     {

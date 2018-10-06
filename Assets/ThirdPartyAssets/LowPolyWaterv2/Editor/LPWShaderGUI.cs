@@ -1,7 +1,8 @@
-﻿using UnityEditor;
+﻿using ThirdPartyAssets.LowPolyWaterv2.Scripts.src;
+using UnityEditor;
 using UnityEngine;
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
     public class LPWShaderGUI : ShaderGUI {
 
         enum Shading { Flat, VertexLit, PixelLit };

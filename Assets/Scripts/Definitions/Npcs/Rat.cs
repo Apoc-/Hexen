@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
+﻿using Systems.AttributeSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Definitions.Npcs
+namespace Definitions.Npcs
 {
     public class Rat : Npc
     {

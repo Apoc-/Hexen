@@ -1,14 +1,11 @@
-﻿using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.Projectiles;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.TowerSystem;
 using UnityEngine;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
+using Attribute = Systems.AttributeSystem.Attribute;
 
-namespace Assets.Scripts.Definitions.Towers
+namespace Definitions.Towers.Elves
 {
     class FrostEmitter : AuraTower
     {

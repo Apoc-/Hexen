@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.AttributeSystem
+namespace Systems.AttributeSystem
 {
     public enum AttributeEffectType
     {

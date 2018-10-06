@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Systems.FactionSystem;
+﻿using Systems.FactionSystem;
 
-namespace Assets.Scripts.Definitions.Factions
+namespace Definitions.Factions
 {
     public class Elves : Faction
     {

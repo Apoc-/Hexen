@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.TowerSystem;
 
-namespace Assets.Scripts.Systems.WaveSystem
+namespace Systems.WaveSystem
 {
     public static class WaveData
     {

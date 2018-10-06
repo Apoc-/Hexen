@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Systems.GameSystem;
+﻿using Systems.GameSystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Core
 {
     class GameFinishedScreenBehaviour : MonoBehaviour
     {

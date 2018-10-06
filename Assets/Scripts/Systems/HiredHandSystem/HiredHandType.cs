@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Systems.HandSystem
+﻿namespace Systems.HiredHandSystem
 {
     public enum HiredHandType
     {

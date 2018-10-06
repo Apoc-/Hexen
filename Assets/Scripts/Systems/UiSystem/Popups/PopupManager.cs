@@ -1,10 +1,9 @@
-﻿using Assets.Scripts.Systems.HandSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using JetBrains.Annotations;
+﻿using Systems.HiredHandSystem;
+using Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Popups
 {
     public class PopupManager : MonoBehaviour
     {
@@ -15,7 +14,7 @@ namespace Assets.Scripts.Systems.UiSystem
         {
             currentDisplayedPopup = Instantiate(Resources.Load<Popup>("Prefabs/Ui/Popup"));
 
-            currentDisplayedPopup.transform.parent = transform;
+            currentDisplayedPopup.transform.SetParent(transform);
             currentDisplayedPopup.transform.position = Input.mousePosition;
             curentDisplayOrigin = origin;
         }

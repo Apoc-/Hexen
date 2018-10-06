@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.GameSystem;
+using Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem
 {
     class TowerBuildButton : MonoBehaviour
     {

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.TowerSystem;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem
 {
     class BuildPanel : MonoBehaviour
     {

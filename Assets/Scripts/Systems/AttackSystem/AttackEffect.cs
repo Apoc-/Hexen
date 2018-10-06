@@ -1,8 +1,8 @@
 ﻿using System;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 
-namespace Assets.Scripts.Systems.ProjectileSystem
+namespace Systems.AttackSystem
 {
     public abstract class AttackEffect
     {

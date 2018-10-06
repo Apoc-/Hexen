@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using Assets.Scripts.Systems.WaveSystem;
+using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.MapSystem;
+using Systems.SpecialEffectSystem;
+using Systems.TowerSystem;
+using Systems.WaveSystem;
 using UnityEngine;
-using UnityEngine.Events;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
+using Attribute = Systems.AttributeSystem.Attribute;
 
-namespace Assets.Scripts.Definitions.Npcs
+namespace Systems.NpcSystem
 {
     public abstract class Npc : MonoBehaviour, IHasAttributes, AttributeEffectSource, AuraTarget
     {
@@ -80,7 +77,7 @@ namespace Assets.Scripts.Definitions.Npcs
         {
             var barPrefab = Resources.Load("Prefabs/UI/NpcHealthBar");
             var bar = (GameObject) Instantiate(barPrefab);
-            bar.transform.parent = this.transform;
+            bar.transform.SetParent(transform);
 
             var pos = Vector3.zero;
             pos.y = pos.y + this.HealthBarOffset;
@@ -463,11 +460,11 @@ namespace Assets.Scripts.Definitions.Npcs
     
     public Vector3 GetPositionInTime2(float time)
         {
-            Debug.Log("estimating");
+            UnityEngine.Debug.Log("estimating");
             if (CurrentTile == null || Target == null) return transform.position;
             if (transform == null) return Vector3.zero;
 
-            Debug.Log("new target");
+            UnityEngine.Debug.Log("new target");
 
             var distanceToNext = Vector3.Distance(transform.position, Target.GetTopCenter());
             var velocity = Attributes[AttributeName.MovementSpeed].Value;
@@ -488,7 +485,7 @@ namespace Assets.Scripts.Definitions.Npcs
                 
                 while (true)
                 {
-                    Debug.Log("new tile");
+                    UnityEngine.Debug.Log("new tile");
 
                     //check for end
                     if (current.TileType == TileType.End) return current.GetTopCenter();

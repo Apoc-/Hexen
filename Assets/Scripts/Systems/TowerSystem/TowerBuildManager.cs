@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.UiSystem;
+﻿using System.Collections.Generic;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.MapSystem;
+using Systems.UiSystem;
+using Systems.UiSystem.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Random = System.Random;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.TowerSystem
 {
     class TowerBuildManager : MonoBehaviour
     {
@@ -336,11 +333,11 @@ namespace Assets.Scripts.Systems.TowerSystem
                     Destroy(t);
                 }
 
-                Debug.Log("C " + count[Rarities.Common]);
-                Debug.Log("U " + count[Rarities.Uncommon]);
-                Debug.Log("R " + count[Rarities.Rare]);
-                Debug.Log("L " + count[Rarities.Legendary]);
-                Debug.Log("-------------------------------");
+                UnityEngine.Debug.Log("C " + count[Rarities.Common]);
+                UnityEngine.Debug.Log("U " + count[Rarities.Uncommon]);
+                UnityEngine.Debug.Log("R " + count[Rarities.Rare]);
+                UnityEngine.Debug.Log("L " + count[Rarities.Legendary]);
+                UnityEngine.Debug.Log("-------------------------------");
             }
         }
     }

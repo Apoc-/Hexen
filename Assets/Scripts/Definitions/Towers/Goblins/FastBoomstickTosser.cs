@@ -1,16 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.Projectiles;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.SpecialEffectSystem;
+using Systems.TowerSystem;
+using Definitions.ProjectileAttacks;
 using UnityEngine;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
+using Attribute = Systems.AttributeSystem.Attribute;
 
-namespace Assets.Scripts.Definitions.Towers
+namespace Definitions.Towers.Goblins
 {
     class FastBoomstickTosser : Tower
     {

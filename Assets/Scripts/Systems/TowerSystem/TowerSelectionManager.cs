@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
+using Systems.AttributeSystem;
+using Systems.GameSystem;
+using Systems.MapSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.TowerSystem
 {
     class TowerSelectionManager : MonoBehaviour
     {

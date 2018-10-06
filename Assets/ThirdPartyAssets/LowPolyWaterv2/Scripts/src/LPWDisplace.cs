@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
+
 #endif
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
     public static class Displacement {
 
         static float _Scale_, _TexSize_, _Stretch, _Length, _Height_, _RHeight_;

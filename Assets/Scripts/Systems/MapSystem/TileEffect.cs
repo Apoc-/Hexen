@@ -1,9 +1,6 @@
-﻿using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using UnityEngine;
+﻿using Systems.NpcSystem;
 
-namespace Assets.Scripts.Systems.MapSystem
+namespace Systems.MapSystem
 {
     public abstract class TileEffect
     {

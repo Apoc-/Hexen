@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Systems.SfxSystem
+namespace Systems.SpecialEffectSystem
 {
     public class TextEffectData : SpecialEffectData
     {

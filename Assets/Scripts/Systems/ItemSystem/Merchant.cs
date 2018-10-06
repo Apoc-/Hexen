@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.HiredHands;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.HandSystem;
-using UnityEditorInternal;
+using Systems.GameSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.ItemSystem
 {
     public abstract class Merchant : MonoBehaviour
     {

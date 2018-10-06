@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Tower = Assets.Scripts.Systems.TowerSystem.Tower;
+using Tower = Systems.TowerSystem.Tower;
 
-namespace Assets.Scripts.Systems.GameSystem
+namespace Systems.GameSystem
 {
     public class Player : MonoBehaviour
     {

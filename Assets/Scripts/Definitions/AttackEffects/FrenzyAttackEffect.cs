@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttackSystem;
+using Systems.AttributeSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 
-namespace Assets.Scripts.Definitions.ProjectileEffects
+namespace Definitions.AttackEffects
 {
     public class FrenzyAttackEffect : AttackEffect, AttributeEffectSource
     {

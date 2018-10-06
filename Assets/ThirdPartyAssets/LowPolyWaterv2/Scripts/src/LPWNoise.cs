@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
     public static class LPWNoise {
 
         public static float GetValue(float x, float y) {

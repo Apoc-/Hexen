@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
 
     [System.Flags]
     public enum WaterMode {

@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Systems.GameSystem;
+﻿using Systems.GameSystem;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Labels
 {
     public class LifeLabel : StatLabel
     {

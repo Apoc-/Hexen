@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using ThirdPartyAssets.LowPolyWaterv2.Scripts.src;
+using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
+
 #endif
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts {
     [ExecuteInEditMode]
     public class LowPolyWaterScript : MonoBehaviour {
 

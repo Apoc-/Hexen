@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem
 {
     public class FactionPanel : MonoBehaviour
     {

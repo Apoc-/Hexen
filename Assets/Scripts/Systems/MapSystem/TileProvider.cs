@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Systems.GameSystem;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Assets.Scripts.Systems.MapSystem
+namespace Systems.MapSystem
 {
     class TileProvider : MonoBehaviour
     {

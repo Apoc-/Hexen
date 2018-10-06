@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Systems.AttributeSystem
+﻿namespace Systems.AttributeSystem
 {
     public interface AuraTarget
     {

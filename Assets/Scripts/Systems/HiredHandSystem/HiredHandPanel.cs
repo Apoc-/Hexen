@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using Assets.Scripts.Systems.UiSystem;
+using Systems.GameSystem;
+using Systems.ItemSystem;
+using Systems.TowerSystem;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.HandSystem
+namespace Systems.HiredHandSystem
 {
     public class HiredHandPanel : MonoBehaviour
     {

@@ -1,2 +1,6 @@
 ﻿using UnityEngine;
-public class LPWWaterChunk : MonoBehaviour {}
+
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src
+{
+    public class LPWWaterChunk : MonoBehaviour {}
+}

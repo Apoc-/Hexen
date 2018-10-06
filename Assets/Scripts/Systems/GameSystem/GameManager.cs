@@ -1,16 +1,17 @@
 ﻿using System.Collections;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.HandSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using Assets.Scripts.Systems.UiSystem;
-using Assets.Scripts.Systems.WaveSystem;
+using Systems.AttackSystem;
+using Systems.FactionSystem;
+using Systems.HiredHandSystem;
+using Systems.MapSystem;
+using Systems.SpecialEffectSystem;
+using Systems.TowerSystem;
+using Systems.UiSystem.Core;
+using Systems.UiSystem.Popups;
+using Systems.WaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Scripts.Systems.GameSystem
+namespace Systems.GameSystem
 {
     enum HexenScene
     {

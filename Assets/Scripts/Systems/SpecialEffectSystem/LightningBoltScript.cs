@@ -5,10 +5,10 @@
 // Source code may NOT be redistributed or sold.
 // 
 
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace DigitalRuby.LightningBolt
+namespace Systems.SpecialEffectSystem
 {
     /// <summary>
     /// Types of animations for lightning bolts

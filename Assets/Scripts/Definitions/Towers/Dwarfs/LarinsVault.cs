@@ -1,17 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Definitions.Projectiles;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.TowerSystem;
+using Definitions.ProjectileAttacks;
 using UnityEngine;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
-using AttributeName = Assets.Scripts.Systems.AttributeSystem.AttributeName;
-using Random = System.Random;
+using Attribute = Systems.AttributeSystem.Attribute;
+using AttributeName = Systems.AttributeSystem.AttributeName;
 
-namespace Assets.Scripts.Definitions.Towers
+namespace Definitions.Towers.Dwarfs
 {
     class LarinsVault : Tower
     {

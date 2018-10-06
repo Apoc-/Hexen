@@ -1,7 +1,7 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace Assets.EditorExtensions.DebugDrawingExtension
+namespace EditorExtensions.DebugDrawingExtension
 {
     /// <summary>
     /// Debug Extension
@@ -36,9 +36,9 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
         {
             color = (color == default(Color)) ? Color.white : color;
 		
-            Debug.DrawRay(position+(Vector3.up*(scale*0.5f)), -Vector3.up*scale, color, duration, depthTest);
-            Debug.DrawRay(position+(Vector3.right*(scale*0.5f)), -Vector3.right*scale, color, duration, depthTest);
-            Debug.DrawRay(position+(Vector3.forward*(scale*0.5f)), -Vector3.forward*scale, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position+(Vector3.up*(scale*0.5f)), -Vector3.up*scale, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position+(Vector3.right*(scale*0.5f)), -Vector3.right*scale, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position+(Vector3.forward*(scale*0.5f)), -Vector3.forward*scale, color, duration, depthTest);
         }
 	
         /// <summary>
@@ -94,20 +94,20 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
             Vector3 lfd = center+new Vector3(-x,-y,z);
             Vector3 lbd = center+new Vector3(-x,-y,-z);
 		
-            Debug.DrawLine(ruf, luf, color, duration, depthTest);
-            Debug.DrawLine(ruf, rub, color, duration, depthTest);
-            Debug.DrawLine(luf, lub, color, duration, depthTest);
-            Debug.DrawLine(rub, lub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(ruf, luf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(ruf, rub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(luf, lub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rub, lub, color, duration, depthTest);
 		
-            Debug.DrawLine(ruf, rdf, color, duration, depthTest);
-            Debug.DrawLine(rub, rdb, color, duration, depthTest);
-            Debug.DrawLine(luf, lfd, color, duration, depthTest);
-            Debug.DrawLine(lub, lbd, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(ruf, rdf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rub, rdb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(luf, lfd, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lub, lbd, color, duration, depthTest);
 		
-            Debug.DrawLine(rdf, lfd, color, duration, depthTest);
-            Debug.DrawLine(rdf, rdb, color, duration, depthTest);
-            Debug.DrawLine(lfd, lbd, color, duration, depthTest);
-            Debug.DrawLine(lbd, rdb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rdf, lfd, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rdf, rdb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lfd, lbd, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbd, rdb, color, duration, depthTest);
         }
 	
         /// <summary>
@@ -162,20 +162,20 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
             Vector3 luf = transform.TransformPoint(center+((size)*0.5f));
             Vector3 ruf = transform.TransformPoint(center+(new Vector3(-size.x, size.y, size.z)*0.5f));
 		
-            Debug.DrawLine(lbb, rbb, color, duration, depthTest);
-            Debug.DrawLine(rbb, lbf, color, duration, depthTest);
-            Debug.DrawLine(lbf, rbf, color, duration, depthTest);
-            Debug.DrawLine(rbf, lbb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbb, rbb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbb, lbf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbf, rbf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbf, lbb, color, duration, depthTest);
 		
-            Debug.DrawLine(lub, rub, color, duration, depthTest);
-            Debug.DrawLine(rub, luf, color, duration, depthTest);
-            Debug.DrawLine(luf, ruf, color, duration, depthTest);
-            Debug.DrawLine(ruf, lub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lub, rub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rub, luf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(luf, ruf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(ruf, lub, color, duration, depthTest);
 		
-            Debug.DrawLine(lbb, lub, color, duration, depthTest);
-            Debug.DrawLine(rbb, rub, color, duration, depthTest);
-            Debug.DrawLine(lbf, luf, color, duration, depthTest);
-            Debug.DrawLine(rbf, ruf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbb, lub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbb, rub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbf, luf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbf, ruf, color, duration, depthTest);
         }
 	
         /// <summary>
@@ -238,20 +238,20 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
             Vector3 luf = space.MultiplyPoint3x4(center+((size)*0.5f));
             Vector3 ruf = space.MultiplyPoint3x4(center+(new Vector3(-size.x, size.y, size.z)*0.5f));
 		
-            Debug.DrawLine(lbb, rbb, color, duration, depthTest);
-            Debug.DrawLine(rbb, lbf, color, duration, depthTest);
-            Debug.DrawLine(lbf, rbf, color, duration, depthTest);
-            Debug.DrawLine(rbf, lbb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbb, rbb, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbb, lbf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbf, rbf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbf, lbb, color, duration, depthTest);
 		
-            Debug.DrawLine(lub, rub, color, duration, depthTest);
-            Debug.DrawLine(rub, luf, color, duration, depthTest);
-            Debug.DrawLine(luf, ruf, color, duration, depthTest);
-            Debug.DrawLine(ruf, lub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lub, rub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rub, luf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(luf, ruf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(ruf, lub, color, duration, depthTest);
 		
-            Debug.DrawLine(lbb, lub, color, duration, depthTest);
-            Debug.DrawLine(rbb, rub, color, duration, depthTest);
-            Debug.DrawLine(lbf, luf, color, duration, depthTest);
-            Debug.DrawLine(rbf, ruf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbb, lub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbb, rub, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(lbf, luf, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(rbf, ruf, color, duration, depthTest);
         }
 	
         /// <summary>
@@ -330,7 +330,7 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
 			
                 _nextPoint = position + matrix.MultiplyPoint3x4(_nextPoint);
 			
-                Debug.DrawLine(_lastPoint, _nextPoint, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(_lastPoint, _nextPoint, color, duration, depthTest);
                 _lastPoint = _nextPoint;
             }
         }
@@ -437,9 +437,9 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
                 new_y = new Vector3(position.x + radius * Mathf.Cos(angle*i*Mathf.Deg2Rad), position.y, position.z + radius * Mathf.Sin(angle*i*Mathf.Deg2Rad));
                 new_z = new Vector3(position.x + radius * Mathf.Cos(angle*i*Mathf.Deg2Rad), position.y + radius * Mathf.Sin(angle*i*Mathf.Deg2Rad), position.z);
 			
-                Debug.DrawLine(x, new_x, color, duration, depthTest);
-                Debug.DrawLine(y, new_y, color, duration, depthTest);
-                Debug.DrawLine(z, new_z, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(x, new_x, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(y, new_y, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(z, new_z, color, duration, depthTest);
 		
                 x = new_x;
                 y = new_y;
@@ -500,19 +500,19 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
             DebugExtension.DebugCircle((start+end)*0.5f, up, color, radius, duration, depthTest);
 		
             //Side lines
-            Debug.DrawLine(start+right, end+right, color, duration, depthTest);
-            Debug.DrawLine(start-right, end-right, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start+right, end+right, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start-right, end-right, color, duration, depthTest);
 		
-            Debug.DrawLine(start+forward, end+forward, color, duration, depthTest);
-            Debug.DrawLine(start-forward, end-forward, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start+forward, end+forward, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start-forward, end-forward, color, duration, depthTest);
 		
             //Start endcap
-            Debug.DrawLine(start-right, start+right, color, duration, depthTest);
-            Debug.DrawLine(start-forward, start+forward, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start-right, start+right, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start-forward, start+forward, color, duration, depthTest);
 		
             //End endcap
-            Debug.DrawLine(end-right, end+right, color, duration, depthTest);
-            Debug.DrawLine(end-forward, end+forward, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(end-right, end+right, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(end-forward, end+forward, color, duration, depthTest);
         }
 	
         /// <summary>
@@ -577,10 +577,10 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
 	
             farPlane.Raycast(distRay, out dist); 
 		
-            Debug.DrawRay(position, slerpedVector.normalized*dist, color);
-            Debug.DrawRay(position, Vector3.Slerp(_forward, -_up, angle/90.0f).normalized*dist, color, duration, depthTest);
-            Debug.DrawRay(position, Vector3.Slerp(_forward, _right, angle/90.0f).normalized*dist, color, duration, depthTest);
-            Debug.DrawRay(position, Vector3.Slerp(_forward, -_right, angle/90.0f).normalized*dist, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position, slerpedVector.normalized*dist, color);
+            UnityEngine.Debug.DrawRay(position, Vector3.Slerp(_forward, -_up, angle/90.0f).normalized*dist, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position, Vector3.Slerp(_forward, _right, angle/90.0f).normalized*dist, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position, Vector3.Slerp(_forward, -_right, angle/90.0f).normalized*dist, color, duration, depthTest);
 		
             DebugExtension.DebugCircle(position+_forward, direction, color, (_forward-(slerpedVector.normalized*dist)).magnitude, duration, depthTest);
             DebugExtension.DebugCircle(position+(_forward*0.5f), direction, color, ((_forward*0.5f)-(slerpedVector.normalized*(dist*0.5f))).magnitude, duration, depthTest);
@@ -672,7 +672,7 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
         /// </param>
         public static void DebugArrow(Vector3 position, Vector3 direction, Color color, float duration = 0, bool depthTest = true)
         {
-            Debug.DrawRay(position, direction, color, duration, depthTest);
+            UnityEngine.Debug.DrawRay(position, direction, color, duration, depthTest);
             DebugExtension.DebugCone(position+direction, -direction*0.333f, color, 15, duration, depthTest);
         }
 	
@@ -735,25 +735,25 @@ namespace Assets.EditorExtensions.DebugDrawingExtension
             DebugExtension.DebugCircle(end, -up, color, radius, duration, depthTest);
 		
             //Side lines
-            Debug.DrawLine(start+right, end+right, color, duration, depthTest);
-            Debug.DrawLine(start-right, end-right, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start+right, end+right, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start-right, end-right, color, duration, depthTest);
 		
-            Debug.DrawLine(start+forward, end+forward, color, duration, depthTest);
-            Debug.DrawLine(start-forward, end-forward, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start+forward, end+forward, color, duration, depthTest);
+            UnityEngine.Debug.DrawLine(start-forward, end-forward, color, duration, depthTest);
 		
             for(int i = 1; i < 26; i++){
 			
                 //Start endcap
-                Debug.DrawLine(Vector3.Slerp(right, -up, i/25.0f)+start, Vector3.Slerp(right, -up, (i-1)/25.0f)+start, color, duration, depthTest);
-                Debug.DrawLine(Vector3.Slerp(-right, -up, i/25.0f)+start, Vector3.Slerp(-right, -up, (i-1)/25.0f)+start, color, duration, depthTest);
-                Debug.DrawLine(Vector3.Slerp(forward, -up, i/25.0f)+start, Vector3.Slerp(forward, -up, (i-1)/25.0f)+start, color, duration, depthTest);
-                Debug.DrawLine(Vector3.Slerp(-forward, -up, i/25.0f)+start, Vector3.Slerp(-forward, -up, (i-1)/25.0f)+start, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(right, -up, i/25.0f)+start, Vector3.Slerp(right, -up, (i-1)/25.0f)+start, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(-right, -up, i/25.0f)+start, Vector3.Slerp(-right, -up, (i-1)/25.0f)+start, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(forward, -up, i/25.0f)+start, Vector3.Slerp(forward, -up, (i-1)/25.0f)+start, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(-forward, -up, i/25.0f)+start, Vector3.Slerp(-forward, -up, (i-1)/25.0f)+start, color, duration, depthTest);
 			
                 //End endcap
-                Debug.DrawLine(Vector3.Slerp(right, up, i/25.0f)+end, Vector3.Slerp(right, up, (i-1)/25.0f)+end, color, duration, depthTest);
-                Debug.DrawLine(Vector3.Slerp(-right, up, i/25.0f)+end, Vector3.Slerp(-right, up, (i-1)/25.0f)+end, color, duration, depthTest);
-                Debug.DrawLine(Vector3.Slerp(forward, up, i/25.0f)+end, Vector3.Slerp(forward, up, (i-1)/25.0f)+end, color, duration, depthTest);
-                Debug.DrawLine(Vector3.Slerp(-forward, up, i/25.0f)+end, Vector3.Slerp(-forward, up, (i-1)/25.0f)+end, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(right, up, i/25.0f)+end, Vector3.Slerp(right, up, (i-1)/25.0f)+end, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(-right, up, i/25.0f)+end, Vector3.Slerp(-right, up, (i-1)/25.0f)+end, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(forward, up, i/25.0f)+end, Vector3.Slerp(forward, up, (i-1)/25.0f)+end, color, duration, depthTest);
+                UnityEngine.Debug.DrawLine(Vector3.Slerp(-forward, up, i/25.0f)+end, Vector3.Slerp(-forward, up, (i-1)/25.0f)+end, color, duration, depthTest);
             }
         }
 	

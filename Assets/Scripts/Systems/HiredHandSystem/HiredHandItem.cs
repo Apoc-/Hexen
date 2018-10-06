@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using Systems.ItemSystem;
 
-namespace Assets.Scripts.Systems.HandSystem
+namespace Systems.HiredHandSystem
 {
     public abstract class HiredHandItem : Item
     {

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.SfxSystem
+namespace Systems.SpecialEffectSystem
 {
     public class FloatingTextEffectBehaviour : MonoBehaviour
     {

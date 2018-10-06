@@ -1,10 +1,9 @@
-﻿using System;
-using Assets.Scripts.Systems.GameSystem;
+﻿using Systems.GameSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.HandSystem
+namespace Systems.HiredHandSystem
 {
     public class HiredHandButton : MonoBehaviour
     {

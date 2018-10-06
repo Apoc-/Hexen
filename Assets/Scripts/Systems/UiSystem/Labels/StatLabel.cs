@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Labels
 {
     public abstract class StatLabel : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Systems.TowerSystem
+﻿namespace Systems.TowerSystem
 {
     public enum Rarities
     {

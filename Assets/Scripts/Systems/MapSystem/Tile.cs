@@ -1,10 +1,9 @@
-﻿using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.NpcSystem;
+using Systems.TowerSystem;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.MapSystem
+namespace Systems.MapSystem
 {
     public class Tile : MonoBehaviour
     {

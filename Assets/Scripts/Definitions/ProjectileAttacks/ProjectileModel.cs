@@ -1,7 +1,6 @@
-﻿using Assets.Scripts.Systems.ProjectileSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Definitions.Projectiles
+namespace Definitions.ProjectileAttacks
 {
     public class ProjectileModel : MonoBehaviour
     {

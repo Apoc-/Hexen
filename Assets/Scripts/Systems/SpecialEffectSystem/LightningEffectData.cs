@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using DigitalRuby.LightningBolt;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Systems.SfxSystem
+namespace Systems.SpecialEffectSystem
 {
     public class LightningEffectData : SpecialEffectData
     {

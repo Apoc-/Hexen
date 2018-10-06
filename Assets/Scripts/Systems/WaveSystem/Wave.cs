@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
+﻿using System.Collections.Generic;
+using Systems.NpcSystem;
 
-namespace Assets.Scripts.Systems.WaveSystem
+namespace Systems.WaveSystem
 {
     public class Wave
     {

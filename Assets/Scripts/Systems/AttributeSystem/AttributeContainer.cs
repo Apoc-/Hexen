@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Systems.AttributeSystem
+namespace Systems.AttributeSystem
 {
     public class AttributeContainer : IEnumerable<KeyValuePair<AttributeName, Attribute>>
     {

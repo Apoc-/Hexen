@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using Assets.Scripts.Systems.WaveSystem;
+﻿using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 using UnityEngine;
-using AttributeName = Assets.Scripts.Systems.AttributeSystem.AttributeName;
+using AttributeName = Systems.AttributeSystem.AttributeName;
 
-namespace Assets.Scripts.Definitions.Npcs
+namespace Definitions.Npcs.Orcs
 {
     public class DrokTol : Npc
     {

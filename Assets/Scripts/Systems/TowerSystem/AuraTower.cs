@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
+using Systems.AttackSystem;
+using Systems.AttributeSystem;
+using Systems.NpcSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.TowerSystem
 {
     abstract class AuraTower : Tower, AttributeEffectSource
     {

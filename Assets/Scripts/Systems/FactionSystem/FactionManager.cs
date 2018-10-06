@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Definitions.Factions;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.Towers;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
+using Definitions.Factions;
+using Definitions.Npcs.Dwarfs;
+using Definitions.Npcs.Elves;
+using Definitions.Npcs.Goblins;
+using Definitions.Npcs.Orcs;
+using Definitions.Towers.Dwarfs;
+using Definitions.Towers.Elves;
+using Definitions.Towers.Goblins;
+using Definitions.Towers.Humans;
+using Definitions.Towers.Orcs;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.FactionSystem
+namespace Systems.FactionSystem
 {
     public class FactionManager : MonoBehaviour
     {
@@ -70,7 +78,7 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterTower<BoomstickBlacksmithy>();
             RegisterTower<BoomstickArtillery>();
 
-            Debug.Log("Registered " + registeredTowerCount + " Towers.");
+            UnityEngine.Debug.Log("Registered " + registeredTowerCount + " Towers.");
             UpdateAvailableTowers();
         }
 
@@ -101,7 +109,7 @@ namespace Assets.Scripts.Systems.FactionSystem
             RegisterNpc<TreasureMasterLarin>();
             RegisterNpc<GoldCoin>();
 
-            Debug.Log("Registered " + registeredNpcCount + " Npcs.");
+            UnityEngine.Debug.Log("Registered " + registeredNpcCount + " Npcs.");
         }
 
         private void RegisterTower<T>() where T : Tower

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Systems.FactionSystem
+﻿namespace Systems.FactionSystem
 {
     public enum FactionNames
     {

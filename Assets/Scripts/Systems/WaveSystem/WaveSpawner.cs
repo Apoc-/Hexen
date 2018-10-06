@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.MapSystem;
+using Systems.AttributeSystem;
+using Systems.GameSystem;
+using Systems.MapSystem;
+using Systems.NpcSystem;
 using UnityEngine;
-using UnityEngine.Events;
-using Debug = UnityEngine.Debug;
 
-namespace Assets.Scripts.Systems.WaveSystem
+namespace Systems.WaveSystem
 {
     class WaveSpawner : MonoBehaviour
     {
@@ -95,7 +92,7 @@ namespace Assets.Scripts.Systems.WaveSystem
             CurrentSpawnedWave = wave;
             CurrentSpawnedWaves.Add(wave);
 
-            Debug.Log("----- Spawning Wave " + CurrentWaveCount + "-----");
+            UnityEngine.Debug.Log("----- Spawning Wave " + CurrentWaveCount + "-----");
             StartCoroutine(SpawnWave(wave));
         }
 
@@ -118,8 +115,8 @@ namespace Assets.Scripts.Systems.WaveSystem
                 yield return new WaitForSeconds(npcSpawnInterval*2);
             }
 
-            Debug.Log("----- Finished spawning Wave " + CurrentWaveCount + "-----");
-            Debug.Log("----- Spawned " + wave.NpcSpawnCount + " npcs -----");
+            UnityEngine.Debug.Log("----- Finished spawning Wave " + CurrentWaveCount + "-----");
+            UnityEngine.Debug.Log("----- Spawned " + wave.NpcSpawnCount + " npcs -----");
         }
 
         IEnumerator WaitForNextWave()
@@ -215,7 +212,7 @@ namespace Assets.Scripts.Systems.WaveSystem
             s += ", xp " + npc.GetAttribute(AttributeName.XPReward).Value;
             s += " (" + npc.Rarity + ")";
 
-            Debug.Log(s);
+            UnityEngine.Debug.Log(s);
         }
 
         public void TriggerNextSpawn()

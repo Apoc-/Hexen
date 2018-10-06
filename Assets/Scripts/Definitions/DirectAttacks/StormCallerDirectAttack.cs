@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using DigitalRuby.LightningBolt;
+using Systems.AttackSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.SpecialEffectSystem;
+using Definitions.AttackEffects;
 using UnityEngine;
 
-namespace Assets.Scripts.Definitions.DirectAttacks
+namespace Definitions.DirectAttacks
 {
     public class StormCallerDirectAttack : DirectAttack
     {

@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.HandSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.TowerSystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
+using Attribute = Systems.AttributeSystem.Attribute;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem
 {
     class TowerInfoPanel : MonoBehaviour
     {
@@ -114,7 +110,7 @@ namespace Assets.Scripts.Systems.UiSystem
         private void CreateNewInfoElement(Attribute attribute)
         {
             var element = Instantiate(Resources.Load<TowerInfoElement>(towerInfoElementPrefab));
-            element.transform.parent = towerInfoElementsContainer.transform;
+            element.transform.SetParent(towerInfoElementsContainer.transform);
             element.InitTowerInfoElement(attribute);
 
             towerInfoElements.Add(element);

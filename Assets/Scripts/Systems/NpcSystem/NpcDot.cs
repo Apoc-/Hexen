@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.TowerSystem;
 
-namespace Assets.Scripts.Definitions.Npcs
+namespace Systems.NpcSystem
 {
     public class NpcDot
     {

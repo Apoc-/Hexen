@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Systems.MapSystem
+﻿namespace Systems.MapSystem
 {
     public enum TileType
     {

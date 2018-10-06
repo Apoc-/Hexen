@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Systems.GameSystem
+namespace Systems.GameSystem
 {
     public static class MathHelper
     {

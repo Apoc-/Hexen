@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Systems.GameSystem;
+﻿using Systems.GameSystem;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Labels
 {
     public class WaveTimer : MonoBehaviour
     {

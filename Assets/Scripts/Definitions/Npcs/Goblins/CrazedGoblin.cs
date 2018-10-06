@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Definitions.Npcs
+namespace Definitions.Npcs.Goblins
 {
     public class CrazedGoblin : Npc
     {

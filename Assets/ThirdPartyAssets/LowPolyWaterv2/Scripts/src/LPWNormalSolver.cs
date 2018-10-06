@@ -18,7 +18,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-namespace LPWAsset {
+
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
     public class LPWNormalSolver {
 
         List<Vector3> triNormals; //Holds the normal of each triangle

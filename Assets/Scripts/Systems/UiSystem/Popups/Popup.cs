@@ -1,8 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Popups
 {
     public class Popup : MonoBehaviour
     {

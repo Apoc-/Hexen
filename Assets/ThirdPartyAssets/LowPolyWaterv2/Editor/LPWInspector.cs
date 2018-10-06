@@ -1,9 +1,11 @@
-﻿using UnityEditor;
+﻿using ThirdPartyAssets.LowPolyWaterv2.Scripts;
+using ThirdPartyAssets.LowPolyWaterv2.Scripts.src;
+using UnityEditor;
 using UnityEngine;
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Editor {
     [CustomEditor(typeof(LowPolyWaterScript))]
-    public class LPWInspector : Editor {
+    public class LPWInspector : UnityEditor.Editor {
 
         private LowPolyWaterScript _target;
 

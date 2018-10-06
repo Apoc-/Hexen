@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.EditorExtensions.DebugDrawingExtension.Example
+namespace EditorExtensions.DebugDrawingExtension.Example
 {
     public class Example : MonoBehaviour {
 	

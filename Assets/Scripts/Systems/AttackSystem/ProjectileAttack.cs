@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.Projectiles;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.GameSystem;
+using Systems.MapSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.ProjectileSystem
+namespace Systems.AttackSystem
 {
     public abstract class ProjectileAttack : AbstractAttack
     {

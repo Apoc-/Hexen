@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
     public static class LPWHiddenProps{
         public static void Calculate(Material m) {
             float scale = 1;

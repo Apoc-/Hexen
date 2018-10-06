@@ -1,13 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.TowerSystem;
-using UnityEngine;
+using Systems.AttackSystem;
+using Systems.AttributeSystem;
 
-namespace Assets.Scripts.Systems.NpcSystem
+namespace Systems.NpcSystem
 {
     public abstract class AuraNpc : Npc
     {

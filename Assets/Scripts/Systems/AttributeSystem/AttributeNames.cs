@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Systems.AttributeSystem
+namespace Systems.AttributeSystem
 {
     [Serializable]
     public enum AttributeName

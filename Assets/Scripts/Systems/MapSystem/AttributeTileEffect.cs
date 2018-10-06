@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttributeSystem;
+using Systems.NpcSystem;
 
-namespace Assets.Scripts.Systems.MapSystem
+namespace Systems.MapSystem
 {
     public class AttributeTileEffect : TileEffect
     {

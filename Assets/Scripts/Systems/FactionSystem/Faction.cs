@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 
-namespace Assets.Scripts.Systems.FactionSystem
+namespace Systems.FactionSystem
 {
     public abstract class Faction
     {

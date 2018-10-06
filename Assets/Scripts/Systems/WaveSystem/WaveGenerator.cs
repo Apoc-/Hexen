@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using System.Collections.Generic;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 using UnityEngine;
-using UnityEngine.Networking;
-using Random = System.Random;
 
-namespace Assets.Scripts.Systems.WaveSystem
+namespace Systems.WaveSystem
 {
     public class WaveGenerator : MonoBehaviour
     {

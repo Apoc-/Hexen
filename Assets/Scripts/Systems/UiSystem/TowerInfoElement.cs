@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Systems.AttributeSystem;
+﻿using Systems.AttributeSystem;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem
 {
     //todo wrapper is mainly for later, mouse over stuff etc
     public class TowerInfoElement : MonoBehaviour

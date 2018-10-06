@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Systems.ProjectileSystem;
-using UnityEngine;
+using Systems.AttackSystem;
+using Definitions.AttackEffects;
 
-namespace Assets.Scripts.Definitions.Projectiles
+namespace Definitions.ProjectileAttacks
 {
     public class ArotasProjectileAttack : ProjectileAttack
     {

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.AttributeSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.ProjectileSystem
+namespace Systems.AttackSystem
 {
     public class TargetingHelper : MonoBehaviour
     {

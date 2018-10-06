@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Systems.TowerSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.GameSystem
+namespace Systems.GameSystem
 {
     static class GameSettings
     {

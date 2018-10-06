@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.HiredHands;
-using Assets.Scripts.Systems.TowerSystem;
-using UnityEngine;
+﻿using Systems.ItemSystem;
+using Definitions.HiredHands;
 
-namespace Assets.Scripts.Systems.HandSystem
+namespace Systems.HiredHandSystem
 {
     public class HiredHandMerchant : Merchant
     {

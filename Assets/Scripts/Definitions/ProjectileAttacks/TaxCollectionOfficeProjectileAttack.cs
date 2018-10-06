@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
+﻿using Definitions.AttackEffects;
 
-namespace Assets.Scripts.Definitions.Projectiles
+namespace Definitions.ProjectileAttacks
 {
     public class TaxCollectionOfficeProjectileAttack : DwarfsProjectileAttack
     {

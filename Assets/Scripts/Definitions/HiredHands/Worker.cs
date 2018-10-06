@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.HandSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttributeSystem;
+using Systems.HiredHandSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Definitions.HiredHands
+namespace Definitions.HiredHands
 {
     public class Worker : HiredHandItem
     {

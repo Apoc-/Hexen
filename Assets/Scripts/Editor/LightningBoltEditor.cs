@@ -1,12 +1,12 @@
 ﻿using System;
-
-using UnityEngine;
+using Systems.SpecialEffectSystem;
 using UnityEditor;
+using UnityEngine;
 
-namespace DigitalRuby.LightningBolt
+namespace Editor
 {
     [CustomEditor(typeof(LightningBoltScript))]
-    public class LightningBoltEditor : Editor
+    public class LightningBoltEditor : UnityEditor.Editor
     {
         private Texture2D logo;
 

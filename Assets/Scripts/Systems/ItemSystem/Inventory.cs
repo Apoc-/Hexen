@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.ItemSystem
 {
     public class Inventory : MonoBehaviour
     {

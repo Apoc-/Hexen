@@ -1,10 +1,7 @@
-﻿using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.HandSystem;
-using Assets.Scripts.Systems.WaveSystem;
+﻿using Systems.HiredHandSystem;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Core
 {
     class UIManager : MonoBehaviour
     {

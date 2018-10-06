@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace LPWAsset {
+namespace ThirdPartyAssets.LowPolyWaterv2.Scripts.src {
     [ExecuteInEditMode]
     public class LPWDepthEffect : MonoBehaviour {
 

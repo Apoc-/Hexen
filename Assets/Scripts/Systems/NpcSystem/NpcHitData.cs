@@ -1,7 +1,6 @@
-﻿using Assets.Scripts.Systems.TowerSystem;
-using UnityEditor;
+﻿using Systems.TowerSystem;
 
-namespace Assets.Scripts.Definitions.Npcs
+namespace Systems.NpcSystem
 {
     public class NpcHitData
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LowPolyWaterv2Demo {
+namespace ThirdPartyAssets.LowPolyWaterv2.Demos.Scripts {
     public class DemoFreeFlyCamera : MonoBehaviour {
 
         public bool lockCursor = false;

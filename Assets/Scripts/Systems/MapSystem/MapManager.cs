@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Systems.GameSystem;
+using Systems.GameSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.MapSystem
+namespace Systems.MapSystem
 {
     public class MapManager : MonoBehaviour
     {
@@ -153,7 +153,7 @@ namespace Assets.Scripts.Systems.MapSystem
                     var t1 = path[i];
                     var t2 = path[i + 1];
 
-                    Debug.DrawLine(t1.GetTopCenter(), t2.GetTopCenter(), Color.white, 9999);
+                    UnityEngine.Debug.DrawLine(t1.GetTopCenter(), t2.GetTopCenter(), Color.white, 9999);
                 }
             }
         }

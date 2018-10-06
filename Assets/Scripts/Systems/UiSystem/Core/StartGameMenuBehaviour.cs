@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Systems.GameSystem;
+﻿using Systems.GameSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.UiSystem
+namespace Systems.UiSystem.Core
 {
     class StartGameMenuBehaviour : MonoBehaviour
     {

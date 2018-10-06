@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.HandSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using JetBrains.Annotations;
-using TMPro.EditorUtilities;
+using Systems.AttackSystem;
+using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.HiredHandSystem;
+using Systems.ItemSystem;
+using Systems.MapSystem;
+using Systems.NpcSystem;
+using Systems.SpecialEffectSystem;
 using UnityEngine;
-using UnityEngine.Events;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
+using Attribute = Systems.AttributeSystem.Attribute;
 
-namespace Assets.Scripts.Systems.TowerSystem
+namespace Systems.TowerSystem
 {
     public abstract class Tower : MonoBehaviour, IHasAttributes, AuraTarget
     {

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.MapSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.SfxSystem;
+using Systems.AttackSystem;
+using Systems.AttributeSystem;
+using Systems.GameSystem;
+using Systems.MapSystem;
+using Systems.NpcSystem;
+using Systems.SpecialEffectSystem;
+using Definitions.AttackEffects;
 using UnityEngine;
 
-namespace Assets.Scripts.Definitions.Projectiles
+namespace Definitions.ProjectileAttacks
 {
     public class ShredderProjectileAttack : ProjectileAttack
     {

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Systems.ProjectileSystem;
+using Systems.AttackSystem;
 
-namespace Assets.Scripts.Definitions.Projectiles
+namespace Definitions.ProjectileAttacks
 {
     public class VoidProjectileAttack : ProjectileAttack
     {

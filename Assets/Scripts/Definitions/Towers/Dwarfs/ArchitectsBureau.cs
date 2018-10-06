@@ -1,16 +1,15 @@
-﻿using System.Linq;
-using Assets.Scripts.Definitions.Projectiles;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.FactionSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttackSystem;
+using Systems.AttributeSystem;
+using Systems.FactionSystem;
+using Systems.GameSystem;
+using Systems.TowerSystem;
+using Definitions.ProjectileAttacks;
 using UnityEngine;
-using Attribute = Assets.Scripts.Systems.AttributeSystem.Attribute;
-using AttributeName = Assets.Scripts.Systems.AttributeSystem.AttributeName;
+using Attribute = Systems.AttributeSystem.Attribute;
+using AttributeName = Systems.AttributeSystem.AttributeName;
 using Random = System.Random;
 
-namespace Assets.Scripts.Definitions.Towers
+namespace Definitions.Towers.Dwarfs
 {
     class ArchitectsBureau : Tower, AttributeEffectSource
     {

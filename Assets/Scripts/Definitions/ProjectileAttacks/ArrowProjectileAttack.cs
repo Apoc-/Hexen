@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Definitions.ProjectileEffects;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using UnityEngine;
+using Systems.AttackSystem;
+using Systems.GameSystem;
+using Systems.SpecialEffectSystem;
+using Definitions.AttackEffects;
 
-namespace Assets.Scripts.Definitions.Projectiles
+namespace Definitions.ProjectileAttacks
 {
     public class ArrowProjectileAttack : ProjectileAttack
     {

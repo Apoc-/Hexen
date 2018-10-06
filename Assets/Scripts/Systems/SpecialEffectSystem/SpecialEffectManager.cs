@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using DigitalRuby.LightningBolt;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems.SfxSystem
+namespace Systems.SpecialEffectSystem
 {
     class SpecialEffectManager : MonoBehaviour
     {
@@ -84,8 +82,8 @@ namespace Assets.Scripts.Systems.SfxSystem
             var lightning = InstantiateEffect(effectData);
             var lightningBolt = lightning.GetComponent<LightningBoltScript>();
 
-            effectData.Origin.transform.parent = lightning.transform;
-            effectData.Target.transform.parent = lightning.transform;
+            effectData.Origin.transform.SetParent(lightning.transform);
+            effectData.Target.transform.SetParent(lightning.transform);
 
             lightningBolt.StartPosition = effectData.Start;
             lightningBolt.StartObject = null;
@@ -104,7 +102,7 @@ namespace Assets.Scripts.Systems.SfxSystem
             effectContainer.name = effectData.EffectPrefabName + "Container";
             effectData.EffectContainer = effectContainer;
 
-            effectGameObject.transform.parent = effectContainer.transform;
+            effectGameObject.transform.SetParent(effectContainer.transform);
             effectGameObject.transform.localPosition = Vector3.zero;
 
             runningSpecialEffects.Add(effectData);

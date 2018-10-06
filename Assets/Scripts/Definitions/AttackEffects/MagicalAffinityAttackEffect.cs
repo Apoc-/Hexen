@@ -1,12 +1,12 @@
-﻿using Assets.Scripts.Definitions.Npcs;
-using Assets.Scripts.Systems.AttributeSystem;
-using Assets.Scripts.Systems.GameSystem;
-using Assets.Scripts.Systems.ProjectileSystem;
-using Assets.Scripts.Systems.SfxSystem;
-using Assets.Scripts.Systems.TowerSystem;
+﻿using Systems.AttackSystem;
+using Systems.AttributeSystem;
+using Systems.GameSystem;
+using Systems.NpcSystem;
+using Systems.SpecialEffectSystem;
+using Systems.TowerSystem;
 using UnityEngine;
 
-namespace Assets.Scripts.Definitions.ProjectileEffects
+namespace Definitions.AttackEffects
 {
     public class MagicalAffinityAttackEffect : AttackEffect
     {

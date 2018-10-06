@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Systems.GameSystem
+﻿namespace Systems.GameSystem
 {
     class SceneNameProvider
     {
