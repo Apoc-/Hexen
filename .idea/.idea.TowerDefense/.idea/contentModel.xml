@@ -163,6 +163,13 @@
               <e p="ClampedAttribute.cs" t="Include" />
               <e p="IHasAttributes.cs" t="Include" />
             </e>
+            <e p="EntitySystem" t="Include">
+              <e p="Entity.cs" t="Include" />
+              <e p="EntityLoader.cs" t="Include" />
+              <e p="Npc.cs" t="Include" />
+              <e p="Rarities.cs" t="Include" />
+              <e p="Tower.cs" t="Include" />
+            </e>
             <e p="FactionSystem" t="Include">
               <e p="Faction.cs" t="Include" />
               <e p="FactionManager.cs" t="Include" />
@@ -202,7 +209,6 @@
             </e>
             <e p="NpcSystem" t="Include">
               <e p="AuraNpc.cs" t="Include" />
-              <e p="Npc.cs" t="Include" />
               <e p="NpcDot.cs" t="Include" />
               <e p="NpcHealthBar.cs" t="Include" />
               <e p="NpcHitData.cs" t="Include" />
@@ -217,11 +223,14 @@
               <e p="TextEffectData.cs" t="Include" />
               <e p="TrailEffectData.cs" t="Include" />
             </e>
+            <e p="TechSystem" t="Include">
+              <e p="Tech.cs" t="Include" />
+              <e p="TechData.cs" t="Include" />
+              <e p="TechManager.cs" t="Include" />
+            </e>
             <e p="TowerSystem" t="Include">
               <e p="AuraTower.cs" t="Include" />
               <e p="RangeIndicator.cs" t="Include" />
-              <e p="Rarities.cs" t="Include" />
-              <e p="Tower.cs" t="Include" />
               <e p="TowerBuildManager.cs" t="Include" />
               <e p="TowerSelectionManager.cs" t="Include" />
               <e p="WeaponType.cs" t="Include" />
@@ -256,6 +265,13 @@
               <e p="WaveGenerator.cs" t="Include" />
               <e p="WavePack.cs" t="Include" />
               <e p="WaveSpawner.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="StreamingAssets" t="Include">
+          <e p="GameData" t="Include">
+            <e p="Towers" t="Include">
+              <e p="Smashy.xml" t="Include" />
             </e>
           </e>
         </e>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Systems.AttackSystem;
 using Systems.AttributeSystem;
+using Systems.EntitySystem;
 using Systems.FactionSystem;
 using Systems.GameSystem;
 using Systems.HiredHandSystem;
@@ -15,15 +16,11 @@ using Attribute = Systems.AttributeSystem.Attribute;
 
 namespace Systems.TowerSystem
 {
-    public abstract class Tower : MonoBehaviour, IHasAttributes, IAuraTarget
+    public abstract class Tower : Entity, IHasAttributes, IAuraTarget
     {
-        public AttributeContainer Attributes;
-
         public Inventory Inventory;
 
         public int GoldCost;
-        public string Description;
-        public string Name;
         protected int InventorySize = 1;
 
         protected float WeaponHeight = 0.0f;
@@ -31,11 +28,7 @@ namespace Systems.TowerSystem
         protected GameObject ProjectileModelPrefab = null;
 
         public Sprite Icon;
-        public Tile Tile;
-        public GameObject ModelPrefab;
-        public GameObject ModelGameObject;
 
-        public int Level = 1;
         public int Xp;
 
         protected Npc LockedTarget;
@@ -43,31 +36,23 @@ namespace Systems.TowerSystem
         
         public bool IsPlaced;
 
-        public Rarities Rarity;
-        public FactionNames Faction = FactionNames.Humans;
-
         public float Height { get; private set; }
 
         //events
         public delegate void OnAttackEvent(Npc attackTarget);
         public event OnAttackEvent OnAttack;
 
-        public delegate void LevelUpEvent(int level);
-        public event LevelUpEvent OnLevelUp;
-
-        [HideInInspector] public Player Owner;
-
-        public List<HiredHandButton> HiredHands = new List<HiredHandButton>();
+        public Player Owner;
 
         public void InitTower()
         {
             InitTowerData();
-            InitAttributes();
-            InitTowerModel();
-            InitTowerEffects();
             InitTowerInventory();
 
-            InvokeRepeating("RemoveFinishedTimedAttributeEffects", 0, 1);
+            InvokeRepeating(nameof(RemoveFinishedTimedAttributeEffects), 0, 1);
+            
+            ModelGameObject.layer = LayerMask.NameToLayer("Towers");
+            Height = GetComponentInChildren<MeshFilter>().mesh.bounds.max.y;
         }
 
         private void InitTowerInventory()
@@ -83,23 +68,6 @@ namespace Systems.TowerSystem
         }
 
         public abstract void InitTowerData();
-
-        public void InitTowerModel()
-        {
-            if (ModelGameObject == null)
-            {
-                ModelGameObject = Instantiate(ModelPrefab);
-                ModelGameObject.transform.SetParent(transform, false);
-                ModelGameObject.layer = LayerMask.NameToLayer("Towers");
-            }
-
-            Height = GetComponentInChildren<MeshFilter>().mesh.bounds.max.y;
-        }
-
-        public void InitTowerEffects()
-        {
-
-        }
 
         public void InitCopyTowerData(Tower source)
         {
@@ -132,19 +100,6 @@ namespace Systems.TowerSystem
             return (int)(c + fac * Mathf.Pow(Level, exp));
         }
 
-        private void LevelUp()
-        {
-            Level += 1;
-
-            OnLevelUp?.Invoke(Level);
-
-            foreach (var keyValuePair in Attributes)
-            {
-                keyValuePair.Value.LevelUp();
-            }
-
-            PlayLevelUpEffect();
-        }
 
         protected virtual void DoUpdate()
         {
@@ -223,37 +178,9 @@ namespace Systems.TowerSystem
             attack.InitAttack(LockedTarget, this);
         }
         
-        protected virtual void InitAttributes()
+        protected override void InitAttributes()
         {
             Attributes = new AttributeContainer();
-        }
-
-        public void AddAttribute(Attribute attr)
-        {
-            Attributes.AddAttribute(attr);
-        }
-
-        public Attribute GetAttribute(AttributeName attrName)
-        {
-            return Attributes[attrName];
-        }
-
-        public float GetAttributeValue(AttributeName attrName)
-        {
-            return Attributes[attrName].Value;
-        }
-
-        public bool HasAttribute(AttributeName attrName)
-        {
-            return Attributes.HasAttribute(attrName);
-        }
-
-        public void RemoveFinishedTimedAttributeEffects()
-        {
-            foreach (var pair in Attributes)
-            {
-                pair.Value.RemovedFinishedAttributeEffects();
-            }
         }
 
         public virtual void Remove()
@@ -283,11 +210,6 @@ namespace Systems.TowerSystem
             GameManager.Instance.SpecialEffectManager.PlayParticleEffect(pe);
         }
 
-        public void PlayLevelUpEffect()
-        {
-            var pe = new ParticleEffectData("LevelUpEffect", gameObject, 3f);
-            GameManager.Instance.SpecialEffectManager.PlayParticleEffect(pe);
-        }
 
         public void ForceRetarget()
         {

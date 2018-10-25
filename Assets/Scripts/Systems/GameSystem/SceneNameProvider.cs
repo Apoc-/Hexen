@@ -8,6 +8,8 @@
             {
                 case HexenScene.GameScene:
                     return "GameScene";
+                case HexenScene.StartMenuScene:
+                    return "StartMenuScene";
                 default:
                     return "StartMenuScene";
             }

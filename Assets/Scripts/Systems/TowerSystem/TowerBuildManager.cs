@@ -221,7 +221,7 @@ namespace Systems.TowerSystem
 
                 CurrentHeldTower.gameObject.transform.parent = PlacedTowersContainer.transform;
                 CurrentHeldTower.IsPlaced = true;
-                CurrentHeldTower.Tile = tile;
+                CurrentHeldTower.CurrentTile = tile;
                 CurrentHeldTower.gameObject.SetActive(true);
 
                 GameManager.Instance.Player.RemoveBuildableTower(CurrentHeldTower);

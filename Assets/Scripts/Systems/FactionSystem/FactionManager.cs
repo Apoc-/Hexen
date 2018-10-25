@@ -118,9 +118,10 @@ namespace Systems.FactionSystem
             Tower tower = go.AddComponent<T>();
             go.layer = LayerMask.NameToLayer("Towers");
 
-            tower.InitTower();
+            //tower.InitTower();
 
-            go.name = tower.Name;
+            //go.name = tower.Name;
+            go.name = tower.GetType().Name;
             go.transform.parent = transform;
             go.SetActive(false);
             

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Systems.AttributeSystem;
+using Systems.EntitySystem;
 using Systems.FactionSystem;
 using Systems.GameSystem;
 using Systems.MapSystem;
@@ -13,31 +14,14 @@ using Attribute = Systems.AttributeSystem.Attribute;
 
 namespace Systems.NpcSystem
 {
-    public abstract class Npc : MonoBehaviour, IHasAttributes, IAttributeEffectSource, IAuraTarget
+    public abstract class Npc : Entity
     {
-        public AttributeContainer Attributes;
-
-        public string Name;
-        protected GameObject ModelPrefab;
-        private GameObject _modelGameObject;
         public Tile Target;
-        public Tile CurrentTile;
         public Wave SpawnedInWave;
+        public bool IsSpawned;
+        public float CurrentHealth { get; private set; }
 
-        [FormerlySerializedAs("isSpawned")] public bool IsSpawned;
-
-        [FormerlySerializedAs("currentHealth")] [SerializeField]
-        private float _currentHealth;
-
-        public float CurrentHealth
-        {
-            get { return _currentHealth; }
-            private set { _currentHealth = value; }
-        }
-
-        public int Level = 1;
         protected bool ShouldDie;
-
         protected NpcHealthBar HealthBar;
         protected float HealthBarOffset = 0.0f;
         protected float HealthBarScale = 1.0f;
@@ -46,8 +30,6 @@ namespace Systems.NpcSystem
         private float _tickTime;
         private float _dotCheckInterval = 0.1f;
 
-        public Rarities Rarity;
-        public FactionNames Faction = FactionNames.Humans;
         private Tower _killer;
 
         //events
@@ -60,13 +42,12 @@ namespace Systems.NpcSystem
 
         public void InitData()
         {
-            InitAttributes();
             InitNpcData();
         }
 
         public void InitVisuals()
         {
-            LoadNpcModel();
+            InitModel();
 
             CurrentHealth = Attributes[AttributeName.MaxHealth].Value;
             InitHealthBar();
@@ -95,19 +76,18 @@ namespace Systems.NpcSystem
         {
             if (ShouldDie)
             {
-
                 Die();
             }
 
             _tickTime += Time.deltaTime;
             if (_tickTime >= _dotCheckInterval)
             {
-                DoDots();
+                ExecuteDotTicks();
                 _tickTime = 0.0f;
             }
         }
 
-        private void DoDots()
+        private void ExecuteDotTicks()
         {
             _dots.RemoveAll(dot => dot.IsFinished());
 
@@ -125,23 +105,15 @@ namespace Systems.NpcSystem
 
         protected abstract void InitNpcData();
 
-        public void LoadNpcModel()
-        {
-            if (_modelGameObject != null) return; //already loaded
-
-            _modelGameObject = Instantiate(ModelPrefab);
-            _modelGameObject.transform.SetParent(transform, false);
-        }
-
         public void ReloadNpcModel()
         {
-            Destroy(_modelGameObject);
+            Destroy(ModelGameObject);
 
-            _modelGameObject = Instantiate(ModelPrefab);
-            _modelGameObject.transform.SetParent(transform, false);
+            ModelGameObject = Instantiate(ModelPrefab);
+            ModelGameObject.transform.SetParent(transform, false);
         }
 
-        protected virtual void InitAttributes()
+        protected override void InitAttributes()
         {
             Attributes = new AttributeContainer();
 
@@ -159,37 +131,6 @@ namespace Systems.NpcSystem
 
             AddAttribute(new Attribute(AttributeName.XPRewardFactor, 1));
             AddAttribute(new Attribute(AttributeName.GoldRewardFactor, 1));
-        }
-
-        public void AddAttribute(Attribute attr)
-        {
-            Attributes.AddAttribute(attr);
-        }
-
-        public Attribute GetAttribute(AttributeName attrName)
-        {
-            return Attributes[attrName];
-        }
-
-        public float GetAttributeValue(AttributeName attrName)
-        {
-            return Attributes[attrName].Value;
-        }
-
-
-        public bool HasAttribute(AttributeName attrName)
-        {
-            return Attributes.HasAttribute(attrName);
-        }
-
-        private void LevelUp()
-        {
-            Level += 1;
-
-            foreach (var kvp in Attributes)
-            {
-                kvp.Value.LevelUp();
-            }
         }
 
         public void SetLevel(int lvl)
@@ -317,44 +258,8 @@ namespace Systems.NpcSystem
             GameManager.Instance.SpecialEffectManager.PlayParticleEffect(specialEffect);
         }
 
-        /*bool measured = false;*/
         protected virtual void FixedUpdate()
         {
-            
-            /*if (!measured)
-            {
-                GetPositionInTime(1 / Attributes[AttributeName.MovementSpeed].Value);
-                measured = true;
-                timer = 0;
-            }
-
-            if (measured)
-            {
-                timer += Time.fixedDeltaTime;
-            }
-
-            if (timer >= eta)
-            {
-                Debug.Log("-------------");
-                Debug.Log("Est pos: " + futurePos);
-                Debug.Log("Actual pos: " + transform.position);
-                Debug.Log("Dif " + Vector3.Distance(futurePos, transform.position));
-                Debug.Log("-------------");
-
-                Debug.DrawLine(futurePos, transform.position, Color.green, 30);
-                if (CurrentTile != null)
-                {
-                    Debug.DrawLine(CurrentTile.GetTopCenter(), CurrentTile.GetTopCenter() + Vector3.up, Color.red);
-                }
-
-                if (Target != null)
-                {
-                    Debug.DrawLine(Target.GetTopCenter(), Target.GetTopCenter() + Vector3.up, Color.red);
-                }
-                measured = false;
-            }*/
-
-
             if (Target == null)
             {
                 Target = GameManager.Instance.MapManager.StartTile;
@@ -400,14 +305,6 @@ namespace Systems.NpcSystem
             if (tile == GameManager.Instance.MapManager.EndTile)
             {
                 GameManager.Instance.Player.Lives -= 1;
-            }
-        }
-
-        public void RemoveFinishedTimedAttributeEffects()
-        {
-            foreach (var pair in Attributes)
-            {
-                pair.Value.RemovedFinishedAttributeEffects();
             }
         }
 

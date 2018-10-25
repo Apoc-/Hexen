@@ -99,7 +99,7 @@ namespace Systems.AttackSystem
             if (layer == tileLayer)
             {
                 var tile = other.gameObject.GetComponent<Tile>();
-                if (tile == Source.Tile) return;
+                if (tile == Source.CurrentTile) return;
 
                 var splash = SplashRadius > 0 && tile.TileType != TileType.Void && tile.TileType != TileType.Water;
 
